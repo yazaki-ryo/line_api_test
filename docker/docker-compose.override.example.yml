@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+
+    tsf_customer_management_db:
+        container_name: tsf_customer_management_db
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./db/mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: defaultdb
+            MYSQL_USER: defaultdbuser
+            MYSQL_PASSWORD: defaultdbpasswd
+
+    tsf_customer_management_web:
+        container_name: tsf_customer_management_web
+        ports:
+            - "8000:80"
+        volumes:
+            - ../:/var/www/html
+
+    tsf_customer_management_pma:
+        container_name: tsf_customer_management_pma
+        ports:
+            - "8080:8080"
