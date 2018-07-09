@@ -1,23 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0">
+                <div class="page-header">
+                    	<h1>Dashboard <small>サブテキスト</small></h1>
+                </div>
+            </div>
+        </div>
 
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        @if (session('status'))
+            <div class="row">
+                <div class="col-md-12 col-md-offset-0">
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                </div>
+            </div>
+        @endif
 
-                    You are logged in!
+        <div class="row">
+            <div class="col-md-12 col-md-offset-0">
+                <div class="well">
+                    <h2>顧客管理</h1>
+                    <p>texttexttexttexttexttexttexttexttext.</p>
+
+                    <span class="label label-default">Default</span>
+                    <span class="label label-primary">Primary</span>
+                    <span class="label label-success">Success</span>
+                    <span class="label label-info">Info</span>
+                    <span class="label label-warning">Warning</span>
+                    <span class="label label-danger">Danger</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well">
+                    <h2>予約管理</h1>
+                    <p>texttexttexttexttexttexttexttexttext.</p>
+
+                    <span class="label label-default">Default</span>
+                    <span class="label label-primary">Primary</span>
+                    <span class="label label-success">Success</span>
+                </div>
+            </div>
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well">
+                    <h2>アプリ</h1>
+                    <p>texttexttexttexttexttexttexttexttext.</p>
+
+                    <span class="label label-info">Info</span>
+                    <span class="label label-warning">Warning</span>
+                    <span class="label label-danger">Danger</span>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

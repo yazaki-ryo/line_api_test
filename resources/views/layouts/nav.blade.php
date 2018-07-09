@@ -45,10 +45,8 @@
 
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                    Logout
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('ログアウトしますか？')) document.getElementById('logout-form').submit(); return false;">
+                                    <i class="fa fa-sign-out pull-right"></i>@lang ('elements.buttons.logout')
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
