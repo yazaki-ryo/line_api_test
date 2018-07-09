@@ -49,9 +49,7 @@
                                     <i class="fa fa-sign-out pull-right"></i>@lang ('elements.buttons.logout')
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
+                                {{ Form::open(['id' => 'logout-form', 'url' => route('logout'), 'method' => 'post', 'style' => 'display: none;']) }}{{ Form::close() }}
                             </li>
                         </ul>
                     </li>

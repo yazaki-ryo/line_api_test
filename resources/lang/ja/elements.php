@@ -15,6 +15,7 @@ return [
         'register'       => '登録',
         'register-user'  => 'ユーザー登録',
         'save'           => '上書き保存',
+        'submit'         => '送信',
         'copy'           => 'コピー',
         'cancel'         => 'キャンセル',
         'delete'         => '削除',
