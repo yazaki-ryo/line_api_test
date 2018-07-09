@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1>@lang ('elements.buttons.login') <small>サブテキスト</small></h1>
+                    	<h1>@lang ('elements.buttons.login') <small><code>サブテキスト</code></small></h1>
                 </div>
             </div>
         </div>
@@ -16,8 +16,7 @@
                     <div class="panel-heading">必要項目を入力してください。</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                            {{ csrf_field() }}
+                        {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="col-md-4 control-label">E-Mail Address</label>
@@ -68,7 +67,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </form>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>

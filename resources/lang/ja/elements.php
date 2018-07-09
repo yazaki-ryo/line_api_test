@@ -21,6 +21,8 @@ return [
         'delete'         => '削除',
         'search'         => '検索',
         'reset_search'   => '条件リセット',
+        'reset-password' => 'パスワードリセット',
+        'password-reminder' => 'パスワードリマインダ',
         'import'         => 'インポート',
         'export'         => 'エクスポート',
         'log'            => '編集ログ',

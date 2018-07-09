@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1>Dashboard <small>サブテキスト</small></h1>
+                    	<h1>Dashboard <small><code>サブテキスト</code></small></h1>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <div class="col-md-12 col-md-offset-0">
                 <div class="well">
                     <h2>顧客管理</h1>
-                    <p>texttexttexttexttexttexttexttexttext.</p>
+                    <p><code>texttexttexttexttexttexttexttexttext.</code></p>
 
                     <span class="label label-default">Default</span>
                     <span class="label label-primary">Primary</span>
@@ -40,7 +40,7 @@
             <div class="col-md-6 col-md-offset-0">
                 <div class="well">
                     <h2>予約管理</h1>
-                    <p>texttexttexttexttexttexttexttexttext.</p>
+                    <p><code>texttexttexttexttexttexttexttexttext.</code></p>
 
                     <span class="label label-default">Default</span>
                     <span class="label label-primary">Primary</span>
@@ -50,7 +50,7 @@
             <div class="col-md-6 col-md-offset-0">
                 <div class="well">
                     <h2>アプリ</h1>
-                    <p>texttexttexttexttexttexttexttexttext.</p>
+                    <p><code>texttexttexttexttexttexttexttexttext.</code></p>
 
                     <span class="label label-info">Info</span>
                     <span class="label label-warning">Warning</span>
