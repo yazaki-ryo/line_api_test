@@ -184,7 +184,10 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\LocalServiceProvider::class,
+        App\Providers\ResourceServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\SchemaServiceProvider::class,
+        App\Providers\UrlServiceProvider::class,
 
     ],
 
