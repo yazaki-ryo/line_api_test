@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Auth;
 
-class ResendRequest extends AuthRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class ResendRequest extends FormRequest
 {
     /**
-     * Create a new request instance.
-     *
-     * @return mixed
+     * @return void
      */
     public function __construct()
     {
@@ -16,8 +16,6 @@ class ResendRequest extends AuthRequest
     }
 
     /**
-     * Determine if the user is authorized to make this request.
-     *
      * @return boolean
      */
     public function authorize(): bool
@@ -26,8 +24,6 @@ class ResendRequest extends AuthRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array
      */
     public function rules(): array
@@ -38,8 +34,6 @@ class ResendRequest extends AuthRequest
     }
 
     /**
-     * Get the validation messages that apply to the request.
-     *
      * {@inheritDoc}
      * @see \Illuminate\Foundation\Http\FormRequest::messages()
      */
@@ -48,6 +42,15 @@ class ResendRequest extends AuthRequest
         return [
             //
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Http\FormRequest::attributes()
+     */
+    public function attributes(): array
+    {
+        return \Lang::get('attributes.auth');
     }
 
 }

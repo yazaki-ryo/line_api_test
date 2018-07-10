@@ -13,6 +13,12 @@ return [
     |
     */
 
+    'auth' => [
+        'name'                  => 'ログイン名',
+        'email'                 => 'メールアドレス',
+        'password'              => 'パスワード',
+        'password_confirmation' => 'パスワード(確認)',
+    ],
     'test' => [
         'created_at'           => '登録日時',
         'updated_at'           => '更新日時',

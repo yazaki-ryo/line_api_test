@@ -3,25 +3,19 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Auth;
 
-class ModifyRequest extends AuthRequest
-{
-    /** @var int */
-    private $id;
+use Illuminate\Foundation\Http\FormRequest;
 
+class ModifyRequest extends FormRequest
+{
     /**
-     * Create a new request instance.
-     *
-     * @param int $id
-     * @return mixed
+     * @return void
      */
-    public function __construct(int $id)
+    public function __construct()
     {
-        $this->id = $id;
+        //
     }
 
     /**
-     * Determine if the user is authorized to make this request.
-     *
      * @return boolean
      */
     public function authorize(): bool
@@ -30,22 +24,18 @@ class ModifyRequest extends AuthRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
      * @return array
      */
     public function rules(): array
     {
         return [
             'name'     => 'required|string|max:191',
-            'email'    => "required|string|email|max:191|unique:users,email,{$this->id},id",
+            'email'    => "required|string|email|max:191|unique:users,email,{$this->segment(2)},id",
             'password' => 'nullable|string|min:6|max:16|confirmed',
         ];
     }
 
     /**
-     * Get the validation messages that apply to the request.
-     *
      * {@inheritDoc}
      * @see \Illuminate\Foundation\Http\FormRequest::messages()
      */
@@ -54,6 +44,15 @@ class ModifyRequest extends AuthRequest
         return [
             //
         ];
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Http\FormRequest::attributes()
+     */
+    public function attributes(): array
+    {
+        return \Lang::get('attributes.auth');
     }
 
 }
