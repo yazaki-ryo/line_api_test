@@ -13,10 +13,17 @@ return [
     |
     */
 
+    'auth' => [
+        'name'                  => 'Name',
+        'email'                 => 'E-Mail Address',
+        'password'              => 'Password',
+        'password_confirmation' => 'Password (confirmation)',
+        'remember'              => 'Remember Me',
+    ],
     'test' => [
-        'created_at'           => '登録日時',
-        'updated_at'           => '更新日時',
-        'deleted_at'           => '削除日時',
+        'created_at'           => 'Created at',
+        'updated_at'           => 'Updated at',
+        'deleted_at'           => 'Deleted at',
     ],
 
 ];

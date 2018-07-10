@@ -25,7 +25,7 @@ return [
         'password-reminder' => 'パスワードリマインダ',
         'import'         => 'インポート',
         'export'         => 'エクスポート',
-        'log'            => '編集ログ',
+        'log'            => 'ログ',
     ],
 
     'labels' => [

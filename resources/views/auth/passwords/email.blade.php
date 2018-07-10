@@ -13,28 +13,22 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">必要項目を入力してください。</div>
+                    <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
                         @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
+                            <div class="alert alert-success">{{ session('status') }}</div>
                         @endif
 
                         {!! Form::open(['url' => route('password.email'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            @set ($field, 'email')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
 
                                 <div class="col-md-6">
-                                    {!! Form::email('email', old('email'), ['required', 'autofocus', 'class' => 'form-control', 'id' => 'email', 'maxlength' => '191', 'placeholder' => '']) !!}
-
-                                    @if ($errors->has('email'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    @endif
+                                    {!! Form::email($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
 

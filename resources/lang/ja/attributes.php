@@ -18,6 +18,7 @@ return [
         'email'                 => 'メールアドレス',
         'password'              => 'パスワード',
         'password_confirmation' => 'パスワード(確認)',
+        'remember'              => 'ログイン状態を記憶する',
     ],
     'test' => [
         'created_at'           => '登録日時',
