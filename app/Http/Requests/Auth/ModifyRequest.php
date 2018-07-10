@@ -31,7 +31,7 @@ class ModifyRequest extends FormRequest
         return [
             'name'     => 'required|string|max:191',
             'email'    => "required|string|email|max:191|unique:users,email,{$this->segment(2)},id",
-            'password' => 'nullable|string|min:6|max:16|confirmed',
+            'password' => 'nullable|string|min:8|max:16|confirmed',
         ];
     }
 

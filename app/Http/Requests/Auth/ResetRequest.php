@@ -30,7 +30,7 @@ class ResetRequest extends FormRequest
     {
         return [
             'email'    => 'required|string|email|max:191|exists:users',
-            'password' => 'required|string|min:6|max:16|confirmed',
+            'password' => 'required|string|min:8|max:16|confirmed',
         ];
     }
 
