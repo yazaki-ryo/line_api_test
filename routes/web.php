@@ -16,9 +16,8 @@ use Illuminate\Routing\Router;
 
 /**
  * @var Router $router
- *
- * prefix: /
- * middleware: web
+ * @prefix /
+ * @middleware web
  */
 
 $router->group([
