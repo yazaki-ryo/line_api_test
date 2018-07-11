@@ -105,6 +105,6 @@ final class LoginController extends Controller
      */
     private function redirectTo()
     {
-        return route('home');
+        return route('login');
     }
 }
