@@ -4,19 +4,19 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Domain\UseCases\GetUser;
+use Domain\UseCases\Users\GetUsers;
 use Illuminate\Http\Request;
 
-class GetController extends Controller
+final class IndexController extends Controller
 {
-    /** @var GetUser */
+    /** @var GetUsers */
     private $useCase;
 
     /**
-     * @param  GetUser $useCase
+     * @param  GetUsers $useCase
      * @return void
      */
-    public function __construct(GetUser $useCase)
+    public function __construct(GetUsers $useCase)
     {
         $this->middleware('auth');
 
@@ -28,7 +28,8 @@ class GetController extends Controller
      */
     public function __invoke(Request $request)
     {
-        dump($this->useCase->excute());
+        $result = $this->useCase->excute();
+        dump($result);
     }
 
 }

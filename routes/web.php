@@ -31,7 +31,7 @@ $router->group([
     $router->group([
         'prefix' => $prefix = 'users',
     ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Users\GetController::class)->name("{$prefix}");
+        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name("{$prefix}");
     });
 
     /**
