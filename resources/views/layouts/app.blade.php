@@ -16,6 +16,8 @@
     @else
         <link href="{{ asset('css/default.css') }}" rel="stylesheet">
     @endif
+
+    @include('components.google.analytics')
 </head>
 <body>
     <div id="app">
