@@ -29,7 +29,8 @@ final class IndexController extends Controller
     public function __invoke(Request $request)
     {
         $result = $this->useCase->excute();
-        dump($result);
+
+        return $result->toJson();
     }
 
 }

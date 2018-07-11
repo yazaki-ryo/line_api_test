@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 final class GetUsers
 {
-    /** @var GetUsersInterface $getUsersService */
+    /** @var GetUsersInterface */
     private $getUsersService;
 
     /**
@@ -19,11 +19,11 @@ final class GetUsers
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
-    public function excute()
+    public function excute(): Collection
     {
-        return $this->getUsersService->findUsers();
+        return $this->getUsersService->findAll();
     }
 
 }
@@ -33,5 +33,5 @@ interface GetUsersInterface
     /**
      * @return Collection
      */
-    public function findUsers(): Collection;
+    public function findAll(): Collection;
 }

@@ -23,7 +23,7 @@ final class GetUsersService implements GetUsersInterface
     /**
      * @return Collection
      */
-    public function findUsers(): Collection
+    public function findAll(): Collection
     {
         return $this->user->findAll();
     }
