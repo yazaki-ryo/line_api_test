@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Providers;
 
@@ -25,7 +26,7 @@ class LocalServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }
@@ -33,9 +34,9 @@ class LocalServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        if ($this->app->environment('local', 'testing')) {
+        if ($this->app->isLocal()) {
             $this->registerProviders();
             $this->registerAliases();
         }
@@ -44,7 +45,7 @@ class LocalServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    protected function registerProviders()
+    protected function registerProviders(): void
     {
         if (count($this->providers)) {
             foreach ($this->providers as $provider) {
@@ -56,7 +57,7 @@ class LocalServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    protected function registerAliases()
+    protected function registerAliases(): void
     {
         if (count($this->aliases)) {
             $loader = AliasLoader::getInstance();

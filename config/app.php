@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -91,7 +91,15 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ja',
+
+    /*
+     |--------------------------------------------------------------------------
+     | Faker Locale Setting
+     |--------------------------------------------------------------------------
+     */
+
+    'faker_locale' => env('DEV_FAKER_LOCALE', 'ja_JP'),
 
     /*
     |--------------------------------------------------------------------------
@@ -122,8 +130,8 @@ return [
     */
 
     'log' => env('APP_LOG', 'single'),
-
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
+    'log_max_files' => env('APP_LOG_MAX_FILES', 5),
 
     /*
     |--------------------------------------------------------------------------
@@ -173,10 +181,14 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\LocalServiceProvider::class,
+        App\Providers\ResourceServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\SchemaServiceProvider::class,
+        App\Providers\UrlServiceProvider::class,
 
     ],
 
