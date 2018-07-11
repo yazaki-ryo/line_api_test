@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
+@section('meta')
+    <title>@lang ('elements.buttons.password-reminder') | {{ config('app.name') }}</title>
+    <meta name="description" content="@lang ('Test text...')" />
+    <meta name="keywords" content="@lang ('Test text...')" />
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1>@lang ('elements.buttons.password-reminder') <small><code>サブテキスト</code></small></h1>
+                    	<h1>@lang ('elements.buttons.password-reminder') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -51,4 +57,10 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section ('scripts')
+    <script type="text/javascript">
+        //
+    </script>
 @endsection

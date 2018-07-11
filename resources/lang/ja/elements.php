@@ -10,6 +10,7 @@ return [
      */
 
     'buttons' => [
+        'home'           => 'ホーム',
         'login'          => 'ログイン',
         'logout'         => 'ログアウト',
         'register'       => '登録',
