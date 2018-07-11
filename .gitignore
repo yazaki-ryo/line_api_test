@@ -1,11 +1,10 @@
 /node_modules
-/public/hot
-/public/storage
 /storage/*.key
 /vendor
 /.idea
 /.vscode
 /.vagrant
+
 Homestead.json
 Homestead.yaml
 docker-compose.override.yml
@@ -13,3 +12,12 @@ npm-debug.log
 yarn-error.log
 .env
 _ide_helper.php
+mix-manifest.json
+
+/public/css/app.css
+/public/fonts/vendor
+/public/hot
+/public/js/app.js
+/public/js/manifest.js
+/public/js/vendor.js
+/public/storage
