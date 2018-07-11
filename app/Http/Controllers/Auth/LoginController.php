@@ -68,6 +68,19 @@ final class LoginController extends Controller
 
     /**
      * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect($this->redirectPath());
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      */
