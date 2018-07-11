@@ -22,20 +22,34 @@ use Illuminate\Routing\Router;
 
 $router->group([
     //
-], function(Router $router) {
-    $router->view('/', 'welcome');
-    $router->get('home', \App\Http\Controllers\HomeController::class)->name('home');
+], function (Router $router) {
+    $router->get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
-    // Authentication Routes...
+    /**
+     * Users
+     */
+    $router->group([
+        'prefix' => $prefix = 'users',
+    ], function (Router $router) use ($prefix) {
+        $router->get( '/', \App\Http\Controllers\Users\GetController::class)->name("{$prefix}");
+    });
+
+    /**
+     * Authentication
+     */
     $router->get( 'login',  \App\Http\Controllers\Auth\LoginController::class . '@showLoginForm')->name('login');
     $router->post('login',  \App\Http\Controllers\Auth\LoginController::class . '@login');
     $router->post('logout', \App\Http\Controllers\Auth\LoginController::class . '@logout')->name('logout');
 
-    // Registration Routes...
+    /**
+     * Registration
+     */
     $router->get( 'register', \App\Http\Controllers\Auth\RegisterController::class . '@showRegistrationForm')->name('register');
     $router->post('register', \App\Http\Controllers\Auth\RegisterController::class . '@register');
 
-    // Password Reset Routes...
+    /**
+     * Password Reset
+     */
     $router->group([
         'prefix' => $prefix = 'password',
     ], function (Router $router) use ($prefix) {
