@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Users;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 final class GetUsers
 {

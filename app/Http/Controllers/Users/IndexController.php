@@ -30,7 +30,7 @@ final class IndexController extends Controller
     {
         $result = $this->useCase->excute();
 
-        return $result->toJson();
+        return dd($result);
     }
 
 }

@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
+use App\Collection\EloquentCollection;
+use Domain\Contracts\Models\DomainModel;
+use Domain\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-final class EloquentUser extends Authenticatable
+final class EloquentUser extends Authenticatable implements DomainModel
 {
     use Notifiable;
 
@@ -39,4 +42,20 @@ final class EloquentUser extends Authenticatable
         return $this->newQuery()->get();
     }
 
+    /**
+     * @return User
+     */
+    public function toModel(): User
+    {
+        return User::ofByArray($this->attributesToArray());
+    }
+
+    /**
+     * @param  array  $models
+     * @return Collection
+     */
+    public function newCollection(array $models = []): Collection
+    {
+        return new EloquentCollection($models);
+    }
 }

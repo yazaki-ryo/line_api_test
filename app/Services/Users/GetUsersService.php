@@ -5,7 +5,7 @@ namespace App\Services;
 
 use App\Eloquents\EloquentUser;
 use Domain\UseCases\Users\GetUsersInterface;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 final class GetUsersService implements GetUsersInterface
 {
@@ -25,6 +25,6 @@ final class GetUsersService implements GetUsersInterface
      */
     public function findAll(): Collection
     {
-        return $this->user->findAll();
+        return $this->user->findAll()->toModels();
     }
 }
