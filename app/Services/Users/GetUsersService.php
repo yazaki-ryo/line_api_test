@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Eloquents\User as EloquentUser;
+use App\Eloquents\EloquentUser;
 use Domain\UseCases\Users\GetUsersInterface;
 use Illuminate\Database\Eloquent\Collection;
 
