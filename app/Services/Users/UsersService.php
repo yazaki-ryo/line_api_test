@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Eloquents\EloquentUser;
-use Domain\UseCases\Users\GetUsersInterface;
+use Domain\Contracts\Users\GetUsersInterface;
 use Illuminate\Support\Collection;
 
-final class GetUsersService implements GetUsersInterface
+final class UsersService implements GetUsersInterface
 {
     /** @var EloquentUser */
     private $user;

@@ -3,19 +3,20 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Users;
 
+use Domain\Contracts\Users\GetUsersInterface;
 use Illuminate\Support\Collection;
 
 final class GetUsers
 {
     /** @var GetUsersInterface */
-    private $getUsersService;
+    private $usersService;
 
     /**
      * @return void
      */
-    public function __construct(GetUsersInterface $getUsersService)
+    public function __construct(GetUsersInterface $usersService)
     {
-        $this->getUsersService = $getUsersService;
+        $this->usersService = $usersService;
     }
 
     /**
@@ -23,15 +24,7 @@ final class GetUsers
      */
     public function excute(): Collection
     {
-        return $this->getUsersService->findAll();
+        return $this->usersService->findAll();
     }
 
-}
-
-interface GetUsersInterface
-{
-    /**
-     * @return Collection
-     */
-    public function findAll(): Collection;
 }
