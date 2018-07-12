@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Domain\Contracts\Transaction;
+use Domain\Contracts\Database\Transaction;
 use Illuminate\Database\Connection;
 use Illuminate\Support\ServiceProvider;
 

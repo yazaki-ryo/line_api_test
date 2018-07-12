@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\Traits;
+namespace App\Traits;
 
-use Domain\Contracts\Transaction;
+use Domain\Contracts\Database\Transaction;
 
 trait Transactional
 {

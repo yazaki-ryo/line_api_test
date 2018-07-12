@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\Contracts;
+namespace Domain\Contracts\Database;
 
 interface Transaction
 {
