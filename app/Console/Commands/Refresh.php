@@ -1,10 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class Refresh extends Command
+final class Refresh extends Command
 {
     /**
      * The name and signature of the console command.
