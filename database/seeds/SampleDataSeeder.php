@@ -80,18 +80,21 @@ class SampleDataSeeder extends Seeder
         [
             'id'       => 1,
             'store_id' => 1,
+            'role_id'  => 1,
             'name'     => '企業管理者',
             'email'    => 'company-admin@test.jp',
         ],
         [
             'id'       => 2,
             'store_id' => 1,
+            'role_id'  => 2,
             'name'     => '店舗担当者',
             'email'    => 'store-master@test.jp',
         ],
         [
             'id'       => 3,
             'store_id' => 1,
+            'role_id'  => 3,
             'name'     => '一般ユーザー',
             'email'    => 'general-user@test.jp',
         ],

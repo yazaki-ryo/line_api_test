@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             Schema::create($this->table, function (Blueprint $table) {
                 $table->increments('id');
                 $table->unsignedInteger('store_id')->nullable()->comment('店舗ID');
+                $table->unsignedInteger('role_id')->nullable()->comment('ロールID');
 
                 $table->string('name')->nullable()->comment('名称');
                 $table->string('email')->unique()->comment('E-Mail');
@@ -31,6 +32,10 @@ class CreateUsersTable extends Migration
                 $table->foreign('store_id')
                     ->references('id')
                     ->on('stores');
+
+                $table->foreign('role_id')
+                    ->references('id')
+                    ->on('roles');
             });
 
             DB::statement(sprintf("ALTER TABLE %s%s COMMENT 'ユーザー'", DB::getTablePrefix(), $this->table));
