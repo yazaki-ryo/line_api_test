@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace App\Collection;
 
 use Domain\Contracts\Models\DomainModelCollection;
-use Illuminate\Database\Eloquent\{Collection, Model};
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 final class EloquentCollection extends Collection implements DomainModelCollection
 {

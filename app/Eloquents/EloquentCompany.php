@@ -7,17 +7,17 @@ use App\Collection\EloquentCollection;
 use Domain\Contracts\Models\DomainModel;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-final class EloquentUser extends Authenticatable implements DomainModel
+final class EloquentCompany extends Model implements DomainModel
 {
-    use Notifiable, SoftDeletes;
+    use SoftDeletes;
 
     /** @var string */
-    protected $table = 'users';
+    protected $table = 'companies';
 
     /**
      * @var array
@@ -25,39 +25,29 @@ final class EloquentUser extends Authenticatable implements DomainModel
     protected $fillable = [
         'name',
         'email',
-        'password',
     ];
 
     /**
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        //
     ];
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function store(): BelongsTo
+    public function stores(): HasMany
     {
-        return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
+        return $this->hasMany(EloquentStore::class, 'company_id', 'id');
     }
 
     /**
-     * @return EloquentCompany|null
+     * @return HasMany
      */
-    public function getCompanyAttribute(): ?EloquentCompany
+    public function users(): HasManyThrough
     {
-        return $this->store->company;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function findAll(): Collection
-    {
-        return $this->newQuery()->get();
+        return $this->hasManyThrough(EloquentUser::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');
     }
 
     /**
