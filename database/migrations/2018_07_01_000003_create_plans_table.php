@@ -23,7 +23,7 @@ class CreatePlansTable extends Migration
                 $table->softDeletes();
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT 'プラン'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '料金プラン'", DB::getTablePrefix(), $this->table));
         } catch (\Exception $e) {
             report($e);
             $this->down();

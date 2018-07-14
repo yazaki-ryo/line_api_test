@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
                 $table->increments('id');
                 $table->unsignedInteger('store_id')->nullable()->comment('店舗ID');
 
-                $table->string('name')->comment('名称');
+                $table->string('name')->nullable()->comment('名称');
                 $table->string('email')->unique()->comment('E-Mail');
-                $table->text('code')->comment('ユーザー識別コード');
+                $table->text('code')->nullable()->comment('ユーザー識別コード');
                 $table->string('password');
                 $table->rememberToken();
                 $table->timestamps();
