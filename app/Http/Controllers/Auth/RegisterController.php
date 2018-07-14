@@ -61,7 +61,7 @@ final class RegisterController extends Controller
      */
     private function create(array $data)
     {
-        return User::create([
+        return EloquentUser::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
