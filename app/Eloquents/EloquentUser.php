@@ -9,6 +9,7 @@ use Domain\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -42,6 +43,14 @@ final class EloquentUser extends Authenticatable implements DomainModel
     public function store(): BelongsTo
     {
         return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function role(): HasOne
+    {
+        return $this->hasOne(EloquentRole::class, 'id', 'role_id');
     }
 
     /**

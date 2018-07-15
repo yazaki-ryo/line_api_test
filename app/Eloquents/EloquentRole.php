@@ -10,14 +10,13 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-final class EloquentCompany extends Model implements DomainModel
+final class EloquentRole extends Model implements DomainModel
 {
     use SoftDeletes;
 
     /** @var string */
-    protected $table = 'companies';
+    protected $table = 'roles';
 
     /**
      * @var array
@@ -37,17 +36,9 @@ final class EloquentCompany extends Model implements DomainModel
     /**
      * @return HasMany
      */
-    public function stores(): HasMany
+    public function users(): HasMany
     {
-        return $this->hasMany(EloquentStore::class, 'company_id', 'id');
-    }
-
-    /**
-     * @return HasManyThrough
-     */
-    public function users(): HasManyThrough
-    {
-        return $this->hasManyThrough(EloquentUser::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');
+        return $this->hasMany(EloquentUser::class, 'role_id', 'id');
     }
 
     /**

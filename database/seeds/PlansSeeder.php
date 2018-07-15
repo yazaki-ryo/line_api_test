@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 
 class PlansSeeder extends Seeder
 {
+    /** @var string */
+    private $table = 'plans';
+
     /** @var array */
     private static $items = [
         [
@@ -35,7 +38,7 @@ class PlansSeeder extends Seeder
             $connection->transaction(function ($connection) {
                 $now = now();
                 collect(self::$items)->each(function ($item) use ($connection, $now) {
-                    $connection->table('plans')->insert(collect($item)->merge([
+                    $connection->table($this->table)->insert(collect($item)->merge([
                         'created_at' => $now,
                         'updated_at' => $now,
                     ])->all());

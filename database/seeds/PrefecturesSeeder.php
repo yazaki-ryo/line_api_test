@@ -6,6 +6,9 @@ use Illuminate\Database\Seeder;
 
 class PrefecturesSeeder extends Seeder
 {
+    /** @var string */
+    private $table = 'prefectures';
+
     /** @var array */
     private static $items = [
         1 => '北海道',
@@ -67,7 +70,7 @@ class PrefecturesSeeder extends Seeder
             $connection->transaction(function ($connection) {
                 $now = now();
                 collect(self::$items)->each(function ($item, $key) use ($connection, $now) {
-                    $connection->table('prefectures')->insert([
+                    $connection->table($this->table)->insert([
                         'id' => $key,
                         'name' => $item,
                         'created_at' => $now,

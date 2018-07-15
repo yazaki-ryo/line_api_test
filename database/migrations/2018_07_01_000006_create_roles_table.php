@@ -18,7 +18,7 @@ class CreateRolesTable extends Migration
             Schema::create($this->table, function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->nullable()->comment('名称');
-                $table->json('allows')->nullable()->comment('デフォルト認可');
+                $table->string('slug')->unique()->comment('スラッグ');
                 $table->timestamps();
                 $table->softDeletes();
             });
