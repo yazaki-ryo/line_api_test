@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Domain\UseCases\Users\GetUsers;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 
 final class IndexController extends Controller
 {
@@ -14,11 +15,15 @@ final class IndexController extends Controller
 
     /**
      * @param  GetUsers $useCase
+     * @param  Router $router
      * @return void
      */
-    public function __construct(GetUsers $useCase)
+    public function __construct(GetUsers $useCase, Router $router)
     {
-        $this->middleware('auth');
+        $this->middleware([
+            'authenticate:web',
+            sprintf('authorize:%s|%s', 'users.*', $router->currentRouteName())
+        ]);
 
         $this->useCase = $useCase;
     }
