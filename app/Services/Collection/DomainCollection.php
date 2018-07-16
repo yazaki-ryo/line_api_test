@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Collection;
+namespace App\Services\Collection;
 
-use Domain\Contracts\Models\DomainModelCollection;
+use Domain\Contracts\Model\DomainModelsCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-final class EloquentCollection extends Collection implements DomainModelCollection
+final class DomainCollection extends Collection implements DomainModelsCollection
 {
     public function toModels(): Collection
     {

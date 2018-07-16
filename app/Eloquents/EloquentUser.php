@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Collection\EloquentCollection;
-use Domain\Contracts\Models\DomainModel;
+use App\Services\Collection\DomainCollection;
+use Domain\Contracts\Model\DomainModel;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -63,7 +63,7 @@ final class EloquentUser extends Authenticatable implements DomainModel
      */
     public function newCollection(array $models = []): Collection
     {
-        return new EloquentCollection($models);
+        return new DomainCollection($models);
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\Contracts\Models;
+namespace Domain\Contracts\Model;
 
-interface DomainModelCollection
+interface DomainModelsCollection
 {
     public function toModels();
 }
