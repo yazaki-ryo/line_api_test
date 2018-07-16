@@ -5,7 +5,7 @@ namespace App\Eloquents;
 
 use App\Collection\EloquentCollection;
 use Domain\Contracts\Models\DomainModel;
-use Domain\Models\User;
+use Domain\Models\Permission;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,19 +34,11 @@ final class EloquentPermission extends Model implements DomainModel
     ];
 
     /**
-     * @return BeLongsToMany
+     * @return Permission
      */
-    public function users(): BeLongsToMany
+    public function toModel(): Permission
     {
-        return $this->belongsToMany(EloquentUser::class, 'permission_user', 'permission_id', 'user_id')->withTimestamps();
-    }
-
-    /**
-     * @return User
-     */
-    public function toModel(): User
-    {
-        return User::ofByArray($this->attributesToArray());
+        return Permission::ofByArray($this->attributesToArray());
     }
 
     /**
@@ -57,4 +49,13 @@ final class EloquentPermission extends Model implements DomainModel
     {
         return new EloquentCollection($models);
     }
+
+    /**
+     * @return BeLongsToMany
+     */
+    public function users(): BeLongsToMany
+    {
+        return $this->belongsToMany(EloquentUser::class, 'permission_user', 'permission_id', 'user_id')->withTimestamps();
+    }
+
 }

@@ -35,6 +35,23 @@ final class EloquentCompany extends Model implements DomainModel
     ];
 
     /**
+     * @return User
+     */
+    public function toModel(): User
+    {
+//         return User::ofByArray($this->attributesToArray());
+    }
+
+    /**
+     * @param  array  $models
+     * @return Collection
+     */
+    public function newCollection(array $models = []): Collection
+    {
+        return new EloquentCollection($models);
+    }
+
+    /**
      * @return HasMany
      */
     public function stores(): HasMany
@@ -50,20 +67,4 @@ final class EloquentCompany extends Model implements DomainModel
         return $this->hasManyThrough(EloquentUser::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');
     }
 
-    /**
-     * @return User
-     */
-    public function toModel(): User
-    {
-        return User::ofByArray($this->attributesToArray());
-    }
-
-    /**
-     * @param  array  $models
-     * @return Collection
-     */
-    public function newCollection(array $models = []): Collection
-    {
-        return new EloquentCollection($models);
-    }
 }

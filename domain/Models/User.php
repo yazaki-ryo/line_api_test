@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Domain\Models;
 
+use Illuminate\Support\Collection;
+
 final class User
 {
     /** @var Email */
@@ -11,16 +13,19 @@ final class User
     /** @var string */
     private $name;
 
+    /** @var Collection */
+    private $permissions;
+
     /**
-     *
      * @param Email $email
      * @param string $name
      * @return void
      */
-    public function __construct(Email $email, string $name)
+    public function __construct(Email $email, string $name, Collection $permissions)
     {
         $this->email = $email;
         $this->name = $name;
+        $this->permissions = $permissions;
     }
 
     /**
@@ -40,6 +45,14 @@ final class User
     }
 
     /**
+     * @return Collection
+     */
+    public function permissions(): Collection
+    {
+        return $this->permissions;
+    }
+
+    /**
      *
      * @param array $values
      * @return self
@@ -48,7 +61,8 @@ final class User
     {
         return new self(
             Email::of($values['email'] ?? ''),
-            $values['name'] ?? ''
+            $values['name'] ?? '',
+            $values['permissions']
         );
     }
 }

@@ -34,19 +34,11 @@ final class EloquentRole extends Model implements DomainModel
     ];
 
     /**
-     * @return HasMany
-     */
-    public function users(): HasMany
-    {
-        return $this->hasMany(EloquentUser::class, 'role_id', 'id');
-    }
-
-    /**
      * @return User
      */
     public function toModel(): User
     {
-        return User::ofByArray($this->attributesToArray());
+//         return User::ofByArray($this->attributesToArray());
     }
 
     /**
@@ -57,4 +49,13 @@ final class EloquentRole extends Model implements DomainModel
     {
         return new EloquentCollection($models);
     }
+
+    /**
+     * @return HasMany
+     */
+    private function users(): HasMany
+    {
+        return $this->hasMany(EloquentUser::class, 'role_id', 'id');
+    }
+
 }

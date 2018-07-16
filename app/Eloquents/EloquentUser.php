@@ -39,6 +39,33 @@ final class EloquentUser extends Authenticatable implements DomainModel
     ];
 
     /**
+     * @return Collection
+     */
+    public function findAll(): Collection
+    {
+        return $this->newQuery()->get();
+    }
+
+    /**
+     * @return User
+     */
+    public function toModel(): User
+    {
+        return User::ofByArray(array_merge($this->attributesToArray(), [
+            'permissions' => $this->loadMissing('permissions')->permissions->toModels(),
+        ]));
+    }
+
+    /**
+     * @param  array  $models
+     * @return Collection
+     */
+    public function newCollection(array $models = []): Collection
+    {
+        return new EloquentCollection($models);
+    }
+
+    /**
      * @return BelongsTo
      */
     public function store(): BelongsTo
@@ -70,28 +97,4 @@ final class EloquentUser extends Authenticatable implements DomainModel
         return $this->store->company;
     }
 
-    /**
-     * @return Collection
-     */
-    public function findAll(): Collection
-    {
-        return $this->newQuery()->get();
-    }
-
-    /**
-     * @return User
-     */
-    public function toModel(): User
-    {
-        return User::ofByArray($this->attributesToArray());
-    }
-
-    /**
-     * @param  array  $models
-     * @return Collection
-     */
-    public function newCollection(array $models = []): Collection
-    {
-        return new EloquentCollection($models);
-    }
 }

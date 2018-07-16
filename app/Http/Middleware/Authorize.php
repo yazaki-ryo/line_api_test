@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Closure;
+use Domain\Models\Permission;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -22,13 +23,17 @@ class Authorize
     /**
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string  $permissions
+     * @param  string  $arg
      * @return mixed
      */
-    public function handle($request, Closure $next, string $permissions = '')
+    public function handle($request, Closure $next, string $arg = '')
     {
-        foreach (explode('|', $permissions) as $permission) {
-            if ($this->auth->user()->permissions->containsStrict('slug', $permission)) {
+        $permissions = $this->auth->user()->toModel()->permissions();
+
+        foreach (explode('|', $arg) as $permission) {
+            if ($permissions->containsStrict(function (Permission $item) use ($permission) {
+                return $item->slug() === $permission;
+            })) {
                 return $next($request);
             }
         }

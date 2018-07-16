@@ -35,27 +35,11 @@ final class EloquentStore extends Model implements DomainModel
     ];
 
     /**
-     * @return BelongsTo
-     */
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(EloquentCompany::class, 'company_id', 'id');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function users(): HasMany
-    {
-        return $this->hasMany(EloquentUser::class, 'store_id', 'id');
-    }
-
-    /**
      * @return User
      */
     public function toModel(): User
     {
-        return User::ofByArray($this->attributesToArray());
+//         return User::ofByArray($this->attributesToArray());
     }
 
     /**
@@ -66,4 +50,21 @@ final class EloquentStore extends Model implements DomainModel
     {
         return new EloquentCollection($models);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    private function company(): BelongsTo
+    {
+        return $this->belongsTo(EloquentCompany::class, 'company_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    private function users(): HasMany
+    {
+        return $this->hasMany(EloquentUser::class, 'store_id', 'id');
+    }
+
 }
