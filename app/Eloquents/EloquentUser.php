@@ -52,6 +52,7 @@ final class EloquentUser extends Authenticatable implements DomainModel
     public function toModel(): User
     {
         return User::ofByArray(array_merge($this->attributesToArray(), [
+            'role'        => $this->loadMissing('role')->role->toModel(),
             'permissions' => $this->loadMissing('permissions')->permissions->toModels(),
         ]));
     }

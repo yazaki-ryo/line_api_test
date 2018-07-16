@@ -7,25 +7,38 @@ use Illuminate\Support\Collection;
 
 final class User
 {
+    /** @var string */
+    private $name;
+
     /** @var Email */
     private $email;
 
-    /** @var string */
-    private $name;
+    /** @var Role */
+    private $role;
 
     /** @var Collection */
     private $permissions;
 
     /**
-     * @param Email $email
      * @param string $name
+     * @param Email $email
+     * @param Role $role
      * @return void
      */
-    public function __construct(Email $email, string $name, Collection $permissions)
+    public function __construct(string $name, Email $email, Role $role, Collection $permissions)
     {
-        $this->email = $email;
         $this->name = $name;
+        $this->email = $email;
+        $this->role = $role;
         $this->permissions = $permissions;
+    }
+
+    /**
+     * @return string
+     */
+    public function name(): string
+    {
+        return $this->name;
     }
 
     /**
@@ -37,11 +50,11 @@ final class User
     }
 
     /**
-     * @return string
+     * @return Role
      */
-    public function name(): string
+    public function role(): Role
     {
-        return $this->name;
+        return $this->role;
     }
 
     /**
@@ -60,8 +73,9 @@ final class User
     public static function ofByArray(array $values): self
     {
         return new self(
-            Email::of($values['email'] ?? ''),
             $values['name'] ?? '',
+            Email::of($values['email'] ?? ''),
+            $values['role'],
             $values['permissions']
         );
     }

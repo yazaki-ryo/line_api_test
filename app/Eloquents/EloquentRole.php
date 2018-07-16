@@ -5,7 +5,7 @@ namespace App\Eloquents;
 
 use App\Collection\EloquentCollection;
 use Domain\Contracts\Models\DomainModel;
-use Domain\Models\User;
+use Domain\Models\Role;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,11 +34,11 @@ final class EloquentRole extends Model implements DomainModel
     ];
 
     /**
-     * @return User
+     * @return Role
      */
-    public function toModel(): User
+    public function toModel(): Role
     {
-//         return User::ofByArray($this->attributesToArray());
+        return Role::ofByArray($this->attributesToArray());
     }
 
     /**
