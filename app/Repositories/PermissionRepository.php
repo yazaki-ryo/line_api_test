@@ -68,11 +68,11 @@ final class PermissionRepository implements DomainModel, DomainModels
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function slug(): string
+    public function attributesToArray(): array
     {
-        return $this->eloquent->slug;
+        return $this->eloquent->attributesToArray();
     }
 
     /**

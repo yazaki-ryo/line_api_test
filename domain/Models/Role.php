@@ -19,6 +19,15 @@ final class Role
     /** @var string */
     private $slug;
 
+    /** @var Datetime */
+    private $createdAt;
+
+    /** @var Datetime */
+    private $updatedAt;
+
+    /** @var Datetime */
+    private $deletedAt;
+
     /**
      * @param RoleRepository $repo
      * @return void
