@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-final class EloquentUser extends Authenticatable implements DomainModel
+final class EloquentUser extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
@@ -47,21 +45,10 @@ final class EloquentUser extends Authenticatable implements DomainModel
     }
 
     /**
-     * @return User
-     */
-    public function toModel(): User
-    {
-        return User::ofByArray(array_merge($this->attributesToArray(), [
-            'role'        => $this->loadMissing('role')->role->toModel(),
-            'permissions' => $this->loadMissing('permissions')->permissions->toModels(),
-        ]));
-    }
-
-    /**
      * @param  array  $models
-     * @return Collection
+     * @return DomainCollection
      */
-    public function newCollection(array $models = []): Collection
+    public function newCollection(array $models = []): DomainCollection
     {
         return new DomainCollection($models);
     }

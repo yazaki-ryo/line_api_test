@@ -3,28 +3,28 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Eloquents\EloquentUser;
+use App\Repositories\UserRepository;
+use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Users\GetUsersInterface;
-use Illuminate\Support\Collection;
 
 final class UsersService implements GetUsersInterface
 {
-    /** @var EloquentUser */
-    private $user;
+    /** @var UserRepository */
+    private $repo;
 
     /**
-     * @param EloquentUser $user
+     * @param UserRepository $repo
      */
-    public function __construct(EloquentUser $user)
+    public function __construct(UserRepository $repo)
     {
-        $this->user = $user;
+        $this->repo = $repo;
     }
 
     /**
-     * @return Collection
+     * @return DomainCollection
      */
-    public function findAll(): Collection
+    public function findAll(): DomainCollection
     {
-        return $this->user->findAll()->toModels();
+        return $this->repo->findAll();
     }
 }

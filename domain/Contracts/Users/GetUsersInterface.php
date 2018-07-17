@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Domain\Contracts\Users;
 
-use Illuminate\Support\Collection;
+use App\Services\Collection\DomainCollection;
 
 interface GetUsersInterface
 {
     /**
-     * @return Collection
+     * @return DomainCollection
      */
-    public function findAll(): Collection;
+    public function findAll(): DomainCollection;
 }

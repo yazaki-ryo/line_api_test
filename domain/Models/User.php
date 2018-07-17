@@ -4,9 +4,13 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use Illuminate\Support\Collection;
+use Domain\Contracts\Model\DomainModel;
 
 final class User
 {
+    /** @var DomainModel */
+    private $repo;
+
     /** @var string */
     private $name;
 
@@ -20,17 +24,12 @@ final class User
     private $permissions;
 
     /**
-     * @param string $name
-     * @param Email $email
-     * @param Role $role
+     * @param DomainModel $repo
      * @return void
      */
-    public function __construct(string $name, Email $email, Role $role, Collection $permissions)
+    public function __construct(DomainModel $repo)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->role = $role;
-        $this->permissions = $permissions;
+        $this->repo = $repo;
     }
 
     /**
@@ -38,7 +37,7 @@ final class User
      */
     public function name(): string
     {
-        return $this->name;
+        return $this->repo->name;
     }
 
     /**
@@ -46,7 +45,7 @@ final class User
      */
     public function email(): Email
     {
-        return $this->email;
+        return $this->repo->email;
     }
 
     /**
@@ -54,7 +53,7 @@ final class User
      */
     public function role(): Role
     {
-        return $this->role;
+        return $this->repo->role;
     }
 
     /**
@@ -62,21 +61,16 @@ final class User
      */
     public function permissions(): Collection
     {
-        return $this->permissions;
+        return $this->repo->permissions;
     }
 
     /**
-     *
-     * @param array $values
+     * @param DomainModel
      * @return self
      */
-    public static function ofByArray(array $values): self
+    public static function of(DomainModel $repo): self
     {
-        return new self(
-            $values['name'] ?? '',
-            Email::of($values['email'] ?? ''),
-            $values['role'],
-            $values['permissions']
-        );
+        return new self($repo);
     }
+
 }

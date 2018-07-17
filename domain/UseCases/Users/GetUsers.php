@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Users;
 
+use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Users\GetUsersInterface;
-use Illuminate\Support\Collection;
 
 final class GetUsers
 {
@@ -20,9 +20,9 @@ final class GetUsers
     }
 
     /**
-     * @return Collection
+     * @return DomainCollection
      */
-    public function excute(): Collection
+    public function excute(): DomainCollection
     {
         return $this->usersService->findAll();
     }
