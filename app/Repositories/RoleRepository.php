@@ -3,38 +3,37 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Eloquents\EloquentUser;
+use App\Eloquents\EloquentRole;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModel;
 use Domain\Contracts\Model\DomainModels;
 use Domain\Models\Role;
-use Domain\Models\User;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class UserRepository implements DomainModel, DomainModels
+final class RoleRepository implements DomainModel, DomainModels
 {
-    /** @var EloquentUser */
+    /** @var EloquentRole */
     private $eloquent;
 
     /**
-     * @param EloquentUser $eloquent
+     * @param EloquentRole $eloquent
      * @return void
      */
-    public function __construct(EloquentUser $eloquent)
+    public function __construct(EloquentRole $eloquent)
     {
         $this->eloquent = $eloquent;
     }
 
     /**
      * @param int $id
-     * @return User
+     * @return Role
      */
-    public function findById(int $id): User
+    public function findById(int $id): Role
     {
-        $user = $this->eloquent->find($id);
+        $role = $this->eloquent->find($id);
 
-        return self::toModel($user);
+        return self::toModel($role);
     }
 
     /**
@@ -50,11 +49,11 @@ final class UserRepository implements DomainModel, DomainModels
     /**
      * @param Model $model
      * @param \Illuminate\Database\Eloquent\Model;
-     * @return User
+     * @return Role
      */
-    public static function toModel(Model $model): User
+    public static function toModel(Model $model): Role
     {
-        return User::of(self::of($model));
+        return Role::of(self::of($model));
     }
 
     /**
@@ -63,7 +62,7 @@ final class UserRepository implements DomainModel, DomainModels
      */
     public static function toModels(EloquentCollection $collection): DomainCollection
     {
-        return $collection->transform(function (EloquentUser $item) {
+        return $collection->transform(function (EloquentRole $item) {
             return self::toModel($item);
         });
     }
@@ -79,28 +78,18 @@ final class UserRepository implements DomainModel, DomainModels
     /**
      * @return DomainCollection
      */
-    public function role(): Role
+    public function users(): DomainCollection
     {
-        $role = $this->eloquent->role;
+        $collection = $this->eloquent->users;
 
-        return RoleRepository::toModel($role);
+        return UserRepository::toModels($collection);
     }
 
     /**
-     * @return DomainCollection
-     */
-    public function permissions(): DomainCollection
-    {
-        $collection = $this->eloquent->permissions;
-
-        return PermissionRepository::toModels($collection);
-    }
-
-    /**
-     * @param EloquentUser $eloquent
+     * @param EloquentRole $eloquent
      * @return self
      */
-    private static function of(EloquentUser $eloquent)
+    private static function of(EloquentRole $eloquent)
     {
         return new self($eloquent);
     }

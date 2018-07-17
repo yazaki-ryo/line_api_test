@@ -103,7 +103,7 @@ final class User
      */
     public function role(): Role
     {
-//         return $this->repo->role();
+        return $this->repo->role();
     }
 
     /**
@@ -158,7 +158,6 @@ final class User
         if ($attributes->has('deleted_at')) {
             $this->deletedAt = Datetime::of($attributes->get('deleted_at'));
         }
-
     }
 
 }
