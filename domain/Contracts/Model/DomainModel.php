@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 interface DomainModel
 {
-    public function toModel(Model $model);
+    public static function toModel(Model $model);
 }

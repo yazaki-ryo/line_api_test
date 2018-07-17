@@ -3,8 +3,14 @@ declare(strict_types=1);
 
 namespace Domain\Models;
 
+use App\Repositories\PermissionRepository;
+use App\Services\Collection\DomainCollection;
+
 final class Permission
 {
+    /** @var PermissionRepository */
+    private $repo;
+
     /** @var string */
     private $name;
 
@@ -12,14 +18,12 @@ final class Permission
     private $slug;
 
     /**
-     * @param string $name
-     * @param string $slug
+     * @param PermissionRepository $repo
      * @return void
      */
-    public function __construct(string $name, string $slug)
+    public function __construct(PermissionRepository $repo)
     {
-        $this->name = $name;
-        $this->slug = $slug;
+        $this->repo = $repo;
     }
 
     /**
@@ -27,7 +31,7 @@ final class Permission
      */
     public function name(): string
     {
-        return $this->name;
+//         return $this->repo->name();
     }
 
     /**
@@ -35,19 +39,16 @@ final class Permission
      */
     public function slug(): string
     {
-        return $this->slug;
+        return $this->repo->slug();
     }
 
     /**
-     *
-     * @param array $values
+     * @param PermissionRepository
      * @return self
      */
-    public static function ofByArray(array $values): self
+    public static function of(PermissionRepository $repo): self
     {
-        return new self(
-            $values['name'] ?? '',
-            $values['slug'] ?? ''
-        );
+        return new self($repo);
     }
+
 }

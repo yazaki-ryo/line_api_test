@@ -4,15 +4,12 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class EloquentStore extends Model implements DomainModel
+final class EloquentStore extends Model
 {
     use SoftDeletes;
 
@@ -35,18 +32,10 @@ final class EloquentStore extends Model implements DomainModel
     ];
 
     /**
-     * @return User
-     */
-    public function toModel(): User
-    {
-//         return User::ofByArray($this->attributesToArray());
-    }
-
-    /**
      * @param  array  $models
-     * @return Collection
+     * @return DomainCollection
      */
-    public function newCollection(array $models = []): Collection
+    public function newCollection(array $models = []): DomainCollection
     {
         return new DomainCollection($models);
     }
@@ -54,7 +43,7 @@ final class EloquentStore extends Model implements DomainModel
     /**
      * @return BelongsTo
      */
-    private function company(): BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(EloquentCompany::class, 'company_id', 'id');
     }
@@ -62,7 +51,7 @@ final class EloquentStore extends Model implements DomainModel
     /**
      * @return HasMany
      */
-    private function users(): HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(EloquentUser::class, 'store_id', 'id');
     }

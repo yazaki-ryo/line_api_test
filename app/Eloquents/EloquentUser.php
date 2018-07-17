@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Services\Collection\DomainCollection;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -35,14 +34,6 @@ final class EloquentUser extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    /**
-     * @return Collection
-     */
-    public function findAll(): Collection
-    {
-        return $this->newQuery()->get();
-    }
 
     /**
      * @param  array  $models

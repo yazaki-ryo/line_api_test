@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Domain\Models;
 
-use Illuminate\Support\Collection;
-use Domain\Contracts\Model\DomainModel;
+use App\Repositories\UserRepository;
+use App\Services\Collection\DomainCollection;
 
 final class User
 {
-    /** @var DomainModel */
+    /** @var UserRepository */
     private $repo;
 
     /** @var string */
@@ -20,16 +20,20 @@ final class User
     /** @var Role */
     private $role;
 
-    /** @var Collection */
+    /** @var DomainCollection */
     private $permissions;
 
     /**
-     * @param DomainModel $repo
+     * @param UserRepository $repo
      * @return void
      */
-    public function __construct(DomainModel $repo)
+    public function __construct(UserRepository $repo)
     {
         $this->repo = $repo;
+
+        /**
+         * XXX TODO リレーション以外のeloquentプロパティをこの辺りでモデルプロパティへセットする方法考案
+         */
     }
 
     /**
@@ -37,7 +41,7 @@ final class User
      */
     public function name(): string
     {
-        return $this->repo->name;
+//         return $this->repo->name();
     }
 
     /**
@@ -45,7 +49,7 @@ final class User
      */
     public function email(): Email
     {
-        return $this->repo->email;
+//         return $this->repo->email();
     }
 
     /**
@@ -53,22 +57,22 @@ final class User
      */
     public function role(): Role
     {
-        return $this->repo->role;
+//         return $this->repo->role();
     }
 
     /**
-     * @return Collection
+     * @return DomainCollection
      */
-    public function permissions(): Collection
+    public function permissions(): DomainCollection
     {
-        return $this->repo->permissions;
+        return $this->repo->permissions();
     }
 
     /**
-     * @param DomainModel
+     * @param UserRepository
      * @return self
      */
-    public static function of(DomainModel $repo): self
+    public static function of(UserRepository $repo): self
     {
         return new self($repo);
     }

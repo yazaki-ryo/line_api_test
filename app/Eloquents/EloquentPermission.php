@@ -4,14 +4,12 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Models\Permission;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BeLongsToMany;
 
-final class EloquentPermission extends Model implements DomainModel
+final class EloquentPermission extends Model
 {
     use SoftDeletes;
 
@@ -32,14 +30,6 @@ final class EloquentPermission extends Model implements DomainModel
     protected $hidden = [
         //
     ];
-
-    /**
-     * @return Permission
-     */
-    public function toModel(): Permission
-    {
-        return Permission::ofByArray($this->attributesToArray());
-    }
 
     /**
      * @param  array  $models

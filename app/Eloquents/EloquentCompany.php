@@ -4,15 +4,12 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
-final class EloquentCompany extends Model implements DomainModel
+final class EloquentCompany extends Model
 {
     use SoftDeletes;
 
@@ -35,18 +32,10 @@ final class EloquentCompany extends Model implements DomainModel
     ];
 
     /**
-     * @return User
-     */
-    public function toModel(): User
-    {
-//         return User::ofByArray($this->attributesToArray());
-    }
-
-    /**
      * @param  array  $models
-     * @return Collection
+     * @return DomainCollection
      */
-    public function newCollection(array $models = []): Collection
+    public function newCollection(array $models = []): DomainCollection
     {
         return new DomainCollection($models);
     }

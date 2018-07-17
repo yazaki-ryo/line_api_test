@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Services\UsersService;
-use Domain\UseCases\Users\GetUsers;
+use Domain\Contracts\Users\GetUserInterface;
+use Domain\Contracts\Users\GetUsersInterface;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
@@ -16,10 +17,12 @@ final class DomainServiceProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->bind(GetUsers::class, function () {
-            return new GetUsers(
-                app(UsersService::class)
-            );
+        $this->app->bind(GetUserInterface::class, function () {
+            return app(UsersService::class);
+        });
+
+        $this->app->bind(GetUsersInterface::class, function () {
+            return app(UsersService::class);
         });
 
     }

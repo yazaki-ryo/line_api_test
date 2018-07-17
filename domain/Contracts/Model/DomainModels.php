@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 interface DomainModels
 {
-    public function toModels(EloquentCollection $collection);
+    public static function toModels(EloquentCollection $collection);
 }
