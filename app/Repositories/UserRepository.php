@@ -68,6 +68,14 @@ final class UserRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @return array
+     */
+    public function attributesToArray(): array
+    {
+        return $this->eloquent->attributesToArray();
+    }
+
+    /**
      * @return DomainCollection
      */
     public function permissions(): DomainCollection
