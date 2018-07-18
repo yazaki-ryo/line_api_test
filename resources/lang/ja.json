@@ -1,6 +1,8 @@
 {
     "Forgot Your Password?": "パスワードをお忘れの方",
     "Please enter necessary items.": "必要項目を入力してください。",
+    "Please input only when changing.": "変更する場合のみ、入力してください。",
+    "Please re-enter for confirmation.": "確認のため、再度入力してください。",
     "Test text...": "texttexttexttexttexttexttexttexttext.",
     "Sub text": "サブテキスト",
     "User temporary registration is completed.": "ユーザー仮登録が完了しました。"

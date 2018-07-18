@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.buttons.home') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.pages.home') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1>@lang ('elements.buttons.home') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1>@lang ('elements.pages.home') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
