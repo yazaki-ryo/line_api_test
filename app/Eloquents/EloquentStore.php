@@ -32,6 +32,22 @@ final class EloquentStore extends Model
     ];
 
     /**
+     * @var array
+     */
+    protected $dates = [
+        'starts_at',
+        'ends_at',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'user_limit' => 'bool',
+        'user_limit' => 'login_status_cnt',
+    ];
+
+    /**
      * @param  array  $models
      * @return DomainCollection
      */
