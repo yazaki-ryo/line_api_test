@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class EloquentStore extends Model
 {
@@ -70,6 +71,14 @@ final class EloquentStore extends Model
     public function users(): HasMany
     {
         return $this->hasMany(EloquentUser::class, 'store_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function prefecture(): HasOne
+    {
+        return $this->hasOne(EloquentPrefecture::class, 'id', 'prefecture_id');
     }
 
 }

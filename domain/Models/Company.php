@@ -154,6 +154,14 @@ final class Company
     }
 
     /**
+     * @return Prefecture
+     */
+    public function prefecture(): Prefecture
+    {
+        return $this->repo->prefecture();
+    }
+
+    /**
      * @return DomainCollection
      */
     public function users(): DomainCollection

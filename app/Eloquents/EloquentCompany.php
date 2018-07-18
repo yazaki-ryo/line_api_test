@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class EloquentCompany extends Model
 {
@@ -56,4 +57,11 @@ final class EloquentCompany extends Model
         return $this->hasManyThrough(EloquentUser::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');
     }
 
+    /**
+     * @return HasMany
+     */
+    public function prefecture(): HasOne
+    {
+        return $this->hasOne(EloquentPrefecture::class, 'id', 'prefecture_id');
+    }
 }

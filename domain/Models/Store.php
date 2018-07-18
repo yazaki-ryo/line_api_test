@@ -209,6 +209,14 @@ final class Store
     }
 
     /**
+     * @return Prefecture
+     */
+    public function prefecture(): Prefecture
+    {
+        return $this->repo->prefecture();
+    }
+
+    /**
      * @return DomainCollection
      */
     public function users(): DomainCollection

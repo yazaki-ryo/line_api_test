@@ -7,6 +7,7 @@ use App\Eloquents\EloquentStore;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModel;
 use Domain\Contracts\Model\DomainModels;
+use Domain\Models\Prefecture;
 use Domain\Models\Store;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -83,6 +84,16 @@ final class StoreRepository implements DomainModel, DomainModels
         $collection = $this->eloquent->users;
 
         return UserRepository::toModels($collection);
+    }
+
+    /**
+     * @return Prefecture
+     */
+    public function prefecture(): Prefecture
+    {
+        $collection = $this->eloquent->prefecture;
+
+        return PrefectureRepository::toModel($collection);
     }
 
     /**
