@@ -31,9 +31,8 @@ final class PermissionRepository implements DomainModel, DomainModels
      */
     public function findById(int $id): Permission
     {
-        $user = $this->eloquent->find($id);
-
-        return self::toModel($user);
+        $permission = $this->eloquent->find($id);
+        return self::toModel($permission);
     }
 
     /**
@@ -42,7 +41,6 @@ final class PermissionRepository implements DomainModel, DomainModels
     public function findAll(): DomainCollection
     {
         $collection = $this->eloquent->all();
-
         return self::toModels($collection);
     }
 
@@ -73,7 +71,6 @@ final class PermissionRepository implements DomainModel, DomainModels
     public function users(): DomainCollection
     {
         $collection = $this->eloquent->users;
-
         return UserRepository::toModels($collection);
     }
 

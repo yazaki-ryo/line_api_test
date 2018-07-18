@@ -32,7 +32,6 @@ final class RoleRepository implements DomainModel, DomainModels
     public function findById(int $id): Role
     {
         $role = $this->eloquent->find($id);
-
         return self::toModel($role);
     }
 
@@ -42,7 +41,6 @@ final class RoleRepository implements DomainModel, DomainModels
     public function findAll(): DomainCollection
     {
         $collection = $this->eloquent->all();
-
         return self::toModels($collection);
     }
 

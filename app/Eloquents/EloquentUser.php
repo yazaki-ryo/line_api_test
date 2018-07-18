@@ -47,6 +47,14 @@ final class EloquentUser extends Authenticatable
     /**
      * @return BelongsTo
      */
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(EloquentCompany::class, 'store_id', 'id', 'store');
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function store(): BelongsTo
     {
         return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
@@ -66,14 +74,6 @@ final class EloquentUser extends Authenticatable
     public function permissions(): BeLongsToMany
     {
         return $this->belongsToMany(EloquentPermission::class, 'permission_user', 'user_id', 'permission_id')->withTimestamps();
-    }
-
-    /**
-     * @return EloquentCompany|null
-     */
-    public function getCompanyAttribute(): ?EloquentCompany
-    {
-        return $this->store->company;
     }
 
 }

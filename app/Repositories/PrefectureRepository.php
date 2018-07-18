@@ -31,9 +31,8 @@ final class PrefectureRepository implements DomainModel, DomainModels
      */
     public function findById(int $id): Prefecture
     {
-        $user = $this->eloquent->find($id);
-
-        return self::toModel($user);
+        $prefecture = $this->eloquent->find($id);
+        return self::toModel($prefecture);
     }
 
     /**
@@ -42,7 +41,6 @@ final class PrefectureRepository implements DomainModel, DomainModels
     public function findAll(): DomainCollection
     {
         $collection = $this->eloquent->all();
-
         return self::toModels($collection);
     }
 
@@ -73,7 +71,6 @@ final class PrefectureRepository implements DomainModel, DomainModels
     public function companies(): DomainCollection
     {
         $collection = $this->eloquent->companies;
-
         return CompanyRepository::toModels($collection);
     }
 
@@ -83,7 +80,6 @@ final class PrefectureRepository implements DomainModel, DomainModels
     public function stores(): DomainCollection
     {
         $collection = $this->eloquent->stores;
-
         return StoreRepository::toModels($collection);
     }
 

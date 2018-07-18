@@ -32,9 +32,8 @@ final class StoreRepository implements DomainModel, DomainModels
      */
     public function findById(int $id): Store
     {
-        $role = $this->eloquent->find($id);
-
-        return self::toModel($role);
+        $store = $this->eloquent->find($id);
+        return self::toModel($store);
     }
 
     /**
@@ -43,7 +42,6 @@ final class StoreRepository implements DomainModel, DomainModels
     public function findAll(): DomainCollection
     {
         $collection = $this->eloquent->all();
-
         return self::toModels($collection);
     }
 
@@ -82,7 +80,6 @@ final class StoreRepository implements DomainModel, DomainModels
     public function users(): DomainCollection
     {
         $collection = $this->eloquent->users;
-
         return UserRepository::toModels($collection);
     }
 
@@ -91,9 +88,8 @@ final class StoreRepository implements DomainModel, DomainModels
      */
     public function prefecture(): Prefecture
     {
-        $collection = $this->eloquent->prefecture;
-
-        return PrefectureRepository::toModel($collection);
+        $prefecture = $this->eloquent->prefecture;
+        return PrefectureRepository::toModel($prefecture);
     }
 
     /**

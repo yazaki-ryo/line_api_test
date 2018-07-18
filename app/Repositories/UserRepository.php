@@ -35,7 +35,6 @@ final class UserRepository implements DomainModel, DomainModels
     public function findById(int $id): User
     {
         $user = $this->eloquent->find($id);
-
         return self::toModel($user);
     }
 
@@ -45,7 +44,6 @@ final class UserRepository implements DomainModel, DomainModels
     public function findAll(): DomainCollection
     {
         $collection = $this->eloquent->all();
-
         return self::toModels($collection);
     }
 
@@ -84,18 +82,7 @@ final class UserRepository implements DomainModel, DomainModels
     public function role(): Role
     {
         $role = $this->eloquent->role;
-
         return RoleRepository::toModel($role);
-    }
-
-    /**
-     * @return Store
-     */
-    public function store(): Store
-    {
-        $role = $this->eloquent->store;
-
-        return StoreRepository::toModel($role);
     }
 
     /**
@@ -103,9 +90,17 @@ final class UserRepository implements DomainModel, DomainModels
      */
     public function company(): Company
     {
-        $role = $this->eloquent->company;
+        $company = $this->eloquent->loadMissing('company')->company;
+        return CompanyRepository::toModel($company);
+    }
 
-        return CompanyRepository::toModel($role);
+    /**
+     * @return Store
+     */
+    public function store(): Store
+    {
+        $store = $this->eloquent->store;
+        return StoreRepository::toModel($store);
     }
 
     /**
@@ -114,7 +109,6 @@ final class UserRepository implements DomainModel, DomainModels
     public function permissions(): DomainCollection
     {
         $collection = $this->eloquent->permissions;
-
         return PermissionRepository::toModels($collection);
     }
 
