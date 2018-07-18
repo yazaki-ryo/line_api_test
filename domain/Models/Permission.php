@@ -36,7 +36,7 @@ final class Permission
     public function __construct(PermissionRepository $repo)
     {
         $this->repo = $repo;
-        $this->propertiesByArray($repo);
+        $this->propertiesByArray($repo->attributesToArray());
     }
 
     /**
@@ -105,35 +105,35 @@ final class Permission
     }
 
     /**
-     * @param PermissionRepository $repo
+     * @param array $attributes
      * @return void
      */
-    private function propertiesByArray(PermissionRepository $repo): void
+    private function propertiesByArray(array $attributes = []): void
     {
-        $attributes = collect($repo->attributesToArray());
+        $attributes = collect($attributes);
 
-        if ($attributes->has('id')) {
-            $this->id = $attributes->get('id');
+        if ($attributes->has($key = 'id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
-        if ($attributes->has('name')) {
-            $this->name = $attributes->get('name');
+        if ($attributes->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
-        if ($attributes->has('slug')) {
-            $this->slug = $attributes->get('slug');
+        if ($attributes->has($key = 'slug')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
-        if ($attributes->has('created_at')) {
-            $this->createdAt = Datetime::of($attributes->get('created_at'));
+        if ($attributes->has($key = 'created_at')) {
+            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
         }
 
-        if ($attributes->has('updated_at')) {
-            $this->updatedAt = Datetime::of($attributes->get('updated_at'));
+        if ($attributes->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
         }
 
-        if ($attributes->has('deleted_at')) {
-            $this->deletedAt = Datetime::of($attributes->get('deleted_at'));
+        if ($attributes->has($key = 'deleted_at')) {
+            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
         }
     }
 
