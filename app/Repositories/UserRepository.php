@@ -7,6 +7,7 @@ use App\Eloquents\EloquentUser;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModel;
 use Domain\Contracts\Model\DomainModels;
+use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\Role;
 use Domain\Models\User;
@@ -95,6 +96,16 @@ final class UserRepository implements DomainModel, DomainModels
         $role = $this->eloquent->store;
 
         return StoreRepository::toModel($role);
+    }
+
+    /**
+     * @return Company
+     */
+    public function company(): Company
+    {
+        $role = $this->eloquent->company;
+
+        return CompanyRepository::toModel($role);
     }
 
     /**

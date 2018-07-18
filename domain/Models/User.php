@@ -115,6 +115,14 @@ final class User
     }
 
     /**
+     * @return Company
+     */
+    public function company(): Company
+    {
+        return $this->repo->company();
+    }
+
+    /**
      * @return DomainCollection
      */
     public function permissions(): DomainCollection
