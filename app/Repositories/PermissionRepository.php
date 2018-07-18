@@ -68,6 +68,16 @@ final class PermissionRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @return DomainCollection
+     */
+    public function users(): DomainCollection
+    {
+        $collection = $this->eloquent->users;
+
+        return UserRepository::toModels($collection);
+    }
+
+    /**
      * @return array
      */
     public function attributesToArray(): array

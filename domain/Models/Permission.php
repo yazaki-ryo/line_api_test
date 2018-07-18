@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\PermissionRepository;
+use App\Services\Collection\DomainCollection;
 
 final class Permission
 {
@@ -84,6 +85,14 @@ final class Permission
     public function deletedAt(): Datetime
     {
         return $this->deletedAt;
+    }
+
+    /**
+     * @return DomainCollection
+     */
+    public function users(): DomainCollection
+    {
+        return $this->repo->users();
     }
 
     /**
