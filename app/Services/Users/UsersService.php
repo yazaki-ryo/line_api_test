@@ -7,9 +7,10 @@ use App\Repositories\UserRepository;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Users\GetUserInterface;
 use Domain\Contracts\Users\GetUsersInterface;
+use Domain\Contracts\Users\UpdateUserInterface;
 use Domain\Models\User;
 
-final class UsersService implements GetUserInterface, GetUsersInterface
+final class UsersService implements GetUserInterface, GetUsersInterface, UpdateUserInterface
 {
     /** @var UserRepository */
     private $repo;
@@ -37,5 +38,15 @@ final class UsersService implements GetUserInterface, GetUsersInterface
     public function findAll(): DomainCollection
     {
         return $this->repo->findAll();
+    }
+
+    /**
+     * @param int $id
+     * @param array $inputs
+     * @return bool
+     */
+    public function update(int $id, array $inputs = []): bool
+    {
+        return true;
     }
 }

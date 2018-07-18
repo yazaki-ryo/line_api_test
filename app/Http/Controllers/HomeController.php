@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use Illuminate\View\View;
 
-class HomeController extends Controller
+final class HomeController extends Controller
 {
     /**
      * @param Router $router
@@ -19,9 +20,9 @@ class HomeController extends Controller
 
     /**
      * @param  Request $request
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         return view('home');
     }

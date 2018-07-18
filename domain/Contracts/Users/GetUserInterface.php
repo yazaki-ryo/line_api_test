@@ -8,6 +8,7 @@ use Domain\Models\User;
 interface GetUserInterface
 {
     /**
+     * @param int $id
      * @return User
      */
     public function findById(int $id): User;

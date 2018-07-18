@@ -26,6 +26,16 @@ $router->group([
     $router->get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
     /**
+     * Mypage
+     */
+    $router->group([
+        'prefix' => $prefix = 'mypage',
+    ], function (Router $router) use ($prefix) {
+        $router->get( 'profile', \App\Http\Controllers\Mypage\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
+        $router->post('profile', \App\Http\Controllers\Mypage\ProfileController::class . '@update');
+    });
+
+    /**
      * Users
      */
     $router->group([
