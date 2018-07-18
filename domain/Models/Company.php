@@ -154,6 +154,14 @@ final class Company
     }
 
     /**
+     * @return Plan
+     */
+    public function plan(): Plan
+    {
+        return $this->repo->plan();
+    }
+
+    /**
      * @return Prefecture
      */
     public function prefecture(): Prefecture

@@ -3,38 +3,36 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Eloquents\EloquentCompany;
+use App\Eloquents\EloquentPlan;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModel;
 use Domain\Contracts\Model\DomainModels;
-use Domain\Models\Company;
 use Domain\Models\Plan;
-use Domain\Models\Prefecture;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class CompanyRepository implements DomainModel, DomainModels
+final class PlanRepository implements DomainModel, DomainModels
 {
-    /** @var EloquentCompany */
+    /** @var EloquentPlan */
     private $eloquent;
 
     /**
-     * @param EloquentCompany $eloquent
+     * @param EloquentPlan $eloquent
      * @return void
      */
-    public function __construct(EloquentCompany $eloquent)
+    public function __construct(EloquentPlan $eloquent)
     {
         $this->eloquent = $eloquent;
     }
 
     /**
      * @param int $id
-     * @return Company
+     * @return Plan
      */
-    public function findById(int $id): Company
+    public function findById(int $id): Plan
     {
-        $company = $this->eloquent->find($id);
-        return self::toModel($company);
+        $plan = $this->eloquent->find($id);
+        return self::toModel($plan);
     }
 
     /**
@@ -49,11 +47,11 @@ final class CompanyRepository implements DomainModel, DomainModels
     /**
      * @param Model $model
      * @param \Illuminate\Database\Eloquent\Model;
-     * @return Company
+     * @return Plan
      */
-    public static function toModel(Model $model): Company
+    public static function toModel(Model $model): Plan
     {
-        return Company::of(self::of($model));
+        return Plan::of(self::of($model));
     }
 
     /**
@@ -62,7 +60,7 @@ final class CompanyRepository implements DomainModel, DomainModels
      */
     public static function toModels(EloquentCollection $collection): DomainCollection
     {
-        return $collection->transform(function (EloquentCompany $item) {
+        return $collection->transform(function (EloquentPlan $item) {
             return self::toModel($item);
         });
     }
@@ -78,35 +76,17 @@ final class CompanyRepository implements DomainModel, DomainModels
     /**
      * @return DomainCollection
      */
-    public function users(): DomainCollection
+    public function companies(): DomainCollection
     {
-        $collection = $this->eloquent->users;
-        return UserRepository::toModels($collection);
+        $collection = $this->eloquent->companies;
+        return CompanyRepository::toModels($collection);
     }
 
     /**
-     * @return Plan
-     */
-    public function plan(): Plan
-    {
-        $plan = $this->eloquent->plan;
-        return PlanRepository::toModel($plan);
-    }
-
-    /**
-     * @return Prefecture
-     */
-    public function prefecture(): Prefecture
-    {
-        $prefecture = $this->eloquent->prefecture;
-        return PrefectureRepository::toModel($prefecture);
-    }
-
-    /**
-     * @param EloquentCompany $eloquent
+     * @param EloquentPlan $eloquent
      * @return self
      */
-    private static function of(EloquentCompany $eloquent)
+    private static function of(EloquentPlan $eloquent)
     {
         return new self($eloquent);
     }

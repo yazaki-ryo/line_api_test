@@ -58,10 +58,19 @@ final class EloquentCompany extends Model
     }
 
     /**
-     * @return HasMany
+     * @return HasOne
+     */
+    public function plan(): HasOne
+    {
+        return $this->hasOne(EloquentPlan::class, 'id', 'plan_id');
+    }
+
+    /**
+     * @return HasOne
      */
     public function prefecture(): HasOne
     {
         return $this->hasOne(EloquentPrefecture::class, 'id', 'prefecture_id');
     }
+
 }

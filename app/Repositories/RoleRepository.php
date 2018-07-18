@@ -79,7 +79,6 @@ final class RoleRepository implements DomainModel, DomainModels
     public function users(): DomainCollection
     {
         $collection = $this->eloquent->users;
-
         return UserRepository::toModels($collection);
     }
 
