@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Mypage;
+namespace App\Http\Controllers\Config;
 
 use App\Http\Controllers\Controller;
-use Domain\UseCases\Mypage\UpdateProfile;
+use Domain\UseCases\Config\UpdateProfile;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\View\View;
@@ -36,7 +36,7 @@ final class ProfileController extends Controller
     {
         $id = auth()->user()->getAuthIdentifier();
 
-        return view('mypage.profile', [
+        return view('config.profile', [
             'row' => $this->useCase->get($id),
         ]);
     }

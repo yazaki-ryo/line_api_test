@@ -26,16 +26,6 @@ $router->group([
     $router->get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
     /**
-     * Mypage
-     */
-    $router->group([
-        'prefix' => $prefix = 'mypage',
-    ], function (Router $router) use ($prefix) {
-        $router->get( 'profile', \App\Http\Controllers\Mypage\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
-        $router->post('profile', \App\Http\Controllers\Mypage\ProfileController::class . '@update');
-    });
-
-    /**
      * Users
      */
     $router->group([
@@ -67,6 +57,16 @@ $router->group([
         $router->post('email',         \App\Http\Controllers\Auth\Password\ForgotController::class . '@sendResetLinkEmail')->name(sprintf('%s.email', $prefix));
         $router->get( 'reset/{token}', \App\Http\Controllers\Auth\Password\ResetController::class . '@showResetForm')->name(sprintf('%s.reset', $prefix));
         $router->post('reset',         \App\Http\Controllers\Auth\Password\ResetController::class . '@reset');
+    });
+
+    /**
+     * Configuration
+     */
+    $router->group([
+        'prefix' => $prefix = 'config',
+    ], function (Router $router) use ($prefix) {
+        $router->get( 'profile', \App\Http\Controllers\Config\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
+        $router->post('profile', \App\Http\Controllers\Config\ProfileController::class . '@update');
     });
 
 });

@@ -73,6 +73,7 @@
 
                         <ul class="dropdown-menu">
                             <li><a href="#">設定</a></li>
+                            <li><a href="{{ route('config.profile') }}">@lang ('elements.pages.profile')</a></li>
 
                             <li role="separator" class="divider"></li>
 

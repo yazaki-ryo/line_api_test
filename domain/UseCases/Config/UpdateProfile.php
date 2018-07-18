@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Mypage;
+namespace Domain\UseCases\Config;
 
 use Domain\Contracts\Users\GetUserInterface;
 use Domain\Contracts\Users\UpdateUserInterface;
