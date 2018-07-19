@@ -30,6 +30,7 @@ class SelfUpdateRequest extends FormRequest
             'email' => [
                 'required',
                 'string',
+                'email',
                 'max:100',
                 Rule::unique('users')->ignore(auth()->user()->getAuthIdentifier()),
             ],

@@ -15,9 +15,18 @@ final class Email
      */
     private function __construct(string $value)
     {
-        if (filter_var($value, FILTER_VALIDATE_EMAIL) === false) {
-            throw new InvariantException('Invalid email:' . $value);
+        if (self::validate($value) === false) {
+            throw new InvariantException(sprintf('Invalid email: %s', $value));
         }
         $this->value = $value;
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     */
+    public static function validate(string $value): bool
+    {
+        return filter_var($value, FILTER_VALIDATE_EMAIL) !== false;
     }
 }

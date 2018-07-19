@@ -191,6 +191,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\SchemaServiceProvider::class,
         App\Providers\UrlServiceProvider::class,
+        App\Providers\ValidationServiceProvider::class,
 
     ],
 
