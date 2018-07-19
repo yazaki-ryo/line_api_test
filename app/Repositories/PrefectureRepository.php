@@ -27,12 +27,14 @@ final class PrefectureRepository implements DomainModel, DomainModels
 
     /**
      * @param int $id
-     * @return Prefecture
+     * @return Prefecture|null
      */
-    public function findById(int $id): Prefecture
+    public function findById(int $id): ?Prefecture
     {
-        $prefecture = $this->eloquent->find($id);
-        return self::toModel($prefecture);
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return null;
+        }
+        return self::toModel($resource);
     }
 
     /**

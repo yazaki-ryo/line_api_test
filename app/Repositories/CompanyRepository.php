@@ -29,12 +29,14 @@ final class CompanyRepository implements DomainModel, DomainModels
 
     /**
      * @param int $id
-     * @return Company
+     * @return Company|null
      */
-    public function findById(int $id): Company
+    public function findById(int $id): ?Company
     {
-        $company = $this->eloquent->find($id);
-        return self::toModel($company);
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return null;
+        }
+        return self::toModel($resource);
     }
 
     /**

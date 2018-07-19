@@ -28,12 +28,14 @@ final class StoreRepository implements DomainModel, DomainModels
 
     /**
      * @param int $id
-     * @return Store
+     * @return Store|null
      */
-    public function findById(int $id): Store
+    public function findById(int $id): ?Store
     {
-        $store = $this->eloquent->find($id);
-        return self::toModel($store);
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return null;
+        }
+        return self::toModel($resource);
     }
 
     /**

@@ -27,12 +27,14 @@ final class RoleRepository implements DomainModel, DomainModels
 
     /**
      * @param int $id
-     * @return Role
+     * @return Role|null
      */
-    public function findById(int $id): Role
+    public function findById(int $id): ?Role
     {
-        $role = $this->eloquent->find($id);
-        return self::toModel($role);
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return null;
+        }
+        return self::toModel($resource);
     }
 
     /**

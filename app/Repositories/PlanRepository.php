@@ -27,12 +27,14 @@ final class PlanRepository implements DomainModel, DomainModels
 
     /**
      * @param int $id
-     * @return Plan
+     * @return Plan|null
      */
-    public function findById(int $id): Plan
+    public function findById(int $id): ?Plan
     {
-        $plan = $this->eloquent->find($id);
-        return self::toModel($plan);
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return null;
+        }
+        return self::toModel($resource);
     }
 
     /**

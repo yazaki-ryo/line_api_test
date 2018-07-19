@@ -34,10 +34,10 @@ final class UserRepository implements DomainModel, DomainModels
      */
     public function findById(int $id): ?User
     {
-        if (is_null($user = $this->eloquent->find($id))) {
+        if (is_null($resource = $this->eloquent->find($id))) {
             return null;
         }
-        return self::toModel($user);
+        return self::toModel($resource);
     }
 
     /**
@@ -56,11 +56,11 @@ final class UserRepository implements DomainModel, DomainModels
      */
     public function update(int $id, array $inputs = []): bool
     {
-        if (is_null($user = $this->eloquent->find($id))) {
+        if (is_null($resource = $this->eloquent->find($id))) {
             return false;
         }
 
-        return $user->update($inputs);
+        return $resource->update($inputs);
     }
 
     /**

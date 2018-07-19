@@ -27,12 +27,14 @@ final class PermissionRepository implements DomainModel, DomainModels
 
     /**
      * @param int $id
-     * @return Permission
+     * @return Permission|null
      */
-    public function findById(int $id): Permission
+    public function findById(int $id): ?Permission
     {
-        $permission = $this->eloquent->find($id);
-        return self::toModel($permission);
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return null;
+        }
+        return self::toModel($resource);
     }
 
     /**
