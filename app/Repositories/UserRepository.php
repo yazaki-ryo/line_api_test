@@ -30,11 +30,13 @@ final class UserRepository implements DomainModel, DomainModels
 
     /**
      * @param int $id
-     * @return User
+     * @return User|null
      */
-    public function findById(int $id): User
+    public function findById(int $id): ?User
     {
-        $user = $this->eloquent->find($id);
+        if (is_null($user = $this->eloquent->find($id))) {
+            return null;
+        }
         return self::toModel($user);
     }
 
@@ -45,6 +47,20 @@ final class UserRepository implements DomainModel, DomainModels
     {
         $collection = $this->eloquent->all();
         return self::toModels($collection);
+    }
+
+    /**
+     * @param int $id
+     * @param array $inputs
+     * @return bool
+     */
+    public function update(int $id, array $inputs = []): bool
+    {
+        if (is_null($user = $this->eloquent->find($id))) {
+            return false;
+        }
+
+        return $user->update($inputs);
     }
 
     /**

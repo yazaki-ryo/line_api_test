@@ -9,7 +9,7 @@ interface GetUserInterface
 {
     /**
      * @param int $id
-     * @return User
+     * @return User|null
      */
-    public function findById(int $id): User;
+    public function findById(int $id): ?User;
 }

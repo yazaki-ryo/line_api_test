@@ -25,9 +25,9 @@ final class UsersService implements GetUserInterface, GetUsersInterface, UpdateU
 
     /**
      * @param int $id
-     * @return User
+     * @return User|null
      */
-    public function findById(int $id): User
+    public function findById(int $id): ?User
     {
         return $this->repo->findById($id);
     }
@@ -47,6 +47,6 @@ final class UsersService implements GetUserInterface, GetUsersInterface, UpdateU
      */
     public function update(int $id, array $inputs = []): bool
     {
-        return true;
+        return $this->repo->update($id, $inputs);
     }
 }

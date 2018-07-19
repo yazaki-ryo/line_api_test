@@ -28,7 +28,7 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('register'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('config.profile'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
                             @set ($field, 'name')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
