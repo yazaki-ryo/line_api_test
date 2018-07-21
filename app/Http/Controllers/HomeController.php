@@ -1,27 +1,28 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
+use Illuminate\View\View;
 
-class HomeController extends Controller
+final class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
+     * @param Router $router
      * @return void
      */
-    public function __construct()
+    public function __construct(Router $router)
     {
-        $this->middleware('auth');
+        $this->middleware('authenticate:web');
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @param  Request $request
+     * @return View
      */
-    public function index()
+    public function __invoke(Request $request): View
     {
         return view('home');
     }

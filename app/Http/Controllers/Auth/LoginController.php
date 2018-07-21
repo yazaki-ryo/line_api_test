@@ -76,7 +76,7 @@ final class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect($this->redirectPath());
+        return redirect()->route('login');
     }
 
     /**
@@ -105,6 +105,6 @@ final class LoginController extends Controller
      */
     private function redirectTo()
     {
-        return route('login');
+        return route('home');
     }
 }

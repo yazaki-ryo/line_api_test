@@ -183,12 +183,15 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\DatabaseServiceProvider::class,
+        App\Providers\DomainServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\LocalServiceProvider::class,
         App\Providers\ResourceServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SchemaServiceProvider::class,
         App\Providers\UrlServiceProvider::class,
+        App\Providers\ValidationServiceProvider::class,
 
     ],
 

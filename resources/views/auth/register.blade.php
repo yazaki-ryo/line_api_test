@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
+@section('meta')
+    <title>@lang ('elements.pages.register-user') | {{ config('app.name') }}</title>
+    <meta name="description" content="@lang ('Test text...')" />
+    <meta name="keywords" content="@lang ('Test text...')" />
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1>@lang ('elements.buttons.register-user') <small><code>サブテキスト</code></small></h1>
+                    	<h1>@lang ('elements.pages.register-user') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -26,7 +32,10 @@
 
                             @set ($field, 'name')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.auth.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
 
                                 <div class="col-md-6">
                                     {!! Form::text($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
@@ -36,7 +45,10 @@
 
                             @set ($field, 'email')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.auth.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
 
                                 <div class="col-md-6">
                                     {!! Form::email($field, old($field), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
@@ -46,7 +58,10 @@
 
                             @set ($field, 'password')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.auth.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
 
                                 <div class="col-md-6">
                                     <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
@@ -56,7 +71,10 @@
 
                             @set ($field, 'password_confirmation')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.auth.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
 
                                 <div class="col-md-6">
                                     <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
@@ -77,4 +95,10 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section ('scripts')
+    <script type="text/javascript">
+        //
+    </script>
 @endsection

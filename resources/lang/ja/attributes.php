@@ -13,17 +13,22 @@ return [
     |
     */
 
+    /**
+     * XXX TODO auth -> userに変更する
+     */
     'auth' => [
         'name'                  => 'ログイン名',
         'email'                 => 'メールアドレス',
+        'store_id'              => '店舗',
+        'company_id'            => '企業',
+        'role_id'               => 'ロール',
+        'code'                  => 'ユーザー識別コード',
         'password'              => 'パスワード',
         'password_confirmation' => 'パスワード(確認)',
         'remember'              => 'ログイン状態を記憶する',
-    ],
-    'test' => [
-        'created_at'           => '登録日時',
-        'updated_at'           => '更新日時',
-        'deleted_at'           => '削除日時',
+        'created_at'            => '登録日時',
+        'updated_at'            => '更新日時',
+        'deleted_at'            => '削除日時',
     ],
 
 ];

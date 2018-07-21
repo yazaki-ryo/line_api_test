@@ -9,20 +9,28 @@ return [
      |
      */
 
+    'pages' => [
+        'home'              => 'ホーム',
+        'login'             => 'ログイン',
+        'logout'            => 'ログアウト',
+        'reset-password'    => 'パスワードリセット',
+        'password-reminder' => 'パスワードリマインダ',
+        'register-user'     => 'ユーザー登録',
+        'profile'           => 'ユーザー情報編集',
+    ],
+
+    /**
+     * TODO 時間的余裕が出たら要整理整頓
+     */
     'buttons' => [
-        'login'          => 'ログイン',
-        'logout'         => 'ログアウト',
         'register'       => '登録',
-        'register-user'  => 'ユーザー登録',
-        'save'           => '上書き保存',
+        'save'           => '保存',
         'submit'         => '送信',
         'copy'           => 'コピー',
         'cancel'         => 'キャンセル',
         'delete'         => '削除',
         'search'         => '検索',
         'reset_search'   => '条件リセット',
-        'reset-password' => 'パスワードリセット',
-        'password-reminder' => 'パスワードリマインダ',
         'import'         => 'インポート',
         'export'         => 'エクスポート',
         'log'            => 'ログ',

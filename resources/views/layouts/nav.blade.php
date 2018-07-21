@@ -29,24 +29,57 @@
                 @guest
                     <li>
                         <a href="{{ route('login') }}">
-                            <i class="fa fa-sign-in"></i>@lang ('elements.buttons.login')
+                            <i class="fa fa-sign-in"></i>@lang ('elements.pages.login')
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('register') }}">
-                            <i class="fa fa-sign-in"></i>@lang ('elements.buttons.register-user')
+                            <i class="fa fa-sign-in"></i>@lang ('elements.pages.register-user')
                         </a>
                     </li>
                 @else
+                    <li class="dropdown-header">
+                        ようこそ {{ auth()->user()->name }} さん
+                    </li>
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            顧客管理 <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
+                            <li><a href="#">test</a></li>
+                            <li><a href="#">test</a></li>
+                            <li><a href="#">test</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            予約管理 <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="#">test</a></li>
+                            <li><a href="#">test</a></li>
+                            <li><a href="#">test</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            各種設定 <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="#">設定</a></li>
+                            <li><a href="{{ route('config.profile') }}">@lang ('elements.pages.profile')</a></li>
+
+                            <li role="separator" class="divider"></li>
+
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('ログアウトしますか？')) document.getElementById('logout-form').submit(); return false;">
-                                    <i class="fa fa-sign-out pull-right"></i>@lang ('elements.buttons.logout')
+                                    <i class="fa fa-sign-out pull-right"></i>@lang ('elements.pages.logout')
                                 </a>
 
                                 {{ Form::open(['id' => 'logout-form', 'url' => route('logout'), 'method' => 'post', 'style' => 'display: none;']) }}{{ Form::close() }}
