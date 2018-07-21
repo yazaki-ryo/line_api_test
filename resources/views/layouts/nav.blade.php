@@ -74,7 +74,10 @@
                         <ul class="dropdown-menu">
                             <li><a href="#">設定</a></li>
                             <li><a href="{{ route('config.profile') }}">@lang ('elements.pages.config.profile')</a></li>
-                            <li><a href="{{ route('config.company') }}">@lang ('elements.pages.config.company')</a></li>
+
+                            @can ('authorize', ['users.*', 'users.index'])
+                                <li><a href="{{ route('config.company') }}">@lang ('elements.pages.config.company')</a></li>
+                            @endcan
 
                             <li role="separator" class="divider"></li>
 
