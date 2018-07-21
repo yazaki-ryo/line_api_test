@@ -70,7 +70,9 @@ final class ProfileController extends Controller
     {
         $inputs = $request->validated();
 
-        if (! $request->filled('password') ) {
+        if ($request->filled('password')) {
+            $inputs['password'] = bcrypt($request->get('password'));
+        } else {
             unset($inputs['password']);
         }
 

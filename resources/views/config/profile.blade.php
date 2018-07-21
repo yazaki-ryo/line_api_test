@@ -92,18 +92,6 @@
                                 </div>
                             </div>
 
-                            @set ($field, 'code')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
-                                </label>
-
-                                <div class="col-md-6">
-                                    {!! Form::text(null, $row->{$camel = camel_case($field)}() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-                                </div>
-                            </div>
-
                             @set ($field, 'password')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
