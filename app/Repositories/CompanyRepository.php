@@ -49,6 +49,20 @@ final class CompanyRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @param int $id
+     * @param array $inputs
+     * @return bool
+     */
+    public function update(int $id, array $inputs = []): bool
+    {
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return false;
+        }
+
+        return $resource->update($inputs);
+    }
+
+    /**
      * @param Model $model
      * @param \Illuminate\Database\Eloquent\Model;
      * @return Company

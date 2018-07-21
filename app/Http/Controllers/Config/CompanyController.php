@@ -51,9 +51,7 @@ final class CompanyController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        dd($request->validated());
-
-//         $id = auth()->user()->getAuthIdentifier();
+        $id = auth()->user()->company->id;
         $inputs = $this->fill($request);
 
         $callback = function () use ($id, $inputs) {
@@ -66,7 +64,7 @@ final class CompanyController extends Controller
         }
 
         flash(__('The registration information was updated.'), 'success');
-        return redirect()->route('config.profile');
+        return redirect()->route('config.company');
     }
 
     /**
@@ -77,9 +75,7 @@ final class CompanyController extends Controller
     {
         $inputs = $request->validated();
 
-        if (! $request->filled('password') ) {
-            unset($inputs['password']);
-        }
+        //
 
         return $inputs;
     }

@@ -21,39 +21,48 @@ class UpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-//             'plan_id'               => 'プラン',
-//             'prefecture_id'         => '都道府県',
-//             'name'                  => '名称',
-//             'kana'                  => 'フリガナ',
-//             'postal_code'           => '郵便番号',
-//             'address'               => '住所',
-//             'building_name'         => '建物名',
-//             'tel'                   => 'TEL',
-//             'fax'                   => 'FAX',
-//             'email'                 => 'メールアドレス',
-//             'created_at'            => '登録日時',
-//             'updated_at'            => '更新日時',
-//             'deleted_at'            => '削除日時',
-
         return [
             'name' => [
                 'required',
                 'string',
                 'max:191',
             ],
+            'kana' => [
+                'required',
+                'string',
+                // TODO フリガナバリデートルール
+                'max:191',
+            ],
+            'postal_code' => [
+                'required',
+                // TODO 数値とハイフンバリデート（郵便番号正規表現の方が良いか、又はハイフン無しで限定した方が良いか）
+                'max:191',
+            ],
+            'prefecture_id' => [
+                'required',
+                Rule::exists('prefectures', 'id'),
+            ],
+            'address' => [
+                'required',
+                'max:1000',
+            ],
+            'building_name' => [
+                'max:1000',
+            ],
+            'tel' => [
+                'required',
+//                 'numeric',
+                'max:191',
+            ],
+            'fax' => [
+//                 'numeric',
+                'max:191',
+            ],
             'email' => [
                 'required',
                 'string',
                 'email',
-                'max:100',
-                Rule::unique('users')->ignore(auth()->user()->getAuthIdentifier()),
-            ],
-            'password' => [
-                'nullable',
-                'string',
-                'min:8',
-                'max:16',
-                'confirmed',
+                'max:191',
             ],
         ];
     }
