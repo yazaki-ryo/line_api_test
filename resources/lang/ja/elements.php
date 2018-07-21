@@ -16,7 +16,10 @@ return [
         'reset-password'    => 'パスワードリセット',
         'password-reminder' => 'パスワードリマインダ',
         'register-user'     => 'ユーザー登録',
-        'profile'           => 'ユーザー情報編集',
+        'config'            => [
+            'company' => '企業情報編集',
+            'profile' => 'ユーザー情報編集',
+        ],
     ],
 
     /**

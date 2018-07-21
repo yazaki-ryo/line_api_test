@@ -1,33 +1,33 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Users;
+namespace App\Services\Companies;
 
-use App\Repositories\UserRepository;
+use App\Repositories\CompanyRepository;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Users\GetUserInterface;
-use Domain\Contracts\Users\GetUsersInterface;
-use Domain\Contracts\Users\UpdateUserInterface;
-use Domain\Models\User;
+use Domain\Contracts\Companies\GetCompanyInterface;
+use Domain\Contracts\Companies\GetCompaniesInterface;
+use Domain\Contracts\Companies\UpdateCompanyInterface;
+use Domain\Models\Company;
 
-final class UsersService implements GetUserInterface, GetUsersInterface, UpdateUserInterface
+final class CompaniesService implements GetCompanyInterface, GetCompaniesInterface, UpdateCompanyInterface
 {
-    /** @var UserRepository */
+    /** @var CompanyRepository */
     private $repo;
 
     /**
-     * @param UserRepository $repo
+     * @param CompanyRepository $repo
      */
-    public function __construct(UserRepository $repo)
+    public function __construct(CompanyRepository $repo)
     {
         $this->repo = $repo;
     }
 
     /**
      * @param int $id
-     * @return User|null
+     * @return Company|null
      */
-    public function findById(int $id): ?User
+    public function findById(int $id): ?Company
     {
         return $this->repo->findById($id);
     }

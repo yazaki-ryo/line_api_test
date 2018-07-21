@@ -67,6 +67,8 @@ $router->group([
     ], function (Router $router) use ($prefix) {
         $router->get( 'profile', \App\Http\Controllers\Config\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
         $router->post('profile', \App\Http\Controllers\Config\ProfileController::class . '@update');
+        $router->get( 'company', \App\Http\Controllers\Config\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
+        $router->post('company', \App\Http\Controllers\Config\CompanyController::class . '@update');
     });
 
 });

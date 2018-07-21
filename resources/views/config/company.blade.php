@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.pages.config.profile') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.pages.config.company') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1>@lang ('elements.pages.config.profile') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1>@lang ('elements.pages.config.company') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -28,12 +28,12 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('config.profile'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('config.company'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
                             @set ($field, 'name')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.companies.{$field}")
                                     <span class="label label-danger">@lang ("elements.labels.required")</span>
                                 </label>
 
@@ -43,10 +43,88 @@
                                 </div>
                             </div>
 
+                            @set ($field, 'kana')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.companies.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                </div>
+                            </div>
+
+                            @set ($field, 'postal_code')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.companies.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                </div>
+                            </div>
+
+                            @set ($field, 'address')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.companies.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                </div>
+                            </div>
+
+                            @set ($field, 'building_name')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.companies.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                </div>
+                            </div>
+
+                            @set ($field, 'tel')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.companies.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                </div>
+                            </div>
+
+                            @set ($field, 'fax')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.companies.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                </div>
+                            </div>
+
                             @set ($field, 'email')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.companies.{$field}")
                                     <span class="label label-danger">@lang ("elements.labels.required")</span>
                                 </label>
 
@@ -56,66 +134,10 @@
                                 </div>
                             </div>
 
-                            @set ($field, 'company_id')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
-                                </label>
-
-                                <div class="col-md-6">
-                                    {!! Form::text(null, $row->company()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-                                </div>
-                            </div>
-
-                            @set ($field, 'store_id')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
-                                </label>
-
-                                <div class="col-md-6">
-                                    {!! Form::text(null, $row->store()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-                                </div>
-                            </div>
-
-                            @set ($field, 'role_id')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
-                                </label>
-
-                                <div class="col-md-6">
-                                    {!! Form::text(null, $row->role()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-                                </div>
-                            </div>
-
-                            @set ($field, 'password')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
-
-                                <div class="col-md-6">
-                                    <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" placeholder="@lang ('Please input only when changing.')" />
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-                                </div>
-                            </div>
-
-                            @set ($field, 'password_confirmation')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
-
-                                <div class="col-md-6">
-                                    <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" placeholder="@lang ('Please re-enter for confirmation.')" />
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-                                </div>
-                            </div>
-
                             @set ($field, 'updated_at')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.companies.{$field}")
                                 </label>
 
                                 <div class="col-md-6 form-control-static">
