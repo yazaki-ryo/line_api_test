@@ -20,9 +20,6 @@ final class User
     /** @var Email */
     private $email;
 
-    /** @var string */
-    private $code;
-
     /** @var Datetime */
     private $createdAt;
 
@@ -64,14 +61,6 @@ final class User
     public function email(): Email
     {
         return $this->email;
-    }
-
-    /**
-     * @return string
-     */
-    public function code(): string
-    {
-        return $this->code;
     }
 
     /**
@@ -157,10 +146,6 @@ final class User
 
         if ($attributes->has($key = 'email')) {
             $this->{$camel = camel_case($key)} = Email::of($attributes->get($key));
-        }
-
-        if ($attributes->has($key = 'code')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
         if ($attributes->has($key = 'created_at')) {

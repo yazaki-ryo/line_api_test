@@ -44,9 +44,6 @@ final class Store
     /** @var Count */
     private $userLimit;
 
-    /** @var Count */
-    private $loginStatusCnt;
-
     /** @var Datetime */
     private $startsAt;
 
@@ -158,14 +155,6 @@ final class Store
     public function userLimit(): Count
     {
         return $this->userLimit;
-    }
-
-    /**
-     * @return Count
-     */
-    public function loginStatusCnt(): Count
-    {
-        return $this->loginStatusCnt;
     }
 
     /**
@@ -282,10 +271,6 @@ final class Store
         }
 
         if ($attributes->has($key = 'user_limit')) {
-            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
-        }
-
-        if ($attributes->has($key = 'login_status_cnt')) {
             $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
         }
 

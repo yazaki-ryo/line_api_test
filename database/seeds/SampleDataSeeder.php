@@ -125,7 +125,6 @@ class SampleDataSeeder extends Seeder
                         'starts_at'        => $now->copy()->addDays(mt_rand(0, 100)),
                         'ends_at'          => $now->copy()->addDays(mt_rand(100, 200)),
                         'user_limit'       => mt_rand(1, 10),
-                        'login_status_cnt' => mt_rand(1, 10),
                     ])->all());
                 });
 

@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
 
                 $table->string('name')->nullable()->comment('名称');
                 $table->string('email')->unique()->comment('E-Mail');
-                $table->text('code')->nullable()->comment('ユーザー識別コード');
                 $table->string('password');
                 $table->rememberToken();
                 $table->timestamps();
