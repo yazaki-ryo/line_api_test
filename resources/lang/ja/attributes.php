@@ -43,11 +43,6 @@ return [
         'tel'                   => 'TEL',
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
-        'password'              => 'パスワード',
-        'password_confirmation' => 'パスワード(確認)',
-        'remember'              => 'ログイン状態を記憶する',
-
-
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',

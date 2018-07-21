@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Config;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\SelfUpdateRequest;
+use App\Http\Requests\Companies\UpdateRequest;
+use Domain\Models\Prefecture;
 use Domain\UseCases\Config\UpdateCompany;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
@@ -38,16 +39,21 @@ final class CompanyController extends Controller
         $id = auth()->user()->company->id;
 
         return view('config.company', [
-            'row' => $this->useCase->get($id),
+            'row' => $this->useCase->getCompany($id),
+            'prefectures' => $this->useCase->getPrefectures()->map(function (Prefecture $item) {
+                return ['id' => $item->id(), 'name' => $item->name()];
+            })->pluck('name', 'id'),
         ]);
     }
 
     /**
-     * @param  SelfUpdateRequest $request
+     * @param  UpdateRequest $request
      */
-    public function update(SelfUpdateRequest $request)
+    public function update(UpdateRequest $request)
     {
-        $id = auth()->user()->getAuthIdentifier();
+        dd($request->validated());
+
+//         $id = auth()->user()->getAuthIdentifier();
         $inputs = $this->fill($request);
 
         $callback = function () use ($id, $inputs) {

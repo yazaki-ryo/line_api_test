@@ -51,7 +51,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
@@ -64,7 +64,20 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                </div>
+                            </div>
+
+                            @set ($field, 'prefecture_id')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.companies.{$field}")
+                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                </label>
+
+                                <div class="col-md-6">
+                                    {!! Form::select($field, $prefectures, old($field, request($field, $row->prefecture()->id() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
@@ -77,7 +90,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
@@ -86,11 +99,10 @@
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
                                     @lang ("attributes.companies.{$field}")
-                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
@@ -103,7 +115,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
@@ -112,11 +124,10 @@
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
                                     @lang ("attributes.companies.{$field}")
-                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
@@ -130,6 +141,18 @@
 
                                 <div class="col-md-6">
                                     {!! Form::email($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                </div>
+                            </div>
+
+                            @set ($field, 'plan_id')
+                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+                                <label for="{{ $field }}" class="col-md-4 control-label">
+                                    @lang ("attributes.companies.{$field}")
+                                </label>
+
+                                <div class="col-md-6">
+                                    {!! Form::text(null, $row->plan()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>

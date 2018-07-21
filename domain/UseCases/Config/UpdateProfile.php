@@ -34,7 +34,7 @@ final class UpdateProfile
      * @param int $id
      * @return User
      */
-    public function get(int $id): User
+    public function getUser(int $id): User
     {
         return $this->getUserService->findById($id);
     }

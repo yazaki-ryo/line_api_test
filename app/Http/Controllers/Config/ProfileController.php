@@ -37,7 +37,7 @@ final class ProfileController extends Controller
         $id = auth()->user()->getAuthIdentifier();
 
         return view('config.profile', [
-            'row' => $this->useCase->get($id),
+            'row' => $this->useCase->getUser($id),
         ]);
     }
 
