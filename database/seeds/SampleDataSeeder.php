@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use App\Eloquents\EloquentPermission;
+use App\Eloquents\EloquentUser;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Seeder;
 
@@ -81,7 +83,7 @@ class SampleDataSeeder extends Seeder
             'id'       => 1,
             'store_id' => 1,
             'role_id'  => 1,
-            'name'     => '企業管理者',
+            'name'     => '管理者',
             'email'    => 'company-admin@test.jp',
         ],
         [
@@ -89,14 +91,7 @@ class SampleDataSeeder extends Seeder
             'store_id' => 1,
             'role_id'  => 2,
             'name'     => '店舗担当者',
-            'email'    => 'store-master@test.jp',
-        ],
-        [
-            'id'       => 3,
-            'store_id' => 1,
-            'role_id'  => 3,
-            'name'     => '一般ユーザー',
-            'email'    => 'general-user@test.jp',
+            'email'    => 'store-user@test.jp',
         ],
     ];
 
@@ -144,6 +139,21 @@ class SampleDataSeeder extends Seeder
                         'password'   => bcrypt('testtest'),
                     ])->all());
                 });
+
+                /**
+                 * Permissions
+                 */
+                $ids = EloquentPermission::slug('.*', 'like')->pluck('id');
+                EloquentUser::find(1)->permissions()->sync($ids->all());
+
+                $ids = EloquentPermission::slugs([
+                    'stores.select',
+                    'stores.update',
+                    'customers.select',
+                    'customers.create',
+                    'customers.update',
+                ])->pluck('id');
+                EloquentUser::find(2)->permissions()->sync($ids->all());
             });
         } catch (\Exception $e) {
             report($e);
