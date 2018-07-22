@@ -59,19 +59,19 @@ final class UpdateCompany
 
     /**
      * @param int $id
-     * @param array $inputs
+     * @param array $attributes
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(int $id, array $inputs = []): bool
+    public function excute(int $id, array $attributes = []): bool
     {
-        return $this->transactionalService->transaction(function () use ($id, $inputs) {
+        return $this->transactionalService->transaction(function () use ($id, $attributes) {
 
             if (is_null($this->getCompanyService->findById($id))) {
                 throw new NotFoundException('Resource not found.');
             }
 
-            return $this->updateCompanyService->update($id, $inputs);
+            return $this->updateCompanyService->update($id, $attributes);
         });
     }
 

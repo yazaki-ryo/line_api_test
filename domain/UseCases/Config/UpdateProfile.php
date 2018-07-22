@@ -41,19 +41,19 @@ final class UpdateProfile
 
     /**
      * @param int $id
-     * @param array $inputs
+     * @param array $attributes
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(int $id, array $inputs = []): bool
+    public function excute(int $id, array $attributes = []): bool
     {
-        return $this->transactionalService->transaction(function () use ($id, $inputs) {
+        return $this->transactionalService->transaction(function () use ($id, $attributes) {
 
-            if (is_null($this->getUserService->findById($id))) {
+            if (is_null($user = $this->getUserService->findById($id))) {
                 throw new NotFoundException('Resource not found.');
             }
 
-            return $this->updateUserService->update($id, $inputs);
+            return $this->updateUserService->update($id, $attributes);
         });
     }
 

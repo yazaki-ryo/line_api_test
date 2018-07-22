@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
+use Domain\Models\User;
 use Domain\UseCases\Config\UpdateProfile;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
@@ -47,10 +48,10 @@ final class ProfileController extends Controller
     public function update(SelfUpdateRequest $request)
     {
         $id = auth()->user()->getAuthIdentifier();
-        $inputs = $this->fill($request);
+        $attributes = $this->fill($request);
 
-        $callback = function () use ($id, $inputs) {
-            $this->useCase->excute($id, $inputs);
+        $callback = function () use ($id, $attributes) {
+            $this->useCase->excute($id, User::domainizeAttributes($attributes));
         };
 
         if (! is_null(rescue($callback, false))) {
@@ -68,15 +69,13 @@ final class ProfileController extends Controller
      */
     private function fill(FormRequest $request): array
     {
-        $inputs = $request->validated();
+        $attributes = $request->validated();
 
-        if ($request->filled('password')) {
-            $inputs['password'] = bcrypt($request->get('password'));
-        } else {
-            unset($inputs['password']);
+        if (! $request->filled('password')) {
+            unset($attributes['password']);
         }
 
-        return $inputs;
+        return $attributes;
     }
 
 }

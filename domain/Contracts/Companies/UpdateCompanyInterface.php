@@ -7,8 +7,8 @@ interface UpdateCompanyInterface
 {
     /**
      * @param int $id
-     * @param array $inputs
+     * @param array $attributes
      * @return bool
      */
-    public function update(int $id, array $inputs = []): bool;
+    public function update(int $id, array $attributes = []): bool;
 }

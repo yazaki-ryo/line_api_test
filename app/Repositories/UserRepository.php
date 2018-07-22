@@ -20,12 +20,12 @@ final class UserRepository implements DomainModel, DomainModels
     private $eloquent;
 
     /**
-     * @param EloquentUser $eloquent
+     * @param EloquentUser|null $eloquent
      * @return void
      */
-    public function __construct(EloquentUser $eloquent)
+    public function __construct(EloquentUser $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentUser : $eloquent;
     }
 
     /**
@@ -51,16 +51,16 @@ final class UserRepository implements DomainModel, DomainModels
 
     /**
      * @param int $id
-     * @param array $inputs
+     * @param array $attributes
      * @return bool
      */
-    public function update(int $id, array $inputs = []): bool
+    public function update(int $id, array $attributes = []): bool
     {
         if (is_null($resource = $this->eloquent->find($id))) {
             return false;
         }
 
-        return $resource->update($inputs);
+        return $resource->update($attributes);
     }
 
     /**

@@ -10,7 +10,10 @@ use Domain\Contracts\Companies\GetCompaniesInterface;
 use Domain\Contracts\Companies\UpdateCompanyInterface;
 use Domain\Models\Company;
 
-final class CompaniesService implements GetCompanyInterface, GetCompaniesInterface, UpdateCompanyInterface
+final class CompaniesService implements
+    GetCompanyInterface,
+    GetCompaniesInterface,
+    UpdateCompanyInterface
 {
     /** @var CompanyRepository */
     private $repo;
@@ -42,11 +45,11 @@ final class CompaniesService implements GetCompanyInterface, GetCompaniesInterfa
 
     /**
      * @param int $id
-     * @param array $inputs
+     * @param array $attributes
      * @return bool
      */
-    public function update(int $id, array $inputs = []): bool
+    public function update(int $id, array $attributes = []): bool
     {
-        return $this->repo->update($id, $inputs);
+        return $this->repo->update($id, $attributes);
     }
 }

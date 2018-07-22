@@ -17,12 +17,12 @@ final class PermissionRepository implements DomainModel, DomainModels
     private $eloquent;
 
     /**
-     * @param EloquentPermission $eloquent
+     * @param EloquentPermission|null $eloquent
      * @return void
      */
-    public function __construct(EloquentPermission $eloquent)
+    public function __construct(EloquentPermission $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentPermission: $eloquent;
     }
 
     /**

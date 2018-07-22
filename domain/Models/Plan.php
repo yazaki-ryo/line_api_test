@@ -35,8 +35,7 @@ final class Plan
      */
     public function __construct(PlanRepository $repo)
     {
-        $this->repo = $repo;
-        $this->propertiesByArray($repo->attributesToArray());
+        $this->repo = is_null($repo) ? new PlanRepository : $repo;
     }
 
     /**
@@ -96,19 +95,43 @@ final class Plan
     }
 
     /**
-     * @param PlanRepository
+     * @param PlanRepository $repo
      * @return self
      */
     public static function of(PlanRepository $repo): self
     {
-        return new self($repo);
+        return (new self($repo))->propertiesByArray($repo->attributesToArray());
     }
 
     /**
      * @param array $attributes
-     * @return void
+     * @return self
      */
-    private function propertiesByArray(array $attributes = []): void
+    public static function ofByArray(array $attributes = []): self
+    {
+        return (new self(new PlanRepository))->propertiesByArray($attributes);
+    }
+
+    /**
+     * @param array $attributes
+     * @return array
+     */
+    public static function domainizeAttributes(array $attributes = []): array
+    {
+        $attributes = collect($attributes);
+
+        if ($attributes->has($key = '')) {
+            $attributes->put($key, bcrypt($attributes->get($key)));
+        }
+
+        return $attributes->all();
+    }
+
+    /**
+     * @param array $attributes
+     * @return self
+     */
+    private function propertiesByArray(array $attributes = []): self
     {
         $attributes = collect($attributes);
 
@@ -135,6 +158,8 @@ final class Plan
         if ($attributes->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
         }
+
+        return $this;
     }
 
 }

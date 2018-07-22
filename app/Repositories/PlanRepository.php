@@ -17,12 +17,12 @@ final class PlanRepository implements DomainModel, DomainModels
     private $eloquent;
 
     /**
-     * @param EloquentPlan $eloquent
+     * @param EloquentPlan|null $eloquent
      * @return void
      */
-    public function __construct(EloquentPlan $eloquent)
+    public function __construct(EloquentPlan $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentPlan: $eloquent;
     }
 
     /**

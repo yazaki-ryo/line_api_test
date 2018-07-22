@@ -18,12 +18,13 @@ final class StoreRepository implements DomainModel, DomainModels
     private $eloquent;
 
     /**
-     * @param EloquentStore $eloquent
+     * @param EloquentStore|null $eloquent
      * @return void
      */
-    public function __construct(EloquentStore $eloquent)
+    public function __construct(EloquentStore $eloquent = null)
     {
         $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentStore: $eloquent;
     }
 
     /**

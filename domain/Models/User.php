@@ -30,13 +30,12 @@ final class User
     private $deletedAt;
 
     /**
-     * @param UserRepository $repo
+     * @param UserRepository|null $repo
      * @return void
      */
-    public function __construct(UserRepository $repo)
+    public function __construct(UserRepository $repo = null)
     {
-        $this->repo = $repo;
-        $this->propertiesByArray($repo->attributesToArray());
+        $this->repo = is_null($repo) ? new UserRepository : $repo;
     }
 
     /**
@@ -120,19 +119,43 @@ final class User
     }
 
     /**
-     * @param UserRepository
+     * @param UserRepository $repo
      * @return self
      */
     public static function of(UserRepository $repo): self
     {
-        return new self($repo);
+        return (new self($repo))->propertiesByArray($repo->attributesToArray());
     }
 
     /**
      * @param array $attributes
-     * @return void
+     * @return self
      */
-    private function propertiesByArray(array $attributes = []): void
+    public static function ofByArray(array $attributes = []): self
+    {
+        return (new self(new UserRepository))->propertiesByArray($attributes);
+    }
+
+    /**
+     * @param array $attributes
+     * @return array
+     */
+    public static function domainizeAttributes(array $attributes = []): array
+    {
+        $attributes = collect($attributes);
+
+        if ($attributes->has($key = 'password')) {
+            $attributes->put($key, bcrypt($attributes->get($key)));
+        }
+
+        return $attributes->all();
+    }
+
+    /**
+     * @param array $attributes
+     * @return self
+     */
+    private function propertiesByArray(array $attributes = []): self
     {
         $attributes = collect($attributes);
 
@@ -159,6 +182,8 @@ final class User
         if ($attributes->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
         }
+
+        return $this;
     }
 
 }

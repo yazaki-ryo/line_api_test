@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
+use Domain\Models\Company;
 use Domain\Models\Prefecture;
 use Domain\UseCases\Config\UpdateCompany;
 use Illuminate\Foundation\Http\FormRequest;
@@ -52,10 +53,10 @@ final class CompanyController extends Controller
     public function update(UpdateRequest $request)
     {
         $id = auth()->user()->company->id;
-        $inputs = $this->fill($request);
+        $attributes = $this->fill($request);
 
-        $callback = function () use ($id, $inputs) {
-            $this->useCase->excute($id, $inputs);
+        $callback = function () use ($id, $attributes) {
+            $this->useCase->excute($id, Company::domainizeAttributes($attributes));
         };
 
         if (! is_null(rescue($callback, false))) {
@@ -73,11 +74,11 @@ final class CompanyController extends Controller
      */
     private function fill(FormRequest $request): array
     {
-        $inputs = $request->validated();
+        $attributes = $request->validated();
 
         //
 
-        return $inputs;
+        return $attributes;
     }
 
 }

@@ -17,12 +17,12 @@ final class RoleRepository implements DomainModel, DomainModels
     private $eloquent;
 
     /**
-     * @param EloquentRole $eloquent
+     * @param EloquentRole|null $eloquent
      * @return void
      */
-    public function __construct(EloquentRole $eloquent)
+    public function __construct(EloquentRole $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentRole: $eloquent;
     }
 
     /**

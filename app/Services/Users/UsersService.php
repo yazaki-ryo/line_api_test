@@ -10,7 +10,10 @@ use Domain\Contracts\Users\GetUsersInterface;
 use Domain\Contracts\Users\UpdateUserInterface;
 use Domain\Models\User;
 
-final class UsersService implements GetUserInterface, GetUsersInterface, UpdateUserInterface
+final class UsersService implements
+    GetUserInterface,
+    GetUsersInterface,
+    UpdateUserInterface
 {
     /** @var UserRepository */
     private $repo;
@@ -42,11 +45,11 @@ final class UsersService implements GetUserInterface, GetUsersInterface, UpdateU
 
     /**
      * @param int $id
-     * @param array $inputs
+     * @param array $attributes
      * @return bool
      */
-    public function update(int $id, array $inputs = []): bool
+    public function update(int $id, array $attributes = []): bool
     {
-        return $this->repo->update($id, $inputs);
+        return $this->repo->update($id, $attributes);
     }
 }

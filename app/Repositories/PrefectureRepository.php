@@ -17,12 +17,12 @@ final class PrefectureRepository implements DomainModel, DomainModels
     private $eloquent;
 
     /**
-     * @param EloquentPrefecture $eloquent
+     * @param EloquentPrefecture|null $eloquent
      * @return void
      */
-    public function __construct(EloquentPrefecture $eloquent)
+    public function __construct(EloquentPrefecture $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentPrefecture: $eloquent;
     }
 
     /**
