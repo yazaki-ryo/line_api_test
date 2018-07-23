@@ -17,8 +17,59 @@ final class Customer
     /** @var string */
     private $name;
 
+    /** @var string */
+    private $kana;
+
+    /** @var int */
+    private $age;
+
+    /** @var string */
+    private $office;
+
+    /** @var string */
+    private $department;
+
+    /** @var string */
+    private $position;
+
+    /** @var string */
+    private $postalCode;
+
+    /** @var string */
+    private $address;
+
+    /** @var string */
+    private $buildingName;
+
+    /** @var string */
+    private $tel;
+
+    /** @var string */
+    private $fax;
+
     /** @var Email */
     private $email;
+
+    /** @var string */
+    private $mobilePhone;
+
+    /** @var Flag */
+    private $mourningFlag;
+
+    /** @var string */
+    private $likesAndDislikes;
+
+    /** @var string */
+    private $note;
+
+    /** @var Count */
+    private $visitedCnt;
+
+    /** @var Count */
+    private $cancelCnt;
+
+    /** @var Count */
+    private $noshowCnt;
 
     /** @var Datetime */
     private $createdAt;
@@ -55,11 +106,147 @@ final class Customer
     }
 
     /**
+     * @return string
+     */
+    public function kana(): string
+    {
+        return $this->kana;
+    }
+
+    /**
+     * @return int
+     */
+    public function age(): int
+    {
+        return $this->age;
+    }
+
+    /**
+     * @return string
+     */
+    public function office(): string
+    {
+        return $this->office;
+    }
+
+    /**
+     * @return string
+     */
+    public function department(): string
+    {
+        return $this->department;
+    }
+
+    /**
+     * @return string
+     */
+    public function position(): string
+    {
+        return $this->position;
+    }
+
+    /**
+     * @return string
+     */
+    public function postalCode(): string
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function address(): string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @return string
+     */
+    public function buildingName(): string
+    {
+        return $this->buildingName;
+    }
+
+    /**
+     * @return string
+     */
+    public function tel(): string
+    {
+        return $this->tel;
+    }
+
+    /**
+     * @return string
+     */
+    public function fax(): string
+    {
+        return $this->fax;
+    }
+
+    /**
      * @return Email
      */
     public function email(): Email
     {
         return $this->email;
+    }
+
+    /**
+     * @return string
+     */
+    public function mobilePhone(): string
+    {
+        return $this->mobilePhone;
+    }
+
+    /**
+     * @return Flag
+     */
+    public function mourningFlag(): Flag
+    {
+        return $this->mourningFlag;
+    }
+
+    /**
+     * @return string
+     */
+    public function likesAndDislikes(): string
+    {
+        return $this->likesAndDislikes;
+    }
+
+    /**
+     * @return string
+     */
+    public function note(): string
+    {
+        return $this->note;
+    }
+
+    /**
+     * @return Count
+     */
+    public function visitedCnt(): Count
+    {
+        return $this->visitedCnt;
+    }
+
+    /**
+     * @return Count
+     */
+    public function cancelCnt(): Count
+    {
+        return $this->cancelCnt;
+    }
+
+    /**
+     * @return Count
+     */
+    public function noshowCnt(): Count
+    {
+        return $this->noshowCnt;
     }
 
     /**
@@ -95,19 +282,19 @@ final class Customer
     }
 
     /**
-     * @return Store
-     */
-    public function store(): Store
-    {
-        return $this->repo->store();
-    }
-
-    /**
      * @return Sex
      */
     public function sex(): Sex
     {
         return $this->repo->sex();
+    }
+
+    /**
+     * @return Store
+     */
+    public function store(): Store
+    {
+        return $this->repo->store();
     }
 
     /**
@@ -159,8 +346,76 @@ final class Customer
             $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
+        if ($attributes->has($key = 'kana')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'age')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'office')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'department')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'position')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'postal_code')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'address')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'building_name')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'tel')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'fax')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
         if ($attributes->has($key = 'email')) {
             $this->{$camel = camel_case($key)} = Email::of($attributes->get($key));
+        }
+
+        if ($attributes->has($key = 'mobile_phone')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'mourning_flag')) {
+            $this->{$camel = camel_case($key)} = Flag::of((bool)$attributes->get($key));
+        }
+
+        if ($attributes->has($key = 'likes_and_dislikes')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'note')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'visited_cnt')) {
+            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
+        }
+
+        if ($attributes->has($key = 'cancel_cnt')) {
+            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
+        }
+
+        if ($attributes->has($key = 'noshow_cnt')) {
+            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'created_at')) {

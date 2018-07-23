@@ -43,6 +43,9 @@ final class EloquentCustomer extends Model
      */
     protected $casts = [
         'mourning_flag' => 'bool',
+        'visited_cnt'   => 'int',
+        'cancel_cnt'    => 'int',
+        'noshow_cnt'    => 'int',
     ];
 
     /**
@@ -63,19 +66,19 @@ final class EloquentCustomer extends Model
     }
 
     /**
-     * @return BelongsTo
-     */
-    public function store(): BelongsTo
-    {
-        return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
-    }
-
-    /**
      * @return HasOne
      */
     public function sex(): HasOne
     {
         return $this->hasOne(EloquentSex::class, 'id', 'sex_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
     }
 
 }
