@@ -10,6 +10,11 @@ return [
      */
 
     'pages' => [
+        'customers' => [
+            'index' => '顧客一覧',
+            'add'   => '顧客登録',
+            'edit'  => '顧客情報編集',
+        ],
         'home'              => 'ホーム',
         'login'             => 'ログイン',
         'logout'            => 'ログアウト',

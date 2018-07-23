@@ -26,12 +26,12 @@ $router->group([
     $router->get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
     /**
-     * Users
+     * Customers
      */
     $router->group([
-        'prefix' => $prefix = 'users',
+        'prefix' => $prefix = 'customers',
     ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name(sprintf('%s.index', $prefix));
+        $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name(sprintf('%s.index', $prefix));
     });
 
     /**
@@ -57,6 +57,15 @@ $router->group([
         $router->post('email',         \App\Http\Controllers\Auth\Password\ForgotController::class . '@sendResetLinkEmail')->name(sprintf('%s.email', $prefix));
         $router->get( 'reset/{token}', \App\Http\Controllers\Auth\Password\ResetController::class . '@showResetForm')->name(sprintf('%s.reset', $prefix));
         $router->post('reset',         \App\Http\Controllers\Auth\Password\ResetController::class . '@reset');
+    });
+
+    /**
+     * Users
+     */
+    $router->group([
+        'prefix' => $prefix = 'users',
+    ], function (Router $router) use ($prefix) {
+        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name(sprintf('%s.index', $prefix));
     });
 
     /**

@@ -45,7 +45,6 @@ final class EloquentStore extends Model
      */
     protected $casts = [
         'user_limit' => 'bool',
-        'user_limit' => 'login_status_cnt',
     ];
 
     /**

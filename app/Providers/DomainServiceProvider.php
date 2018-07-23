@@ -4,11 +4,15 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Services\Companies\CompaniesService;
+use App\Services\Customers\CustomersService;
 use App\Services\Prefectures\PrefecturesService;
 use App\Services\Users\UsersService;
 use Domain\Contracts\Companies\GetCompanyInterface;
 use Domain\Contracts\Companies\GetCompaniesInterface;
 use Domain\Contracts\Companies\UpdateCompanyInterface;
+use Domain\Contracts\Customers\GetCustomerInterface;
+use Domain\Contracts\Customers\GetCustomersInterface;
+use Domain\Contracts\Customers\UpdateCustomerInterface;
 use Domain\Contracts\Prefectures\GetPrefectureInterface;
 use Domain\Contracts\Prefectures\GetPrefecturesInterface;
 use Domain\Contracts\Users\GetUserInterface;
@@ -26,21 +30,6 @@ final class DomainServiceProvider extends ServiceProvider
     public function register(): void
     {
         /**
-         * Users
-         */
-        $this->app->bind(GetUserInterface::class, function () {
-            return app(UsersService::class);
-        });
-
-        $this->app->bind(GetUsersInterface::class, function () {
-            return app(UsersService::class);
-        });
-
-        $this->app->bind(UpdateUserInterface::class, function () {
-            return app(UsersService::class);
-        });
-
-        /**
          * Companies
          */
         $this->app->bind(GetCompanyInterface::class, function () {
@@ -56,7 +45,22 @@ final class DomainServiceProvider extends ServiceProvider
         });
 
         /**
-         * Companies
+         * Customers
+         */
+        $this->app->bind(GetCustomerInterface::class, function () {
+            return app(CustomersService::class);
+        });
+
+        $this->app->bind(GetCustomersInterface::class, function () {
+            return app(CustomersService::class);
+        });
+
+        $this->app->bind(UpdateCustomerInterface::class, function () {
+            return app(CustomersService::class);
+        });
+
+        /**
+         * Prefectures
          */
         $this->app->bind(GetPrefectureInterface::class, function () {
             return app(PrefecturesService::class);
@@ -65,5 +69,21 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(GetPrefecturesInterface::class, function () {
             return app(PrefecturesService::class);
         });
+
+        /**
+         * Users
+         */
+        $this->app->bind(GetUserInterface::class, function () {
+            return app(UsersService::class);
+        });
+
+        $this->app->bind(GetUsersInterface::class, function () {
+            return app(UsersService::class);
+        });
+
+        $this->app->bind(UpdateUserInterface::class, function () {
+            return app(UsersService::class);
+        });
+
     }
 }

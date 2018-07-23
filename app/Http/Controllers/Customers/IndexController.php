@@ -1,29 +1,29 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
-use Domain\UseCases\Users\GetUsers;
+use Domain\UseCases\Customers\GetCustomers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\View\View;
 
 final class IndexController extends Controller
 {
-    /** @var GetUsers */
+    /** @var GetCustomers */
     private $useCase;
 
     /**
-     * @param  GetUsers $useCase
+     * @param  GetCustomers $useCase
      * @param  Router $router
      * @return void
      */
-    public function __construct(GetUsers $useCase, Router $router)
+    public function __construct(GetCustomers $useCase, Router $router)
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'users.*', $router->currentRouteName()),
+            sprintf('authorize:%s|%s', 'customers.*', $router->currentRouteName()),
         ]);
 
         $this->useCase = $useCase;
@@ -37,7 +37,11 @@ final class IndexController extends Controller
     {
         $result = $this->useCase->excute();
 
-        return dd($result);
+//         dd($result);
+
+        $result->map(function (\Domain\Models\Customer $item) {
+            dd($item);
+        });
     }
 
 }
