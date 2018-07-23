@@ -95,6 +95,85 @@ class SampleDataSeeder extends Seeder
         ],
     ];
 
+    /** @var array */
+    private static $customers = [
+        [
+            'id'            => 1,
+            'store_id'      => 1,
+            'sex_id'        => 1,
+            'prefecture_id' => 27,
+            'name'          => 'テスト顧客A',
+            'kana'          => 'テストコキャク',
+            'age'           => 35,
+            'office'        => 'テスト工務店',
+            'department'    => '営業部',
+            'position'      => '部長',
+            'postal_code'   => '541-0056',
+            'address'       => '大阪市中央区久太郎町3-1-27',
+            'building_name' => 'ヒグチビル1F',
+            'tel'           => '06-1234-5678',
+            'fax'           => '06-1234-8765',
+            'email'         => 'shop@testtest.com',
+            'mobile_phone'  => '090-3333-4444',
+            'mourning_flag' => false,
+            'likes_and_dislikes' => '人参',
+            'note'          => 'テストメモ',
+            'visited_cnt'   => 1,
+            'cancel_cnt'    => 0,
+            'noshow_cnt'    => 0,
+        ],
+        [
+            'id'            => 2,
+            'store_id'      => 1,
+            'sex_id'        => 2,
+            'prefecture_id' => 26,
+            'name'          => 'テスト顧客B',
+            'kana'          => 'テストコキャク',
+            'age'           => 24,
+            'office'        => 'テスト市役所',
+            'department'    => '保健課',
+            'position'      => '課長',
+            'postal_code'   => '604-8142',
+            'address'       => '京都府京都市中京区錦小路通高倉西入ル西魚屋町597',
+            'building_name' => '烏丸ミズコートビル3F',
+            'tel'           => '075-000-0000',
+            'fax'           => '075-000-2222',
+            'email'         => 'test@test.jp',
+            'mobile_phone'  => '080-1212-6677',
+            'mourning_flag' => true,
+            'likes_and_dislikes' => '無し',
+            'note'          => 'ノーショウ、キャンセル多し',
+            'visited_cnt'   => 5,
+            'cancel_cnt'    => 8,
+            'noshow_cnt'    => 3,
+        ],
+        [
+            'id'            => 3,
+            'store_id'      => 2,
+            'sex_id'        => 1,
+            'prefecture_id' => 1,
+            'name'          => 'テスト顧客C',
+            'kana'          => 'テストコキャク',
+            'age'           => 40,
+            'office'        => 'TEST SHOP',
+            'department'    => null,
+            'position'      => 'CEO',
+            'postal_code'   => '060-0004',
+            'address'       => '北海道札幌市中央区北4条西3-1-1',
+            'building_name' => '札幌駅前ビル2Ｆ',
+            'tel'           => '050-3463-7474',
+            'fax'           => null,
+            'email'         => 'shop@testtest.com',
+            'mobile_phone'  => null,
+            'mourning_flag' => false,
+            'likes_and_dislikes' => 'トマト',
+            'note'          => null,
+            'visited_cnt'   => 3,
+            'cancel_cnt'    => 1,
+            'noshow_cnt'    => 0,
+        ],
+    ];
+
     /**
      * @param Connection $connection
      * @return void
@@ -153,6 +232,16 @@ class SampleDataSeeder extends Seeder
                     'customers.update',
                 ])->pluck('id');
                 EloquentUser::find(2)->permissions()->sync($ids->all());
+
+                /**
+                 * Customers
+                 */
+                collect(self::$customers)->each(function ($item) use ($connection, $now) {
+                    $connection->table('customers')->insert(collect($item)->merge([
+                        'created_at'       => $now,
+                        'updated_at'       => $now,
+                    ])->all());
+                });
             });
         } catch (\Exception $e) {
             report($e);
