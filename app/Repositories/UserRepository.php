@@ -97,8 +97,8 @@ final class UserRepository implements DomainModel, DomainModels
      */
     public function role(): Role
     {
-        $role = $this->eloquent->role;
-        return RoleRepository::toModel($role);
+        $resource = $this->eloquent->role;
+        return RoleRepository::toModel($resource);
     }
 
     /**
@@ -106,8 +106,8 @@ final class UserRepository implements DomainModel, DomainModels
      */
     public function company(): Company
     {
-        $company = $this->eloquent->loadMissing('company')->company;
-        return CompanyRepository::toModel($company);
+        $resource = $this->eloquent->company;
+        return CompanyRepository::toModel($resource);
     }
 
     /**
@@ -115,8 +115,8 @@ final class UserRepository implements DomainModel, DomainModels
      */
     public function store(): Store
     {
-        $store = $this->eloquent->store;
-        return StoreRepository::toModel($store);
+        $resource = $this->eloquent->store;
+        return StoreRepository::toModel($resource);
     }
 
     /**

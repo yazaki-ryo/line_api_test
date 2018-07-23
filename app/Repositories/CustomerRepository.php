@@ -7,10 +7,9 @@ use App\Eloquents\EloquentCustomer;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModel;
 use Domain\Contracts\Model\DomainModels;
-use Domain\Models\Company;
-use Domain\Models\Store;
-use Domain\Models\Role;
 use Domain\Models\Customer;
+use Domain\Models\Sex;
+use Domain\Models\Store;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -92,31 +91,22 @@ final class CustomerRepository implements DomainModel, DomainModels
         return $this->eloquent->attributesToArray();
     }
 
-//     /**
-//      * @return Role
-//      */
-//     public function role(): Role
-//     {
-//         $role = $this->eloquent->role;
-//         return RoleRepository::toModel($role);
-//     }
-
-//     /**
-//      * @return Company
-//      */
-//     public function company(): Company
-//     {
-//         $company = $this->eloquent->loadMissing('company')->company;
-//         return CompanyRepository::toModel($company);
-//     }
+    /**
+     * @return Sex
+     */
+    public function sex(): Sex
+    {
+        $resource = $this->eloquent->sex;
+        return SexRepository::toModel($resource);
+    }
 
     /**
      * @return Store
      */
     public function store(): Store
     {
-        $store = $this->eloquent->store;
-        return StoreRepository::toModel($store);
+        $resource = $this->eloquent->store;
+        return StoreRepository::toModel($resource);
     }
 
     /**

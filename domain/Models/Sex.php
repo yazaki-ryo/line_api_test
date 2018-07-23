@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Domain\Models;
 
-use App\Repositories\CustomerRepository;
+use App\Repositories\SexRepository;
 use App\Services\Collection\DomainCollection;
 
-final class Customer
+final class Sex
 {
-    /** @var CustomerRepository */
+    /** @var SexRepository */
     private $repo;
 
     /** @var int */
@@ -16,9 +16,6 @@ final class Customer
 
     /** @var string */
     private $name;
-
-    /** @var Email */
-    private $email;
 
     /** @var Datetime */
     private $createdAt;
@@ -30,12 +27,12 @@ final class Customer
     private $deletedAt;
 
     /**
-     * @param CustomerRepository|null $repo
+     * @param SexRepository $repo
      * @return void
      */
-    public function __construct(CustomerRepository $repo = null)
+    public function __construct(SexRepository $repo)
     {
-        $this->repo = is_null($repo) ? new CustomerRepository : $repo;
+        $this->repo = is_null($repo) ? new SexRepository : $repo;
     }
 
     /**
@@ -52,14 +49,6 @@ final class Customer
     public function name(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @return Email
-     */
-    public function email(): Email
-    {
-        return $this->email;
     }
 
     /**
@@ -87,34 +76,18 @@ final class Customer
     }
 
     /**
-     * @return Store
-     */
-    public function store(): Store
-    {
-        return $this->repo->store();
-    }
-
-    /**
-     * @return Sex
-     */
-    public function sex(): Sex
-    {
-        return $this->repo->sex();
-    }
-
-    /**
      * @return DomainCollection
      */
-    public function permissions(): DomainCollection
+    public function customers(): DomainCollection
     {
-        return $this->repo->permissions();
+        return $this->repo->customers();
     }
 
     /**
-     * @param CustomerRepository $repo
+     * @param SexRepository $repo
      * @return self
      */
-    public static function of(CustomerRepository $repo): self
+    public static function of(SexRepository $repo): self
     {
         return (new self($repo))->propertiesByArray($repo->attributesToArray());
     }
@@ -125,7 +98,7 @@ final class Customer
      */
     public static function ofByArray(array $attributes = []): self
     {
-        return (new self(new CustomerRepository))->propertiesByArray($attributes);
+        return (new self(new SexRepository))->propertiesByArray($attributes);
     }
 
     /**
@@ -157,10 +130,6 @@ final class Customer
 
         if ($attributes->has($key = 'name')) {
             $this->{$camel = camel_case($key)} = $attributes->get($key);
-        }
-
-        if ($attributes->has($key = 'email')) {
-            $this->{$camel = camel_case($key)} = Email::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'created_at')) {

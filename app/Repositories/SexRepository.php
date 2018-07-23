@@ -3,35 +3,33 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Eloquents\EloquentStore;
+use App\Eloquents\EloquentSex;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModel;
 use Domain\Contracts\Model\DomainModels;
-use Domain\Models\Prefecture;
-use Domain\Models\Store;
+use Domain\Models\Sex;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class StoreRepository implements DomainModel, DomainModels
+final class SexRepository implements DomainModel, DomainModels
 {
-    /** @var EloquentStore */
+    /** @var EloquentSex */
     private $eloquent;
 
     /**
-     * @param EloquentStore|null $eloquent
+     * @param EloquentSex|null $eloquent
      * @return void
      */
-    public function __construct(EloquentStore $eloquent = null)
+    public function __construct(EloquentSex $eloquent = null)
     {
-        $this->eloquent = $eloquent;
-        $this->eloquent = is_null($eloquent) ? new EloquentStore: $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentSex: $eloquent;
     }
 
     /**
      * @param int $id
-     * @return Store|null
+     * @return Sex|null
      */
-    public function findById(int $id): ?Store
+    public function findById(int $id): ?Sex
     {
         if (is_null($resource = $this->eloquent->find($id))) {
             return null;
@@ -51,11 +49,11 @@ final class StoreRepository implements DomainModel, DomainModels
     /**
      * @param Model $model
      * @param \Illuminate\Database\Eloquent\Model;
-     * @return Store
+     * @return Sex
      */
-    public static function toModel(Model $model): Store
+    public static function toModel(Model $model): Sex
     {
-        return Store::of(self::of($model));
+        return Sex::of(self::of($model));
     }
 
     /**
@@ -64,7 +62,7 @@ final class StoreRepository implements DomainModel, DomainModels
      */
     public static function toModels(EloquentCollection $collection): DomainCollection
     {
-        return $collection->transform(function (EloquentStore $item) {
+        return $collection->transform(function (EloquentSex $item) {
             return self::toModel($item);
         });
     }
@@ -80,26 +78,17 @@ final class StoreRepository implements DomainModel, DomainModels
     /**
      * @return DomainCollection
      */
-    public function users(): DomainCollection
+    public function customers(): DomainCollection
     {
-        $collection = $this->eloquent->users;
-        return UserRepository::toModels($collection);
+        $collection = $this->eloquent->customers;
+        return CustomerRepository::toModels($collection);
     }
 
     /**
-     * @return Prefecture
-     */
-    public function prefecture(): Prefecture
-    {
-        $resource = $this->eloquent->prefecture;
-        return PrefectureRepository::toModel($resource);
-    }
-
-    /**
-     * @param EloquentStore $eloquent
+     * @param EloquentSex $eloquent
      * @return self
      */
-    private static function of(EloquentStore $eloquent)
+    private static function of(EloquentSex $eloquent)
     {
         return new self($eloquent);
     }

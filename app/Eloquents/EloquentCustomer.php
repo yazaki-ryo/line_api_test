@@ -7,6 +7,7 @@ use App\Services\Collection\DomainCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class EloquentCustomer extends Model
 {
@@ -59,6 +60,14 @@ final class EloquentCustomer extends Model
     public function store(): BelongsTo
     {
         return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function sex(): HasOne
+    {
+        return $this->hasOne(EloquentSex::class, 'id', 'sex_id');
     }
 
 }

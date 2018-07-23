@@ -105,8 +105,8 @@ final class CompanyRepository implements DomainModel, DomainModels
      */
     public function plan(): Plan
     {
-        $plan = $this->eloquent->plan;
-        return PlanRepository::toModel($plan);
+        $resource = $this->eloquent->plan;
+        return PlanRepository::toModel($resource);
     }
 
     /**
@@ -114,8 +114,8 @@ final class CompanyRepository implements DomainModel, DomainModels
      */
     public function prefecture(): Prefecture
     {
-        $prefecture = $this->eloquent->prefecture;
-        return PrefectureRepository::toModel($prefecture);
+        $resource = $this->eloquent->prefecture;
+        return PrefectureRepository::toModel($resource);
     }
 
     /**
