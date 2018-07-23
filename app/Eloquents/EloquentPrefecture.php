@@ -51,6 +51,14 @@ final class EloquentPrefecture extends Model
     /**
      * @return HasMany
      */
+    public function customers(): HasMany
+    {
+        return $this->hasMany(EloquentCustomer::class, 'prefecture_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function stores(): HasMany
     {
         return $this->hasMany(EloquentStore::class, 'prefecture_id', 'id');

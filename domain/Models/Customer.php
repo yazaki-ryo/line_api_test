@@ -87,6 +87,14 @@ final class Customer
     }
 
     /**
+     * @return Prefecture
+     */
+    public function prefecture(): Prefecture
+    {
+        return $this->repo->prefecture();
+    }
+
+    /**
      * @return Store
      */
     public function store(): Store
@@ -100,14 +108,6 @@ final class Customer
     public function sex(): Sex
     {
         return $this->repo->sex();
-    }
-
-    /**
-     * @return DomainCollection
-     */
-    public function permissions(): DomainCollection
-    {
-        return $this->repo->permissions();
     }
 
     /**

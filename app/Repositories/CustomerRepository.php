@@ -8,6 +8,7 @@ use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModel;
 use Domain\Contracts\Model\DomainModels;
 use Domain\Models\Customer;
+use Domain\Models\Prefecture;
 use Domain\Models\Sex;
 use Domain\Models\Store;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -89,6 +90,15 @@ final class CustomerRepository implements DomainModel, DomainModels
     public function attributesToArray(): array
     {
         return $this->eloquent->attributesToArray();
+    }
+
+    /**
+     * @return Prefecture
+     */
+    public function prefecture(): Prefecture
+    {
+        $resource = $this->eloquent->prefecture;
+        return PrefectureRepository::toModel($resource);
     }
 
     /**

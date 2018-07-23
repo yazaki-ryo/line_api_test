@@ -74,7 +74,7 @@ final class EloquentStore extends Model
     }
 
     /**
-     * @return HasMany
+     * @return HasOne
      */
     public function prefecture(): HasOne
     {

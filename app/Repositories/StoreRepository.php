@@ -78,21 +78,21 @@ final class StoreRepository implements DomainModel, DomainModels
     }
 
     /**
-     * @return DomainCollection
-     */
-    public function users(): DomainCollection
-    {
-        $collection = $this->eloquent->users;
-        return UserRepository::toModels($collection);
-    }
-
-    /**
      * @return Prefecture
      */
     public function prefecture(): Prefecture
     {
         $resource = $this->eloquent->prefecture;
         return PrefectureRepository::toModel($resource);
+    }
+
+    /**
+     * @return DomainCollection
+     */
+    public function users(): DomainCollection
+    {
+        $collection = $this->eloquent->users;
+        return UserRepository::toModels($collection);
     }
 
     /**

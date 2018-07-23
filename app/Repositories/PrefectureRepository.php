@@ -79,6 +79,15 @@ final class PrefectureRepository implements DomainModel, DomainModels
     /**
      * @return DomainCollection
      */
+    public function customers(): DomainCollection
+    {
+        $collection = $this->eloquent->customers;
+        return CustomerRepository::toModels($collection);
+    }
+
+    /**
+     * @return DomainCollection
+     */
     public function stores(): DomainCollection
     {
         $collection = $this->eloquent->stores;

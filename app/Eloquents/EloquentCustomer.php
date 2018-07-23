@@ -55,6 +55,14 @@ final class EloquentCustomer extends Model
     }
 
     /**
+     * @return HasOne
+     */
+    public function prefecture(): HasOne
+    {
+        return $this->hasOne(EloquentPrefecture::class, 'id', 'prefecture_id');
+    }
+
+    /**
      * @return BelongsTo
      */
     public function store(): BelongsTo

@@ -94,6 +94,14 @@ final class Prefecture
     /**
      * @return DomainCollection
      */
+    public function customers(): DomainCollection
+    {
+        return $this->repo->customers();
+    }
+
+    /**
+     * @return DomainCollection
+     */
     public function stores(): DomainCollection
     {
         return $this->repo->stores();
