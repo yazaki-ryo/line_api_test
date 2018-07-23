@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Services\Collection\DomainCollection;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Domain\Contracts\Users\GetUserInterface;
@@ -24,9 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('authorize', function ($user, ...$args): bool {
+        Gate::define('authorize', function (\App\Eloquents\EloquentUser $user, ...$args): bool {
             $args = is_array($args) ? $args : [$args];
-            $permissions = app(GetUserInterface::class)->findById($user->id)->permissions();
+
+            /** @var DomainCollection $permissions */
+            $permissions = cache()->remember(sprintf('permissions.%s', $user->id), 30, function () use ($user): DomainCollection {
+                return app(GetUserInterface::class)->findById($user->id)->permissions();
+            });
 
             foreach ($args as $permission) {
                 if ($permissions->containsStrict(function (Permission $item) use ($permission) {
