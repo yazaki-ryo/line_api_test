@@ -6,6 +6,7 @@ namespace App\Eloquents;
 use App\Services\Collection\DomainCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class EloquentCustomer extends Model
 {
@@ -50,6 +51,14 @@ final class EloquentCustomer extends Model
     public function newCollection(array $models = []): DomainCollection
     {
         return new DomainCollection($models);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
     }
 
 }

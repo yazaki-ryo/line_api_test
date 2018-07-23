@@ -48,6 +48,7 @@ class SampleDataSeeder extends Seeder
             'tel'              => '06-0000-0000',
             'fax'              => '06-1111-1111',
             'email'            => 'osaka@test.co.jp',
+            'payment_flag'     => true,
         ],
         [
             'id'               => 2,
@@ -61,6 +62,7 @@ class SampleDataSeeder extends Seeder
             'tel'              => '075-000-0000',
             'fax'              => '075-111-1111',
             'email'            => 'kyoto@test.co.jp',
+            'payment_flag'     => false,
         ],
         [
             'id'               => 3,
@@ -74,6 +76,7 @@ class SampleDataSeeder extends Seeder
             'tel'              => '06-3333-4444',
             'fax'              => '06-5555-6666',
             'email'            => 'test-food-osaka@testfood.co.jp',
+            'payment_flag'     => true,
         ],
     ];
 

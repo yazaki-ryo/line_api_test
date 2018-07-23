@@ -87,14 +87,6 @@ final class Customer
     }
 
     /**
-     * @return Role
-     */
-    public function role(): Role
-    {
-        return $this->repo->role();
-    }
-
-    /**
      * @return Store
      */
     public function store(): Store
@@ -102,13 +94,13 @@ final class Customer
         return $this->repo->store();
     }
 
-    /**
-     * @return Company
-     */
-    public function company(): Company
-    {
-        return $this->repo->company();
-    }
+//     /**
+//      * @return Company
+//      */
+//     public function company(): Company
+//     {
+//         return $this->repo->company();
+//     }
 
     /**
      * @return DomainCollection

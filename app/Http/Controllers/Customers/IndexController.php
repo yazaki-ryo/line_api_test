@@ -40,8 +40,10 @@ final class IndexController extends Controller
 //         dd($result);
 
         $result->map(function (\Domain\Models\Customer $item) {
-            dd($item);
+            dump($item->store());
         });
+
+        dd('end');
     }
 
 }

@@ -44,7 +44,8 @@ final class EloquentStore extends Model
      * @var array
      */
     protected $casts = [
-        'user_limit' => 'bool',
+        'payment_flag' => 'bool',
+        'user_limit'   => 'int',
     ];
 
     /**

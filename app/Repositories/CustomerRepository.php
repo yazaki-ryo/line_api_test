@@ -110,14 +110,14 @@ final class CustomerRepository implements DomainModel, DomainModels
 //         return CompanyRepository::toModel($company);
 //     }
 
-//     /**
-//      * @return Store
-//      */
-//     public function store(): Store
-//     {
-//         $store = $this->eloquent->store;
-//         return StoreRepository::toModel($store);
-//     }
+    /**
+     * @return Store
+     */
+    public function store(): Store
+    {
+        $store = $this->eloquent->store;
+        return StoreRepository::toModel($store);
+    }
 
     /**
      * @param EloquentCustomer $eloquent
