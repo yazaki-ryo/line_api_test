@@ -9,6 +9,9 @@ class CreateStoresTable extends Migration
     /** @var string */
     private $table = 'stores';
 
+    /** @var string */
+    private $name = '店舗';
+
     /**
      * @return void
      */
@@ -46,7 +49,7 @@ class CreateStoresTable extends Migration
                     ->on('prefectures');
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '店舗'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
         } catch (\Exception $e) {
             report($e);
             $this->down();

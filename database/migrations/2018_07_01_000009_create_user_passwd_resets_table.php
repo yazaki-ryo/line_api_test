@@ -9,6 +9,9 @@ class CreateUserPasswdResetsTable extends Migration
     /** @var string */
     private $table = 'user_passwd_resets';
 
+    /** @var string */
+    private $name = 'パスワードリセット';
+
     /**
      * @return void
      */
@@ -21,7 +24,7 @@ class CreateUserPasswdResetsTable extends Migration
                 $table->timestamp('created_at')->nullable();
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT 'パスワードリセット'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
         } catch (\Exception $e) {
             report($e);
             $this->down();

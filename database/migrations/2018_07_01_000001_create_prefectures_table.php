@@ -10,6 +10,9 @@ class CreatePrefecturesTable extends Migration
     /** @var string */
     private $table = 'prefectures';
 
+    /** @var string */
+    private $name = '都道府県';
+
     /**
      * @return void
      */
@@ -23,7 +26,7 @@ class CreatePrefecturesTable extends Migration
                 $table->softDeletes();
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '都道府県'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
         } catch (\Exception $e) {
             report($e);
             $this->down();

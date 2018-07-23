@@ -9,6 +9,9 @@ class CreateCompaniesTable extends Migration
     /** @var string */
     private $table = 'companies';
 
+    /** @var string */
+    private $name = '企業';
+
     /**
      * @return void
      */
@@ -41,7 +44,7 @@ class CreateCompaniesTable extends Migration
                     ->on('prefectures');
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '企業'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
         } catch (\Exception $e) {
             report($e);
             $this->down();

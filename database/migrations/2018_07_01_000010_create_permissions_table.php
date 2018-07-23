@@ -10,6 +10,9 @@ class CreatePermissionsTable extends Migration
     /** @var string */
     private $table = 'permissions';
 
+    /** @var string */
+    private $name = '権限';
+
     /**
      * @return void
      */
@@ -27,7 +30,7 @@ class CreatePermissionsTable extends Migration
                 $table->softDeletes();
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '権限'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
         } catch (\Exception $e) {
             report($e);
             $this->down();

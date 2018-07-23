@@ -10,6 +10,9 @@ class CreatePermissionUserTable extends Migration
     /** @var string */
     private $table = 'permission_user';
 
+    /** @var string */
+    private $name = 'ユーザー権限';
+
     /**
      * @return void
      */
@@ -31,7 +34,7 @@ class CreatePermissionUserTable extends Migration
                     ->on('permissions');
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT 'ユーザー権限'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
         } catch (\Exception $e) {
             report($e);
             $this->down();
