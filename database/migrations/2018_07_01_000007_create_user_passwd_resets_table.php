@@ -4,10 +4,10 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePasswordResetsTable extends Migration
+class CreateUserPasswdResetsTable extends Migration
 {
     /** @var string */
-    private $table = 'password_resets';
+    private $table = 'user_passwd_resets';
 
     /**
      * @return void

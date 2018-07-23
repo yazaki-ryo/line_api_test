@@ -21,8 +21,8 @@ final class IndexController extends Controller
     public function __construct(GetUsers $useCase, Router $router)
     {
         $this->middleware([
-            'authenticate:web',
             sprintf('authorize:%s|%s', 'users.*', $router->currentRouteName())
+            'authenticate:user',
         ]);
 
         $this->useCase = $useCase;

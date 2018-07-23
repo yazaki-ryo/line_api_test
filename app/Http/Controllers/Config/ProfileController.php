@@ -24,7 +24,7 @@ final class ProfileController extends Controller
     public function __construct(UpdateProfile $useCase, Router $router)
     {
         $this->middleware([
-            'authenticate:web',
+            'authenticate:user',
         ]);
 
         $this->useCase = $useCase;

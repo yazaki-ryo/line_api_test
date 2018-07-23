@@ -25,7 +25,7 @@ final class CompanyController extends Controller
     public function __construct(UpdateCompany $useCase, Router $router)
     {
         $this->middleware([
-            'authenticate:web',
+            'authenticate:user',
             sprintf('authorize:%s|%s', 'companies.*', 'companies.update'),
         ]);
 

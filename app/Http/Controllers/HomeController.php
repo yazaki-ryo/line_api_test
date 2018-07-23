@@ -15,7 +15,7 @@ final class HomeController extends Controller
      */
     public function __construct(Router $router)
     {
-        $this->middleware('authenticate:web');
+        $this->middleware('authenticate:user');
     }
 
     /**
