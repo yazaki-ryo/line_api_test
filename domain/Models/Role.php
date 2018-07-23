@@ -120,8 +120,8 @@ final class Role
     {
         $attributes = collect($attributes);
 
-        if ($attributes->has($key = '')) {
-            $attributes->put($key, bcrypt($attributes->get($key)));
+        if ($attributes->has($key = 'test')) {
+//             $attributes->put($key, 'test');
         }
 
         return $attributes->all();
