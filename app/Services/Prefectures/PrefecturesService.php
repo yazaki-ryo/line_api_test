@@ -36,7 +36,9 @@ final class PrefecturesService implements GetPrefectureInterface, GetPrefectures
      */
     public function findAll(): DomainCollection
     {
-        return $this->repo->findAll();
+        return cache()->remember('prefectures', 120, function () {
+            return $this->repo->findAll();
+        });
     }
 
 }
