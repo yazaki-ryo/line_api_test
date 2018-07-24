@@ -50,6 +50,8 @@ return [
         'required'       => '必須',
         'joining'        => '参加中',
         'primary'        => 'メイン',
+        'yes'            => 'はい',
+        'no'             => 'いいえ',
     ],
 
     'alerts' => [

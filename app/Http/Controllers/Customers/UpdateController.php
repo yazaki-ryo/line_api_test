@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
 use Domain\Models\Customer;
 use Domain\Models\Prefecture;
+use Domain\Models\Sex;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
@@ -39,10 +40,9 @@ final class UpdateController extends Controller
     public function view(int $customerId): View
     {
         return view('customers.edit', [
-            'row' => $this->useCase->getCustomer($customerId),
-            'prefectures' => $this->useCase->getPrefectures()->map(function (Prefecture $item) {
-                return ['id' => $item->id(), 'name' => $item->name()];
-            })->pluck('name', 'id'),
+            'row'         => $this->useCase->getCustomer($customerId),
+            'prefectures' => $this->useCase->getPrefectures()->pluckNamesByIds(),
+            'sexes'       => $this->useCase->getSexes(),
         ]);
     }
 
@@ -52,6 +52,8 @@ final class UpdateController extends Controller
      */
     public function excute(UpdateRequest $request, int $customerId)
     {
+        dd($request->validated());
+
         $attributes = $this->fill($request);
 
         $callback = function () use ($customerId, $attributes) {
