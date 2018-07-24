@@ -5,8 +5,7 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentCustomer;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Customer;
 use Domain\Models\Prefecture;
 use Domain\Models\Sex;
@@ -14,7 +13,7 @@ use Domain\Models\Store;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class CustomerRepository implements DomainModel, DomainModels
+final class CustomerRepository implements DomainModelable
 {
     /** @var EloquentCustomer */
     private $eloquent;

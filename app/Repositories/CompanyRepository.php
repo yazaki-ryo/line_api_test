@@ -5,15 +5,14 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentCompany;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Company;
 use Domain\Models\Plan;
 use Domain\Models\Prefecture;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class CompanyRepository implements DomainModel, DomainModels
+final class CompanyRepository implements DomainModelable
 {
     /** @var EloquentCompany */
     private $eloquent;

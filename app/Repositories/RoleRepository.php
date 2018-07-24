@@ -5,13 +5,12 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentRole;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Role;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class RoleRepository implements DomainModel, DomainModels
+final class RoleRepository implements DomainModelable
 {
     /** @var EloquentRole */
     private $eloquent;

@@ -5,14 +5,13 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentStore;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Prefecture;
 use Domain\Models\Store;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class StoreRepository implements DomainModel, DomainModels
+final class StoreRepository implements DomainModelable
 {
     /** @var EloquentStore */
     private $eloquent;
