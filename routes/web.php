@@ -32,6 +32,8 @@ $router->group([
         'prefix' => $prefix = 'customers',
     ], function (Router $router) use ($prefix) {
         $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name(sprintf('%s.index', $prefix));
+        $router->get( '{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+        $router->post('{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@excute');
     });
 
     /**
@@ -75,9 +77,9 @@ $router->group([
         'prefix' => $prefix = 'config',
     ], function (Router $router) use ($prefix) {
         $router->get( 'profile', \App\Http\Controllers\Config\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
-        $router->post('profile', \App\Http\Controllers\Config\ProfileController::class . '@update');
+        $router->post('profile', \App\Http\Controllers\Config\ProfileController::class . '@excute');
         $router->get( 'company', \App\Http\Controllers\Config\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
-        $router->post('company', \App\Http\Controllers\Config\CompanyController::class . '@update');
+        $router->post('company', \App\Http\Controllers\Config\CompanyController::class . '@excute');
     });
 
 });
