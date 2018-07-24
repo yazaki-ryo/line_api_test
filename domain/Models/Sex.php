@@ -44,15 +44,15 @@ final class Sex
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function createdAt(): ?Datetime
     {
@@ -60,7 +60,7 @@ final class Sex
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function updatedAt(): ?Datetime
     {
@@ -68,7 +68,7 @@ final class Sex
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function deletedAt(): ?Datetime
     {

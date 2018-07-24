@@ -65,71 +65,71 @@ final class Company
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function kana(): string
+    public function kana(): ?string
     {
         return $this->kana;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function postalCode(): string
+    public function postalCode(): ?string
     {
         return $this->postalCode;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function address(): string
+    public function address(): ?string
     {
         return $this->address;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function buildingName(): string
+    public function buildingName(): ?string
     {
         return $this->buildingName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function tel(): string
+    public function tel(): ?string
     {
         return $this->tel;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function fax(): string
+    public function fax(): ?string
     {
         return $this->fax;
     }
 
     /**
-     * @return Email
+     * @return Email|null
      */
-    public function email(): Email
+    public function email(): ?Email
     {
         return $this->email;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function createdAt(): ?Datetime
     {
@@ -137,7 +137,7 @@ final class Company
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function updatedAt(): ?Datetime
     {
@@ -145,7 +145,7 @@ final class Company
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function deletedAt(): ?Datetime
     {
@@ -153,17 +153,17 @@ final class Company
     }
 
     /**
-     * @return Plan
+     * @return Plan|null
      */
-    public function plan(): Plan
+    public function plan(): ?Plan
     {
         return $this->repo->plan();
     }
 
     /**
-     * @return Prefecture
+     * @return Prefecture|null
      */
-    public function prefecture(): Prefecture
+    public function prefecture(): ?Prefecture
     {
         return $this->repo->prefecture();
     }

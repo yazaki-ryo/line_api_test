@@ -44,23 +44,23 @@ final class Prefecture
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function slug(): string
+    public function slug(): ?string
     {
         return $this->slug;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function createdAt(): ?Datetime
     {
@@ -68,7 +68,7 @@ final class Prefecture
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function updatedAt(): ?Datetime
     {
@@ -76,7 +76,7 @@ final class Prefecture
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function deletedAt(): ?Datetime
     {

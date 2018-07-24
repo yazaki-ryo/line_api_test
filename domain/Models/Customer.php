@@ -98,103 +98,103 @@ final class Customer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function kana(): string
+    public function kana(): ?string
     {
         return $this->kana;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function age(): int
+    public function age(): ?int
     {
         return $this->age;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function office(): string
+    public function office(): ?string
     {
         return $this->office;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function department(): string
+    public function department(): ?string
     {
         return $this->department;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function position(): string
+    public function position(): ?string
     {
         return $this->position;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function postalCode(): string
+    public function postalCode(): ?string
     {
         return $this->postalCode;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function address(): string
+    public function address(): ?string
     {
         return $this->address;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function buildingName(): string
+    public function buildingName(): ?string
     {
         return $this->buildingName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function tel(): string
+    public function tel(): ?string
     {
         return $this->tel;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function fax(): string
+    public function fax(): ?string
     {
         return $this->fax;
     }
 
     /**
-     * @return Email
+     * @return Email|null
      */
-    public function email(): Email
+    public function email(): ?Email
     {
         return $this->email;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function mobilePhone(): ?string
     {
@@ -210,17 +210,17 @@ final class Customer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function likesAndDislikes(): string
+    public function likesAndDislikes(): ?string
     {
         return $this->likesAndDislikes;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function note(): string
+    public function note(): ?string
     {
         return $this->note;
     }
@@ -250,7 +250,7 @@ final class Customer
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function createdAt(): ?Datetime
     {
@@ -258,7 +258,7 @@ final class Customer
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function updatedAt(): ?Datetime
     {
@@ -266,7 +266,7 @@ final class Customer
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function deletedAt(): ?Datetime
     {
@@ -274,25 +274,25 @@ final class Customer
     }
 
     /**
-     * @return Prefecture
+     * @return Prefecture|null
      */
-    public function prefecture(): Prefecture
+    public function prefecture(): ?Prefecture
     {
         return $this->repo->prefecture();
     }
 
     /**
-     * @return Sex
+     * @return Sex|null
      */
-    public function sex(): Sex
+    public function sex(): ?Sex
     {
         return $this->repo->sex();
     }
 
     /**
-     * @return Store
+     * @return Store|null
      */
-    public function store(): Store
+    public function store(): ?Store
     {
         return $this->repo->store();
     }

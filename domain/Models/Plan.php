@@ -47,23 +47,23 @@ final class Plan
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return Price
+     * @return Price|null
      */
-    public function price(): Price
+    public function price(): ?Price
     {
         return $this->price;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function createdAt(): ?Datetime
     {
@@ -71,7 +71,7 @@ final class Plan
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function updatedAt(): ?Datetime
     {
@@ -79,7 +79,7 @@ final class Plan
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function deletedAt(): ?Datetime
     {

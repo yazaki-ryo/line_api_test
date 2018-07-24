@@ -47,23 +47,23 @@ final class User
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return Email
+     * @return Email|null
      */
-    public function email(): Email
+    public function email(): ?Email
     {
         return $this->email;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function createdAt(): ?Datetime
     {
@@ -71,7 +71,7 @@ final class User
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function updatedAt(): ?Datetime
     {
@@ -79,7 +79,7 @@ final class User
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function deletedAt(): ?Datetime
     {
@@ -87,25 +87,25 @@ final class User
     }
 
     /**
-     * @return Role
+     * @return Role|null
      */
-    public function role(): Role
+    public function role(): ?Role
     {
         return $this->repo->role();
     }
 
     /**
-     * @return Store
+     * @return Store|null
      */
-    public function store(): Store
+    public function store(): ?Store
     {
         return $this->repo->store();
     }
 
     /**
-     * @return Company
+     * @return Company|null
      */
-    public function company(): Company
+    public function company(): ?Company
     {
         return $this->repo->company();
     }
