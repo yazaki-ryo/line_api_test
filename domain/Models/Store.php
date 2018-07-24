@@ -159,7 +159,7 @@ final class Store
     /**
      * @return Datetime
      */
-    public function startsAt(): Datetime
+    public function startsAt(): ?Datetime
     {
         return $this->startsAt;
     }
@@ -167,7 +167,7 @@ final class Store
     /**
      * @return Datetime
      */
-    public function endsAt(): Datetime
+    public function endsAt(): ?Datetime
     {
         return $this->endsAt;
     }
@@ -175,7 +175,7 @@ final class Store
     /**
      * @return Datetime
      */
-    public function createdAt(): Datetime
+    public function createdAt(): ?Datetime
     {
         return $this->createdAt;
     }
@@ -183,7 +183,7 @@ final class Store
     /**
      * @return Datetime
      */
-    public function updatedAt(): Datetime
+    public function updatedAt(): ?Datetime
     {
         return $this->updatedAt;
     }
@@ -191,7 +191,7 @@ final class Store
     /**
      * @return Datetime
      */
-    public function deletedAt(): Datetime
+    public function deletedAt(): ?Datetime
     {
         return $this->deletedAt;
     }
@@ -298,23 +298,23 @@ final class Store
         }
 
         if ($attributes->has($key = 'starts_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'ends_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'created_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'deleted_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
         }
 
         return $this;

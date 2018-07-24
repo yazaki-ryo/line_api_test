@@ -196,7 +196,7 @@ final class Customer
     /**
      * @return string
      */
-    public function mobilePhone(): string
+    public function mobilePhone(): ?string
     {
         return $this->mobilePhone;
     }
@@ -252,7 +252,7 @@ final class Customer
     /**
      * @return Datetime
      */
-    public function createdAt(): Datetime
+    public function createdAt(): ?Datetime
     {
         return $this->createdAt;
     }
@@ -260,7 +260,7 @@ final class Customer
     /**
      * @return Datetime
      */
-    public function updatedAt(): Datetime
+    public function updatedAt(): ?Datetime
     {
         return $this->updatedAt;
     }
@@ -268,7 +268,7 @@ final class Customer
     /**
      * @return Datetime
      */
-    public function deletedAt(): Datetime
+    public function deletedAt(): ?Datetime
     {
         return $this->deletedAt;
     }
@@ -419,15 +419,15 @@ final class Customer
         }
 
         if ($attributes->has($key = 'created_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'deleted_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
         }
 
         return $this;
