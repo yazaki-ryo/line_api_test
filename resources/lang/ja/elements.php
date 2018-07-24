@@ -31,7 +31,9 @@ return [
      * TODO 時間的余裕が出たら要整理整頓
      */
     'buttons' => [
+        'action'         => '操作',
         'register'       => '登録',
+        'edit'           => '編集',
         'save'           => '保存',
         'submit'         => '送信',
         'copy'           => 'コピー',

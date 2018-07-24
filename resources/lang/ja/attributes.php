@@ -26,6 +26,7 @@ return [
         'password'              => 'パスワード',
         'password_confirmation' => 'パスワード(確認)',
         'remember'              => 'ログイン状態を記憶する',
+
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
@@ -43,6 +44,42 @@ return [
         'tel'                   => 'TEL',
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
+
+        'created_at'            => '登録日時',
+        'updated_at'            => '更新日時',
+        'deleted_at'            => '削除日時',
+    ],
+
+    'customers' => [
+        'id'                    => 'ID',
+        'store_id'              => '店舗',
+        'prefecture_id'         => '都道府県',
+        'sex_id'                => '性別',
+//         'group_id'              => 'グループ',
+//         'introducer_id'         => '紹介者',
+        'name'                  => '氏名',
+        'kana'                  => 'フリガナ',
+        'age'                   => '年齢',
+        'office'                => '勤務先',
+        'department'            => '部署',
+        'position'              => '役職',
+
+        'postal_code'           => '郵便番号',
+        'address'               => '住所',
+        'building_name'         => '建物名',
+        'tel'                   => 'TEL',
+        'fax'                   => 'FAX',
+        'email'                 => 'メールアドレス',
+        'mobile_phone'          => '携帯電話番号',
+
+        'mourning_flag'         => '喪中フラグ',
+        'likes_and_dislikes'    => '好き嫌い',
+        'note'                  => 'メモ',
+
+        'visited_cnt'           => '来店回数',
+        'cancel_cnt'            => 'キャンセル回数',
+        'noshow_cnt'            => 'ノーショウ回数',
+
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',

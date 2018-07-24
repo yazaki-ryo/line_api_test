@@ -37,13 +37,9 @@ final class IndexController extends Controller
     {
         $result = $this->useCase->excute();
 
-//         dd($result);
-
-        $result->map(function (\Domain\Models\Customer $item) {
-            dump($item->store());
-        });
-
-        dd('end');
+        return view('customers.index', [
+            'rows' => $result,
+        ]);
     }
 
 }
