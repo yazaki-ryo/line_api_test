@@ -8,6 +8,7 @@ use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Contracts\Customers\GetCustomerInterface;
 use Domain\Contracts\Customers\UpdateCustomerInterface;
 use Domain\Contracts\Prefectures\GetPrefecturesInterface;
+use Domain\Contracts\Sexes\GetSexesInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 
@@ -22,6 +23,9 @@ final class UpdateCustomer
     /** @var GetPrefecturesInterface */
     private $getPrefecturesService;
 
+    /** @var GetSexesInterface */
+    private $getSexesService;
+
     /** @var TransactionalInterface */
     private $transactionalService;
 
@@ -32,11 +36,13 @@ final class UpdateCustomer
         GetCustomerInterface $getCustomerService,
         UpdateCustomerInterface $updateCustomerService,
         GetPrefecturesInterface $getPrefecturesService,
+        GetSexesInterface $getSexesService,
         TransactionalInterface $transactionalService)
     {
         $this->getCustomerService = $getCustomerService;
         $this->updateCustomerService = $updateCustomerService;
         $this->getPrefecturesService = $getPrefecturesService;
+        $this->getSexesService = $getSexesService;
         $this->transactionalService = $transactionalService;
     }
 
@@ -55,6 +61,14 @@ final class UpdateCustomer
     public function getPrefectures(): DomainCollection
     {
         return $this->getPrefecturesService->findAll();
+    }
+
+    /**
+     * @return DomainCollection
+     */
+    public function getSexes(): DomainCollection
+    {
+        return $this->getSexesService->findAll();
     }
 
     /**

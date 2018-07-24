@@ -6,6 +6,7 @@ namespace App\Providers;
 use App\Services\Companies\CompaniesService;
 use App\Services\Customers\CustomersService;
 use App\Services\Prefectures\PrefecturesService;
+use App\Services\Sexes\SexesService;
 use App\Services\Users\UsersService;
 use Domain\Contracts\Companies\GetCompanyInterface;
 use Domain\Contracts\Companies\GetCompaniesInterface;
@@ -15,6 +16,8 @@ use Domain\Contracts\Customers\GetCustomersInterface;
 use Domain\Contracts\Customers\UpdateCustomerInterface;
 use Domain\Contracts\Prefectures\GetPrefectureInterface;
 use Domain\Contracts\Prefectures\GetPrefecturesInterface;
+use Domain\Contracts\Sexes\GetSexInterface;
+use Domain\Contracts\Sexes\GetSexesInterface;
 use Domain\Contracts\Users\GetUserInterface;
 use Domain\Contracts\Users\GetUsersInterface;
 use Domain\Contracts\Users\UpdateUserInterface;
@@ -68,6 +71,17 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(GetPrefecturesInterface::class, function () {
             return app(PrefecturesService::class);
+        });
+
+        /**
+         * Sexes
+         */
+        $this->app->bind(GetSexInterface::class, function () {
+            return app(SexesService::class);
+        });
+
+        $this->app->bind(GetSexesInterface::class, function () {
+            return app(SexesService::class);
         });
 
         /**
