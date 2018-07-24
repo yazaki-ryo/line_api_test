@@ -50,7 +50,7 @@ final class CompanyController extends Controller
     /**
      * @param  UpdateRequest $request
      */
-    public function update(UpdateRequest $request)
+    public function excute(UpdateRequest $request)
     {
         $id = auth()->user()->company->id;
         $attributes = $this->fill($request);

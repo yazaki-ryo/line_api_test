@@ -45,7 +45,7 @@ final class ProfileController extends Controller
     /**
      * @param  SelfUpdateRequest $request
      */
-    public function update(SelfUpdateRequest $request)
+    public function excute(SelfUpdateRequest $request)
     {
         $id = auth()->user()->getAuthIdentifier();
         $attributes = $this->fill($request);
