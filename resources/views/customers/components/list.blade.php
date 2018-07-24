@@ -20,7 +20,7 @@
                         <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('visited_cnt')}()->asInt() }}</td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-success" title="@lang ('elements.buttons.edit')">
+                            <a href="{{ route('customers.edit', $row->id()) }}" class="btn btn-sm btn-success" title="@lang ('elements.buttons.edit')">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
