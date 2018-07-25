@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Eloquents\EloquentStore;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModelable;
+use Domain\Models\Company;
 use Domain\Models\Prefecture;
 use Domain\Models\Store;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -74,6 +75,18 @@ final class StoreRepository implements DomainModelable
     public function attributesToArray(): array
     {
         return $this->eloquent->attributesToArray();
+    }
+
+    /**
+     * @return Company|null
+     */
+    public function company(): ?Company
+    {
+        if (is_null($resource = $this->eloquent->company)) {
+            return null;
+        }
+
+        return CompanyRepository::toModel($resource);
     }
 
     /**

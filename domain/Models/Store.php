@@ -197,6 +197,14 @@ final class Store
     }
 
     /**
+     * @return Company|null
+     */
+    public function company(): ?Company
+    {
+        return $this->repo->company();
+    }
+
+    /**
      * @return Prefecture|null
      */
     public function prefecture(): ?Prefecture

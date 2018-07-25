@@ -37,6 +37,10 @@ final class UpdateController extends Controller
      */
     public function view(int $customerId): View
     {
+        $customer = $this->useCase->getCustomer($customerId);
+
+        $this->authorize('update', $customer);
+
         return view('customers.edit', [
             'row'         => $this->useCase->getCustomer($customerId),
             'prefectures' => $this->useCase->getPrefectures()->pluckNamesByIds(),

@@ -63,6 +63,21 @@ final class Role
     }
 
     /**
+     * @param string|array
+     * @return bool
+     */
+    public function slugs($arg): bool
+    {
+        $args = is_array($arg) ? $arg : [$arg];
+
+        foreach ($args as $slug) {
+            if ($this->slug === $slug) return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @return Datetime|null
      */
     public function createdAt(): ?Datetime

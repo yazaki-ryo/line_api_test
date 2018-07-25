@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Middleware;
 
 use Closure;
+
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 class Authorize
@@ -31,6 +33,6 @@ class Authorize
             return $next($request);
         }
 
-        abort(403, 'This action is Unauthorized.');
+        throw new AuthorizationException('This action is unauthorized.');
     }
 }

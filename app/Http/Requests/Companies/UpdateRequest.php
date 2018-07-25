@@ -40,7 +40,7 @@ class UpdateRequest extends FormRequest
             ],
             'prefecture_id' => [
                 'required',
-                'numwric',
+                'numeric',
                 Rule::exists('prefectures', 'id'),
             ],
             'address' => [
