@@ -9,7 +9,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Domain\Contracts\Users\GetUserInterface;
 use Domain\Models\Permission;
 
-class AuthServiceProvider extends ServiceProvider
+final class AuthServiceProvider extends ServiceProvider
 {
     /**
      * @var array
@@ -21,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
@@ -43,4 +43,14 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
     }
+
+    /**
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Support\Providers\AuthServiceProvider::register()
+     */
+    public function register(): void
+    {
+        //
+    }
+
 }

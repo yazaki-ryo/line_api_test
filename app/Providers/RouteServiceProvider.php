@@ -1,11 +1,12 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
-class RouteServiceProvider extends ServiceProvider
+final class RouteServiceProvider extends ServiceProvider
 {
     /**
      * This namespace is applied to your controller routes.
@@ -30,6 +31,15 @@ class RouteServiceProvider extends ServiceProvider
         Route::pattern('userId', '[0-9]+');
 
         parent::boot();
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Support\Providers\RouteServiceProvider::register()
+     */
+    public function register(): void
+    {
+        //
     }
 
     /**

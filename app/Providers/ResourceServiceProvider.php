@@ -6,11 +6,9 @@ namespace App\Providers;
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\ServiceProvider;
 
-class ResourceServiceProvider extends ServiceProvider
+final class ResourceServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
-     *
      * @return void
      */
     public function boot(): void
@@ -19,8 +17,6 @@ class ResourceServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any application services.
-     *
      * @return void
      */
     public function register(): void

@@ -26,11 +26,17 @@ use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
 {
+    /**
+     * @return void
+     */
     public function boot(): void
     {
         //
     }
 
+    /**
+     * @return void
+     */
     public function register(): void
     {
         /**

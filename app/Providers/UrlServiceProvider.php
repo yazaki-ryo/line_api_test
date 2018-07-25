@@ -5,7 +5,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class UrlServiceProvider extends ServiceProvider
+final class UrlServiceProvider extends ServiceProvider
 {
     /**
      * @return void

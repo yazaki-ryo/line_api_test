@@ -5,11 +5,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class SchemaServiceProvider extends ServiceProvider
+final class SchemaServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap any application services.
-     *
      * @return void
      */
     public function boot(): void
@@ -21,8 +19,6 @@ class SchemaServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register any application services.
-     *
      * @return void
      */
     public function register(): void
