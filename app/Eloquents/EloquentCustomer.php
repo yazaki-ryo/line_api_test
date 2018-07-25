@@ -20,8 +20,32 @@ final class EloquentCustomer extends Model
      * @var array
      */
     protected $fillable = [
+//         'store_id',
+        'prefecture_id',
+        'sex_id',
+//         'group_id',
+//         'introducer_id',
         'name',
+        'kana',
+        'age',
+        'office',
+        'department',
+        'position',
+
+        'postal_code',
+        'address',
+        'building_name',
+        'tel',
+        'fax',
         'email',
+        'mobile_phone',
+
+        'mourning_flag',
+        'likes_and_dislikes',
+        'note',
+//         'visited_cnt',
+//         'cancel_cnt',
+//         'noshow_cnt',
     ];
 
     /**

@@ -4,10 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Companies\UpdateRequest;
+use App\Http\Requests\Customers\UpdateRequest;
 use Domain\Models\Customer;
-use Domain\Models\Prefecture;
-use Domain\Models\Sex;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
@@ -52,8 +50,6 @@ final class UpdateController extends Controller
      */
     public function excute(UpdateRequest $request, int $customerId)
     {
-        dd($request->validated());
-
         $attributes = $this->fill($request);
 
         $callback = function () use ($customerId, $attributes) {
@@ -66,7 +62,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The registration information was updated.'), 'success');
-        return redirect()->route('customers.edit');
+        return redirect()->route('customers.edit', $customerId);
     }
 
     /**
