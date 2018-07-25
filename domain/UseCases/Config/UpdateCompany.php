@@ -46,7 +46,11 @@ final class UpdateCompany
      */
     public function getCompany(int $id): Company
     {
-        return $this->getCompanyService->findById($id);
+        if (is_null($company = $this->getCompanyService->findById($id))) {
+            throw new NotFoundException('Resource not found.');
+        }
+
+        return $company;
     }
 
     /**
@@ -66,11 +70,7 @@ final class UpdateCompany
     public function excute(int $id, array $attributes = []): bool
     {
         return $this->transactionalService->transaction(function () use ($id, $attributes) {
-
-            if (is_null($this->getCompanyService->findById($id))) {
-                throw new NotFoundException('Resource not found.');
-            }
-
+            $this->getCompanyService->findById($id);
             return $this->updateCompanyService->update($id, $attributes);
         });
     }

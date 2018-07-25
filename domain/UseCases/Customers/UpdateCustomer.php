@@ -52,7 +52,11 @@ final class UpdateCustomer
      */
     public function getCustomer(int $id): Customer
     {
-        return $this->getCustomerService->findById($id);
+        if (is_null($customer = $this->getCustomerService->findById($id))) {
+            throw new NotFoundException('Resource not found.');
+        }
+
+        return $customer;
     }
 
     /**
@@ -80,11 +84,7 @@ final class UpdateCustomer
     public function excute(int $id, array $attributes = []): bool
     {
         return $this->transactionalService->transaction(function () use ($id, $attributes) {
-
-            if (is_null($this->getCustomerService->findById($id))) {
-                throw new NotFoundException('Resource not found.');
-            }
-
+            $this->getCustomerService->findById($id);
             return $this->updateCustomerService->update($id, $attributes);
         });
     }
