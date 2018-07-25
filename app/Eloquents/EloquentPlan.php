@@ -19,8 +19,7 @@ final class EloquentPlan extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
+        //
     ];
 
     /**

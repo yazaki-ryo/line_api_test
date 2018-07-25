@@ -21,7 +21,15 @@ final class EloquentCompany extends Model
      * @var array
      */
     protected $fillable = [
+        'plan_id',
+        'prefecture_id',
         'name',
+        'kana',
+        'postal_code',
+        'address',
+        'building_name',
+        'tel',
+        'fax',
         'email',
     ];
 

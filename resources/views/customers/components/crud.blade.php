@@ -33,7 +33,9 @@
 
     <div class="col-md-6 form-control-static">
         @foreach ($sexes as $item)
-            {!! Form::radio($field, $item->id(), old($field, request($field, $row->sex()->id() ?? null)) == $item->id(), ['required', 'id' => '']) !!} {{ $item->name() }}
+            <label>
+                <input type="radio" name="{{ $field }}" value="{{ $item->id() }}" required {{ (int)old($field, request($field, $row->sex()->id() ?? null)) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
+            </label>
         @endforeach
 
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
@@ -197,8 +199,12 @@
     </label>
 
     <div class="col-md-6 form-control-static">
-        {!! Form::radio($field, 0, true, ['required', 'id' => '']) !!} <span class="text-success">@lang ("elements.labels.no")</span>
-        {!! Form::radio($field, 1, old($field, request($field, $row->{$camel = camel_case($field)}()->asBoolean() ?? null)) === true, ['required', 'id' => '']) !!} <span class="text-danger">@lang ("elements.labels.yes")</span>
+        <label>
+            <input type="radio" name="{{ $field }}" value="0" required {{ (bool)old($field, request($field, $row->{$camel = camel_case($field)}()->asBoolean() ?? null)) === false ? 'checked' : '' }} /> <span class="text-success">@lang ("elements.labels.no")</span>
+        </label>
+        <label>
+            <input type="radio" name="{{ $field }}" value="1" required {{ (bool)old($field, request($field, $row->{$camel = camel_case($field)}()->asBoolean() ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ("elements.labels.yes")</span>
+        </label>
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

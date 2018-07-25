@@ -19,7 +19,7 @@ final class EloquentSex extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        //
     ];
 
     /**

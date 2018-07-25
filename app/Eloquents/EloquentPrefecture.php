@@ -20,8 +20,7 @@ final class EloquentPrefecture extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
+        //
     ];
 
     /**

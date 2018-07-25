@@ -21,8 +21,7 @@ final class EloquentStore extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
+        //
     ];
 
     /**

@@ -75,10 +75,32 @@ return [
         'mourning_flag'         => '喪中フラグ',
         'likes_and_dislikes'    => '好き嫌い',
         'note'                  => 'メモ',
-
         'visited_cnt'           => '来店回数',
         'cancel_cnt'            => 'キャンセル回数',
         'noshow_cnt'            => 'ノーショウ回数',
+
+        'created_at'            => '登録日時',
+        'updated_at'            => '更新日時',
+        'deleted_at'            => '削除日時',
+    ],
+
+    'stores' => [
+        'id'                    => 'ID',
+        'company_id'            => '企業',
+        'prefecture_id'         => '都道府県',
+        'name'                  => '名称',
+        'kana'                  => 'フリガナ',
+        'postal_code'           => '郵便番号',
+        'address'               => '住所',
+        'building_name'         => '建物名',
+        'tel'                   => 'TEL',
+        'fax'                   => 'FAX',
+        'email'                 => 'メールアドレス',
+
+        'payment_flag'          => '入金フラグ',
+        'user_limit'            => 'ユーザー上限数',
+        'starts_at'             => 'サービス開始日時',
+        'ends_at'               => 'サービス終了日時',
 
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',

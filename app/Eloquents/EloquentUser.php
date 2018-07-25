@@ -24,6 +24,8 @@ final class EloquentUser extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'store_id',
+        'role_id',
         'password',
     ];
 

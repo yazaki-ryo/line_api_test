@@ -35,27 +35,32 @@ class UpdateRequest extends FormRequest
             ],
             'postal_code' => [
                 'required',
-                // TODO 数値とハイフンバリデート（郵便番号正規表現の方が良いか、又はハイフン無しで限定した方が良いか）
+                'string',// TODO 数値とハイフンバリデート（郵便番号正規表現の方が良いか、又はハイフン無しで限定した方が良いか）
                 'max:191',
             ],
             'prefecture_id' => [
                 'required',
+                'numwric',
                 Rule::exists('prefectures', 'id'),
             ],
             'address' => [
                 'required',
+                'string',
                 'max:1000',
             ],
             'building_name' => [
+                'nullable',
+                'string',
                 'max:1000',
             ],
             'tel' => [
                 'required',
-//                 'numeric',
+                'string',// TODO 又はnumeric
                 'max:191',
             ],
             'fax' => [
-//                 'numeric',
+                'nullable',
+                'string',// TODO 又はnumeric
                 'max:191',
             ],
             'email' => [
