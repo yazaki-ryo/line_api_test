@@ -77,11 +77,13 @@ final class StoreRepository implements DomainModelable
     }
 
     /**
-     * @return Prefecture
+     * @return Prefecture|null
      */
-    public function prefecture(): Prefecture
+    public function prefecture(): ?Prefecture
     {
-        $resource = $this->eloquent->prefecture;
+        if (is_null($resource = $this->eloquent->prefecture)) {
+            return null;
+        }
         return PrefectureRepository::toModel($resource);
     }
 

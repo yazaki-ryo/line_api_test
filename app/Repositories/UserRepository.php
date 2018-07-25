@@ -58,7 +58,6 @@ final class UserRepository implements DomainModelable
         if (is_null($resource = $this->eloquent->find($id))) {
             return false;
         }
-
         return $resource->update($attributes);
     }
 
@@ -92,29 +91,35 @@ final class UserRepository implements DomainModelable
     }
 
     /**
-     * @return Role
+     * @return Role|null
      */
-    public function role(): Role
+    public function role(): ?Role
     {
-        $resource = $this->eloquent->role;
+        if (is_null($resource = $this->eloquent->role)) {
+            return null;
+        }
         return RoleRepository::toModel($resource);
     }
 
     /**
-     * @return Company
+     * @return Company|null
      */
-    public function company(): Company
+    public function company(): ?Company
     {
-        $resource = $this->eloquent->company;
+        if (is_null($resource = $this->eloquent->company)) {
+            return null;
+        }
         return CompanyRepository::toModel($resource);
     }
 
     /**
-     * @return Store
+     * @return Store|null
      */
-    public function store(): Store
+    public function store(): ?Store
     {
-        $resource = $this->eloquent->store;
+        if (is_null($resource = $this->eloquent->store)) {
+            return null;
+        }
         return StoreRepository::toModel($resource);
     }
 

@@ -100,20 +100,24 @@ final class CompanyRepository implements DomainModelable
     }
 
     /**
-     * @return Plan
+     * @return Plan|null
      */
-    public function plan(): Plan
+    public function plan(): ?Plan
     {
-        $resource = $this->eloquent->plan;
+        if (is_null($resource = $this->eloquent->plan)) {
+            return null;
+        }
         return PlanRepository::toModel($resource);
     }
 
     /**
-     * @return Prefecture
+     * @return Prefecture|null
      */
-    public function prefecture(): Prefecture
+    public function prefecture(): ?Prefecture
     {
-        $resource = $this->eloquent->prefecture;
+        if (is_null($resource = $this->eloquent->prefecture)) {
+            return null;
+        }
         return PrefectureRepository::toModel($resource);
     }
 

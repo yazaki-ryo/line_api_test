@@ -36,9 +36,9 @@ final class Prefecture
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }

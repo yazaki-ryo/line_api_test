@@ -69,9 +69,9 @@ final class Store
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }
@@ -101,9 +101,9 @@ final class Store
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function address(): string
+    public function address(): ?string
     {
         return $this->address;
     }
@@ -141,23 +141,23 @@ final class Store
     }
 
     /**
-     * @return Flag
+     * @return Flag|null
      */
-    public function paymentFlag(): Flag
+    public function paymentFlag(): ?Flag
     {
         return $this->paymentFlag;
     }
 
     /**
-     * @return Count
+     * @return Count|null
      */
-    public function userLimit(): Count
+    public function userLimit(): ?Count
     {
         return $this->userLimit;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function startsAt(): ?Datetime
     {
@@ -165,7 +165,7 @@ final class Store
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function endsAt(): ?Datetime
     {
@@ -173,7 +173,7 @@ final class Store
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function createdAt(): ?Datetime
     {
@@ -181,7 +181,7 @@ final class Store
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function updatedAt(): ?Datetime
     {
@@ -189,7 +189,7 @@ final class Store
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
     public function deletedAt(): ?Datetime
     {
