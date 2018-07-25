@@ -34,7 +34,7 @@
     <div class="col-md-6 form-control-static">
         @foreach ($sexes as $item)
             <label>
-                <input type="radio" name="{{ $field }}" value="{{ $item->id() }}" required {{ (int)old($field, request($field, $row->sex()->id() ?? null)) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
+                <input type="radio" name="{{ $field }}" value="{{ $item->id() }}" required {{ (int)old($field, request($field, optional($row->sex())->id() ?? null)) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
             </label>
         @endforeach
 
@@ -111,7 +111,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($field, $prefectures, old($field, request($field, $row->prefecture()->id() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::select($field, $prefectures, old($field, request($field, optional($row->prefecture())->id() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -200,10 +200,10 @@
 
     <div class="col-md-6 form-control-static">
         <label>
-            <input type="radio" name="{{ $field }}" value="0" required {{ (bool)old($field, request($field, $row->{$camel = camel_case($field)}()->asBoolean() ?? null)) === false ? 'checked' : '' }} /> <span class="text-success">@lang ("elements.labels.no")</span>
+            <input type="radio" name="{{ $field }}" value="0" required {{ (bool)old($field, request($field, optional($row->{$camel = camel_case($field)}())->asBoolean() ?? null)) === false ? 'checked' : '' }} /> <span class="text-success">@lang ("elements.labels.no")</span>
         </label>
         <label>
-            <input type="radio" name="{{ $field }}" value="1" required {{ (bool)old($field, request($field, $row->{$camel = camel_case($field)}()->asBoolean() ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ("elements.labels.yes")</span>
+            <input type="radio" name="{{ $field }}" value="1" required {{ (bool)old($field, request($field, optional($row->{$camel = camel_case($field)}())->asBoolean() ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ("elements.labels.yes")</span>
         </label>
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -240,63 +240,76 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text(null, $row->store()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
+        {!! Form::text(null, optional($row->store())->name() ?? optional(auth()->user()->store)->name, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
 
 @set ($field, 'visited_cnt')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$field}")
-    </label>
+@if (! empty($row->{$camel = camel_case($field)}()) )
+    <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+        <label for="{{ $field }}" class="col-md-4 control-label">
+            @lang ("attributes.customers.{$field}")
+        </label>
 
-    <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}()->asInt() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        <div class="col-md-6 form-control-static">
+            {{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}
+            {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        </div>
     </div>
-</div>
+@endif
 
 @set ($field, 'cancel_cnt')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$field}")
-    </label>
+@if (! empty($row->{$camel = camel_case($field)}()) )
+    <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+        <label for="{{ $field }}" class="col-md-4 control-label">
+            @lang ("attributes.customers.{$field}")
+        </label>
 
-    <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}()->asInt() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        <div class="col-md-6 form-control-static">
+            {{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}
+            {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        </div>
     </div>
-</div>
+@endif
 
 @set ($field, 'noshow_cnt')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$field}")
-    </label>
+@if (! empty($row->{$camel = camel_case($field)}()) )
+    <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+        <label for="{{ $field }}" class="col-md-4 control-label">
+            @lang ("attributes.customers.{$field}")
+        </label>
 
-    <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}()->asInt() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        <div class="col-md-6 form-control-static">
+            {{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}
+            {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        </div>
     </div>
-</div>
+@endif
 
 @set ($field, 'updated_at')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$field}")
-    </label>
+@if (! empty($row->{$camel = camel_case($field)}()) )
+    <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+        <label for="{{ $field }}" class="col-md-4 control-label">
+            @lang ("attributes.customers.{$field}")
+        </label>
 
-    <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        <div class="col-md-6 form-control-static">
+            {{ $row->{$camel = camel_case($field)}() ?? null }}
+            {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        </div>
     </div>
-</div>
+@endif
 
+@set ($field, 'created_at')
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         <button type="submit" class="btn btn-primary">
-            @lang ('elements.buttons.save')
+            @if (empty($row->{$camel = camel_case($field)}()) )
+                @lang ('elements.buttons.register')
+            @else
+                @lang ('elements.buttons.save')
+            @endif
         </button>
     </div>
 </div>

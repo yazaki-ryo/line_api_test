@@ -202,9 +202,9 @@ final class Customer
     }
 
     /**
-     * @return Flag
+     * @return Flag|null
      */
-    public function mourningFlag(): Flag
+    public function mourningFlag(): ?Flag
     {
         return $this->mourningFlag;
     }
@@ -226,25 +226,25 @@ final class Customer
     }
 
     /**
-     * @return Count
+     * @return Count|null
      */
-    public function visitedCnt(): Count
+    public function visitedCnt(): ?Count
     {
         return $this->visitedCnt;
     }
 
     /**
-     * @return Count
+     * @return Count|null
      */
-    public function cancelCnt(): Count
+    public function cancelCnt(): ?Count
     {
         return $this->cancelCnt;
     }
 
     /**
-     * @return Count
+     * @return Count|null
      */
-    public function noshowCnt(): Count
+    public function noshowCnt(): ?Count
     {
         return $this->noshowCnt;
     }

@@ -51,6 +51,10 @@
                             @can ('authorize', ['customers.*', 'customers.index'])
                                 <li><a href="{{ route('customers.index') }}">@lang ('elements.pages.customers.index')</a></li>
                             @endcan
+
+                            @can ('authorize', ['customers.*', 'customers.create'])
+                                <li><a href="{{ route('customers.add') }}">@lang ('elements.pages.customers.add')</a></li>
+                            @endcan
                         </ul>
                     </li>
 

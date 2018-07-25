@@ -49,6 +49,18 @@ final class CustomerRepository implements DomainModelable
     }
 
     /**
+     * @param array $attributes
+     * @return Customer|null
+     */
+    public function create(array $attributes = []): ?Customer
+    {
+        if (is_null($resource = $this->eloquent->create($attributes))) {
+            return null;
+        }
+        return self::toModel($resource);
+    }
+
+    /**
      * @param int $id
      * @param array $attributes
      * @return bool
@@ -92,29 +104,38 @@ final class CustomerRepository implements DomainModelable
     }
 
     /**
-     * @return Prefecture
+     * @return Prefecture|null
      */
-    public function prefecture(): Prefecture
+    public function prefecture(): ?Prefecture
     {
-        $resource = $this->eloquent->prefecture;
+        if (is_null($resource = $this->eloquent->prefecture)) {
+            return null;
+        }
+
         return PrefectureRepository::toModel($resource);
     }
 
     /**
-     * @return Sex
+     * @return Sex|null
      */
-    public function sex(): Sex
+    public function sex(): ?Sex
     {
-        $resource = $this->eloquent->sex;
+        if (is_null($resource = $this->eloquent->sex)) {
+            return null;
+        }
+
         return SexRepository::toModel($resource);
     }
 
     /**
-     * @return Store
+     * @return Store|null
      */
-    public function store(): Store
+    public function store(): ?Store
     {
-        $resource = $this->eloquent->store;
+        if (is_null($resource = $this->eloquent->store)) {
+            return null;
+        }
+
         return StoreRepository::toModel($resource);
     }
 

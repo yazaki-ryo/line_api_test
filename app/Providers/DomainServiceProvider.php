@@ -11,6 +11,7 @@ use App\Services\Users\UsersService;
 use Domain\Contracts\Companies\GetCompanyInterface;
 use Domain\Contracts\Companies\GetCompaniesInterface;
 use Domain\Contracts\Companies\UpdateCompanyInterface;
+use Domain\Contracts\Customers\CreateCustomerInterface;
 use Domain\Contracts\Customers\GetCustomerInterface;
 use Domain\Contracts\Customers\GetCustomersInterface;
 use Domain\Contracts\Customers\UpdateCustomerInterface;
@@ -55,6 +56,10 @@ final class DomainServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(GetCustomersInterface::class, function () {
+            return app(CustomersService::class);
+        });
+
+        $this->app->bind(CreateCustomerInterface::class, function () {
             return app(CustomersService::class);
         });
 
