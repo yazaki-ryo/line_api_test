@@ -52,7 +52,7 @@ final class UpdateController extends Controller
      * @param int $customerId
      * @param  UpdateRequest $request
      */
-    public function excute(UpdateRequest $request, int $customerId)
+    public function update(UpdateRequest $request, int $customerId)
     {
         $attributes = $this->fill($request);
 

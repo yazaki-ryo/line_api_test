@@ -46,7 +46,7 @@ final class CreateController extends Controller
     /**
      * @param  CreateRequest $request
      */
-    public function excute(CreateRequest $request)
+    public function create(CreateRequest $request)
     {
         $attributes = $this->fill($request);
 
