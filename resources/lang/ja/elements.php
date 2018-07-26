@@ -40,10 +40,12 @@ return [
         'cancel'         => 'キャンセル',
         'delete'         => '削除',
         'search'         => '検索',
+        'result'         => '結果',
         'reset_search'   => '条件リセット',
         'import'         => 'インポート',
         'export'         => 'エクスポート',
         'log'            => 'ログ',
+        'menu'           => 'メニュー',
     ],
 
     'labels' => [

@@ -28,7 +28,42 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                @include ('customers.components.list')
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#result-tab" data-toggle="tab">
+                            @lang ('elements.buttons.search')@lang ('elements.buttons.result')
+                            <span class="badge">{{ $rows->count() }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#search-tab" data-toggle="tab">@lang ('Search for')</a>
+                    </li>
+                    <li role="presentation" class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                          Menu <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li role="presentation" class="active">
+                                <a href="#">
+                                    @lang ('Sub text')
+                                    <span class="badge">{{ $rows->count() }}</span>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#">@lang ('Sub text')</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="result-tab">
+                        @include ('customers.components.list')
+                    </div>
+                    <div class="tab-pane" id="search-tab">
+                        @include ('customers.components.search')
+                    </div>
+                </div>
             </div>
         </div>
     </div>
