@@ -49,11 +49,11 @@
 
                         <ul class="dropdown-menu">
                             @can ('authorize', ['customers.*', 'customers.index'])
-                                <li><a href="{{ route('customers.index') }}">@lang ('elements.pages.customers.index')</a></li>
+                                <li class="{{ request()->route()->named('customers.index') ? 'active' : '' }}"><a href="{{ route('customers.index') }}">@lang ('elements.pages.customers.index')</a></li>
                             @endcan
 
                             @can ('authorize', ['customers.*', 'customers.create'])
-                                <li><a href="{{ route('customers.add') }}">@lang ('elements.pages.customers.add')</a></li>
+                                <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.pages.customers.add')</a></li>
                             @endcan
                         </ul>
                     </li>
@@ -77,10 +77,10 @@
 
                         <ul class="dropdown-menu">
                             <li><a href="#">設定</a></li>
-                            <li><a href="{{ route('config.profile') }}">@lang ('elements.pages.config.profile')</a></li>
+                            <li class="{{ request()->route()->named('config.profile') ? 'active' : '' }}"><a href="{{ route('config.profile') }}">@lang ('elements.pages.config.profile')</a></li>
 
                             @can ('authorize', ['users.*', 'users.index'])
-                                <li><a href="{{ route('config.company') }}">@lang ('elements.pages.config.company')</a></li>
+                                <li class="{{ request()->route()->named('config.company') ? 'active' : '' }}"><a href="{{ route('config.company') }}">@lang ('elements.pages.config.company')</a></li>
                             @endcan
 
                             <li role="separator" class="divider"></li>
