@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="well">
-                    <h2>顧客管理</h1>
+                    <h2>顧客管理</h2>
                     <p><code>@lang ('Test text...')</code></p>
 
                     <span class="label label-default">Default</span>
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-0">
                 <div class="well">
-                    <h2>予約管理</h1>
+                    <h2>予約管理</h2>
                     <p><code>@lang ('Test text...')</code></p>
 
                     <span class="label label-default">Default</span>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-6 col-md-offset-0">
                 <div class="well">
-                    <h2>アプリ</h1>
+                    <h2>アプリ</h2>
                     <p><code>@lang ('Test text...')</code></p>
 
                     <span class="label label-info">Info</span>
