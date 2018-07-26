@@ -57,10 +57,10 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="result-tab">
+                    <div class="tab-pane active pt-10" id="result-tab">
                         @include ('customers.components.list')
                     </div>
-                    <div class="tab-pane" id="search-tab">
+                    <div class="tab-pane pt-10" id="search-tab">
                         @include ('customers.components.search')
                     </div>
                 </div>
