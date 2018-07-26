@@ -26,19 +26,6 @@ $router->group([
     $router->get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
     /**
-     * Customers
-     */
-    $router->group([
-        'prefix' => $prefix = 'customers',
-    ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name(sprintf('%s.index', $prefix));
-        $router->get( 'add', \App\Http\Controllers\Customers\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
-        $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@excute');
-        $router->get( '{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
-        $router->post('{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@excute');
-    });
-
-    /**
      * Authentication
      */
     $router->get( 'login',  \App\Http\Controllers\Auth\LoginController::class . '@showLoginForm')->name('login');
@@ -61,6 +48,19 @@ $router->group([
         $router->post('email',         \App\Http\Controllers\Auth\Password\ForgotController::class . '@sendResetLinkEmail')->name(sprintf('%s.email', $prefix));
         $router->get( 'reset/{token}', \App\Http\Controllers\Auth\Password\ResetController::class . '@showResetForm')->name(sprintf('%s.reset', $prefix));
         $router->post('reset',         \App\Http\Controllers\Auth\Password\ResetController::class . '@reset');
+    });
+
+    /**
+     * Customers
+     */
+    $router->group([
+        'prefix' => $prefix = 'customers',
+    ], function (Router $router) use ($prefix) {
+        $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name(sprintf('%s.index', $prefix));
+        $router->get( 'add', \App\Http\Controllers\Customers\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
+        $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
+        $router->get( '{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+        $router->post('{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@update');
     });
 
     /**

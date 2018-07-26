@@ -82,6 +82,8 @@ return [
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
+
+        'free_word'             => 'フリーワード',
     ],
 
     'stores' => [

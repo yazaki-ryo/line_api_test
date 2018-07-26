@@ -61,7 +61,11 @@
                         @include ('customers.components.list')
                     </div>
                     <div class="tab-pane pt-10" id="search-tab">
-                        @include ('customers.components.search')
+                        <div class="well">
+                            {!! Form::open(['url' => route('customers.index'), 'id' => '', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                                @include ('customers.components.search')
+                            {!! Form::close() !!}
+                        </div>
                     </div>
                 </div>
             </div>

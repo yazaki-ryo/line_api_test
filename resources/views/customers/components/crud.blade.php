@@ -246,7 +246,7 @@
 </div>
 
 @set ($field, 'visited_cnt')
-@if (! empty($row->{$camel = camel_case($field)}()) )
+@if ($mode === 'edit')
     <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
         <label for="{{ $field }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$field}")
@@ -260,7 +260,7 @@
 @endif
 
 @set ($field, 'cancel_cnt')
-@if (! empty($row->{$camel = camel_case($field)}()) )
+@if ($mode === 'edit')
     <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
         <label for="{{ $field }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$field}")
@@ -274,7 +274,7 @@
 @endif
 
 @set ($field, 'noshow_cnt')
-@if (! empty($row->{$camel = camel_case($field)}()) )
+@if ($mode === 'edit')
     <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
         <label for="{{ $field }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$field}")
@@ -288,7 +288,7 @@
 @endif
 
 @set ($field, 'updated_at')
-@if (! empty($row->{$camel = camel_case($field)}()) )
+@if ($mode === 'edit')
     <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
         <label for="{{ $field }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$field}")
@@ -301,13 +301,12 @@
     </div>
 @endif
 
-@set ($field, 'created_at')
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         <button type="submit" class="btn btn-primary">
-            @if (empty($row->{$camel = camel_case($field)}()) )
+            @if ($mode === 'add')
                 @lang ('elements.buttons.register')
-            @else
+            @elseif ($mode === 'edit')
                 @lang ('elements.buttons.save')
             @endif
         </button>
