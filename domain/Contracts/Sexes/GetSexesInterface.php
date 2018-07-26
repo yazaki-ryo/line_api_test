@@ -8,7 +8,8 @@ use App\Services\Collection\DomainCollection;
 interface GetSexesInterface
 {
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection;
+    public function findAll(array $args = []): DomainCollection;
 }

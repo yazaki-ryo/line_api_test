@@ -36,11 +36,12 @@ final class UsersService implements
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
-        return $this->repo->findAll();
+        return $this->repo->findAll($args);
     }
 
     /**

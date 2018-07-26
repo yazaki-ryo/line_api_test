@@ -32,12 +32,13 @@ final class SexesService implements GetSexInterface, GetSexesInterface
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
-        return cache()->remember('sexes', 120, function () {
-            return $this->repo->findAll();
+        return cache()->remember('sexes', 120, function () use ($args) {
+            return $this->repo->findAll($args);
         });
     }
 

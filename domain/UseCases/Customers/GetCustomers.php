@@ -20,11 +20,12 @@ final class GetCustomers
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function excute(): DomainCollection
+    public function excute(array $args = []): DomainCollection
     {
-        return $this->usersService->findAll();
+        return $this->usersService->findAll($args);
     }
 
 }
