@@ -29,7 +29,7 @@
 
                     <div class="panel-body">
                         {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                            @include ('customers.components.crud')
+                            @include ('customers.components.crud', ['mode' => 'edit'])
                         {!! Form::close() !!}
                     </div>
                 </div>

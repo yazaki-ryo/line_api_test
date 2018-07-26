@@ -31,8 +31,8 @@ final class CreateCustomer
         CreateCustomerInterface $createCustomerService,
         GetPrefecturesInterface $getPrefecturesService,
         GetSexesInterface $getSexesService,
-        TransactionalInterface $transactionalService)
-    {
+        TransactionalInterface $transactionalService
+    ) {
         $this->createCustomerService = $createCustomerService;
         $this->getPrefecturesService = $getPrefecturesService;
         $this->getSexesService = $getSexesService;

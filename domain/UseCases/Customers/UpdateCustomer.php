@@ -37,8 +37,8 @@ final class UpdateCustomer
         UpdateCustomerInterface $updateCustomerService,
         GetPrefecturesInterface $getPrefecturesService,
         GetSexesInterface $getSexesService,
-        TransactionalInterface $transactionalService)
-    {
+        TransactionalInterface $transactionalService
+    ) {
         $this->getCustomerService = $getCustomerService;
         $this->updateCustomerService = $updateCustomerService;
         $this->getPrefecturesService = $getPrefecturesService;
