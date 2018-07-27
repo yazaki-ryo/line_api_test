@@ -76,12 +76,12 @@ final class CustomerPolicy
     public function update(EloquentUser $user, Customer $customer): bool
     {
         if (optional($this->user->role())->slugs('company-admin')
-            && optional($this->user->company())->id() === optional(optional($customer->store())->company())->id())
-        {
+            && optional($this->user->company())->id() === optional($customer->company())->id()
+        ) {
             return true;
         } elseif (optional($this->user->role())->slugs('store-user')
-            && optional($this->user->store())->id() === optional($customer->store())->id())
-        {
+            && $this->user->storeId() === $customer->storeId()
+        ) {
             return true;
         }
 

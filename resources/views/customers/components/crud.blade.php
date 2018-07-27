@@ -34,7 +34,7 @@
     <div class="col-md-6 form-control-static">
         @foreach ($sexes as $item)
             <label>
-                <input type="radio" name="{{ $field }}" value="{{ $item->id() }}" required {{ (int)old($field, request($field, optional($row->sex())->id() ?? null)) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
+                <input type="radio" name="{{ $field }}" value="{{ $item->id() }}" required {{ (int)old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
             </label>
         @endforeach
 
@@ -111,7 +111,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($field, $prefectures->pluckNamesByIds(), old($field, request($field, optional($row->prefecture())->id() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
+        {!! Form::select($field, $prefectures->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
