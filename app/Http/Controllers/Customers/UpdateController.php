@@ -42,9 +42,7 @@ final class UpdateController extends Controller
         $this->authorize('update', $customer);
 
         return view('customers.edit', [
-            'row'         => $this->useCase->getCustomer($customerId),
-            'prefectures' => $this->useCase->getPrefectures()->pluckNamesByIds(),
-            'sexes'       => $this->useCase->getSexes(),
+            'row' => $this->useCase->getCustomer($customerId),
         ]);
     }
 

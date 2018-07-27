@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Contracts\Customers\GetCustomerInterface;
 use Domain\Contracts\Customers\UpdateCustomerInterface;
-use Domain\Contracts\Prefectures\GetPrefecturesInterface;
-use Domain\Contracts\Sexes\GetSexesInterface;
+use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 
@@ -20,12 +17,6 @@ final class UpdateCustomer
     /** @var UpdateCustomerInterface */
     private $updateCustomerService;
 
-    /** @var GetPrefecturesInterface */
-    private $getPrefecturesService;
-
-    /** @var GetSexesInterface */
-    private $getSexesService;
-
     /** @var TransactionalInterface */
     private $transactionalService;
 
@@ -35,14 +26,10 @@ final class UpdateCustomer
     public function __construct(
         GetCustomerInterface $getCustomerService,
         UpdateCustomerInterface $updateCustomerService,
-        GetPrefecturesInterface $getPrefecturesService,
-        GetSexesInterface $getSexesService,
         TransactionalInterface $transactionalService
     ) {
         $this->getCustomerService = $getCustomerService;
         $this->updateCustomerService = $updateCustomerService;
-        $this->getPrefecturesService = $getPrefecturesService;
-        $this->getSexesService = $getSexesService;
         $this->transactionalService = $transactionalService;
     }
 
@@ -57,22 +44,6 @@ final class UpdateCustomer
         }
 
         return $customer;
-    }
-
-    /**
-     * @return DomainCollection
-     */
-    public function getPrefectures(): DomainCollection
-    {
-        return $this->getPrefecturesService->findAll();
-    }
-
-    /**
-     * @return DomainCollection
-     */
-    public function getSexes(): DomainCollection
-    {
-        return $this->getSexesService->findAll();
     }
 
     /**

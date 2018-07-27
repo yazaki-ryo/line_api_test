@@ -37,9 +37,7 @@ final class CreateController extends Controller
     public function view(Customer $customer): View
     {
         return view('customers.add', [
-            'row'         => $customer,
-            'prefectures' => $this->useCase->getPrefectures()->pluckNamesByIds(),
-            'sexes'       => $this->useCase->getSexes(),
+            'row' => $customer,
         ]);
     }
 

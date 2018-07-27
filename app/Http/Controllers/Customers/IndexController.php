@@ -35,10 +35,8 @@ final class IndexController extends Controller
      */
     public function __invoke(SearchRequest $request): View
     {
-        $result = $this->useCase->excute($request->validated());
-
         return view('customers.index', [
-            'rows' => $result,
+            'rows' => $this->useCase->excute($request->validated()),
         ]);
     }
 

@@ -77,7 +77,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::select($field, $prefectures, old($field, request($field, $row->prefecture()->id() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
+                                    {!! Form::select($field, $prefectures->pluckNamesByIds(), old($field, request($field, $row->prefecture()->id() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>

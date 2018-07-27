@@ -3,21 +3,21 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use Domain\Contracts\Prefectures\GetPrefecturesInterface;
+use Domain\Contracts\Sexes\GetSexesInterface;
 use Illuminate\View\View;
 
-final class PrefecturesComposer
+final class SexesComposer
 {
-    /** @var GetPrefecturesInterface */
-    private $getPrefecturesService;
+    /** @var GetSexesInterface */
+    private $getSexesService;
 
     /**
-     * @param  GetPrefecturesInterface  $getPrefecturesService
+     * @param  GetSexesInterface $getSexesService
      * @return void
      */
-    public function __construct(GetPrefecturesInterface $getPrefecturesService)
+    public function __construct(GetSexesInterface $getSexesService)
     {
-        $this->getPrefecturesService = $getPrefecturesService;
+        $this->getSexesService = $getSexesService;
     }
 
     /**
@@ -44,6 +44,6 @@ final class PrefecturesComposer
      */
     private function excute(View $view)
     {
-        $view->with('prefectures', $this->getPrefecturesService->findAll());
+        $view->with('sexes', $this->getSexesService->findAll());
     }
 }
