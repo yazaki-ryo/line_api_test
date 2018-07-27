@@ -13,10 +13,7 @@ return [
     |
     */
 
-    /**
-     * XXX TODO auth -> usersに変更する
-     */
-    'auth' => [
+    'users' => [
         'id'                    => 'ID',
         'name'                  => 'ログイン名',
         'email'                 => 'メールアドレス',

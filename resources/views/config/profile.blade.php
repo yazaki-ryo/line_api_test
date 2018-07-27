@@ -33,7 +33,7 @@
                             @set ($field, 'name')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.users.{$field}")
                                     <span class="label label-danger">@lang ("elements.labels.required")</span>
                                 </label>
 
@@ -46,7 +46,7 @@
                             @set ($field, 'email')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.users.{$field}")
                                     <span class="label label-danger">@lang ("elements.labels.required")</span>
                                 </label>
 
@@ -59,7 +59,7 @@
                             @set ($field, 'company_id')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.users.{$field}")
                                 </label>
 
                                 <div class="col-md-6">
@@ -71,7 +71,7 @@
                             @set ($field, 'store_id')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.users.{$field}")
                                 </label>
 
                                 <div class="col-md-6">
@@ -83,7 +83,7 @@
                             @set ($field, 'role_id')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.users.{$field}")
                                 </label>
 
                                 <div class="col-md-6">
@@ -94,7 +94,7 @@
 
                             @set ($field, 'password')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
 
                                 <div class="col-md-6">
                                     <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" placeholder="@lang ('Please input only when changing.')" />
@@ -104,7 +104,7 @@
 
                             @set ($field, 'password_confirmation')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
 
                                 <div class="col-md-6">
                                     <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" placeholder="@lang ('Please re-enter for confirmation.')" />
@@ -115,7 +115,7 @@
                             @set ($field, 'updated_at')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.users.{$field}")
                                 </label>
 
                                 <div class="col-md-6 form-control-static">

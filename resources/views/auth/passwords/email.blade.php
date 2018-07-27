@@ -37,7 +37,7 @@
                             @set ($field, 'email')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.auth.{$field}")
+                                    @lang ("attributes.users.{$field}")
                                     <span class="label label-danger">@lang ("elements.labels.required")</span>
                                 </label>
 

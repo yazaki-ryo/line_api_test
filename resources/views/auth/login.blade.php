@@ -31,7 +31,7 @@
 
                             @set ($field, 'email')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
 
                                 <div class="col-md-6">
                                     {!! Form::email($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
@@ -41,7 +41,7 @@
 
                             @set ($field, 'password')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
 
                                 <div class="col-md-6">
                                     <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
@@ -54,7 +54,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            {!! Form::checkbox($field, 1, old($field), []) !!} @lang ("attributes.auth.{$field}")
+                                            {!! Form::checkbox($field, 1, old($field), []) !!} @lang ("attributes.users.{$field}")
                                         </label>
                                     </div>
                                 </div>
