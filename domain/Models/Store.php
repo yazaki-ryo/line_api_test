@@ -294,7 +294,7 @@ final class Store
         }
 
         if ($attributes->has($key = 'email')) {
-            $this->{$camel = camel_case($key)} = Email::of($attributes->get($key));
+            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Email::of($attributes->get($key));
         }
 
         if ($attributes->has($key = 'payment_flag')) {
