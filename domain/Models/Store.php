@@ -59,6 +59,12 @@ final class Store
     /** @var Datetime */
     private $deletedAt;
 
+    /** @var int */
+    private $companyId;
+
+    /** @var int */
+    private $prefectureId;
+
     /**
      * @param StoreRepository $repo
      * @return void
@@ -197,11 +203,27 @@ final class Store
     }
 
     /**
+     * @return int|null
+     */
+    public function companyId(): ?int
+    {
+        return $this->companyId;
+    }
+
+    /**
      * @return Company|null
      */
     public function company(): ?Company
     {
         return $this->repo->company();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function prefectureId(): ?int
+    {
+        return $this->prefectureId;
     }
 
     /**
@@ -323,6 +345,14 @@ final class Store
 
         if ($attributes->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        }
+
+        if ($attributes->has($key = 'company_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'prefecture_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
         return $this;

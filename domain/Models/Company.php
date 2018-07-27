@@ -47,6 +47,12 @@ final class Company
     /** @var Datetime */
     private $deletedAt;
 
+    /** @var int */
+    private $planId;
+
+    /** @var int */
+    private $prefectureId;
+
     /**
      * @param CompanyRepository|null $repo
      * @return void
@@ -153,11 +159,27 @@ final class Company
     }
 
     /**
+     * @return int|null
+     */
+    public function planId(): ?int
+    {
+        return $this->planId;
+    }
+
+    /**
      * @return Plan|null
      */
     public function plan(): ?Plan
     {
         return $this->repo->plan();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function prefectureId(): ?int
+    {
+        return $this->prefectureId;
     }
 
     /**
@@ -263,6 +285,14 @@ final class Company
 
         if ($attributes->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        }
+
+        if ($attributes->has($key = 'plan_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'prefecture_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
         return $this;

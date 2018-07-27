@@ -80,6 +80,15 @@ final class Customer
     /** @var Datetime */
     private $deletedAt;
 
+    /** @var int */
+    private $prefectureId;
+
+    /** @var int */
+    private $sexId;
+
+    /** @var int */
+    private $storeId;
+
     /**
      * @param CustomerRepository|null $repo
      * @return void
@@ -274,6 +283,22 @@ final class Customer
     }
 
     /**
+     * @return Company|null
+     */
+    public function company(): ?Company
+    {
+        return $this->repo->company();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function prefectureId(): ?int
+    {
+        return $this->prefectureId;
+    }
+
+    /**
      * @return Prefecture|null
      */
     public function prefecture(): ?Prefecture
@@ -282,11 +307,27 @@ final class Customer
     }
 
     /**
+     * @return int|null
+     */
+    public function sexId(): ?int
+    {
+        return $this->sexId;
+    }
+
+    /**
      * @return Sex|null
      */
     public function sex(): ?Sex
     {
         return $this->repo->sex();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function storeId(): ?int
+    {
+        return $this->storeId;
     }
 
     /**
@@ -428,6 +469,18 @@ final class Customer
 
         if ($attributes->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        }
+
+        if ($attributes->has($key = 'prefecture_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'sex_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
         return $this;

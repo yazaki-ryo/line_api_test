@@ -29,6 +29,12 @@ final class User
     /** @var Datetime */
     private $deletedAt;
 
+    /** @var int */
+    private $roleId;
+
+    /** @var int */
+    private $storeId;
+
     /**
      * @param UserRepository|null $repo
      * @return void
@@ -87,11 +93,27 @@ final class User
     }
 
     /**
+     * @return int|null
+     */
+    public function roleId(): ?int
+    {
+        return $this->roleId;
+    }
+
+    /**
      * @return Role|null
      */
     public function role(): ?Role
     {
         return $this->repo->role();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function storeId(): ?int
+    {
+        return $this->storeId;
     }
 
     /**
@@ -181,6 +203,14 @@ final class User
 
         if ($attributes->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        }
+
+        if ($attributes->has($key = 'role_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        }
+
+        if ($attributes->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $attributes->get($key);
         }
 
         return $this;
