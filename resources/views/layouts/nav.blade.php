@@ -32,11 +32,14 @@
                             <i class="fa fa-sign-in"></i>@lang ('elements.pages.auth.login')
                         </a>
                     </li>
+
+{{--
                     <li>
                         <a href="{{ route('register') }}">
                             <i class="fa fa-sign-in"></i>@lang ('elements.pages.auth.register')
                         </a>
                     </li>
+--}}
                 @else
                     <li class="dropdown-header">
                         @lang ('Welcome, :name.', ['name' => auth()->user()->name])

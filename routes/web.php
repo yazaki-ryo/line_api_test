@@ -35,8 +35,8 @@ $router->group([
     /**
      * Registration
      */
-    $router->get( 'register', \App\Http\Controllers\Auth\RegisterController::class . '@showRegistrationForm')->name('register');
-    $router->post('register', \App\Http\Controllers\Auth\RegisterController::class . '@register');
+//     $router->get( 'register', \App\Http\Controllers\Auth\RegisterController::class . '@showRegistrationForm')->name('register');
+//     $router->post('register', \App\Http\Controllers\Auth\RegisterController::class . '@register');
 
     /**
      * Password Reset
