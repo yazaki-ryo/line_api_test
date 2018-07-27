@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Eloquents\EloquentCustomer;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModelable;
+use Domain\Models\Company;
 use Domain\Models\Customer;
 use Domain\Models\Prefecture;
 use Domain\Models\Sex;
@@ -103,6 +104,17 @@ final class CustomerRepository implements DomainModelable
     public function attributesToArray(): array
     {
         return $this->eloquent->attributesToArray();
+    }
+
+    /**
+     * @return Company|null
+     */
+    public function company(): ?Company
+    {
+        if (is_null($resource = $this->eloquent->company)) {
+            return null;
+        }
+        return CompanyRepository::toModel($resource);
     }
 
     /**
