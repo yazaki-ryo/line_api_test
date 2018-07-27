@@ -9,22 +9,36 @@ return [
      |
      */
 
+    'menus' => [
+        'customers'      => '顧客管理',
+        'reservations'   => '予約管理',
+        'tags'           => 'タグ管理',
+        'menus'          => 'メニュー管理',
+        'surveys'        => 'アンケート管理',
+        'coupons'        => 'クーポン管理',
+        'configurations' => '各種設定',
+    ],
+
     'pages' => [
+        'auth' => [
+            'login' => 'ログイン',
+            'logout' => 'ログアウト',
+            'passwords' => [
+                'reset'    => 'パスワードリセット',
+                'reminder' => 'パスワードリマインダ',
+            ],
+            'register' => 'ユーザー登録',
+        ],
+        'config'            => [
+            'company' => '企業情報編集',
+            'profile' => 'ユーザー情報編集',
+        ],
         'customers' => [
             'index' => '顧客一覧',
             'add'   => '顧客登録',
             'edit'  => '顧客情報編集',
         ],
-        'home'              => 'ホーム',
-        'login'             => 'ログイン',
-        'logout'            => 'ログアウト',
-        'reset-password'    => 'パスワードリセット',
-        'password-reminder' => 'パスワードリマインダ',
-        'register-user'     => 'ユーザー登録',
-        'config'            => [
-            'company' => '企業情報編集',
-            'profile' => 'ユーザー情報編集',
-        ],
+        'home' => 'ホーム',
     ],
 
     /**
@@ -41,6 +55,7 @@ return [
         'delete'         => '削除',
         'search'         => '検索',
         'result'         => '結果',
+        'set'            => '設定',
         'reset_search'   => '条件リセット',
         'import'         => 'インポート',
         'export'         => 'エクスポート',
