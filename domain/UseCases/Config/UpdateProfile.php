@@ -21,10 +21,16 @@ final class UpdateProfile
     private $transactionalService;
 
     /**
+     * @param GetUserInterface $getUserService
+     * @param UpdateUserInterface $updateUserService
+     * @param TransactionalInterface $transactionalService
      * @return void
      */
-    public function __construct(GetUserInterface $getUserService, UpdateUserInterface $updateUserService, TransactionalInterface $transactionalService)
-    {
+    public function __construct(
+        GetUserInterface $getUserService,
+        UpdateUserInterface $updateUserService,
+        TransactionalInterface $transactionalService
+    ) {
         $this->getUserService = $getUserService;
         $this->updateUserService = $updateUserService;
         $this->transactionalService = $transactionalService;

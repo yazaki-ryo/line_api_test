@@ -9,14 +9,15 @@ use Domain\Models\Customer;
 final class GetCustomer
 {
     /** @var GetCustomerInterface */
-    private $usersService;
+    private $getCustomerService;
 
     /**
+     * @param GetCustomerInterface $usersService
      * @return void
      */
-    public function __construct(GetCustomerInterface $usersService)
+    public function __construct(GetCustomerInterface $getCustomerService)
     {
-        $this->usersService = $usersService;
+        $this->getCustomerService = $getCustomerService;
     }
 
     /**
@@ -25,7 +26,7 @@ final class GetCustomer
      */
     public function excute(int $id): Customer
     {
-        return $this->usersService->findById($id);
+        return $this->getCustomerService->findById($id);
     }
 
 }

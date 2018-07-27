@@ -9,14 +9,15 @@ use Domain\Contracts\Customers\GetCustomersInterface;
 final class GetCustomers
 {
     /** @var GetCustomersInterface */
-    private $usersService;
+    private $getCustomersService;
 
     /**
+     * @param GetCustomersInterface $getCustomersService
      * @return void
      */
-    public function __construct(GetCustomersInterface $usersService)
+    public function __construct(GetCustomersInterface $getCustomersService)
     {
-        $this->usersService = $usersService;
+        $this->getCustomersService = $getCustomersService;
     }
 
     /**
@@ -25,7 +26,7 @@ final class GetCustomers
      */
     public function excute(array $args = []): DomainCollection
     {
-        return $this->usersService->findAll($args);
+        return $this->getCustomersService->findAll($args);
     }
 
 }

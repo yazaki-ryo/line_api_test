@@ -21,6 +21,9 @@ final class UpdateCustomer
     private $transactionalService;
 
     /**
+     * @param GetCustomerInterface $getCustomerService
+     * @param UpdateCustomerInterface $updateCustomerService
+     * @param TransactionalInterface $transactionalService
      * @return void
      */
     public function __construct(
