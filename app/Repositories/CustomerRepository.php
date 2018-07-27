@@ -10,6 +10,7 @@ use Domain\Models\Customer;
 use Domain\Models\Prefecture;
 use Domain\Models\Sex;
 use Domain\Models\Store;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,11 +41,12 @@ final class CustomerRepository implements DomainModelable
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->all();
+        $collection = $this->search($args)->get();
         return self::toModels($collection);
     }
 
@@ -148,4 +150,19 @@ final class CustomerRepository implements DomainModelable
         return new self($eloquent);
     }
 
+    /**
+     * @param array $args
+     * @return Builder
+     */
+    private function search(array $args = []): Builder
+    {
+        $args = collect($args);
+        $query = $this->eloquent->newQuery();
+
+        $query->when($args->has('free_word'), function (Builder $q) use ($args) {
+            $q->freeWord($args->get('free_word'));
+        });
+
+        return $query;
+    }
 }

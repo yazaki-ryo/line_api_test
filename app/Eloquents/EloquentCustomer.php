@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Services\Collection\DomainCollection;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -103,6 +104,58 @@ final class EloquentCustomer extends Model
     public function store(): BelongsTo
     {
         return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeName(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.name', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            $q->where($field, 'like', "%{$value}%");
+        }, function(Builder $q) use ($value, $field, $operator) {
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeOffice(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.office', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            $q->where($field, 'like', "%{$value}%");
+        }, function(Builder $q) use ($value, $field, $operator) {
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeFreeWord(Builder $query, string $value): Builder
+    {
+        return $query->where(function(Builder $q1) use ($value) {
+            $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->name($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->office($value, 'like');
+            });
+        });
     }
 
 }

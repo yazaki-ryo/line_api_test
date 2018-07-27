@@ -5,7 +5,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Name, company name, features, etc.')]) !!}
+        {!! Form::textarea($field, old($field, request($field)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 2, 'placeholder' => __('Name, office name, features, etc.')]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

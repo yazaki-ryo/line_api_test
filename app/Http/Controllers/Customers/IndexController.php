@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customers\SearchRequest;
 use Domain\UseCases\Customers\GetCustomers;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\View\View;
 
@@ -30,12 +30,12 @@ final class IndexController extends Controller
     }
 
     /**
-     * @param  Request $request
+     * @param  SearchRequest $request
      * @return View
      */
-    public function __invoke(Request $request): View
+    public function __invoke(SearchRequest $request): View
     {
-        $result = $this->useCase->excute();
+        $result = $this->useCase->excute($request->validated());
 
         return view('customers.index', [
             'rows' => $result,
