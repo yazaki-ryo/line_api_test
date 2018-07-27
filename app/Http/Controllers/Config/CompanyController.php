@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Config;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
 use Domain\Models\Company;
-use Domain\Models\Prefecture;
 use Domain\UseCases\Config\UpdateCompany;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Routing\Router;
@@ -41,9 +40,6 @@ final class CompanyController extends Controller
 
         return view('config.company', [
             'row' => $this->useCase->getCompany($id),
-            'prefectures' => $this->useCase->getPrefectures()->map(function (Prefecture $item) {
-                return ['id' => $item->id(), 'name' => $item->name()];
-            })->pluck('name', 'id'),
         ]);
     }
 
