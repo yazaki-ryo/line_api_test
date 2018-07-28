@@ -10,6 +10,7 @@ use Domain\Contracts\Customers\GetCustomerInterface;
 use Domain\Contracts\Customers\GetCustomersInterface;
 use Domain\Contracts\Customers\UpdateCustomerInterface;
 use Domain\Models\Customer;
+use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class CustomersService implements
     GetCustomerInterface,
@@ -20,12 +21,16 @@ final class CustomersService implements
     /** @var CustomerRepository */
     private $repo;
 
+    /** @var Auth */
+    private $auth;
+
     /**
      * @param CustomerRepository $repo
      */
-    public function __construct(CustomerRepository $repo)
+    public function __construct(CustomerRepository $repo, Auth $auth)
     {
         $this->repo = $repo;
+        $this->auth = $auth;
     }
 
     /**
@@ -43,7 +48,7 @@ final class CustomersService implements
      */
     public function findAll(array $args = []): DomainCollection
     {
-        return $this->repo->findAll($args);
+        return $this->repo->findAll($this->auth->user(), $args);
     }
 
     /**

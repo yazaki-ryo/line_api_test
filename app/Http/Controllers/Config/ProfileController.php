@@ -8,7 +8,6 @@ use App\Http\Requests\Users\SelfUpdateRequest;
 use Domain\Models\User;
 use Domain\UseCases\Config\UpdateProfile;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Routing\Router;
 use Illuminate\View\View;
 
 final class ProfileController extends Controller
@@ -18,10 +17,9 @@ final class ProfileController extends Controller
 
     /**
      * @param  UpdateProfile $useCase
-     * @param  Router $router
      * @return void
      */
-    public function __construct(UpdateProfile $useCase, Router $router)
+    public function __construct(UpdateProfile $useCase)
     {
         $this->middleware([
             'authenticate:user',

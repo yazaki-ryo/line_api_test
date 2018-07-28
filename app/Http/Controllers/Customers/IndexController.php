@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\SearchRequest;
 use Domain\UseCases\Customers\GetCustomers;
-use Illuminate\Routing\Router;
+use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class IndexController extends Controller
@@ -16,14 +16,14 @@ final class IndexController extends Controller
 
     /**
      * @param  GetCustomers $useCase
-     * @param  Router $router
+     * @param  Auth $auth
      * @return void
      */
-    public function __construct(GetCustomers $useCase, Router $router)
+    public function __construct(GetCustomers $useCase)
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'customers.*', $router->currentRouteName()),
+            sprintf('authorize:%s|%s', 'customers.*', 'customers.select'),
         ]);
 
         $this->useCase = $useCase;

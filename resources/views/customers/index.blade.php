@@ -62,7 +62,7 @@
                     </div>
                     <div class="tab-pane pt-10" id="search-tab">
                         <div class="well">
-                            {!! Form::open(['url' => route('customers.index'), 'id' => '', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                            {!! Form::open(['url' => route('customers'), 'id' => '', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.search')
                             {!! Form::close() !!}
                         </div>

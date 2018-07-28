@@ -8,7 +8,6 @@ use App\Http\Requests\Companies\UpdateRequest;
 use Domain\Models\Company;
 use Domain\UseCases\Config\UpdateCompany;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Routing\Router;
 use Illuminate\View\View;
 
 final class CompanyController extends Controller
@@ -18,10 +17,9 @@ final class CompanyController extends Controller
 
     /**
      * @param  UpdateCompany $useCase
-     * @param  Router $router
      * @return void
      */
-    public function __construct(UpdateCompany $useCase, Router $router)
+    public function __construct(UpdateCompany $useCase)
     {
         $this->middleware([
             'authenticate:user',

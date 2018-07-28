@@ -28,8 +28,19 @@ final class AuthServiceProvider extends ServiceProvider
         Gate::define('authorize', function (EloquentUser $user, ...$args): bool {
             $args = is_array($args) ? $args : [$args];
 
-            foreach ($args as $permission) {
-                if ($user->permissions->containsStrict('slug', $permission)) {
+            foreach ($args as $arg) {
+                if ($user->permissions->containsStrict('slug', $arg)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        Gate::define('roles', function (EloquentUser $user, ...$args): bool {
+            $args = is_array($args) ? $args : [$args];
+
+            foreach ($args as $arg) {
+                if (optional($user->role)->slug === $arg) {
                     return true;
                 }
             }

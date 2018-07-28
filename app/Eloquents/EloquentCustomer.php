@@ -166,4 +166,28 @@ final class EloquentCustomer extends Model
         });
     }
 
+    /**
+     * @param  Builder $query
+     * @param  int $value
+     * @return Builder
+     */
+    public function scopeStoreId(Builder $query, int $value): Builder
+    {
+        $field = sprintf('%s.store_id', $this->getTable());
+
+        return $query->where($field, '=', $value);
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  int $value
+     * @return Builder
+     */
+    public function scopeCompanyId(Builder $query, int $value): Builder
+    {
+        return $query->whereHas('store', function(Builder $q) use ($value) {
+            $q->where('stores.company_id', '=', $value);
+        });
+    }
+
 }

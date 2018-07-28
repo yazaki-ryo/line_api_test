@@ -56,7 +56,7 @@ $router->group([
     $router->group([
         'prefix' => $prefix = 'customers',
     ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name(sprintf('%s.index', $prefix));
+        $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name($prefix);
         $router->get( 'add', \App\Http\Controllers\Customers\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
         $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
         $router->get( '{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
@@ -69,7 +69,7 @@ $router->group([
     $router->group([
         'prefix' => $prefix = 'users',
     ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name(sprintf('%s.index', $prefix));
+        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name($prefix);
     });
 
     /**

@@ -8,7 +8,6 @@ use App\Http\Requests\Customers\CreateRequest;
 use Domain\Models\Customer;
 use Domain\UseCases\Customers\CreateCustomer;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Routing\Router;
 use Illuminate\View\View;
 
 final class CreateController extends Controller
@@ -18,10 +17,9 @@ final class CreateController extends Controller
 
     /**
      * @param  CreateCustomer $useCase
-     * @param  Router $router
      * @return void
      */
-    public function __construct(CreateCustomer $useCase, Router $router)
+    public function __construct(CreateCustomer $useCase)
     {
         $this->middleware([
             'authenticate:user',
