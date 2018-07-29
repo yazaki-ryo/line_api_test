@@ -40,9 +40,14 @@ final class UpdateProfile
     /**
      * @param int $id
      * @return User
+     * @throws NotFoundException
      */
     public function getUser(int $id): User
     {
+        if (is_null($this->getUserService->findById($id))) {
+            throw new NotFoundException('Resource not found.');
+        }
+
         return $this->getUserService->findById($id);
     }
 
@@ -54,9 +59,7 @@ final class UpdateProfile
      */
     public function excute(int $id, array $attributes = []): bool
     {
-        if (is_null($this->getUserService->findById($id))) {
-            throw new NotFoundException('Resource not found.');
-        }
+        $this->getUser($id);
 
         $attributes = $this->domainize($attributes);
 
