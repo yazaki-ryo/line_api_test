@@ -21,7 +21,7 @@ final class EloquentCustomer extends Model
      * @var array
      */
     protected $fillable = [
-//         'store_id',
+        'store_id',
         'prefecture_id',
         'sex_id',
 //         'group_id',

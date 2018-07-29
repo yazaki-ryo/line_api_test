@@ -30,12 +30,13 @@ final class CreateCustomer
     }
 
     /**
+     * @param Auth $auth
      * @param array $args
      * @return Customer
      */
-    public function excute(array $args = []): Customer
+    public function excute(Auth $auth, array $args = []): Customer
     {
-        $args = $this->domainize($args);
+        $args = $this->domainize($auth, $args);
 
         return $this->transactionalService->transaction(function () use ($args) {
             return $this->createCustomerService->create($args);
@@ -43,19 +44,25 @@ final class CreateCustomer
     }
 
     /**
+     * @param Auth $auth
      * @param array $args
      * @return array
      */
-    private function domainize(array $args = []): array
+    private function domainize(Auth $auth, array $args = []): array
     {
         $args = collect($args);
 
-        if ($this->auth->user()->cant('roles', 'company-admin')) {
-            // TODO 管理者ロールは企業に紐付く店舗のみ、そうでないなら自身の所属する店舗のみ
+        if ($auth->user()->can('roles', 'company-admin')) {
+            /**
+             * TODO プルダウンで選択出来る実装になった場合、ここで企業に紐付く店舗IDかどうか判定 -> 例外をスロー
+             */
+            $args->put('store_id', optional($auth->user()->store)->id);
+        } else {
+            $args->put('store_id', optional($auth->user()->store)->id);
         }
 
-        if ($args->has($key = 'test')) {
-//             $args->put($key, 'test');
+        if ($args->has($key = '')) {
+            //
         }
 
         return $args->all();
