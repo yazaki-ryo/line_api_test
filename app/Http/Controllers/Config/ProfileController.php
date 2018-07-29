@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
-use Domain\Models\User;
 use Domain\UseCases\Config\UpdateProfile;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class ProfileController extends Controller
@@ -15,17 +14,22 @@ final class ProfileController extends Controller
     /** @var UpdateProfile */
     private $useCase;
 
+    /** @var Auth */
+    private $auth;
+
     /**
      * @param  UpdateProfile $useCase
+     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateProfile $useCase)
+    public function __construct(UpdateProfile $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
         ]);
 
         $this->useCase = $useCase;
+        $this->auth = $auth;
     }
 
     /**
@@ -33,7 +37,7 @@ final class ProfileController extends Controller
      */
     public function view(): View
     {
-        $id = auth()->user()->getAuthIdentifier();
+        $id = $this->auth->user()->getAuthIdentifier();
 
         return view('config.profile', [
             'row' => $this->useCase->getUser($id),
@@ -45,11 +49,11 @@ final class ProfileController extends Controller
      */
     public function update(SelfUpdateRequest $request)
     {
-        $id = auth()->user()->getAuthIdentifier();
-        $attributes = $this->fill($request);
+        $id = $this->auth->user()->getAuthIdentifier();
+        $attributes = $request->validated();
 
         $callback = function () use ($id, $attributes) {
-            $this->useCase->excute($id, User::domainizeAttributes($attributes));
+            $this->useCase->excute($id, $attributes);
         };
 
         if (! is_null(rescue($callback, false))) {
@@ -59,21 +63,6 @@ final class ProfileController extends Controller
 
         flash(__('The registration information was updated.'), 'success');
         return redirect()->route('config.profile');
-    }
-
-    /**
-     * @param FormRequest $request
-     * @return array
-     */
-    private function fill(FormRequest $request): array
-    {
-        $attributes = $request->validated();
-
-        if (! $request->filled('password')) {
-            unset($attributes['password']);
-        }
-
-        return $attributes;
     }
 
 }

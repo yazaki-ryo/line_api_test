@@ -8,6 +8,7 @@ use Domain\Contracts\Users\GetUserInterface;
 use Domain\Contracts\Users\UpdateUserInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\User;
+use Illuminate\Support\Collection;
 
 final class UpdateProfile
 {
@@ -53,14 +54,34 @@ final class UpdateProfile
      */
     public function excute(int $id, array $attributes = []): bool
     {
+        if (is_null($this->getUserService->findById($id))) {
+            throw new NotFoundException('Resource not found.');
+        }
+
+        $attributes = $this->domainize($attributes);
+
         return $this->transactionalService->transaction(function () use ($id, $attributes) {
-
-            if (is_null($user = $this->getUserService->findById($id))) {
-                throw new NotFoundException('Resource not found.');
-            }
-
             return $this->updateUserService->update($id, $attributes);
         });
+    }
+
+    /**
+     * @param array $attributes
+     * @return array
+     */
+    private function domainize(array $attributes = []): array
+    {
+        $attributes = collect($attributes);
+
+        if ($attributes->has($key = 'password')) {
+            $attributes = $attributes->when(empty($attributes->get($key)), function (Collection $item) use ($key) {
+                return $item->except($key);
+            }, function (Collection $item) use ($key) {
+                return $item->put($key, bcrypt($item->get($key)));
+            });
+        }
+
+        return $attributes->all();
     }
 
 }

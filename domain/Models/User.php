@@ -160,21 +160,6 @@ final class User
 
     /**
      * @param array $attributes
-     * @return array
-     */
-    public static function domainizeAttributes(array $attributes = []): array
-    {
-        $attributes = collect($attributes);
-
-        if ($attributes->has($key = 'password')) {
-            $attributes->put($key, bcrypt($attributes->get($key)));
-        }
-
-        return $attributes->all();
-    }
-
-    /**
-     * @param array $attributes
      * @return self
      */
     private function propertiesByArray(array $attributes = []): self
