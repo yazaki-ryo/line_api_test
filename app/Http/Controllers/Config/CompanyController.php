@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Config;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
-use Domain\Models\Company;
 use Domain\UseCases\Config\UpdateCompany;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class CompanyController extends Controller
@@ -15,11 +14,15 @@ final class CompanyController extends Controller
     /** @var UpdateCompany */
     private $useCase;
 
+    /** @var Auth */
+    private $auth;
+
     /**
      * @param  UpdateCompany $useCase
+     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateCompany $useCase)
+    public function __construct(UpdateCompany $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
@@ -27,6 +30,7 @@ final class CompanyController extends Controller
         ]);
 
         $this->useCase = $useCase;
+        $this->auth = $auth;
     }
 
     /**
@@ -34,7 +38,7 @@ final class CompanyController extends Controller
      */
     public function view(): View
     {
-        $id = auth()->user()->company->id;
+        $id = optional($this->auth->user()->company)->id;
 
         return view('config.company', [
             'row' => $this->useCase->getCompany($id),
@@ -46,11 +50,11 @@ final class CompanyController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        $id = auth()->user()->company->id;
-        $attributes = $this->fill($request);
+        $id = optional($this->auth->user()->company)->id;
+        $attributes = $request->validated();
 
         $callback = function () use ($id, $attributes) {
-            $this->useCase->excute($id, Company::domainizeAttributes($attributes));
+            $this->useCase->excute($id, $attributes);
         };
 
         if (! is_null(rescue($callback, false))) {
@@ -60,19 +64,6 @@ final class CompanyController extends Controller
 
         flash(__('The registration information was updated.'), 'success');
         return redirect()->route('config.company');
-    }
-
-    /**
-     * @param FormRequest $request
-     * @return array
-     */
-    private function fill(FormRequest $request): array
-    {
-        $attributes = $request->validated();
-
-        //
-
-        return $attributes;
     }
 
 }

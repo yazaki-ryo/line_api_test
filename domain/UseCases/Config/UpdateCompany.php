@@ -8,6 +8,7 @@ use Domain\Contracts\Companies\GetCompanyInterface;
 use Domain\Contracts\Companies\UpdateCompanyInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Company;
+use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class UpdateCompany
 {
@@ -39,6 +40,7 @@ final class UpdateCompany
     /**
      * @param int $id
      * @return Company
+     * @throws NotFoundException
      */
     public function getCompany(int $id): Company
     {
@@ -57,10 +59,28 @@ final class UpdateCompany
      */
     public function excute(int $id, array $attributes = []): bool
     {
+        $this->getCompany($id);
+
+        $attributes = $this->domainize($attributes);
+
         return $this->transactionalService->transaction(function () use ($id, $attributes) {
-            $this->getCompanyService->findById($id);
             return $this->updateCompanyService->update($id, $attributes);
         });
+    }
+
+    /**
+     * @param array $attributes
+     * @return array
+     */
+    private function domainize(array $attributes = []): array
+    {
+        $attributes = collect($attributes);
+
+        if ($attributes->has($key = '')) {
+            //
+        }
+
+        return $attributes->all();
     }
 
 }

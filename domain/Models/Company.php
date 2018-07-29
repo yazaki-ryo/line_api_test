@@ -218,21 +218,6 @@ final class Company
 
     /**
      * @param array $attributes
-     * @return array
-     */
-    public static function domainizeAttributes(array $attributes = []): array
-    {
-        $attributes = collect($attributes);
-
-        if ($attributes->has($key = 'test')) {
-//             $attributes->put($key, 'test');
-        }
-
-        return $attributes->all();
-    }
-
-    /**
-     * @param array $attributes
      * @return self
      */
     private function propertiesByArray(array $attributes = []): self
