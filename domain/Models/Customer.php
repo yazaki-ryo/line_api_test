@@ -348,139 +348,124 @@ final class Customer
     }
 
     /**
-     * @param array $attributes
+     * @param array $args
      * @return self
      */
-    public static function ofByArray(array $attributes = []): self
+    public static function ofByArray(array $args = []): self
     {
-        return (new self(new CustomerRepository))->propertiesByArray($attributes);
+        return (new self(new CustomerRepository))->propertiesByArray($args);
     }
 
     /**
-     * @param array $attributes
-     * @return array
-     */
-    public static function domainizeAttributes(array $attributes = []): array
-    {
-        $attributes = collect($attributes);
-
-        if ($attributes->has($key = 'test')) {
-//             $attributes->put($key, 'test');
-        }
-
-        return $attributes->all();
-    }
-
-    /**
-     * @param array $attributes
+     * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $attributes = []): self
+    private function propertiesByArray(array $args = []): self
     {
-        $attributes = collect($attributes);
+        $args = collect($args);
 
-        if ($attributes->has($key = 'id')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'name')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'kana')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'kana')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'age')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'age')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'office')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'office')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'department')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'department')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'position')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'position')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'postal_code')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'postal_code')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'address')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'address')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'building_name')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'building_name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'tel')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'tel')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'fax')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'fax')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'email')) {
-            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Email::of($attributes->get($key));
+        if ($args->has($key = 'email')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'mobile_phone')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'mobile_phone')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'mourning_flag')) {
-            $this->{$camel = camel_case($key)} = Flag::of((bool)$attributes->get($key));
+        if ($args->has($key = 'mourning_flag')) {
+            $this->{$camel = camel_case($key)} = Flag::of((bool)$args->get($key));
         }
 
-        if ($attributes->has($key = 'likes_and_dislikes')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'likes_and_dislikes')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'note')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'note')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'visited_cnt')) {
-            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
+        if ($args->has($key = 'visited_cnt')) {
+            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'cancel_cnt')) {
-            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
+        if ($args->has($key = 'cancel_cnt')) {
+            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'noshow_cnt')) {
-            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
+        if ($args->has($key = 'noshow_cnt')) {
+            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'created_at')) {
-            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        if ($args->has($key = 'created_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        if ($args->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'deleted_at')) {
-            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        if ($args->has($key = 'deleted_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'prefecture_id')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'prefecture_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'sex_id')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'sex_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'store_id')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         return $this;

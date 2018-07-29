@@ -51,15 +51,15 @@ final class UpdateCustomer
 
     /**
      * @param int $id
-     * @param array $attributes
+     * @param array $args
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(int $id, array $attributes = []): bool
+    public function excute(int $id, array $args = []): bool
     {
-        return $this->transactionalService->transaction(function () use ($id, $attributes) {
+        return $this->transactionalService->transaction(function () use ($id, $args) {
             $this->getCustomerService->findById($id);
-            return $this->updateCustomerService->update($id, $attributes);
+            return $this->updateCustomerService->update($id, $args);
         });
     }
 

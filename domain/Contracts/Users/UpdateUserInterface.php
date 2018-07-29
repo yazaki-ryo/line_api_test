@@ -7,8 +7,8 @@ interface UpdateUserInterface
 {
     /**
      * @param int $id
-     * @param array $attributes
+     * @param array $args
      * @return bool
      */
-    public function update(int $id, array $attributes = []): bool;
+    public function update(int $id, array $args = []): bool;
 }

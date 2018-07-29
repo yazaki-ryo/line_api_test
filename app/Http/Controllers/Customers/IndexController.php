@@ -14,12 +14,15 @@ final class IndexController extends Controller
     /** @var GetCustomers */
     private $useCase;
 
+    /** @var Auth */
+    private $auth;
+
     /**
      * @param  GetCustomers $useCase
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(GetCustomers $useCase)
+    public function __construct(GetCustomers $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
@@ -27,6 +30,7 @@ final class IndexController extends Controller
         ]);
 
         $this->useCase = $useCase;
+        $this->auth = $auth;
     }
 
     /**
@@ -36,7 +40,7 @@ final class IndexController extends Controller
     public function __invoke(SearchRequest $request): View
     {
         return view('customers.index', [
-            'rows' => $this->useCase->excute($request->validated()),
+            'rows' => $this->useCase->excute($this->auth, $request->validated()),
         ]);
     }
 

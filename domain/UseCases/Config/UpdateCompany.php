@@ -54,35 +54,35 @@ final class UpdateCompany
     /**
      * @param Auth $auth
      * @param int $id
-     * @param array $attributes
+     * @param array $args
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(Auth $auth, int $id, array $attributes = []): bool
+    public function excute(Auth $auth, int $id, array $args = []): bool
     {
         $this->getCompany($id);
 
-        $attributes = $this->domainize($auth, $attributes);
+        $args = $this->domainize($auth, $args);
 
-        return $this->transactionalService->transaction(function () use ($id, $attributes) {
-            return $this->updateCompanyService->update($id, $attributes);
+        return $this->transactionalService->transaction(function () use ($id, $args) {
+            return $this->updateCompanyService->update($id, $args);
         });
     }
 
     /**
      * @param Auth $auth
-     * @param array $attributes
+     * @param array $args
      * @return array
      */
-    private function domainize(Auth $auth, array $attributes = []): array
+    private function domainize(Auth $auth, array $args = []): array
     {
-        $attributes = collect($attributes);
+        $args = collect($args);
 
-        if ($attributes->has($key = '')) {
+        if ($args->has($key = '')) {
             //
         }
 
-        return $attributes->all();
+        return $args->all();
     }
 
 }

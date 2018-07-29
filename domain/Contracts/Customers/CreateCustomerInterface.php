@@ -8,8 +8,8 @@ use Domain\Models\Customer;
 interface CreateCustomerInterface
 {
     /**
-     * @param array $attributes
+     * @param array $args
      * @return Customer
      */
-    public function create(array $attributes = []): Customer;
+    public function create(array $args = []): Customer;
 }

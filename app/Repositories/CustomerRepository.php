@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentCustomer;
-use App\Eloquents\EloquentUser;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Company;
@@ -43,23 +42,22 @@ final class CustomerRepository implements DomainModelable
     }
 
     /**
-     * @param EloquentUser $user
      * @param array $args
      * @return DomainCollection
      */
-    public function findAll(EloquentUser $user, array $args = []): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
         $collection = $this->search($user, $args)->get();
         return self::toModels($collection);
     }
 
     /**
-     * @param array $attributes
+     * @param array $args
      * @return Customer|null
      */
-    public function create(array $attributes = []): ?Customer
+    public function create(array $args = []): ?Customer
     {
-        if (is_null($resource = $this->eloquent->create($attributes))) {
+        if (is_null($resource = $this->eloquent->create($args))) {
             return null;
         }
         return self::toModel($resource);
@@ -67,16 +65,16 @@ final class CustomerRepository implements DomainModelable
 
     /**
      * @param int $id
-     * @param array $attributes
+     * @param array $args
      * @return bool
      */
-    public function update(int $id, array $attributes = []): bool
+    public function update(int $id, array $args = []): bool
     {
         if (is_null($resource = $this->eloquent->find($id))) {
             return false;
         }
 
-        return $resource->update($attributes);
+        return $resource->update($args);
     }
 
     /**
@@ -165,19 +163,13 @@ final class CustomerRepository implements DomainModelable
     }
 
     /**
-     * @param EloquentUser $user
      * @param array $args
      * @return Builder
      */
-    private function search(EloquentUser $user, array $args = []): Builder
+    private function search(array $args = []): Builder
     {
         $args = collect($args);
         $query = $this->eloquent->newQuery();
-
-        $query->companyId(optional($user->store)->company_id);
-        $query->when($user->cant('roles', 'company-admin'), function (Builder $q) use ($user) {
-            $q->storeId($user->store_id);
-        });
 
         $query->when($args->has('free_word'), function (Builder $q) use ($args) {
             $q->freeWord($args->get('free_word'));

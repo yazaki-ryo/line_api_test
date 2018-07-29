@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\CreateRequest;
 use Domain\Models\Customer;
 use Domain\UseCases\Customers\CreateCustomer;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class CreateController extends Controller
@@ -15,11 +15,15 @@ final class CreateController extends Controller
     /** @var CreateCustomer */
     private $useCase;
 
+    /** @var Auth */
+    private $auth;
+
     /**
      * @param  CreateCustomer $useCase
+     * @param  Auth $auth
      * @return void
      */
-    public function __construct(CreateCustomer $useCase)
+    public function __construct(CreateCustomer $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
@@ -27,6 +31,7 @@ final class CreateController extends Controller
         ]);
 
         $this->useCase = $useCase;
+        $this->auth = $auth;
     }
 
     /**
@@ -44,10 +49,10 @@ final class CreateController extends Controller
      */
     public function create(CreateRequest $request)
     {
-        $attributes = $this->fill($request);
+        $args = $request->validated();
 
-        $callback = function () use ($attributes) {
-            return $this->useCase->excute(Customer::domainizeAttributes($attributes));
+        $callback = function () use ($args) {
+            return $this->useCase->excute($this->auth, $args);
         };
 
         if (($result = rescue($callback, false)) === false) {
@@ -57,19 +62,6 @@ final class CreateController extends Controller
 
         flash(__('The registration information was updated.'), 'success');
         return redirect()->route('customers.edit', $result->id());
-    }
-
-    /**
-     * @param FormRequest $request
-     * @return array
-     */
-    private function fill(FormRequest $request): array
-    {
-        $attributes = $request->validated();
-
-        //
-
-        return $attributes;
     }
 
 }

@@ -119,59 +119,59 @@ final class Role
     }
 
     /**
-     * @param array $attributes
+     * @param array $args
      * @return self
      */
-    public static function ofByArray(array $attributes = []): self
+    public static function ofByArray(array $args = []): self
     {
-        return (new self(new RoleRepository))->propertiesByArray($attributes);
+        return (new self(new RoleRepository))->propertiesByArray($args);
     }
 
     /**
-     * @param array $attributes
+     * @param array $args
      * @return array
      */
-    public static function domainizeAttributes(array $attributes = []): array
+    public static function domainizeAttributes(array $args = []): array
     {
-        $attributes = collect($attributes);
+        $args = collect($args);
 
-        if ($attributes->has($key = 'test')) {
-//             $attributes->put($key, 'test');
+        if ($args->has($key = 'test')) {
+//             $args->put($key, 'test');
         }
 
-        return $attributes->all();
+        return $args->all();
     }
 
     /**
-     * @param array $attributes
+     * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $attributes = []): self
+    private function propertiesByArray(array $args = []): self
     {
-        $attributes = collect($attributes);
+        $args = collect($args);
 
-        if ($attributes->has($key = 'id')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'name')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'slug')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'slug')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'created_at')) {
-            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        if ($args->has($key = 'created_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        if ($args->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'deleted_at')) {
-            $this->{$camel = camel_case($key)} = is_null($attributes->get($key)) ? null : Datetime::of($attributes->get($key));
+        if ($args->has($key = 'deleted_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
         return $this;

@@ -55,39 +55,39 @@ final class UpdateProfile
     /**
      * @param  Auth $auth
      * @param  int $id
-     * @param  array $attributes
+     * @param  array $args
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(Auth $auth, int $id, array $attributes = []): bool
+    public function excute(Auth $auth, int $id, array $args = []): bool
     {
         $this->getUser($id);
 
-        $attributes = $this->domainize($auth, $attributes);
+        $args = $this->domainize($auth, $args);
 
-        return $this->transactionalService->transaction(function () use ($id, $attributes) {
-            return $this->updateUserService->update($id, $attributes);
+        return $this->transactionalService->transaction(function () use ($id, $args) {
+            return $this->updateUserService->update($id, $args);
         });
     }
 
     /**
      * @param Auth $auth
-     * @param array $attributes
+     * @param array $args
      * @return array
      */
-    private function domainize(Auth $auth, array $attributes = []): array
+    private function domainize(Auth $auth, array $args = []): array
     {
-        $attributes = collect($attributes);
+        $args = collect($args);
 
-        if ($attributes->has($key = 'password')) {
-            $attributes = $attributes->when(empty($attributes->get($key)), function (Collection $item) use ($key) {
+        if ($args->has($key = 'password')) {
+            $args = $args->when(empty($args->get($key)), function (Collection $item) use ($key) {
                 return $item->except($key);
             }, function (Collection $item) use ($key) {
                 return $item->put($key, bcrypt($item->get($key)));
             });
         }
 
-        return $attributes->all();
+        return $args->all();
     }
 
 }

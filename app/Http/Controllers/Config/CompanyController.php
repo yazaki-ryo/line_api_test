@@ -51,10 +51,10 @@ final class CompanyController extends Controller
     public function update(UpdateRequest $request)
     {
         $id = optional($this->auth->user()->company)->id;
-        $attributes = $request->validated();
+        $args = $request->validated();
 
-        $callback = function () use ($id, $attributes) {
-            $this->useCase->excute($this->auth, $id, $attributes);
+        $callback = function () use ($id, $args) {
+            $this->useCase->excute($this->auth, $id, $args);
         };
 
         if (! is_null(rescue($callback, false))) {

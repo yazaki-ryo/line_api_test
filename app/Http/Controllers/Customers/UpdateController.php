@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\UpdateRequest;
-use Domain\Models\Customer;
 use Domain\UseCases\Customers\UpdateCustomer;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class UpdateController extends Controller
@@ -15,11 +14,15 @@ final class UpdateController extends Controller
     /** @var UpdateCustomer */
     private $useCase;
 
+    /** @var Auth */
+    private $auth;
+
     /**
      * @param  UpdateCustomer $useCase
+     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateCustomer $useCase)
+    public function __construct(UpdateCustomer $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
@@ -27,6 +30,7 @@ final class UpdateController extends Controller
         ]);
 
         $this->useCase = $useCase;
+        $this->auth = $auth;
     }
 
     /**
@@ -50,10 +54,10 @@ final class UpdateController extends Controller
      */
     public function update(UpdateRequest $request, int $customerId)
     {
-        $attributes = $this->fill($request);
+        $args = $request->validated();
 
-        $callback = function () use ($customerId, $attributes) {
-            $this->useCase->excute($customerId, Customer::domainizeAttributes($attributes));
+        $callback = function () use ($customerId, $args) {
+            $this->useCase->excute($this->auth, $customerId, $args);
         };
 
         if (! is_null(rescue($callback, false))) {
@@ -63,19 +67,6 @@ final class UpdateController extends Controller
 
         flash(__('The registration information was updated.'), 'success');
         return redirect()->route('customers.edit', $customerId);
-    }
-
-    /**
-     * @param FormRequest $request
-     * @return array
-     */
-    private function fill(FormRequest $request): array
-    {
-        $attributes = $request->validated();
-
-        //
-
-        return $attributes;
     }
 
 }

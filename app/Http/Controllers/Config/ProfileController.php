@@ -50,10 +50,10 @@ final class ProfileController extends Controller
     public function update(SelfUpdateRequest $request)
     {
         $id = $this->auth->user()->getAuthIdentifier();
-        $attributes = $request->validated();
+        $args = $request->validated();
 
-        $callback = function () use ($id, $attributes) {
-            $this->useCase->excute($this->auth, $id, $attributes);
+        $callback = function () use ($id, $args) {
+            $this->useCase->excute($this->auth, $id, $args);
         };
 
         if (! is_null(rescue($callback, false))) {
