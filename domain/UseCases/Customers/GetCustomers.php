@@ -34,14 +34,6 @@ final class GetCustomers
     }
 
     /**
-     *
-     */
-//     $query->companyId(optional($user->store)->company_id);
-//         $query->when($user->cant('roles', 'company-admin'), function (Builder $q) use ($user) {
-//             $q->storeId($user->store_id);
-//         });
-
-    /**
      * @param Auth $auth
      * @param array $args
      * @return array
@@ -49,6 +41,12 @@ final class GetCustomers
     private function domainize(Auth $auth, array $args = []): array
     {
         $args = collect($args);
+
+        $args->put('company_id', optional($auth->user()->company)->id);
+
+        if ($auth->user()->cant('roles', 'company-admin')) {
+            $args->put('store_id', optional($auth->user()->store)->id);
+        }
 
         if ($args->has($key = '')) {
             //

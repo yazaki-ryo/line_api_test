@@ -47,7 +47,7 @@ final class CustomerRepository implements DomainModelable
      */
     public function findAll(array $args = []): DomainCollection
     {
-        $collection = $this->search($user, $args)->get();
+        $collection = $this->search($args)->get();
         return self::toModels($collection);
     }
 
@@ -171,8 +171,16 @@ final class CustomerRepository implements DomainModelable
         $args = collect($args);
         $query = $this->eloquent->newQuery();
 
-        $query->when($args->has('free_word'), function (Builder $q) use ($args) {
-            $q->freeWord($args->get('free_word'));
+        $query->when($args->has($key = 'company_id'), function (Builder $q) use ($key, $args) {
+            $q->companyId($args->get($key));
+        });
+
+        $query->when($args->has($key = 'store_id'), function (Builder $q) use ($key, $args) {
+            $q->storeId($args->get($key));
+        });
+
+        $query->when($args->has($key = 'free_word'), function (Builder $q) use ($args) {
+            $q->freeWord($args->get($key));
         });
 
         return $query;
