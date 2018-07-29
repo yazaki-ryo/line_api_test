@@ -8,6 +8,7 @@ use Domain\Contracts\Customers\UpdateCustomerInterface;
 use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
+use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class UpdateCustomer
 {
@@ -50,17 +51,46 @@ final class UpdateCustomer
     }
 
     /**
+     * @param Auth $auth
      * @param int $id
      * @param array $args
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(int $id, array $args = []): bool
+    public function excute(Auth $auth, int $id, array $args = []): bool
     {
+        $this->getCustomer($id);
+
+        $args = $this->domainize($auth, $args);
+
         return $this->transactionalService->transaction(function () use ($id, $args) {
-            $this->getCustomerService->findById($id);
             return $this->updateCustomerService->update($id, $args);
         });
+    }
+
+    /**
+     * @param Auth $auth
+     * @param array $args
+     * @return array
+     */
+    private function domainize(Auth $auth, array $args = []): array
+    {
+        $args = collect($args);
+
+        if ($auth->user()->can('roles', 'company-admin')) {
+            /**
+             * TODO プルダウンで選択出来る実装になった場合、ここで企業に紐付く店舗IDかどうか判定 -> 例外をスロー
+             */
+            $args->put('store_id', optional($auth->user()->store)->id);
+        } else {
+            $args->put('store_id', optional($auth->user()->store)->id);
+        }
+
+        if ($args->has($key = '')) {
+            //
+        }
+
+        return $args->all();
     }
 
 }

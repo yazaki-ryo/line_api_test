@@ -44,7 +44,7 @@ final class UpdateController extends Controller
         $this->authorize('update', $customer);
 
         return view('customers.edit', [
-            'row' => $this->useCase->getCustomer($customerId),
+            'row' => $customer,
         ]);
     }
 
@@ -54,7 +54,10 @@ final class UpdateController extends Controller
      */
     public function update(UpdateRequest $request, int $customerId)
     {
+        $customer = $this->useCase->getCustomer($customerId);
         $args = $request->validated();
+
+        $this->authorize('update', $customer);
 
         $callback = function () use ($customerId, $args) {
             $this->useCase->excute($this->auth, $customerId, $args);
