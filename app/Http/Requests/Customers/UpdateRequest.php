@@ -28,13 +28,13 @@ class UpdateRequest extends FormRequest
                 'max:191',
             ],
             'kana' => [
-                'required',
+                'nullable',
                 'string',
                 // TODO フリガナバリデートルール
                 'max:191',
             ],
             'sex_id' => [
-                'required',
+                'nullable',
                 'numeric',
                 Rule::exists('sexes', 'id'),
             ],
@@ -59,7 +59,7 @@ class UpdateRequest extends FormRequest
                 'max:191',
             ],
             'postal_code' => [
-                'required',
+                'nullable',
                 'string',
                 // TODO 数値とハイフンバリデート（郵便番号正規表現の方が良いか、又はハイフン無しで限定した方が良いか）
                 'max:191',
@@ -69,9 +69,8 @@ class UpdateRequest extends FormRequest
                 'numeric',
                 Rule::exists('prefectures', 'id'),
             ],
-
             'address' => [
-                'required',
+                'nullable',
                 'string',
                 'max:1000',
             ],
@@ -91,7 +90,7 @@ class UpdateRequest extends FormRequest
                 'max:191',
             ],
             'email' => [
-                'required',
+                'nullable',
                 'string',
                 'email',
                 'max:191',

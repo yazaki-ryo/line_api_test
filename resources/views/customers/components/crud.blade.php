@@ -15,11 +15,10 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -28,13 +27,12 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
     <div class="col-md-6 form-control-static">
         @foreach ($sexes as $item)
             <label>
-                <input type="radio" name="{{ $field }}" value="{{ $item->id() }}" required {{ (int)old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
+                <input type="radio" name="{{ $field }}" value="{{ $item->id() }}" {{ (int)old($field, request($field, $row->{$camel = camel_case($field)}() ?? 1)) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
             </label>
         @endforeach
 
@@ -94,11 +92,10 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -107,11 +104,10 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($field, $prefectures->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
+        {!! Form::select($field, $prefectures->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -120,11 +116,10 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
+        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -170,11 +165,10 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::email($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::email($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
