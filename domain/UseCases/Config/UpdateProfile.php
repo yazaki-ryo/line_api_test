@@ -8,6 +8,7 @@ use Domain\Contracts\Users\GetUserInterface;
 use Domain\Contracts\Users\UpdateUserInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\User;
+use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Support\Collection;
 
 final class UpdateProfile
@@ -52,16 +53,17 @@ final class UpdateProfile
     }
 
     /**
-     * @param int $id
-     * @param array $attributes
+     * @param  Auth $auth
+     * @param  int $id
+     * @param  array $attributes
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(int $id, array $attributes = []): bool
+    public function excute(Auth $auth, int $id, array $attributes = []): bool
     {
         $this->getUser($id);
 
-        $attributes = $this->domainize($attributes);
+        $attributes = $this->domainize($auth, $attributes);
 
         return $this->transactionalService->transaction(function () use ($id, $attributes) {
             return $this->updateUserService->update($id, $attributes);
@@ -69,10 +71,11 @@ final class UpdateProfile
     }
 
     /**
+     * @param Auth $auth
      * @param array $attributes
      * @return array
      */
-    private function domainize(array $attributes = []): array
+    private function domainize(Auth $auth, array $attributes = []): array
     {
         $attributes = collect($attributes);
 

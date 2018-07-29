@@ -52,16 +52,17 @@ final class UpdateCompany
     }
 
     /**
+     * @param Auth $auth
      * @param int $id
      * @param array $attributes
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(int $id, array $attributes = []): bool
+    public function excute(Auth $auth, int $id, array $attributes = []): bool
     {
         $this->getCompany($id);
 
-        $attributes = $this->domainize($attributes);
+        $attributes = $this->domainize($auth, $attributes);
 
         return $this->transactionalService->transaction(function () use ($id, $attributes) {
             return $this->updateCompanyService->update($id, $attributes);
@@ -69,10 +70,11 @@ final class UpdateCompany
     }
 
     /**
+     * @param Auth $auth
      * @param array $attributes
      * @return array
      */
-    private function domainize(array $attributes = []): array
+    private function domainize(Auth $auth, array $attributes = []): array
     {
         $attributes = collect($attributes);
 

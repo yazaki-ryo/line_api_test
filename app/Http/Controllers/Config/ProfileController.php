@@ -53,7 +53,7 @@ final class ProfileController extends Controller
         $attributes = $request->validated();
 
         $callback = function () use ($id, $attributes) {
-            $this->useCase->excute($id, $attributes);
+            $this->useCase->excute($this->auth, $id, $attributes);
         };
 
         if (! is_null(rescue($callback, false))) {
