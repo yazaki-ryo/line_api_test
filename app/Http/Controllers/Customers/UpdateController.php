@@ -48,8 +48,8 @@ final class UpdateController extends Controller
     }
 
     /**
-     * @param int $customerId
      * @param  UpdateRequest $request
+     * @param  int $customerId
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateRequest $request, int $customerId)
@@ -68,7 +68,7 @@ final class UpdateController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The registration information was updated.'), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.resources.customers'), 'action' => __('elements.actions.updated')]), 'success');
         return redirect()->route('customers.edit', $customerId);
     }
 

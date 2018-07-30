@@ -61,7 +61,7 @@ final class ProfileController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The registration information was updated.'), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.resources.users'), 'action' => __('elements.actions.updated')]), 'success');
         return redirect()->route('config.profile');
     }
 

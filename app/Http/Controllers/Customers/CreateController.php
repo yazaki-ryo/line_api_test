@@ -61,7 +61,7 @@ final class CreateController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The registration information was updated.'), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.resources.customers'), 'action' => __('elements.actions.created')]), 'success');
         return redirect()->route('customers.edit', $result->id());
     }
 
