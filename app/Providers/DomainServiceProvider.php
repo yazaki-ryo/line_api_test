@@ -7,6 +7,7 @@ use App\Services\Companies\CompaniesService;
 use App\Services\Customers\CustomersService;
 use App\Services\Prefectures\PrefecturesService;
 use App\Services\Sexes\SexesService;
+use App\Services\Stores\StoresService;
 use App\Services\Users\UsersService;
 use Domain\Contracts\Companies\GetCompanyInterface;
 use Domain\Contracts\Companies\GetCompaniesInterface;
@@ -19,6 +20,10 @@ use Domain\Contracts\Prefectures\GetPrefectureInterface;
 use Domain\Contracts\Prefectures\GetPrefecturesInterface;
 use Domain\Contracts\Sexes\GetSexInterface;
 use Domain\Contracts\Sexes\GetSexesInterface;
+use Domain\Contracts\Stores\CreateStoreInterface;
+use Domain\Contracts\Stores\GetStoreInterface;
+use Domain\Contracts\Stores\GetStoresInterface;
+use Domain\Contracts\Stores\UpdateStoreInterface;
 use Domain\Contracts\Users\GetUserInterface;
 use Domain\Contracts\Users\GetUsersInterface;
 use Domain\Contracts\Users\UpdateUserInterface;
@@ -93,6 +98,25 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(GetSexesInterface::class, function () {
             return app(SexesService::class);
+        });
+
+        /**
+         * Stores
+         */
+        $this->app->bind(GetStoreInterface::class, function () {
+            return app(StoresService::class);
+        });
+
+        $this->app->bind(GetStoresInterface::class, function () {
+            return app(StoresService::class);
+        });
+
+        $this->app->bind(CreateStoreInterface::class, function () {
+            return app(StoresService::class);
+        });
+
+        $this->app->bind(UpdateStoreInterface::class, function () {
+            return app(StoresService::class);
         });
 
         /**

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Views\Composers\PrefecturesComposer;
 use App\Http\Views\Composers\SexesComposer;
+use App\Http\Views\Composers\StoresComposer;
 
 final class ViewServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,10 @@ final class ViewServiceProvider extends ServiceProvider
             'customers.add',
             'customers.edit',
         ], SexesComposer::class);
+
+        View::creator([
+            'customers.*',
+        ], StoresComposer::class);
     }
 
     /**

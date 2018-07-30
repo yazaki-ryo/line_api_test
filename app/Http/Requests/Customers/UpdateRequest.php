@@ -65,7 +65,7 @@ class UpdateRequest extends FormRequest
                 'max:191',
             ],
             'prefecture_id' => [
-                'required',
+                'nullable',
                 'numeric',
                 Rule::exists('prefectures', 'id'),
             ],
@@ -113,6 +113,12 @@ class UpdateRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:1000',
+            ],
+            'store_id' => [
+                'required',
+                'numeric',
+                'exists:stores,id',
+                'store_id',
             ],
         ];
     }

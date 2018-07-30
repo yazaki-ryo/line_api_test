@@ -231,10 +231,11 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
+        <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text(null, optional($row->store())->name() ?? optional(auth()->user()->store)->name, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
+        {!! Form::select($field, $stores->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? auth()->user()->{$camel})), [auth()->user()->cant('roles', 'company-admin') ? 'readonly' : null, 'required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

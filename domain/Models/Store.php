@@ -5,6 +5,7 @@ namespace Domain\Models;
 
 use App\Repositories\StoreRepository;
 use App\Services\Collection\DomainCollection;
+use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class Store
 {
@@ -356,6 +357,32 @@ final class Store
         }
 
         return $this;
+    }
+
+    /**
+     * @param Auth $auth
+     * @param int $value
+     * @return bool
+     */
+    public static function validateStoreId(Auth $auth, int $value): bool
+    {
+        if (is_null($store = $auth->user()->store)
+            || is_null($company = $store->company)
+        ) {
+            return false;
+        }
+
+        if ($auth->user()->can('roles', 'company-admin')) {
+            if ($company->stores->containsStrict('id', $value)) {
+                return true;
+            }
+        } else {
+            if ($store->id === $value) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
