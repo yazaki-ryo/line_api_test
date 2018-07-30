@@ -31,11 +31,17 @@ final class CustomerRepository implements DomainModelable
 
     /**
      * @param int $id
+     * @param bool $trashed
      * @return Customer|null
      */
-    public function findById(int $id): ?Customer
+    public function findById(int $id, bool $trashed = false): ?Customer
     {
-        if (is_null($resource = $this->eloquent->find($id))) {
+        $resource = $this->eloquent->newQuery()
+            ->when($trashed, function (Builder $query) {
+                $query->onlyTrashed();
+            })->find($id);
+
+        if (is_null($resource)) {
             return null;
         }
         return self::toModel($resource);
@@ -84,6 +90,17 @@ final class CustomerRepository implements DomainModelable
     {
         if (! is_null($resource = $this->eloquent->find($id))) {
             $resource->delete();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function restore(int $id): void
+    {
+        if (! is_null($resource = $this->eloquent->onlyTrashed()->find($id))) {
+            $resource->restore();
         }
     }
 

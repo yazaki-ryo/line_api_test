@@ -20,9 +20,15 @@
                         <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('visited_cnt')}()->asInt() }}</td>
                         <td>
-                            <a href="{{ route('customers.edit', $row->id()) }}" class="btn btn-sm btn-success" title="@lang ('elements.actions.edit')">
-                                <span class="glyphicon glyphicon-pencil"></span>
-                            </a>
+                            @if ($row->{$camel = camel_case('deleted_at')}())
+                                <a href="{{ route('customers.restore', $row->id()) }}" class="btn btn-sm btn-info" title="@lang ('elements.actions.restore')" onclick="restoreRecord('{{ route('customers.restore', $row->id()) }}'); return false;">
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                </a>
+                            @else
+                                <a href="{{ route('customers.edit', $row->id()) }}" class="btn btn-sm btn-success" title="@lang ('elements.actions.edit')">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

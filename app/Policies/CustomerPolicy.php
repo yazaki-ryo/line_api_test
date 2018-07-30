@@ -90,9 +90,15 @@ final class CustomerPolicy
      * @param  Customer  $customer
      * @return bool
      */
-//     public function restore(EloquentUser $user, Customer $customer): bool
-//     {
-//         return false;
-//     }
+    public function restore(EloquentUser $user, Customer $customer): bool
+    {
+        if ($user->can('roles', 'company-admin')
+            && optional($user->store)->company_id === optional($customer->store())->companyId()
+        ) {
+            return true;
+        }
+
+        return false;
+    }
 
 }

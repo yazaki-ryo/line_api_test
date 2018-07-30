@@ -9,7 +9,8 @@ interface GetCustomerInterface
 {
     /**
      * @param int $id
+     * @param bool $trashed
      * @return Customer|null
      */
-    public function findById(int $id): ?Customer;
+    public function findById(int $id, bool $trashed = false): ?Customer;
 }

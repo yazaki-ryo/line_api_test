@@ -27,6 +27,8 @@ return [
         'register'       => '登録',
         'registered'     => '登録',
         'reset_search'   => '条件リセット',
+        'restore'        => '復旧',
+        'restored'       => '復旧',
         'result'         => '結果',
         'save'           => '保存',
         'saved'          => '保存',

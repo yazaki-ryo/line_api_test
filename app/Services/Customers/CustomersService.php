@@ -9,6 +9,7 @@ use Domain\Contracts\Customers\CreateCustomerInterface;
 use Domain\Contracts\Customers\DeleteCustomerInterface;
 use Domain\Contracts\Customers\GetCustomerInterface;
 use Domain\Contracts\Customers\GetCustomersInterface;
+use Domain\Contracts\Customers\RestoreCustomerInterface;
 use Domain\Contracts\Customers\UpdateCustomerInterface;
 use Domain\Models\Customer;
 
@@ -17,6 +18,7 @@ final class CustomersService implements
     DeleteCustomerInterface,
     GetCustomerInterface,
     GetCustomersInterface,
+    RestoreCustomerInterface,
     UpdateCustomerInterface
 {
     /** @var CustomerRepository */
@@ -32,11 +34,12 @@ final class CustomersService implements
 
     /**
      * @param int $id
+     * @param bool $trashed
      * @return Customer|null
      */
-    public function findById(int $id): ?Customer
+    public function findById(int $id, bool $trashed = false): ?Customer
     {
-        return $this->repo->findById($id);
+        return $this->repo->findById($id, $trashed);
     }
 
     /**
@@ -74,5 +77,14 @@ final class CustomersService implements
     public function delete(int $id): void
     {
         $this->repo->delete($id);
+    }
+
+    /**
+     * @param bool $trashed
+     * @return void
+     */
+    public function restore(int $id): void
+    {
+        $this->repo->restore($id);
     }
 }
