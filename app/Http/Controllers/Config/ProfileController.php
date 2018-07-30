@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
 use Domain\UseCases\Config\UpdateProfile;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\View\View;
 
 final class ProfileController extends Controller
 {
@@ -33,9 +32,9 @@ final class ProfileController extends Controller
     }
 
     /**
-     * @return View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(): View
+    public function view()
     {
         $id = $this->auth->user()->getAuthIdentifier();
 
@@ -45,7 +44,8 @@ final class ProfileController extends Controller
     }
 
     /**
-     * @param  SelfUpdateRequest $request
+     * @param SelfUpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(SelfUpdateRequest $request)
     {

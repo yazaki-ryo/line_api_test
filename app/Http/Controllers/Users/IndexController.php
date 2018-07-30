@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use Domain\UseCases\Users\GetUsers;
-use Illuminate\View\View;
 
 final class IndexController extends Controller
 {
@@ -27,9 +26,9 @@ final class IndexController extends Controller
     }
 
     /**
-     * @return View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function __invoke(): View
+    public function __invoke()
     {
         $result = $this->useCase->excute();
 

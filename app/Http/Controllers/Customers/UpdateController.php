@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\UpdateRequest;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\View\View;
 
 final class UpdateController extends Controller
 {
@@ -35,9 +34,9 @@ final class UpdateController extends Controller
 
     /**
      * @param int $customerId
-     * @return View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $customerId): View
+    public function view(int $customerId)
     {
         $customer = $this->useCase->getCustomer($customerId);
 
@@ -51,6 +50,7 @@ final class UpdateController extends Controller
     /**
      * @param int $customerId
      * @param  UpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateRequest $request, int $customerId)
     {

@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\SearchRequest;
 use Domain\UseCases\Customers\GetCustomers;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\View\View;
 
 final class IndexController extends Controller
 {
@@ -34,10 +33,10 @@ final class IndexController extends Controller
     }
 
     /**
-     * @param  SearchRequest $request
-     * @return View
+     * @param SearchRequest $request
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function __invoke(SearchRequest $request): View
+    public function __invoke(SearchRequest $request)
     {
         return view('customers.index', [
             'rows' => $this->useCase->excute($this->auth, $request->validated()),

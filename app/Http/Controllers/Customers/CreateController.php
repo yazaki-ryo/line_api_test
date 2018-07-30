@@ -8,7 +8,6 @@ use App\Http\Requests\Customers\CreateRequest;
 use Domain\Models\Customer;
 use Domain\UseCases\Customers\CreateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\View\View;
 
 final class CreateController extends Controller
 {
@@ -35,9 +34,10 @@ final class CreateController extends Controller
     }
 
     /**
-     * @return View
+     * @param Customer $customer
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(Customer $customer): View
+    public function view(Customer $customer)
     {
         return view('customers.add', [
             'row' => $customer,
@@ -45,7 +45,8 @@ final class CreateController extends Controller
     }
 
     /**
-     * @param  CreateRequest $request
+     * @param CreateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create(CreateRequest $request)
     {

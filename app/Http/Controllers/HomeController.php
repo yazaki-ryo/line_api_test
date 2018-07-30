@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
-
 final class HomeController extends Controller
 {
     /**
@@ -16,9 +14,9 @@ final class HomeController extends Controller
     }
 
     /**
-     * @return View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function __invoke(): View
+    public function __invoke()
     {
         return view('home');
     }

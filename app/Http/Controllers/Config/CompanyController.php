@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
 use Domain\UseCases\Config\UpdateCompany;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\View\View;
 
 final class CompanyController extends Controller
 {
@@ -34,9 +33,9 @@ final class CompanyController extends Controller
     }
 
     /**
-     * @return View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(): View
+    public function view()
     {
         $id = optional($this->auth->user()->store)->company_id;
 
@@ -46,7 +45,8 @@ final class CompanyController extends Controller
     }
 
     /**
-     * @param  UpdateRequest $request
+     * @param UpdateRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(UpdateRequest $request)
     {
