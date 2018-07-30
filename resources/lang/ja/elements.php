@@ -32,7 +32,6 @@ return [
         'saved'          => '保存',
         'search'         => '検索',
         'set'            => '設定',
-        'submit'         => '送信',
     ],
 
     'labels' => [
@@ -42,6 +41,12 @@ return [
         'primary'        => 'メイン',
         'yes'            => 'はい',
         'no'             => 'いいえ',
+        'trashed'        => '削除データ',
+        'state' => [
+            'without' => '以外',
+            'with'    => 'を含む',
+            'only'    => 'のみ',
+        ],
     ],
 
     'menus' => [

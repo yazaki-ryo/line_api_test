@@ -49,8 +49,10 @@ final class GetCustomers
             $args->put('store_id', optional($store)->id);
         }
 
-        if ($args->has($key = '')) {
-            //
+        if ($args->has($key = 'free_word')) {
+            if (is_null($args->get($key))) {
+                $args->forget($key);
+            }
         }
 
         return $args->all();

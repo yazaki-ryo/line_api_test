@@ -189,8 +189,17 @@ final class CustomerRepository implements DomainModelable
             $q->storeId($args->get($key));
         });
 
-        $query->when($args->has($key = 'free_word'), function (Builder $q) use ($args) {
+        $query->when($args->has($key = 'free_word'), function (Builder $q) use ($key, $args) {
             $q->freeWord($args->get($key));
+        });
+
+        $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {
+            $q1->when((int)$args->get($key) === 2, function (Builder $q2) {
+                $q2->withTrashed();
+            });
+            $q1->when((int)$args->get($key) === 3, function (Builder $q2) {
+                $q2->onlyTrashed();
+            });
         });
 
         return $query;
