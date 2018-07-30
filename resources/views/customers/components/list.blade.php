@@ -8,7 +8,7 @@
                     <th>@lang ('attributes.customers.tel')</th>
                     <th>@lang ('attributes.customers.mobile_phone')</th>
                     <th>@lang ('attributes.customers.visited_cnt')</th>
-                    <th>@lang ('elements.buttons.action')</th>
+                    <th>@lang ('elements.labels.action')</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,7 +20,7 @@
                         <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('visited_cnt')}()->asInt() }}</td>
                         <td>
-                            <a href="{{ route('customers.edit', $row->id()) }}" class="btn btn-sm btn-success" title="@lang ('elements.buttons.edit')">
+                            <a href="{{ route('customers.edit', $row->id()) }}" class="btn btn-sm btn-success" title="@lang ('elements.actions.edit')">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>

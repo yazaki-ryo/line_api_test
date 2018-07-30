@@ -31,7 +31,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#result-tab" data-toggle="tab">
-                            @lang ('elements.buttons.search')@lang ('elements.buttons.result')
+                            @lang ('elements.actions.search')@lang ('elements.actions.result')
                             <span class="badge">{{ $rows->count() }}</span>
                         </a>
                     </li>

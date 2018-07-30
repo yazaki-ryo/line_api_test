@@ -124,7 +124,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li class="disabled"><a href="#">@lang ('elements.buttons.set')</a></li>
+                            <li class="disabled"><a href="#">@lang ('elements.actions.set')</a></li>
                             <li class="{{ request()->route()->named('config.profile') ? 'active' : '' }}"><a href="{{ route('config.profile') }}">@lang ('elements.pages.config.profile')</a></li>
 
                             @can ('authorize', ['users.*', 'users.select'])

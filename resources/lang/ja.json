@@ -1,5 +1,6 @@
 {
     "An internal error occurred. Please contact the administrator.": "内部エラーが発生しました。管理者へお問い合わせください。",
+    "Do you really want to delete this?": "本当に削除しますか？",
     "Do you want to log out?": "ログアウトしますか？",
     "Forgot Your Password?": "パスワードをお忘れの方",
     "Name, office name, features, etc.": "氏名、勤務先、特徴など",
@@ -8,7 +9,7 @@
     "Please re-enter for confirmation.": "確認のため、再度入力してください。",
     "Please select": "選択してください",
     "Test text...": "text...",
-    "The registration information was updated.": "登録情報を更新しました。",
+    "The :name information was :action.": ":name情報を:actionしました。",
     "The value sent is invalid.": "送信された値が不正です。",
     "Search for": "検索する",
     "Sub text": "サブテキスト",

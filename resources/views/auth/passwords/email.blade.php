@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        @lang ('elements.buttons.submit')
+                                        @lang ('elements.actions.submit')
                                     </button>
                                 </div>
                             </div>

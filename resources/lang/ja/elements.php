@@ -9,6 +9,41 @@ return [
      |
      */
 
+    'actions' => [
+        'cancel'         => 'キャンセル',
+        'copy'           => 'コピー',
+        'create'         => '登録',
+        'created'        => '登録',
+        'delete'         => '削除',
+        'deleted'        => '削除',
+        'edit'           => '編集',
+        'edited'         => '編集',
+        'export'         => 'エクスポート',
+        'import'         => 'インポート',
+        'log'            => 'ログ',
+        'menu'           => 'メニュー',
+        'update'         => '更新',
+        'updated'        => '更新',
+        'register'       => '登録',
+        'registered'     => '登録',
+        'reset_search'   => '条件リセット',
+        'result'         => '結果',
+        'save'           => '保存',
+        'saved'          => '保存',
+        'search'         => '検索',
+        'set'            => '設定',
+        'submit'         => '送信',
+    ],
+
+    'labels' => [
+        'action'         => '操作',
+        'required'       => '必須',
+        'joining'        => '参加中',
+        'primary'        => 'メイン',
+        'yes'            => 'はい',
+        'no'             => 'いいえ',
+    ],
+
     'menus' => [
         'customers'      => '顧客管理',
         'reservations'   => '予約管理',
@@ -41,38 +76,11 @@ return [
         'home' => 'ホーム',
     ],
 
-    /**
-     * TODO 時間的余裕が出たら要整理整頓
-     */
-    'buttons' => [
-        'action'         => '操作',
-        'register'       => '登録',
-        'edit'           => '編集',
-        'save'           => '保存',
-        'submit'         => '送信',
-        'copy'           => 'コピー',
-        'cancel'         => 'キャンセル',
-        'delete'         => '削除',
-        'search'         => '検索',
-        'result'         => '結果',
-        'set'            => '設定',
-        'reset_search'   => '条件リセット',
-        'import'         => 'インポート',
-        'export'         => 'エクスポート',
-        'log'            => 'ログ',
-        'menu'           => 'メニュー',
-    ],
-
-    'labels' => [
-        'required'       => '必須',
-        'joining'        => '参加中',
-        'primary'        => 'メイン',
-        'yes'            => 'はい',
-        'no'             => 'いいえ',
-    ],
-
-    'alerts' => [
-        //
+    'resources' => [
+        'companies' => '企業',
+        'customers' => '顧客',
+        'stores'    => '店舗',
+        'users'     => 'ユーザー',
     ],
 
 ];

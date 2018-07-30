@@ -300,9 +300,9 @@
     <div class="col-md-6 col-md-offset-4">
         <button type="submit" class="btn btn-primary">
             @if ($mode === 'add')
-                @lang ('elements.buttons.register')
+                @lang ('elements.actions.register')
             @elseif ($mode === 'edit')
-                @lang ('elements.buttons.save')
+                @lang ('elements.actions.save')
             @endif
         </button>
     </div>
