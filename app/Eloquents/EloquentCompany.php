@@ -66,6 +66,14 @@ final class EloquentCompany extends Model
     }
 
     /**
+     * @return HasManyThrough
+     */
+    public function customers(): HasManyThrough
+    {
+        return $this->hasManyThrough(EloquentCustomer::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');
+    }
+
+    /**
      * @return HasOne
      */
     public function plan(): HasOne

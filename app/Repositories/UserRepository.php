@@ -111,7 +111,7 @@ final class UserRepository implements DomainModelable
      */
     public function company(): ?Company
     {
-        if (is_null($resource = $this->eloquent->company)) {
+        if (is_null($resource = optional($this->eloquent->store)->company)) {
             return null;
         }
         return CompanyRepository::toModel($resource);

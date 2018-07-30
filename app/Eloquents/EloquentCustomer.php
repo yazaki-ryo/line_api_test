@@ -83,14 +83,6 @@ final class EloquentCustomer extends Model
     }
 
     /**
-     * @return BelongsTo
-     */
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(EloquentCompany::class, 'store_id', 'id', 'store');
-    }
-
-    /**
      * @return HasOne
      */
     public function prefecture(): HasOne

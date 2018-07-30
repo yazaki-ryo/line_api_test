@@ -38,7 +38,7 @@ final class CompanyController extends Controller
      */
     public function view(): View
     {
-        $id = optional($this->auth->user()->company)->id;
+        $id = optional($this->auth->user()->store)->company_id;
 
         return view('config.company', [
             'row' => $this->useCase->getCompany($id),
@@ -50,7 +50,7 @@ final class CompanyController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        $id = optional($this->auth->user()->company)->id;
+        $id = optional($this->auth->user()->store)->company_id;
         $args = $request->validated();
 
         $callback = function () use ($id, $args) {

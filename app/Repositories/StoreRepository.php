@@ -9,6 +9,7 @@ use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Company;
 use Domain\Models\Prefecture;
 use Domain\Models\Store;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,11 +46,7 @@ final class StoreRepository implements DomainModelable
      */
     public function findAll(array $args = []): DomainCollection
     {
-        /**
-         * TODO Search process.
-         */
-
-        $collection = $this->eloquent->all();
+        $collection = $this->search($args)->get();
         return self::toModels($collection);
     }
 
@@ -121,6 +118,28 @@ final class StoreRepository implements DomainModelable
     private static function of(EloquentStore $eloquent)
     {
         return new self($eloquent);
+    }
+
+    /**
+     * @param array $args
+     * @return Builder
+     */
+    private function search(array $args = []): Builder
+    {
+        $args = collect($args);
+        $query = $this->eloquent->newQuery();
+
+        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
+            $q->id($args->get($key));
+        });
+
+        $query->when($args->has($key = 'company_id'), function (Builder $q) use ($key, $args) {
+            $q->companyId($args->get($key));
+        });
+
+
+
+        return $query;
     }
 
 }

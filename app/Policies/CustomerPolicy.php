@@ -4,29 +4,12 @@ declare(strict_types=1);
 namespace App\Policies;
 
 use App\Eloquents\EloquentUser;
-use Domain\Contracts\Users\GetUserInterface;
 use Domain\Models\Customer;
-use Domain\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 final class CustomerPolicy
 {
     use HandlesAuthorization;
-
-    /** @var GetUserInterface */
-    private $getUserService;
-
-    /** @var User */
-    private $user;
-
-    /**
-     * @param GetUserInterface $getUserService
-     * @return void
-     */
-    public function __construct(GetUserInterface $getUserService)
-    {
-        $this->getUserService = $getUserService;
-    }
 
     /**
      * @param  EloquentUser  $user
@@ -35,8 +18,6 @@ final class CustomerPolicy
      */
     public function before(EloquentUser $user, string $ability): ?bool
     {
-        $this->user = $this->getUserService->findById($user->getAuthIdentifier());
-
         return null;
     }
 
@@ -44,29 +25,29 @@ final class CustomerPolicy
      * @param  EloquentUser  $user
      * @return bool
      */
-    public function index(EloquentUser $user): bool
-    {
-        return false;
-    }
+//     public function index(EloquentUser $user): bool
+//     {
+//         return false;
+//     }
 
     /**
      * @param  EloquentUser  $user
      * @param  Customer  $customer
      * @return bool
      */
-    public function get(EloquentUser $user, Customer $customer): bool
-    {
-        return false;
-    }
+//     public function get(EloquentUser $user, Customer $customer): bool
+//     {
+//         return false;
+//     }
 
     /**
      * @param  EloquentUser  $user
      * @return bool
      */
-    public function create(EloquentUser $user): bool
-    {
-        return false;
-    }
+//     public function create(EloquentUser $user): bool
+//     {
+//         return false;
+//     }
 
     /**
      * @param  EloquentUser  $user
@@ -75,12 +56,12 @@ final class CustomerPolicy
      */
     public function update(EloquentUser $user, Customer $customer): bool
     {
-        if (optional($this->user->role())->slugs('company-admin')
-            && optional($this->user->company())->id() === optional($customer->company())->id()
+        if ($user->can('roles', 'company-admin')
+            && optional($user->store)->company_id === optional($customer->store())->companyId()
         ) {
             return true;
-        } elseif (optional($this->user->role())->slugs('store-user')
-            && $this->user->storeId() === $customer->storeId()
+        } elseif ($user->can('roles', 'store-user')
+            && $user->store_id === $customer->storeId()
         ) {
             return true;
         }
@@ -93,19 +74,19 @@ final class CustomerPolicy
      * @param  Customer  $customer
      * @return bool
      */
-    public function delete(EloquentUser $user, Customer $customer): bool
-    {
-        return false;
-    }
+//     public function delete(EloquentUser $user, Customer $customer): bool
+//     {
+//         return false;
+//     }
 
     /**
      * @param  EloquentUser  $user
      * @param  Customer  $customer
      * @return bool
      */
-    public function restore(EloquentUser $user, Customer $customer): bool
-    {
-        return false;
-    }
+//     public function restore(EloquentUser $user, Customer $customer): bool
+//     {
+//         return false;
+//     }
 
 }

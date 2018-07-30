@@ -41,11 +41,12 @@ final class GetCustomers
     private function domainize(Auth $auth, array $args = []): array
     {
         $args = collect($args);
+        $store = $auth->user()->store;
 
-        $args->put('company_id', optional($auth->user()->company)->id);
+        $args->put('company_id', optional($store)->company_id);
 
         if ($auth->user()->cant('roles', 'company-admin')) {
-            $args->put('store_id', optional($auth->user()->store)->id);
+            $args->put('store_id', optional($store)->id);
         }
 
         if ($args->has($key = '')) {
