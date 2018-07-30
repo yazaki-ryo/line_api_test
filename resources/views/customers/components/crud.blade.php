@@ -305,5 +305,11 @@
                 @lang ('elements.actions.save')
             @endif
         </button>
+
+        @if ($mode === 'edit')
+            <a href="{{ route('customers.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
+                <i class="fa fa-trash"></i>@lang ('elements.actions.delete')
+            </a>
+        @endif
     </div>
 </div>

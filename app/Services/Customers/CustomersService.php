@@ -6,15 +6,17 @@ namespace App\Services\Customers;
 use App\Repositories\CustomerRepository;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Customers\CreateCustomerInterface;
+use Domain\Contracts\Customers\DeleteCustomerInterface;
 use Domain\Contracts\Customers\GetCustomerInterface;
 use Domain\Contracts\Customers\GetCustomersInterface;
 use Domain\Contracts\Customers\UpdateCustomerInterface;
 use Domain\Models\Customer;
 
 final class CustomersService implements
+    CreateCustomerInterface,
+    DeleteCustomerInterface,
     GetCustomerInterface,
     GetCustomersInterface,
-    CreateCustomerInterface,
     UpdateCustomerInterface
 {
     /** @var CustomerRepository */
@@ -63,5 +65,14 @@ final class CustomersService implements
     public function update(int $id, array $args = []): bool
     {
         return $this->repo->update($id, $args);
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        $this->repo->delete($id);
     }
 }

@@ -9,7 +9,9 @@ use Domain\Contracts\Sexes\GetSexInterface;
 use Domain\Contracts\Sexes\GetSexesInterface;
 use Domain\Models\Sex;
 
-final class SexesService implements GetSexInterface, GetSexesInterface
+final class SexesService implements
+    GetSexInterface,
+    GetSexesInterface
 {
     /** @var SexRepository */
     private $repo;

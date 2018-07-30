@@ -61,6 +61,7 @@ $router->group([
         $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
         $router->get( '{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
         $router->post('{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@update');
+        $router->post('{customerId}/delete', \App\Http\Controllers\Customers\DeleteController::class)->name(sprintf('%s.delete', $prefix));
     });
 
     /**

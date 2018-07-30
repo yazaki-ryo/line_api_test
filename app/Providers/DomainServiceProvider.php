@@ -13,6 +13,7 @@ use Domain\Contracts\Companies\GetCompanyInterface;
 use Domain\Contracts\Companies\GetCompaniesInterface;
 use Domain\Contracts\Companies\UpdateCompanyInterface;
 use Domain\Contracts\Customers\CreateCustomerInterface;
+use Domain\Contracts\Customers\DeleteCustomerInterface;
 use Domain\Contracts\Customers\GetCustomerInterface;
 use Domain\Contracts\Customers\GetCustomersInterface;
 use Domain\Contracts\Customers\UpdateCustomerInterface;
@@ -62,15 +63,19 @@ final class DomainServiceProvider extends ServiceProvider
         /**
          * Customers
          */
+        $this->app->bind(CreateCustomerInterface::class, function () {
+            return app(CustomersService::class);
+        });
+
+        $this->app->bind(DeleteCustomerInterface::class, function () {
+            return app(CustomersService::class);
+        });
+
         $this->app->bind(GetCustomerInterface::class, function () {
             return app(CustomersService::class);
         });
 
         $this->app->bind(GetCustomersInterface::class, function () {
-            return app(CustomersService::class);
-        });
-
-        $this->app->bind(CreateCustomerInterface::class, function () {
             return app(CustomersService::class);
         });
 
@@ -103,15 +108,15 @@ final class DomainServiceProvider extends ServiceProvider
         /**
          * Stores
          */
+        $this->app->bind(CreateStoreInterface::class, function () {
+            return app(StoresService::class);
+        });
+
         $this->app->bind(GetStoreInterface::class, function () {
             return app(StoresService::class);
         });
 
         $this->app->bind(GetStoresInterface::class, function () {
-            return app(StoresService::class);
-        });
-
-        $this->app->bind(CreateStoreInterface::class, function () {
             return app(StoresService::class);
         });
 

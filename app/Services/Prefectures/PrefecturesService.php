@@ -9,7 +9,9 @@ use Domain\Contracts\Prefectures\GetPrefectureInterface;
 use Domain\Contracts\Prefectures\GetPrefecturesInterface;
 use Domain\Models\Prefecture;
 
-final class PrefecturesService implements GetPrefectureInterface, GetPrefecturesInterface
+final class PrefecturesService implements
+    GetPrefectureInterface,
+    GetPrefecturesInterface
 {
     /** @var PrefectureRepository */
     private $repo;

@@ -36,6 +36,8 @@
         @include ('layouts.footer')
     </div>
 
+    @include('components.form.basic')
+
     <!-- Scripts -->
     @if (file_exists(public_path('mix-manifest.json')))
         <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
