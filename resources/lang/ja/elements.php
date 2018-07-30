@@ -34,6 +34,7 @@ return [
         'saved'          => '保存',
         'search'         => '検索',
         'set'            => '設定',
+        'submit'         => '送信',
     ],
 
     'labels' => [

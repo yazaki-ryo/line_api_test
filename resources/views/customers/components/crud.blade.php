@@ -298,18 +298,24 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">
-            @if ($mode === 'add')
-                @lang ('elements.actions.register')
-            @elseif ($mode === 'edit')
-                @lang ('elements.actions.save')
-            @endif
-        </button>
+        @if ($mode === 'add')
+            @can ('authorize', ['customers.*', 'customers.create'])
+                <button type="submit" class="btn btn-primary">@lang ('elements.actions.register')</button>
+            @endcan
+        @elseif ($mode === 'edit')
+            @can ('authorize', ['customers.*', 'customers.update'])
+                @can ('update', $row)
+                    <button type="submit" class="btn btn-primary">@lang ('elements.actions.save')</button>
+                @endcan
+            @endcan
 
-        @if ($mode === 'edit')
-            <a href="{{ route('customers.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
-                <i class="fa fa-trash"></i>@lang ('elements.actions.delete')
-            </a>
+            @can ('authorize', ['customers.*', 'customers.delete'])
+                @can ('delete', $row)
+                    <a href="{{ route('customers.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
+                        <i class="fa fa-trash"></i>@lang ('elements.actions.delete')
+                    </a>
+                @endcan
+            @endcan
         @endif
     </div>
 </div>
