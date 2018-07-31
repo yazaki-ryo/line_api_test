@@ -39,17 +39,20 @@ return [
 
     'labels' => [
         'action'         => '操作',
-        'required'       => '必須',
+        'information'    => '情報',
         'joining'        => '参加中',
-        'primary'        => 'メイン',
-        'yes'            => 'はい',
         'no'             => 'いいえ',
-        'trashed'        => '削除データ',
+        'notice'         => 'お知らせ',
+        'notification'   => '通知',
+        'primary'        => 'メイン',
+        'required'       => '必須',
         'state' => [
             'without' => '以外',
             'with'    => 'を含む',
             'only'    => 'のみ',
         ],
+        'trashed'        => '削除データ',
+        'yes'            => 'はい',
     ],
 
     'menus' => [

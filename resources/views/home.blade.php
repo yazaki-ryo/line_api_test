@@ -23,77 +23,33 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8 col-md-offset-0">
-                <div class="well">
-                    <h2>@lang ('elements.menus.customers')</h2>
-                    <p><code>@lang ('Test text...')</code></p>
-
-                    <span class="label label-default">Default</span>
-                    <span class="label label-primary">Primary</span>
-                    <span class="label label-success">Success</span>
-                    <span class="label label-info">Info</span>
-                    <span class="label label-warning">Warning</span>
-                    <span class="label label-danger">Danger</span>
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.labels.notice')</p>
                 </div>
             </div>
-            <div class="col-md-4 col-md-offset-0">
-                <div class="well">
-                    <h2>@lang ('elements.menus.reservations')</h2>
-                    <p><code>@lang ('Test text...')</code></p>
 
-                    <span class="label label-default">Default</span>
-                    <span class="label label-primary">Primary</span>
-                    <span class="label label-success">Success</span>
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.resources.customers')@lang ('elements.labels.information')</p>
                 </div>
             </div>
-            <div class="col-md-4 col-md-offset-0">
-                <div class="well">
-                    <h2>@lang ('elements.menus.tags')</h2>
-                    <p><code>@lang ('Test text...')</code></p>
 
-                    <span class="label label-info">Info</span>
-                    <span class="label label-warning">Warning</span>
-                    <span class="label label-danger">Danger</span>
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.resources.stores')@lang ('elements.labels.information')</p>
                 </div>
             </div>
-            <div class="col-md-4 col-md-offset-0">
-                <div class="well">
-                    <h2>@lang ('elements.menus.menus')</h2>
-                    <p><code>@lang ('Test text...')</code></p>
 
-                    <span class="label label-default">Default</span>
-                    <span class="label label-primary">Primary</span>
-                    <span class="label label-success">Success</span>
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.resources.users')@lang ('elements.labels.information')</p>
                 </div>
             </div>
-            <div class="col-md-4 col-md-offset-0">
-                <div class="well">
-                    <h2>@lang ('elements.menus.surveys')</h2>
-                    <p><code>@lang ('Test text...')</code></p>
 
-                    <span class="label label-info">Info</span>
-                    <span class="label label-warning">Warning</span>
-                    <span class="label label-danger">Danger</span>
-                </div>
-            </div>
-            <div class="col-md-4 col-md-offset-0">
-                <div class="well">
-                    <h2>@lang ('elements.menus.coupons')</h2>
-                    <p><code>@lang ('Test text...')</code></p>
-
-                    <span class="label label-default">Default</span>
-                    <span class="label label-primary">Primary</span>
-                    <span class="label label-success">Success</span>
-                </div>
-            </div>
-            <div class="col-md-4 col-md-offset-0">
-                <div class="well">
-                    <h2>@lang ('elements.menus.configurations')</h2>
-                    <p><code>@lang ('Test text...')</code></p>
-
-                    <span class="label label-info">Info</span>
-                    <span class="label label-warning">Warning</span>
-                    <span class="label label-danger">Danger</span>
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.resources.companies')@lang ('elements.labels.information')</p>
                 </div>
             </div>
         </div>
