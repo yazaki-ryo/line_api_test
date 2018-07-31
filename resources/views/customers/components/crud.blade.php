@@ -235,7 +235,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($field, $stores->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? auth()->user()->{$camel})), [auth()->user()->cant('roles', 'company-admin') ? 'readonly' : null, 'required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191]) !!}
+        {!! Form::select($field, $stores->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? $user->{$camel})), [$user->cant('roles', 'company-admin') ? 'readonly' : null, 'required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

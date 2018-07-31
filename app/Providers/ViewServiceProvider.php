@@ -6,6 +6,7 @@ namespace App\Providers;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Http\Views\Composers\AuthComposer;
 use App\Http\Views\Composers\PrefecturesComposer;
 use App\Http\Views\Composers\SexesComposer;
 use App\Http\Views\Composers\StoresComposer;
@@ -17,6 +18,10 @@ final class ViewServiceProvider extends ServiceProvider
      */
     public function boot(Router $router): void
     {
+        View::creator([
+            '*',
+        ], AuthComposer::class);
+
         View::creator([
             'configurations.company',
             'customers.add',

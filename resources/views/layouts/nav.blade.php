@@ -42,7 +42,7 @@
 --}}
                 @else
                     <li class="dropdown-header">
-                        @lang ('Welcome, :name.', ['name' => auth()->user()->name])
+                        @lang ('Welcome, :name.', ['name' => $user->name])
                     </li>
 
                     <!-- Customers menu -->
