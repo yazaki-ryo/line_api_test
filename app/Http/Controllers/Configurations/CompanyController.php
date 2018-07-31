@@ -1,30 +1,31 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Config;
+namespace App\Http\Controllers\Configurations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\SelfUpdateRequest;
-use Domain\UseCases\Config\UpdateProfile;
+use App\Http\Requests\Companies\UpdateRequest;
+use Domain\UseCases\Configurations\UpdateCompany;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
-final class ProfileController extends Controller
+final class CompanyController extends Controller
 {
-    /** @var UpdateProfile */
+    /** @var UpdateCompany */
     private $useCase;
 
     /** @var Auth */
     private $auth;
 
     /**
-     * @param  UpdateProfile $useCase
+     * @param  UpdateCompany $useCase
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateProfile $useCase, Auth $auth)
+    public function __construct(UpdateCompany $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
+            sprintf('authorize:%s|%s', 'companies.*', 'companies.update'),
         ]);
 
         $this->useCase = $useCase;
@@ -36,20 +37,20 @@ final class ProfileController extends Controller
      */
     public function view()
     {
-        $id = $this->auth->user()->getAuthIdentifier();
+        $id = optional($this->auth->user()->store)->company_id;
 
-        return view('config.profile', [
-            'row' => $this->useCase->getUser($id),
+        return view('configurations.company', [
+            'row' => $this->useCase->getCompany($id),
         ]);
     }
 
     /**
-     * @param SelfUpdateRequest $request
+     * @param UpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(SelfUpdateRequest $request)
+    public function update(UpdateRequest $request)
     {
-        $id = $this->auth->user()->getAuthIdentifier();
+        $id = optional($this->auth->user()->store)->company_id;
         $args = $request->validated();
 
         $callback = function () use ($id, $args) {
@@ -61,8 +62,8 @@ final class ProfileController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.resources.users'), 'action' => __('elements.actions.updated')]), 'success');
-        return redirect()->route('config.profile');
+        flash(__('The :name information was :action.', ['name' => __('elements.resources.companies'), 'action' => __('elements.actions.updated')]), 'success');
+        return redirect()->route('configurations.company');
     }
 
 }

@@ -78,12 +78,12 @@ $router->group([
      * Configuration
      */
     $router->group([
-        'prefix' => $prefix = 'config',
+        'prefix' => $prefix = 'configurations',
     ], function (Router $router) use ($prefix) {
-        $router->get( 'profile', \App\Http\Controllers\Config\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
-        $router->post('profile', \App\Http\Controllers\Config\ProfileController::class . '@update');
-        $router->get( 'company', \App\Http\Controllers\Config\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
-        $router->post('company', \App\Http\Controllers\Config\CompanyController::class . '@update');
+        $router->get( 'profile', \App\Http\Controllers\Configurations\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
+        $router->post('profile', \App\Http\Controllers\Configurations\ProfileController::class . '@update');
+        $router->get( 'company', \App\Http\Controllers\Configurations\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
+        $router->post('company', \App\Http\Controllers\Configurations\CompanyController::class . '@update');
     });
 
 });

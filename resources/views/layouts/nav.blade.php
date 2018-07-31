@@ -125,10 +125,10 @@
 
                         <ul class="dropdown-menu">
                             <li class="disabled"><a href="#">@lang ('elements.actions.set')</a></li>
-                            <li class="{{ request()->route()->named('config.profile') ? 'active' : '' }}"><a href="{{ route('config.profile') }}">@lang ('elements.pages.config.profile')</a></li>
+                            <li class="{{ request()->route()->named('configurations.profile') ? 'active' : '' }}"><a href="{{ route('configurations.profile') }}">@lang ('elements.pages.configurations.profile')</a></li>
 
                             @can ('authorize', ['users.*', 'users.select'])
-                                <li class="{{ request()->route()->named('config.company') ? 'active' : '' }}"><a href="{{ route('config.company') }}">@lang ('elements.pages.config.company')</a></li>
+                                <li class="{{ request()->route()->named('configurations.company') ? 'active' : '' }}"><a href="{{ route('configurations.company') }}">@lang ('elements.pages.configurations.company')</a></li>
                             @endcan
 
                             <li role="separator" class="divider"></li>

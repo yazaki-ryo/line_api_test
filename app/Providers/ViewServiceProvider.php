@@ -18,7 +18,7 @@ final class ViewServiceProvider extends ServiceProvider
     public function boot(Router $router): void
     {
         View::creator([
-            'config.company',
+            'configurations.company',
             'customers.add',
             'customers.edit',
         ], PrefecturesComposer::class);

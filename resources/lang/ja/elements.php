@@ -72,7 +72,7 @@ return [
             ],
             'register' => 'ユーザー登録',
         ],
-        'config'            => [
+        'configurations' => [
             'company' => '企業情報編集',
             'profile' => 'ユーザー情報編集',
         ],

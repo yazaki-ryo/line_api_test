@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Config;
+namespace Domain\UseCases\Configurations;
 
 use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Contracts\Users\GetUserInterface;
