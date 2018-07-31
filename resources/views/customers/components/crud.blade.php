@@ -296,6 +296,8 @@
     </div>
 @endif
 
+<hr>
+
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
