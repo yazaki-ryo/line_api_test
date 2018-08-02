@@ -19,7 +19,6 @@ use Illuminate\Routing\Router;
  * @prefix /
  * @middleware web
  */
-
 $router->group([
     //
 ], function (Router $router) {
@@ -80,10 +79,12 @@ $router->group([
     $router->group([
         'prefix' => $prefix = 'configurations',
     ], function (Router $router) use ($prefix) {
-        $router->get( 'profile', \App\Http\Controllers\Configurations\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
-        $router->post('profile', \App\Http\Controllers\Configurations\ProfileController::class . '@update');
         $router->get( 'company', \App\Http\Controllers\Configurations\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
         $router->post('company', \App\Http\Controllers\Configurations\CompanyController::class . '@update');
+        $router->get( 'profile', \App\Http\Controllers\Configurations\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
+        $router->post('profile', \App\Http\Controllers\Configurations\ProfileController::class . '@update');
+        $router->get( 'store', \App\Http\Controllers\Configurations\StoreController::class . '@view')->name(sprintf('%s.store', $prefix));
+        $router->post('store', \App\Http\Controllers\Configurations\StoreController::class . '@update');
     });
 
 });

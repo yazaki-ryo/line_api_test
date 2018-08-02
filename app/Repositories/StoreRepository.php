@@ -51,6 +51,20 @@ final class StoreRepository implements DomainModelable
     }
 
     /**
+     * @param int $id
+     * @param array $args
+     * @return bool
+     */
+    public function update(int $id, array $args = []): bool
+    {
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return false;
+        }
+
+        return $resource->update($args);
+    }
+
+    /**
      * @param Model $model
      * @param \Illuminate\Database\Eloquent\Model;
      * @return Store

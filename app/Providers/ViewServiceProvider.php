@@ -24,6 +24,7 @@ final class ViewServiceProvider extends ServiceProvider
 
         View::creator([
             'configurations.company',
+            'configurations.store',
             'customers.add',
             'customers.edit',
         ], PrefecturesComposer::class);

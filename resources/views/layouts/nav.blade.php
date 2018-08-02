@@ -124,12 +124,17 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li class="disabled"><a href="#">@lang ('elements.actions.set')</a></li>
                             <li class="{{ request()->route()->named('configurations.profile') ? 'active' : '' }}"><a href="{{ route('configurations.profile') }}">@lang ('elements.pages.configurations.profile')</a></li>
 
-                            @can ('authorize', ['users.*', 'users.select'])
+                            @can ('authorize', ['stores.*', 'stores.update'])
+                                <li class="{{ request()->route()->named('configurations.store') ? 'active' : '' }}"><a href="{{ route('configurations.store') }}">@lang ('elements.pages.configurations.store')</a></li>
+                            @endcan
+
+                            @can ('authorize', ['companies.*', 'companies.update'])
                                 <li class="{{ request()->route()->named('configurations.company') ? 'active' : '' }}"><a href="{{ route('configurations.company') }}">@lang ('elements.pages.configurations.company')</a></li>
                             @endcan
+
+                            <li class="disabled"><a href="#">@lang ('elements.actions.set')</a></li>
 
                             <li role="separator" class="divider"></li>
 

@@ -22,7 +22,20 @@ final class EloquentStore extends Model
      * @var array
      */
     protected $fillable = [
-        //
+        'company_id',
+        'prefecture_id',
+        'name',
+        'kana',
+        'postal_code',
+        'address',
+        'building_name',
+        'tel',
+        'fax',
+        'email',
+//         'payment_flag',
+//         'user_limit',
+//         'starts_at',
+//         'ends_at',
     ];
 
     /**

@@ -44,6 +44,7 @@ return [
         'no'             => 'いいえ',
         'notice'         => 'お知らせ',
         'notification'   => '通知',
+        'paid'           => '済',
         'primary'        => 'メイン',
         'required'       => '必須',
         'state' => [
@@ -52,6 +53,7 @@ return [
             'only'    => 'のみ',
         ],
         'trashed'        => '削除データ',
+        'unpaid'         => '未',
         'yes'            => 'はい',
     ],
 
@@ -78,6 +80,7 @@ return [
         'configurations' => [
             'company' => '企業情報編集',
             'profile' => 'ユーザー情報編集',
+            'store'   => '店舗情報編集',
         ],
         'customers' => [
             'index' => '顧客一覧',

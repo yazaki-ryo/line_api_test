@@ -19,7 +19,6 @@ use Illuminate\Routing\Router;
  * @prefix api
  * @middleware api
  */
-
 // $router->group([
 //     //
 // ], function() {

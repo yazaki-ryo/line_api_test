@@ -1,7 +1,7 @@
 @set ($field, 'name')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
@@ -14,7 +14,7 @@
 @set ($field, 'kana')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
@@ -27,7 +27,7 @@
 @set ($field, 'postal_code')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
@@ -40,7 +40,7 @@
 @set ($field, 'prefecture_id')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
@@ -53,7 +53,7 @@
 @set ($field, 'address')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
@@ -66,7 +66,7 @@
 @set ($field, 'building_name')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
     </label>
 
     <div class="col-md-6">
@@ -78,7 +78,7 @@
 @set ($field, 'tel')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
@@ -91,7 +91,7 @@
 @set ($field, 'fax')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
     </label>
 
     <div class="col-md-6">
@@ -103,7 +103,7 @@
 @set ($field, 'email')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
@@ -113,14 +113,65 @@
     </div>
 </div>
 
-@set ($field, 'plan_id')
+@set ($field, 'company_id')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
     </label>
 
     <div class="col-md-6 form-control-static">
-        {{ $row->plan()->name() ?? null }}
+        {{ $row->company()->name() ?? null }}
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
+@set ($field, 'payment_flag')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$field}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        <span class="text-{{ $row->{$camel = camel_case($field)}()->asBoolean() === true ? 'success' : 'danger' }}">
+            @set ($status, $row->{$camel = camel_case($field)}()->asBoolean() === true ? 'paid' : 'unpaid')
+            @lang ("elements.labels.{$status}")
+        </span>
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
+@set ($field, 'user_limit')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$field}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        {{ $row->{$camel = camel_case($field)}()->asInt() ?? null }}
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
+@set ($field, 'starts_at')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$field}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        {{ $row->{$camel = camel_case($field)}() ?? null }}
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
+@set ($field, 'ends_at')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$field}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        {{ $row->{$camel = camel_case($field)}() ?? null }}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -128,7 +179,7 @@
 @set ($field, 'updated_at')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$field}")
+        @lang ("attributes.stores.{$field}")
     </label>
 
     <div class="col-md-6 form-control-static">
