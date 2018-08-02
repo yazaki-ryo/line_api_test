@@ -19,11 +19,10 @@ return [
         'edit'           => '編集',
         'edited'         => '編集',
         'export'         => 'エクスポート',
+        'history'        => '履歴',
         'import'         => 'インポート',
         'log'            => 'ログ',
         'menu'           => 'メニュー',
-        'update'         => '更新',
-        'updated'        => '更新',
         'register'       => '登録',
         'registered'     => '登録',
         'reset_search'   => '条件リセット',
@@ -35,6 +34,9 @@ return [
         'search'         => '検索',
         'set'            => '設定',
         'submit'         => '送信',
+        'update'         => '更新',
+        'updated'        => '更新',
+        'visit'          => '来店',
     ],
 
     'labels' => [
