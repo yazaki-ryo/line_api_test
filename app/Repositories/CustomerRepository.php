@@ -181,6 +181,15 @@ final class CustomerRepository implements DomainModelable
     }
 
     /**
+     * @return DomainCollection
+     */
+    public function tags(): DomainCollection
+    {
+        $collection = $this->eloquent->tags;
+        return TagRepository::toModels($collection);
+    }
+
+    /**
      * @param EloquentCustomer $eloquent
      * @return self
      */

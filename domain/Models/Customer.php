@@ -339,6 +339,14 @@ final class Customer
     }
 
     /**
+     * @return DomainCollection
+     */
+    public function tags(): DomainCollection
+    {
+        return $this->repo->tags();
+    }
+
+    /**
      * @param CustomerRepository $repo
      * @return self
      */
