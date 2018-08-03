@@ -5,24 +5,23 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentPrefecture;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Prefecture;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class PrefectureRepository implements DomainModel, DomainModels
+final class PrefectureRepository implements DomainModelable
 {
     /** @var EloquentPrefecture */
     private $eloquent;
 
     /**
-     * @param EloquentPrefecture $eloquent
+     * @param EloquentPrefecture|null $eloquent
      * @return void
      */
-    public function __construct(EloquentPrefecture $eloquent)
+    public function __construct(EloquentPrefecture $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentPrefecture: $eloquent;
     }
 
     /**
@@ -38,10 +37,15 @@ final class PrefectureRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
+        /**
+         * TODO Search process.
+         */
+
         $collection = $this->eloquent->all();
         return self::toModels($collection);
     }
@@ -74,6 +78,15 @@ final class PrefectureRepository implements DomainModel, DomainModels
     {
         $collection = $this->eloquent->companies;
         return CompanyRepository::toModels($collection);
+    }
+
+    /**
+     * @return DomainCollection
+     */
+    public function customers(): DomainCollection
+    {
+        $collection = $this->eloquent->customers;
+        return CustomerRepository::toModels($collection);
     }
 
     /**

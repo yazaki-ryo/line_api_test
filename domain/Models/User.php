@@ -20,9 +20,6 @@ final class User
     /** @var Email */
     private $email;
 
-    /** @var string */
-    private $code;
-
     /** @var Datetime */
     private $createdAt;
 
@@ -32,92 +29,105 @@ final class User
     /** @var Datetime */
     private $deletedAt;
 
+    /** @var int */
+    private $roleId;
+
+    /** @var int */
+    private $storeId;
+
     /**
-     * @param UserRepository $repo
+     * @param UserRepository|null $repo
      * @return void
      */
-    public function __construct(UserRepository $repo)
+    public function __construct(UserRepository $repo = null)
     {
-        $this->repo = $repo;
-        $this->propertiesByArray($repo->attributesToArray());
+        $this->repo = is_null($repo) ? new UserRepository : $repo;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return Email
+     * @return Email|null
      */
-    public function email(): Email
+    public function email(): ?Email
     {
         return $this->email;
     }
 
     /**
-     * @return string
+     * @return Datetime|null
      */
-    public function code(): string
-    {
-        return $this->code;
-    }
-
-    /**
-     * @return Datetime
-     */
-    public function createdAt(): Datetime
+    public function createdAt(): ?Datetime
     {
         return $this->createdAt;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function updatedAt(): Datetime
+    public function updatedAt(): ?Datetime
     {
         return $this->updatedAt;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function deletedAt(): Datetime
+    public function deletedAt(): ?Datetime
     {
         return $this->deletedAt;
     }
 
     /**
-     * @return Role
+     * @return int|null
      */
-    public function role(): Role
+    public function roleId(): ?int
+    {
+        return $this->roleId;
+    }
+
+    /**
+     * @return Role|null
+     */
+    public function role(): ?Role
     {
         return $this->repo->role();
     }
 
     /**
-     * @return Store
+     * @return int|null
      */
-    public function store(): Store
+    public function storeId(): ?int
+    {
+        return $this->storeId;
+    }
+
+    /**
+     * @return Store|null
+     */
+    public function store(): ?Store
     {
         return $this->repo->store();
     }
 
     /**
-     * @return Company
+     * @return Company|null
      */
-    public function company(): Company
+    public function company(): ?Company
     {
         return $this->repo->company();
     }
@@ -131,49 +141,64 @@ final class User
     }
 
     /**
-     * @param UserRepository
+     * @param UserRepository $repo
      * @return self
      */
     public static function of(UserRepository $repo): self
     {
-        return new self($repo);
+        return (new self($repo))->propertiesByArray($repo->attributesToArray());
     }
 
     /**
-     * @param array $attributes
-     * @return void
+     * @param array $args
+     * @return self
      */
-    private function propertiesByArray(array $attributes = []): void
+    public static function ofByArray(array $args = []): self
     {
-        $attributes = collect($attributes);
+        return (new self(new UserRepository))->propertiesByArray($args);
+    }
 
-        if ($attributes->has($key = 'id')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+    /**
+     * @param array $args
+     * @return self
+     */
+    private function propertiesByArray(array $args = []): self
+    {
+        $args = collect($args);
+
+        if ($args->has($key = 'id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'name')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'email')) {
-            $this->{$camel = camel_case($key)} = Email::of($attributes->get($key));
+        if ($args->has($key = 'email')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'code')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'created_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'created_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'deleted_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'deleted_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'role_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
+
+        if ($args->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        return $this;
     }
 
 }

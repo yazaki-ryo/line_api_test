@@ -19,8 +19,7 @@ final class EloquentRole extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
+        //
     ];
 
     /**

@@ -6,7 +6,7 @@ namespace App\Providers;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
-class LocalServiceProvider extends ServiceProvider
+final class LocalServiceProvider extends ServiceProvider
 {
     /**
      * @var array

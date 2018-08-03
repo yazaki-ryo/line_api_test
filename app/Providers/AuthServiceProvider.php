@@ -1,30 +1,60 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Eloquents\EloquentUser;
+use App\Policies\CustomerPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Domain\Models\Customer;
 
-class AuthServiceProvider extends ServiceProvider
+final class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
-     *
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Customer::class => CustomerPolicy::class,
     ];
 
     /**
-     * Register any authentication / authorization services.
-     *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
+        Gate::define('authorize', function (EloquentUser $user, ...$args): bool {
+            $args = is_array($args) ? $args : [$args];
+
+            foreach ($args as $arg) {
+                if ($user->permissions->containsStrict('slug', $arg)) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        Gate::define('roles', function (EloquentUser $user, ...$args): bool {
+            $args = is_array($args) ? $args : [$args];
+
+            foreach ($args as $arg) {
+                if (optional($user->role)->slug === $arg) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Support\Providers\AuthServiceProvider::register()
+     */
+    public function register(): void
+    {
         //
     }
+
 }

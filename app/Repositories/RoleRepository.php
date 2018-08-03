@@ -5,24 +5,23 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentRole;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Role;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class RoleRepository implements DomainModel, DomainModels
+final class RoleRepository implements DomainModelable
 {
     /** @var EloquentRole */
     private $eloquent;
 
     /**
-     * @param EloquentRole $eloquent
+     * @param EloquentRole|null $eloquent
      * @return void
      */
-    public function __construct(EloquentRole $eloquent)
+    public function __construct(EloquentRole $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentRole: $eloquent;
     }
 
     /**
@@ -38,10 +37,15 @@ final class RoleRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
+        /**
+         * TODO Search process.
+         */
+
         $collection = $this->eloquent->all();
         return self::toModels($collection);
     }

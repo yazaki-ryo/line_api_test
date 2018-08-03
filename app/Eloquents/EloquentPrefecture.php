@@ -20,8 +20,7 @@ final class EloquentPrefecture extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
+        //
     ];
 
     /**
@@ -46,6 +45,14 @@ final class EloquentPrefecture extends Model
     public function companies(): HasMany
     {
         return $this->hasMany(EloquentCompany::class, 'prefecture_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function customers(): HasMany
+    {
+        return $this->hasMany(EloquentCustomer::class, 'prefecture_id', 'id');
     }
 
     /**

@@ -192,6 +192,7 @@ return [
         App\Providers\SchemaServiceProvider::class,
         App\Providers\UrlServiceProvider::class,
         App\Providers\ValidationServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
     ],
 

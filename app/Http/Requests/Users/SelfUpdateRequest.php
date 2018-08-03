@@ -31,7 +31,7 @@ class SelfUpdateRequest extends FormRequest
                 'required',
                 'string',
                 'email',
-                'max:100',
+                'max:191',
                 Rule::unique('users')->ignore(auth()->user()->getAuthIdentifier()),
             ],
             'password' => [
@@ -63,6 +63,6 @@ class SelfUpdateRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return \Lang::get('attributes.auth');
+        return \Lang::get('attributes.users');
     }
 }

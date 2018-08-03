@@ -5,25 +5,27 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentStore;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
+use Domain\Models\Company;
 use Domain\Models\Prefecture;
 use Domain\Models\Store;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class StoreRepository implements DomainModel, DomainModels
+final class StoreRepository implements DomainModelable
 {
     /** @var EloquentStore */
     private $eloquent;
 
     /**
-     * @param EloquentStore $eloquent
+     * @param EloquentStore|null $eloquent
      * @return void
      */
-    public function __construct(EloquentStore $eloquent)
+    public function __construct(EloquentStore $eloquent = null)
     {
         $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentStore: $eloquent;
     }
 
     /**
@@ -39,12 +41,27 @@ final class StoreRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->all();
+        $collection = $this->search($args)->get();
         return self::toModels($collection);
+    }
+
+    /**
+     * @param int $id
+     * @param array $args
+     * @return bool
+     */
+    public function update(int $id, array $args = []): bool
+    {
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return false;
+        }
+
+        return $resource->update($args);
     }
 
     /**
@@ -77,6 +94,29 @@ final class StoreRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @return Company|null
+     */
+    public function company(): ?Company
+    {
+        if (is_null($resource = $this->eloquent->company)) {
+            return null;
+        }
+
+        return CompanyRepository::toModel($resource);
+    }
+
+    /**
+     * @return Prefecture|null
+     */
+    public function prefecture(): ?Prefecture
+    {
+        if (is_null($resource = $this->eloquent->prefecture)) {
+            return null;
+        }
+        return PrefectureRepository::toModel($resource);
+    }
+
+    /**
      * @return DomainCollection
      */
     public function users(): DomainCollection
@@ -86,21 +126,34 @@ final class StoreRepository implements DomainModel, DomainModels
     }
 
     /**
-     * @return Prefecture
-     */
-    public function prefecture(): Prefecture
-    {
-        $prefecture = $this->eloquent->prefecture;
-        return PrefectureRepository::toModel($prefecture);
-    }
-
-    /**
      * @param EloquentStore $eloquent
      * @return self
      */
     private static function of(EloquentStore $eloquent)
     {
         return new self($eloquent);
+    }
+
+    /**
+     * @param array $args
+     * @return Builder
+     */
+    private function search(array $args = []): Builder
+    {
+        $args = collect($args);
+        $query = $this->eloquent->newQuery();
+
+        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
+            $q->id($args->get($key));
+        });
+
+        $query->when($args->has($key = 'company_id'), function (Builder $q) use ($key, $args) {
+            $q->companyId($args->get($key));
+        });
+
+
+
+        return $query;
     }
 
 }

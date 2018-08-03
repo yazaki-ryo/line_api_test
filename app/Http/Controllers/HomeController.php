@@ -3,26 +3,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Router;
-use Illuminate\View\View;
-
 final class HomeController extends Controller
 {
     /**
-     * @param Router $router
      * @return void
      */
-    public function __construct(Router $router)
+    public function __construct()
     {
-        $this->middleware('authenticate:web');
+        $this->middleware('authenticate:user');
     }
 
     /**
-     * @param  Request $request
-     * @return View
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function __invoke(Request $request): View
+    public function __invoke()
     {
         return view('home');
     }

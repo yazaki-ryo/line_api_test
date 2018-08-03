@@ -5,24 +5,23 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentPlan;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Plan;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class PlanRepository implements DomainModel, DomainModels
+final class PlanRepository implements DomainModelable
 {
     /** @var EloquentPlan */
     private $eloquent;
 
     /**
-     * @param EloquentPlan $eloquent
+     * @param EloquentPlan|null $eloquent
      * @return void
      */
-    public function __construct(EloquentPlan $eloquent)
+    public function __construct(EloquentPlan $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentPlan: $eloquent;
     }
 
     /**
@@ -38,10 +37,15 @@ final class PlanRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
+        /**
+         * TODO Search process.
+         */
+
         $collection = $this->eloquent->all();
         return self::toModels($collection);
     }

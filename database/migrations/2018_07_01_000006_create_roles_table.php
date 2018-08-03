@@ -9,6 +9,9 @@ class CreateRolesTable extends Migration
     /** @var string */
     private $table = 'roles';
 
+    /** @var string */
+    private $name = 'ロール';
+
     /**
      * @return void
      */
@@ -23,7 +26,7 @@ class CreateRolesTable extends Migration
                 $table->softDeletes();
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT 'ロール'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
         } catch (\Exception $e) {
             report($e);
             $this->down();

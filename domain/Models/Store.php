@@ -5,6 +5,7 @@ namespace Domain\Models;
 
 use App\Repositories\StoreRepository;
 use App\Services\Collection\DomainCollection;
+use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class Store
 {
@@ -44,9 +45,6 @@ final class Store
     /** @var Count */
     private $userLimit;
 
-    /** @var Count */
-    private $loginStatusCnt;
-
     /** @var Datetime */
     private $startsAt;
 
@@ -62,156 +60,177 @@ final class Store
     /** @var Datetime */
     private $deletedAt;
 
+    /** @var int */
+    private $companyId;
+
+    /** @var int */
+    private $prefectureId;
+
     /**
      * @param StoreRepository $repo
      * @return void
      */
     public function __construct(StoreRepository $repo)
     {
-        $this->repo = $repo;
-        $this->propertiesByArray($repo->attributesToArray());
+        $this->repo = is_null($repo) ? new StoreRepository : $repo;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function kana(): string
+    public function kana(): ?string
     {
         return $this->kana;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function postalCode(): string
+    public function postalCode(): ?string
     {
         return $this->postalCode;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function address(): string
+    public function address(): ?string
     {
         return $this->address;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function buildingName(): string
+    public function buildingName(): ?string
     {
         return $this->buildingName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function tel(): string
+    public function tel(): ?string
     {
         return $this->tel;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function fax(): string
+    public function fax(): ?string
     {
         return $this->fax;
     }
 
     /**
-     * @return Email
+     * @return Email|null
      */
-    public function email(): Email
+    public function email(): ?Email
     {
         return $this->email;
     }
 
     /**
-     * @return Flag
+     * @return Flag|null
      */
-    public function paymentFlag(): Flag
+    public function paymentFlag(): ?Flag
     {
         return $this->paymentFlag;
     }
 
     /**
-     * @return Count
+     * @return Count|null
      */
-    public function userLimit(): Count
+    public function userLimit(): ?Count
     {
         return $this->userLimit;
     }
 
     /**
-     * @return Count
+     * @return Datetime|null
      */
-    public function loginStatusCnt(): Count
-    {
-        return $this->loginStatusCnt;
-    }
-
-    /**
-     * @return Datetime
-     */
-    public function startsAt(): Datetime
+    public function startsAt(): ?Datetime
     {
         return $this->startsAt;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function endsAt(): Datetime
+    public function endsAt(): ?Datetime
     {
         return $this->endsAt;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function createdAt(): Datetime
+    public function createdAt(): ?Datetime
     {
         return $this->createdAt;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function updatedAt(): Datetime
+    public function updatedAt(): ?Datetime
     {
         return $this->updatedAt;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function deletedAt(): Datetime
+    public function deletedAt(): ?Datetime
     {
         return $this->deletedAt;
     }
 
     /**
-     * @return Prefecture
+     * @return int|null
      */
-    public function prefecture(): Prefecture
+    public function companyId(): ?int
+    {
+        return $this->companyId;
+    }
+
+    /**
+     * @return Company|null
+     */
+    public function company(): ?Company
+    {
+        return $this->repo->company();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function prefectureId(): ?int
+    {
+        return $this->prefectureId;
+    }
+
+    /**
+     * @return Prefecture|null
+     */
+    public function prefecture(): ?Prefecture
     {
         return $this->repo->prefecture();
     }
@@ -225,89 +244,145 @@ final class Store
     }
 
     /**
-     * @param StoreRepository
+     * @param StoreRepository $repo
      * @return self
      */
     public static function of(StoreRepository $repo): self
     {
-        return new self($repo);
+        return (new self($repo))->propertiesByArray($repo->attributesToArray());
     }
 
     /**
-     * @param array $attributes
-     * @return void
+     * @param array $args
+     * @return self
      */
-    private function propertiesByArray(array $attributes = []): void
+    public static function ofByArray(array $args = []): self
     {
-        $attributes = collect($attributes);
+        return (new self(new StoreRepository))->propertiesByArray($args);
+    }
 
-        if ($attributes->has($key = 'id')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+    /**
+     * @param array $args
+     * @return array
+     */
+    public static function domainizeAttributes(array $args = []): array
+    {
+        $args = collect($args);
+
+        if ($args->has($key = 'test')) {
+//             $args->put($key, 'test');
         }
 
-        if ($attributes->has($key = 'name')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        return $args->all();
+    }
+
+    /**
+     * @param array $args
+     * @return self
+     */
+    private function propertiesByArray(array $args = []): self
+    {
+        $args = collect($args);
+
+        if ($args->has($key = 'id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'kana')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'postal_code')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'kana')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'address')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'postal_code')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'building_name')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'address')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'tel')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'building_name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'fax')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'tel')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'email')) {
-            $this->{$camel = camel_case($key)} = Email::of($attributes->get($key));
+        if ($args->has($key = 'fax')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'payment_flag')) {
-            $this->{$camel = camel_case($key)} = Flag::of((bool)$attributes->get($key));
+        if ($args->has($key = 'email')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'user_limit')) {
-            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
+        if ($args->has($key = 'payment_flag')) {
+            $this->{$camel = camel_case($key)} = Flag::of((bool)$args->get($key));
         }
 
-        if ($attributes->has($key = 'login_status_cnt')) {
-            $this->{$camel = camel_case($key)} = Count::of($attributes->get($key));
+        if ($args->has($key = 'user_limit')) {
+            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'starts_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'starts_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'ends_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'ends_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'created_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'created_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'deleted_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'deleted_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
+
+        if ($args->has($key = 'company_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'prefecture_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Auth $auth
+     * @param int $value
+     * @return bool
+     */
+    public static function validateStoreId(Auth $auth, int $value): bool
+    {
+        if (is_null($store = $auth->user()->store)
+            || is_null($company = $store->company)
+        ) {
+            return false;
+        }
+
+        if ($auth->user()->can('roles', 'company-admin')) {
+            if ($company->stores->containsStrict('id', $value)) {
+                return true;
+            }
+        } else {
+            if ($store->id === $value) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

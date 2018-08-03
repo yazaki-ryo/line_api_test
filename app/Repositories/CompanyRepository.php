@@ -5,26 +5,25 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentCompany;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Company;
 use Domain\Models\Plan;
 use Domain\Models\Prefecture;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class CompanyRepository implements DomainModel, DomainModels
+final class CompanyRepository implements DomainModelable
 {
     /** @var EloquentCompany */
     private $eloquent;
 
     /**
-     * @param EloquentCompany $eloquent
+     * @param EloquentCompany|null $eloquent
      * @return void
      */
-    public function __construct(EloquentCompany $eloquent)
+    public function __construct(EloquentCompany $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentCompany: $eloquent;
     }
 
     /**
@@ -40,12 +39,31 @@ final class CompanyRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
+        /**
+         * TODO Search process.
+         */
+
         $collection = $this->eloquent->all();
         return self::toModels($collection);
+    }
+
+    /**
+     * @param int $id
+     * @param array $args
+     * @return bool
+     */
+    public function update(int $id, array $args = []): bool
+    {
+        if (is_null($resource = $this->eloquent->find($id))) {
+            return false;
+        }
+
+        return $resource->update($args);
     }
 
     /**
@@ -87,21 +105,25 @@ final class CompanyRepository implements DomainModel, DomainModels
     }
 
     /**
-     * @return Plan
+     * @return Plan|null
      */
-    public function plan(): Plan
+    public function plan(): ?Plan
     {
-        $plan = $this->eloquent->plan;
-        return PlanRepository::toModel($plan);
+        if (is_null($resource = $this->eloquent->plan)) {
+            return null;
+        }
+        return PlanRepository::toModel($resource);
     }
 
     /**
-     * @return Prefecture
+     * @return Prefecture|null
      */
-    public function prefecture(): Prefecture
+    public function prefecture(): ?Prefecture
     {
-        $prefecture = $this->eloquent->prefecture;
-        return PrefectureRepository::toModel($prefecture);
+        if (is_null($resource = $this->eloquent->prefecture)) {
+            return null;
+        }
+        return PrefectureRepository::toModel($resource);
     }
 
     /**

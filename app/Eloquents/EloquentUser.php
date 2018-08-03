@@ -24,6 +24,8 @@ final class EloquentUser extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'store_id',
+        'role_id',
         'password',
     ];
 
@@ -42,14 +44,6 @@ final class EloquentUser extends Authenticatable
     public function newCollection(array $models = []): DomainCollection
     {
         return new DomainCollection($models);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(EloquentCompany::class, 'store_id', 'id', 'store');
     }
 
     /**

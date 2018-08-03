@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Users;
 
 use App\Repositories\UserRepository;
 use App\Services\Collection\DomainCollection;
@@ -10,7 +10,10 @@ use Domain\Contracts\Users\GetUsersInterface;
 use Domain\Contracts\Users\UpdateUserInterface;
 use Domain\Models\User;
 
-final class UsersService implements GetUserInterface, GetUsersInterface, UpdateUserInterface
+final class UsersService implements
+    GetUserInterface,
+    GetUsersInterface,
+    UpdateUserInterface
 {
     /** @var UserRepository */
     private $repo;
@@ -33,20 +36,21 @@ final class UsersService implements GetUserInterface, GetUsersInterface, UpdateU
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
-        return $this->repo->findAll();
+        return $this->repo->findAll($args);
     }
 
     /**
      * @param int $id
-     * @param array $inputs
+     * @param array $args
      * @return bool
      */
-    public function update(int $id, array $inputs = []): bool
+    public function update(int $id, array $args = []): bool
     {
-        return $this->repo->update($id, $inputs);
+        return $this->repo->update($id, $args);
     }
 }

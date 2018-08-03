@@ -10,6 +10,9 @@ class CreateUsersTable extends Migration
     /** @var string */
     private $table = 'users';
 
+    /** @var string */
+    private $name = 'ユーザー';
+
     /**
      * @return void
      */
@@ -23,7 +26,6 @@ class CreateUsersTable extends Migration
 
                 $table->string('name')->nullable()->comment('名称');
                 $table->string('email')->unique()->comment('E-Mail');
-                $table->text('code')->nullable()->comment('ユーザー識別コード');
                 $table->string('password');
                 $table->rememberToken();
                 $table->timestamps();
@@ -38,7 +40,7 @@ class CreateUsersTable extends Migration
                     ->on('roles');
             });
 
-            DB::statement(sprintf("ALTER TABLE %s%s COMMENT 'ユーザー'", DB::getTablePrefix(), $this->table));
+            DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
         } catch (\Exception $e) {
             report($e);
             $this->down();

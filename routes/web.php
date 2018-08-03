@@ -19,20 +19,10 @@ use Illuminate\Routing\Router;
  * @prefix /
  * @middleware web
  */
-
 $router->group([
     //
 ], function (Router $router) {
     $router->get('/', \App\Http\Controllers\HomeController::class)->name('home');
-
-    /**
-     * Users
-     */
-    $router->group([
-        'prefix' => $prefix = 'users',
-    ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name(sprintf('%s.index', $prefix));
-    });
 
     /**
      * Authentication
@@ -44,8 +34,8 @@ $router->group([
     /**
      * Registration
      */
-    $router->get( 'register', \App\Http\Controllers\Auth\RegisterController::class . '@showRegistrationForm')->name('register');
-    $router->post('register', \App\Http\Controllers\Auth\RegisterController::class . '@register');
+//     $router->get( 'register', \App\Http\Controllers\Auth\RegisterController::class . '@showRegistrationForm')->name('register');
+//     $router->post('register', \App\Http\Controllers\Auth\RegisterController::class . '@register');
 
     /**
      * Password Reset
@@ -60,13 +50,41 @@ $router->group([
     });
 
     /**
+     * Customers
+     */
+    $router->group([
+        'prefix' => $prefix = 'customers',
+    ], function (Router $router) use ($prefix) {
+        $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name($prefix);
+        $router->get( 'add', \App\Http\Controllers\Customers\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
+        $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
+        $router->get( '{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+        $router->post('{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@update');
+        $router->post('{customerId}/delete', \App\Http\Controllers\Customers\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+        $router->post('{customerId}/restore', \App\Http\Controllers\Customers\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+    });
+
+    /**
+     * Users
+     */
+    $router->group([
+        'prefix' => $prefix = 'users',
+    ], function (Router $router) use ($prefix) {
+        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name($prefix);
+    });
+
+    /**
      * Configuration
      */
     $router->group([
-        'prefix' => $prefix = 'config',
+        'prefix' => $prefix = 'configurations',
     ], function (Router $router) use ($prefix) {
-        $router->get( 'profile', \App\Http\Controllers\Config\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
-        $router->post('profile', \App\Http\Controllers\Config\ProfileController::class . '@update');
+        $router->get( 'company', \App\Http\Controllers\Configurations\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
+        $router->post('company', \App\Http\Controllers\Configurations\CompanyController::class . '@update');
+        $router->get( 'profile', \App\Http\Controllers\Configurations\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
+        $router->post('profile', \App\Http\Controllers\Configurations\ProfileController::class . '@update');
+        $router->get( 'store', \App\Http\Controllers\Configurations\StoreController::class . '@view')->name(sprintf('%s.store', $prefix));
+        $router->post('store', \App\Http\Controllers\Configurations\StoreController::class . '@update');
     });
 
 });

@@ -21,7 +21,15 @@ final class EloquentCompany extends Model
      * @var array
      */
     protected $fillable = [
+        'plan_id',
+        'prefecture_id',
         'name',
+        'kana',
+        'postal_code',
+        'address',
+        'building_name',
+        'tel',
+        'fax',
         'email',
     ];
 
@@ -55,6 +63,14 @@ final class EloquentCompany extends Model
     public function users(): HasManyThrough
     {
         return $this->hasManyThrough(EloquentUser::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');
+    }
+
+    /**
+     * @return HasManyThrough
+     */
+    public function customers(): HasManyThrough
+    {
+        return $this->hasManyThrough(EloquentCustomer::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');
     }
 
     /**

@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1>@lang ('elements.pages.home') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.pages.home') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -24,39 +24,98 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                <div class="well">
-                    <h2>顧客管理</h1>
-                    <p><code>@lang ('Test text...')</code></p>
-
-                    <span class="label label-default">Default</span>
-                    <span class="label label-primary">Primary</span>
-                    <span class="label label-success">Success</span>
-                    <span class="label label-info">Info</span>
-                    <span class="label label-warning">Warning</span>
-                    <span class="label label-danger">Danger</span>
+                <div class="well" style="height: 220px; overflow: auto;">
+                    <p class="lead">■@lang ('elements.labels.notice')</p>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object thumbnail" src="http://placehold.jp/16/ddd/666/64x64.png?text=64x64" alt="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Media heading</h4>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object thumbnail" src="http://placehold.jp/16/ddd/666/64x64.png?text=64x64" alt="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Media heading</h4>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
             <div class="col-md-6 col-md-offset-0">
-                <div class="well">
-                    <h2>予約管理</h1>
-                    <p><code>@lang ('Test text...')</code></p>
-
-                    <span class="label label-default">Default</span>
-                    <span class="label label-primary">Primary</span>
-                    <span class="label label-success">Success</span>
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.resources.customers')@lang ('elements.labels.information')</p>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object thumbnail" src="http://placehold.jp/16/ddd/666/64x64.png?text=64x64" alt="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Media heading</h4>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 col-md-offset-0">
-                <div class="well">
-                    <h2>アプリ</h1>
-                    <p><code>@lang ('Test text...')</code></p>
 
-                    <span class="label label-info">Info</span>
-                    <span class="label label-warning">Warning</span>
-                    <span class="label label-danger">Danger</span>
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.resources.stores')@lang ('elements.labels.information')</p>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object thumbnail" src="http://placehold.jp/16/ddd/666/64x64.png?text=64x64" alt="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Media heading</h4>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.resources.users')@lang ('elements.labels.information')</p>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object thumbnail" src="http://placehold.jp/16/ddd/666/64x64.png?text=64x64" alt="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Media heading</h4>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-md-offset-0">
+                <div class="well" style="height:220px;overflow:auto;">
+                    <p class="lead">■@lang ('elements.resources.companies')@lang ('elements.labels.information')</p>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object thumbnail" src="http://placehold.jp/16/ddd/666/64x64.png?text=64x64" alt="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">Media heading</h4>
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

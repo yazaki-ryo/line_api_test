@@ -19,12 +19,7 @@ class RolesSeeder extends Seeder
         [
             'id'    => 2,
             'name'  => '店舗担当者',
-            'slug'  => 'store-master',
-        ],
-        [
-            'id'    => 3,
-            'name'  => '一般ユーザー',
-            'slug'  => 'general-user',
+            'slug'  => 'store-user',
         ],
     ];
 

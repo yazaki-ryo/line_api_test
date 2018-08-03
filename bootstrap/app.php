@@ -41,6 +41,30 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+/**
+ * Notifications for Slack
+ */
+$app->configureMonologUsing(function($monolog) {
+    $config = config('services.slack');
+
+    if (! $config['webhook_url']) return null;
+
+    $monolog->pushHandler(
+        new \Monolog\Handler\SlackWebhookHandler(
+            $config['webhook_url'],
+            $config['channel'],
+            $config['username'],
+            $config['use_attachment'],
+            $config['icon_emoji'],
+            $config['use_short_attachment'],
+            $config['include_context_and_extra'],
+            $config['level'],
+            $config['bubble'],
+            $config['exclude_fields']
+        )
+    );
+});
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

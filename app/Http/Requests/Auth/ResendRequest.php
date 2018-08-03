@@ -50,7 +50,7 @@ class ResendRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return \Lang::get('attributes.auth');
+        return \Lang::get('attributes.users');
     }
 
 }

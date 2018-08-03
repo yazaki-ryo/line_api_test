@@ -16,9 +16,9 @@ final class Datetime
      * @param string $datetime
      * @return void
      */
-    private function __construct(?string $datetime)
+    private function __construct(string $datetime)
     {
-        $this->value = is_null($datetime) ? null : Carbon::parse($datetime);
+        $this->value = Carbon::parse($datetime);
     }
 
     /**

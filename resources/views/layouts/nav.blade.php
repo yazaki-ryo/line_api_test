@@ -29,57 +29,119 @@
                 @guest
                     <li>
                         <a href="{{ route('login') }}">
-                            <i class="fa fa-sign-in"></i>@lang ('elements.pages.login')
+                            <i class="fa fa-sign-in"></i>@lang ('elements.pages.auth.login')
                         </a>
                     </li>
+
+{{--
                     <li>
                         <a href="{{ route('register') }}">
-                            <i class="fa fa-sign-in"></i>@lang ('elements.pages.register-user')
+                            <i class="fa fa-sign-in"></i>@lang ('elements.pages.auth.register')
                         </a>
                     </li>
+--}}
                 @else
                     <li class="dropdown-header">
-                        ようこそ {{ auth()->user()->name }} さん
+                        @lang ('Welcome, :name.', ['name' => $user->name])
                     </li>
 
+                    <!-- Customers menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            顧客管理 <span class="caret"></span>
+                            @lang ('elements.menus.customers') <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                            <li><a href="#">test</a></li>
+                            @can ('authorize', ['customers.*', 'customers.select'])
+                                <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers') }}">@lang ('elements.pages.customers.index')</a></li>
+                            @endcan
+
+                            @can ('authorize', ['customers.*', 'customers.create'])
+                                <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.pages.customers.add')</a></li>
+                            @endcan
+                        </ul>
+                    </li>
+
+                    <!-- Reservations menu -->
+                    <li class="dropdown disabled">
+                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            @lang ('elements.menus.reservations') <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
                     </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            予約管理 <span class="caret"></span>
+                    <!-- Tags menu -->
+                    <li class="dropdown disabled">
+                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            @lang ('elements.menus.tags') <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                            <li><a href="#">test</a></li>
                             <li><a href="#">test</a></li>
                         </ul>
                     </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            各種設定 <span class="caret"></span>
+                    <!-- Menus menu -->
+                    <li class="dropdown disabled">
+                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            @lang ('elements.menus.menus') <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a href="#">設定</a></li>
-                            <li><a href="{{ route('config.profile') }}">@lang ('elements.pages.profile')</a></li>
+                            <li><a href="#">test</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Surveys menu -->
+                    <li class="dropdown disabled">
+                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            @lang ('elements.menus.surveys') <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="#">test</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Coupons menu -->
+                    <li class="dropdown disabled">
+                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            @lang ('elements.menus.coupons') <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a href="#">test</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Configurations menu -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            @lang ('elements.menus.configurations') @if (true) <span class="badge bg-danger">1</span> @endif <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li class="{{ request()->route()->named('configurations.profile') ? 'active' : '' }}"><a href="{{ route('configurations.profile') }}">@lang ('elements.pages.configurations.profile')</a></li>
+
+                            @can ('authorize', ['stores.*', 'stores.update'])
+                                <li class="{{ request()->route()->named('configurations.store') ? 'active' : '' }}"><a href="{{ route('configurations.store') }}">@lang ('elements.pages.configurations.store')</a></li>
+                            @endcan
+
+                            @can ('authorize', ['companies.*', 'companies.update'])
+                                <li class="{{ request()->route()->named('configurations.company') ? 'active' : '' }}"><a href="{{ route('configurations.company') }}">@lang ('elements.pages.configurations.company')</a></li>
+                            @endcan
+
+                            <li class="disabled"><a href="#">@lang ('elements.labels.notification') @if (true) <span class="badge bg-danger">1</span> @endif </a></li>
+                            <li class="disabled"><a href="#">@lang ('elements.actions.set')</a></li>
 
                             <li role="separator" class="divider"></li>
 
                             <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('ログアウトしますか？')) document.getElementById('logout-form').submit(); return false;">
-                                    <i class="fa fa-sign-out pull-right"></i>@lang ('elements.pages.logout')
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('@lang ('Do you want to log out?')')) document.getElementById('logout-form').submit(); return false;">
+                                    <i class="fa fa-sign-out pull-right"></i>@lang ('elements.pages.auth.logout')
                                 </a>
 
                                 {{ Form::open(['id' => 'logout-form', 'url' => route('logout'), 'method' => 'post', 'style' => 'display: none;']) }}{{ Form::close() }}

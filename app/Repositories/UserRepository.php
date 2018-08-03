@@ -5,8 +5,7 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentUser;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\Role;
@@ -14,18 +13,18 @@ use Domain\Models\User;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class UserRepository implements DomainModel, DomainModels
+final class UserRepository implements DomainModelable
 {
     /** @var EloquentUser */
     private $eloquent;
 
     /**
-     * @param EloquentUser $eloquent
+     * @param EloquentUser|null $eloquent
      * @return void
      */
-    public function __construct(EloquentUser $eloquent)
+    public function __construct(EloquentUser $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentUser : $eloquent;
     }
 
     /**
@@ -41,26 +40,30 @@ final class UserRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
+        /**
+         * TODO Search process.
+         */
+
         $collection = $this->eloquent->all();
         return self::toModels($collection);
     }
 
     /**
      * @param int $id
-     * @param array $inputs
+     * @param array $args
      * @return bool
      */
-    public function update(int $id, array $inputs = []): bool
+    public function update(int $id, array $args = []): bool
     {
         if (is_null($resource = $this->eloquent->find($id))) {
             return false;
         }
-
-        return $resource->update($inputs);
+        return $resource->update($args);
     }
 
     /**
@@ -93,30 +96,36 @@ final class UserRepository implements DomainModel, DomainModels
     }
 
     /**
-     * @return Role
+     * @return Role|null
      */
-    public function role(): Role
+    public function role(): ?Role
     {
-        $role = $this->eloquent->role;
-        return RoleRepository::toModel($role);
+        if (is_null($resource = $this->eloquent->role)) {
+            return null;
+        }
+        return RoleRepository::toModel($resource);
     }
 
     /**
-     * @return Company
+     * @return Company|null
      */
-    public function company(): Company
+    public function company(): ?Company
     {
-        $company = $this->eloquent->loadMissing('company')->company;
-        return CompanyRepository::toModel($company);
+        if (is_null($resource = optional($this->eloquent->store)->company)) {
+            return null;
+        }
+        return CompanyRepository::toModel($resource);
     }
 
     /**
-     * @return Store
+     * @return Store|null
      */
-    public function store(): Store
+    public function store(): ?Store
     {
-        $store = $this->eloquent->store;
-        return StoreRepository::toModel($store);
+        if (is_null($resource = $this->eloquent->store)) {
+            return null;
+        }
+        return StoreRepository::toModel($resource);
     }
 
     /**

@@ -47,124 +47,145 @@ final class Company
     /** @var Datetime */
     private $deletedAt;
 
+    /** @var int */
+    private $planId;
+
+    /** @var int */
+    private $prefectureId;
+
     /**
-     * @param CompanyRepository $repo
+     * @param CompanyRepository|null $repo
      * @return void
      */
-    public function __construct(CompanyRepository $repo)
+    public function __construct(CompanyRepository $repo = null)
     {
-        $this->repo = $repo;
-        $this->propertiesByArray($repo->attributesToArray());
+        $this->repo = is_null($repo) ? new CompanyRepository : $repo;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function id(): int
+    public function id(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function name(): string
+    public function name(): ?string
     {
         return $this->name;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function kana(): string
+    public function kana(): ?string
     {
         return $this->kana;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function postalCode(): string
+    public function postalCode(): ?string
     {
         return $this->postalCode;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function address(): string
+    public function address(): ?string
     {
         return $this->address;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function buildingName(): string
+    public function buildingName(): ?string
     {
         return $this->buildingName;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function tel(): string
+    public function tel(): ?string
     {
         return $this->tel;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function fax(): string
+    public function fax(): ?string
     {
         return $this->fax;
     }
 
     /**
-     * @return Email
+     * @return Email|null
      */
-    public function email(): Email
+    public function email(): ?Email
     {
         return $this->email;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function createdAt(): Datetime
+    public function createdAt(): ?Datetime
     {
         return $this->createdAt;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function updatedAt(): Datetime
+    public function updatedAt(): ?Datetime
     {
         return $this->updatedAt;
     }
 
     /**
-     * @return Datetime
+     * @return Datetime|null
      */
-    public function deletedAt(): Datetime
+    public function deletedAt(): ?Datetime
     {
         return $this->deletedAt;
     }
 
     /**
-     * @return Plan
+     * @return int|null
      */
-    public function plan(): Plan
+    public function planId(): ?int
+    {
+        return $this->planId;
+    }
+
+    /**
+     * @return Plan|null
+     */
+    public function plan(): ?Plan
     {
         return $this->repo->plan();
     }
 
     /**
-     * @return Prefecture
+     * @return int|null
      */
-    public function prefecture(): Prefecture
+    public function prefectureId(): ?int
+    {
+        return $this->prefectureId;
+    }
+
+    /**
+     * @return Prefecture|null
+     */
+    public function prefecture(): ?Prefecture
     {
         return $this->repo->prefecture();
     }
@@ -178,69 +199,88 @@ final class Company
     }
 
     /**
-     * @param CompanyRepository
+     * @param CompanyRepository $repo
      * @return self
      */
     public static function of(CompanyRepository $repo): self
     {
-        return new self($repo);
+        return (new self($repo))->propertiesByArray($repo->attributesToArray());
     }
 
     /**
-     * @param array $attributes
-     * @return void
+     * @param array $args
+     * @return self
      */
-    private function propertiesByArray(array $attributes = []): void
+    public static function ofByArray(array $args = []): self
     {
-        $attributes = collect($attributes);
+        return (new self(new CompanyRepository))->propertiesByArray($args);
+    }
 
-        if ($attributes->has($key = 'id')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+    /**
+     * @param array $args
+     * @return self
+     */
+    private function propertiesByArray(array $args = []): self
+    {
+        $args = collect($args);
+
+        if ($args->has($key = 'id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'name')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'kana')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'kana')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'postal_code')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'postal_code')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'address')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'address')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'building_name')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'building_name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'tel')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'tel')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'fax')) {
-            $this->{$camel = camel_case($key)} = $attributes->get($key);
+        if ($args->has($key = 'fax')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($attributes->has($key = 'email')) {
-            $this->{$camel = camel_case($key)} = Email::of($attributes->get($key));
+        if ($args->has($key = 'email')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'created_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'created_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
-        if ($attributes->has($key = 'deleted_at')) {
-            $this->{$camel = camel_case($key)} = Datetime::of($attributes->get($key));
+        if ($args->has($key = 'deleted_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
+
+        if ($args->has($key = 'plan_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'prefecture_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        return $this;
     }
 
 }

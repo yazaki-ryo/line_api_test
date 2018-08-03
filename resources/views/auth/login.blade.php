@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.pages.login') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.pages.auth.login') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1>@lang ('elements.pages.login') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.pages.auth.login') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -31,17 +31,17 @@
 
                             @set ($field, 'email')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
 
                                 <div class="col-md-6">
-                                    {!! Form::email($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => '191', 'placeholder' => '']) !!}
+                                    {!! Form::email($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
 
                             @set ($field, 'password')
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.auth.{$field}")</label>
+                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
 
                                 <div class="col-md-6">
                                     <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
@@ -54,7 +54,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            {!! Form::checkbox($field, 1, old($field), []) !!} @lang ("attributes.auth.{$field}")
+                                            {!! Form::checkbox($field, 1, old($field), []) !!} @lang ("attributes.users.{$field}")
                                         </label>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        @lang ('elements.buttons.submit')
+                                        @lang ('elements.actions.submit')
                                     </button>
 
                                     <a class="btn btn-link" href="{{ route('password.request') }}">

@@ -5,24 +5,23 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentPermission;
 use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModel;
-use Domain\Contracts\Model\DomainModels;
+use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Permission;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class PermissionRepository implements DomainModel, DomainModels
+final class PermissionRepository implements DomainModelable
 {
     /** @var EloquentPermission */
     private $eloquent;
 
     /**
-     * @param EloquentPermission $eloquent
+     * @param EloquentPermission|null $eloquent
      * @return void
      */
-    public function __construct(EloquentPermission $eloquent)
+    public function __construct(EloquentPermission $eloquent = null)
     {
-        $this->eloquent = $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentPermission: $eloquent;
     }
 
     /**
@@ -38,10 +37,15 @@ final class PermissionRepository implements DomainModel, DomainModels
     }
 
     /**
+     * @param array $args
      * @return DomainCollection
      */
-    public function findAll(): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
+        /**
+         * TODO Search process.
+         */
+
         $collection = $this->eloquent->all();
         return self::toModels($collection);
     }
