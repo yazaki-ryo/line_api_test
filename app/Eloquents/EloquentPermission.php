@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BeLongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 final class EloquentPermission extends Model
 {
@@ -41,11 +41,11 @@ final class EloquentPermission extends Model
     }
 
     /**
-     * @return BeLongsToMany
+     * @return MorphToMany
      */
-    public function users(): BeLongsToMany
+    public function users(): MorphToMany
     {
-        return $this->belongsToMany(EloquentUser::class, 'permission_user', 'permission_id', 'user_id')->withTimestamps();
+        return $this->morphedByMany(EloquentUser::class, 'permissible', 'permissibles', 'permission_id', 'permissible_id', 'id', 'id')->withTimestamps();
     }
 
     /**

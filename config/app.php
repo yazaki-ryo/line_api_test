@@ -187,6 +187,7 @@ return [
         App\Providers\DomainServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\LocalServiceProvider::class,
+        App\Providers\RelationServiceProvider::class,
         App\Providers\ResourceServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SchemaServiceProvider::class,

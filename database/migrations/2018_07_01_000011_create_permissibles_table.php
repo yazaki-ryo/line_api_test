@@ -5,13 +5,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 use function Illuminate\Foundation\Testing\Concerns\report;
 
-class CreatePermissionUserTable extends Migration
+class CreatePermissiblesTable extends Migration
 {
     /** @var string */
-    private $table = 'permission_user';
+    private $table = 'permissibles';
 
     /** @var string */
-    private $name = 'ユーザー権限';
+    private $name = '許諾';
 
     /**
      * @return void
@@ -21,13 +21,9 @@ class CreatePermissionUserTable extends Migration
         try {
             Schema::create($this->table, function (Blueprint $table) {
                 $table->increments('id');
-                $table->unsignedInteger('user_id')->comment('ユーザーID');
                 $table->unsignedInteger('permission_id')->comment('権限ID');
+                $table->morphs('permissible');
                 $table->timestamps();
-
-                $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users');
 
                 $table->foreign('permission_id')
                     ->references('id')
