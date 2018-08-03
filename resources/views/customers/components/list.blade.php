@@ -44,5 +44,5 @@
         </table>
     </div>
 @else
-    <p>データがありません。</p>
+    <p>@lang ('There is no :name.', ['name' => __('elements.labels.data')])</p>
 @endif
