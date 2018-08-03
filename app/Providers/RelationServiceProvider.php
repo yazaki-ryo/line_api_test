@@ -16,7 +16,7 @@ final class RelationServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Relation::morphMap([
-//             'customers' => EloquentCustomer::class,
+            'customers' => EloquentCustomer::class,
             'users'     => EloquentUser::class,
         ]);
     }
