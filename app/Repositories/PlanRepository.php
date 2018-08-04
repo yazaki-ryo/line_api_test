@@ -7,6 +7,7 @@ use App\Eloquents\EloquentPlan;
 use App\Services\Collection\DomainCollection;
 use Domain\Contracts\Model\DomainModelable;
 use Domain\Models\Plan;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,11 +43,7 @@ final class PlanRepository implements DomainModelable
      */
     public function findAll(array $args = []): DomainCollection
     {
-        /**
-         * TODO Search process.
-         */
-
-        $collection = $this->eloquent->all();
+        $collection = $this->build($this->newQuery(), $args)->get();
         return self::toModels($collection);
     }
 
@@ -95,6 +92,26 @@ final class PlanRepository implements DomainModelable
     private static function of(EloquentPlan $eloquent)
     {
         return new self($eloquent);
+    }
+
+    /**
+     * @return Builder
+     */
+    private function newQuery(): Builder
+    {
+        return $this->eloquent->newQuery();
+    }
+
+    /**
+     * @param Builder $query
+     * @param array $args
+     * @return Builder
+     */
+    private function build(Builder $query, array $args = []): Builder
+    {
+        $args = collect($args);
+
+        return $query;
     }
 
 }

@@ -46,7 +46,7 @@ final class StoreRepository implements DomainModelable
      */
     public function findAll(array $args = []): DomainCollection
     {
-        $collection = $this->search($args)->get();
+        $collection = $this->build($this->newQuery(), $args)->get();
         return self::toModels($collection);
     }
 
@@ -135,10 +135,18 @@ final class StoreRepository implements DomainModelable
     }
 
     /**
+     * @return Builder
+     */
+    private function newQuery(): Builder
+    {
+        return $this->eloquent->newQuery();
+    }
+
+    /**
      * @param array $args
      * @return Builder
      */
-    private function search(array $args = []): Builder
+    private function build(array $args = []): Builder
     {
         $args = collect($args);
         $query = $this->eloquent->newQuery();
