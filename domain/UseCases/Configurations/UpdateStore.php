@@ -32,7 +32,6 @@ final class UpdateStore
         if (is_null($resource = $user->store())) {
             throw new NotFoundException('Resource not found.');
         }
-
         return $resource;
     }
 
@@ -44,11 +43,11 @@ final class UpdateStore
      */
     public function excute(User $user, array $args = []): bool
     {
-        $store = $this->getStore($user);
+        $resource = $this->getStore($user);
         $args = $this->domainize($user, $args);
 
-        return $this->transactionalService->transaction(function () use ($store, $args) {
-            return $store->update($args);
+        return $this->transactionalService->transaction(function () use ($resource, $args) {
+            return $resource->update($args);
         });
     }
 
