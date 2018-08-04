@@ -72,11 +72,7 @@
                     </div>
                     <div class="tab-pane pt-10" id="tags-tab">
                         <div class="well">
-                            @forelse ($row->tags() as $tag)
-                                <span class="label label-primary">{{ $tag->name() }}</span>
-                            @empty
-                                <p>@lang ('There is no :name.', ['name' => __('elements.labels.tags')])</p>
-                            @endforelse
+                            @include ('customers.components.tags')
                         </div>
                     </div>
                 </div>

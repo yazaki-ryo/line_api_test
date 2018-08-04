@@ -81,6 +81,7 @@ return [
         'deleted_at'            => '削除日時',
 
         'free_word'             => 'フリーワード',
+        'tags'                  => 'タグ',
     ],
 
     'stores' => [

@@ -151,8 +151,6 @@ final class StoreRepository implements DomainModelable
             $q->companyId($args->get($key));
         });
 
-
-
         return $query;
     }
 
