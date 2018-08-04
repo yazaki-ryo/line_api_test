@@ -244,6 +244,15 @@ final class Store
     }
 
     /**
+     * @param array $args
+     * @return bool
+     */
+    public function update(array $args = []): bool
+    {
+        return $this->repo->update($args);
+    }
+
+    /**
      * @param StoreRepository $repo
      * @return self
      */
