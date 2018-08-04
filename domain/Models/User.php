@@ -141,6 +141,15 @@ final class User
     }
 
     /**
+     * @param array $args
+     * @return bool
+     */
+    public function update(array $args = []): bool
+    {
+        return $this->repo->update($args);
+    }
+
+    /**
      * @param UserRepository $repo
      * @return self
      */
