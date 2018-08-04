@@ -44,11 +44,11 @@ final class UpdateStore
      */
     public function getStore(int $id): Store
     {
-        if (is_null($store = $this->getStoreService->findById($id))) {
+        if (is_null($resource = $this->getStoreService->findById($id))) {
             throw new NotFoundException('Resource not found.');
         }
 
-        return $store;
+        return $resource;
     }
 
     /**

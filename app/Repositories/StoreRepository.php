@@ -143,13 +143,13 @@ final class StoreRepository implements DomainModelable
     }
 
     /**
+     * @param Builder $query
      * @param array $args
      * @return Builder
      */
-    private function build(array $args = []): Builder
+    private function build(Builder $query, array $args = []): Builder
     {
         $args = collect($args);
-        $query = $this->eloquent->newQuery();
 
         $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
             $q->id($args->get($key));

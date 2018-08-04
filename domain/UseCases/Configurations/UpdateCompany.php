@@ -44,11 +44,11 @@ final class UpdateCompany
      */
     public function getCompany(int $id): Company
     {
-        if (is_null($company = $this->getCompanyService->findById($id))) {
+        if (is_null($resource = $this->getCompanyService->findById($id))) {
             throw new NotFoundException('Resource not found.');
         }
 
-        return $company;
+        return $resource;
     }
 
     /**

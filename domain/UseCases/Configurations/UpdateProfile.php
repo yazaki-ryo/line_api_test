@@ -45,11 +45,11 @@ final class UpdateProfile
      */
     public function getUser(int $id): User
     {
-        if (is_null($this->getUserService->findById($id))) {
+        if (is_null($resource = $this->getUserService->findById($id))) {
             throw new NotFoundException('Resource not found.');
         }
 
-        return $this->getUserService->findById($id);
+        return $resource;
     }
 
     /**
