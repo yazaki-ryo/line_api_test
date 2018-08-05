@@ -8,8 +8,8 @@ use Domain\Models\Customer;
 interface GetCustomerInterface
 {
     /**
-     * @param int $id
-     * @param bool $trashed
+     * @param  int $id
+     * @param  bool $trashed
      * @return Customer|null
      */
     public function findById(int $id, bool $trashed = false): ?Customer;

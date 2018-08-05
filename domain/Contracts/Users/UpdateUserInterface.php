@@ -6,9 +6,9 @@ namespace Domain\Contracts\Users;
 interface UpdateUserInterface
 {
     /**
-     * @param int $id
-     * @param array $args
+     * @param  array $args
+     * @param  int|null $id
      * @return bool
      */
-    public function update(int $id, array $args = []): bool;
+    public function update(array $args = [], int $id = null);
 }

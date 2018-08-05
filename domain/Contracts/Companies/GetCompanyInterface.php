@@ -8,8 +8,9 @@ use Domain\Models\Company;
 interface GetCompanyInterface
 {
     /**
-     * @param int $id
+     * @param  int $id
+     * @param  bool $trashed
      * @return Company|null
      */
-    public function findById(int $id): ?Company;
+    public function findById(int $id, bool $trashed = false): ?Company;
 }

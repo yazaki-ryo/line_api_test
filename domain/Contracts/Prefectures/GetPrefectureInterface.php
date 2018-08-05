@@ -8,8 +8,9 @@ use Domain\Models\Prefecture;
 interface GetPrefectureInterface
 {
     /**
-     * @param int $id
+     * @param  int $id
+     * @param  bool $trashed
      * @return Prefecture|null
      */
-    public function findById(int $id): ?Prefecture;
+    public function findById(int $id, bool $trashed = false): ?Prefecture;
 }

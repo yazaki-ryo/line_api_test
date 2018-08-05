@@ -8,8 +8,9 @@ use Domain\Models\Store;
 interface GetStoreInterface
 {
     /**
-     * @param int $id
+     * @param  int $id
+     * @param  bool $trashed
      * @return Store|null
      */
-    public function findById(int $id): ?Store;
+    public function findById(int $id, bool $trashed = false): ?Store;
 }

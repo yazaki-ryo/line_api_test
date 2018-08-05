@@ -8,8 +8,9 @@ use Domain\Models\Sex;
 interface GetSexInterface
 {
     /**
-     * @param int $id
+     * @param  int $id
+     * @param  bool $trashed
      * @return Sex|null
      */
-    public function findById(int $id): ?Sex;
+    public function findById(int $id, bool $trashed = false): ?Sex;
 }
