@@ -151,11 +151,11 @@ final class CompanyRepository implements DomainableInterface
     }
 
     /**
-     * @param Builder $query
-     * @param array $args
-     * @return Builder
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
      */
-    public static function build(Builder $query, array $args = []): Builder
+    public static function build($query, array $args = [])
     {
         $args = collect($args);
 

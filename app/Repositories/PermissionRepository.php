@@ -74,7 +74,7 @@ final class PermissionRepository implements DomainableInterface
      */
     public function users(array $args = []): DomainCollection
     {
-        $collection = UserRepository::build($this->eloquent->users(), $args);
+        $collection = UserRepository::build($this->eloquent->users(), $args)->get();
         return UserRepository::toModels($collection);
     }
 
@@ -104,11 +104,11 @@ final class PermissionRepository implements DomainableInterface
     }
 
     /**
-     * @param Builder $query
-     * @param array $args
-     * @return Builder
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
      */
-    public static function build(Builder $query, array $args = []): Builder
+    public static function build($query, array $args = [])
     {
         $args = collect($args);
 

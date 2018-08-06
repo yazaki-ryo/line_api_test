@@ -74,7 +74,7 @@ final class TagRepository implements DomainableInterface
      */
     public function customers(array $args = []): DomainCollection
     {
-        $collection = CustomerRepository::build($this->eloquent->customers(), $args);
+        $collection = CustomerRepository::build($this->eloquent->customers(), $args)->get();
         return CustomerRepository::toModels($collection);
     }
 
@@ -104,11 +104,11 @@ final class TagRepository implements DomainableInterface
     }
 
     /**
-     * @param Builder $query
-     * @param array $args
-     * @return Builder
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
      */
-    public static function build(Builder $query, array $args = []): Builder
+    public static function build($query, array $args = [])
     {
         $args = collect($args);
 

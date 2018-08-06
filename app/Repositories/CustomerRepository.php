@@ -186,7 +186,7 @@ final class CustomerRepository implements DomainableInterface
      */
     public function tags(array $args = []): DomainCollection
     {
-        $collection = TagRepository::build($this->eloquent->tags(), $args);
+        $collection = TagRepository::build($this->eloquent->tags(), $args)->get();
         return TagRepository::toModels($collection);
     }
 
@@ -208,9 +208,9 @@ final class CustomerRepository implements DomainableInterface
     }
 
     /**
-     * @param Builder $query
-     * @param array $args
-     * @return \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Relations
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
      */
     public static function build($query, array $args = [])
     {

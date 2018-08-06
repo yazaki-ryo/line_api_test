@@ -7,6 +7,7 @@ use App\Services\DomainCollection;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
+use Illuminate\Support\Collection;
 
 final class GetCustomers
 {
@@ -31,11 +32,18 @@ final class GetCustomers
     /**
      * @param User $user
      * @param array $args
-     * @return array
+     * @return DomainCollection
      */
-    private function domainize(User $user, array $args = []): array
+    private function domainize(User $user, array $args = []): DomainCollection
     {
-        $args = collect($args);
+        /** @var Collection $collection */
+        $collection = collect($args);
+
+        if ($collection->has($key = 'free_word')) {
+            if (is_null($collection->get($key))) {
+                $collection->forget($key);
+            }
+        }
 
         /** @var Store $store */
         $store = $user->store();
@@ -43,27 +51,13 @@ final class GetCustomers
         /** @var Company $company */
         $company = $store->company();
 
-        /**
-         * TODO store, companyどちらかが削除済みかどうかの判定もここで必要か
-         */
-
-        /**
-         * TODO ここでモデル経由でEloquentガードのauthorizableトレイトを利用してロール判定
-         */
-
-        $query = $company->customers();
-
-//         if ($auth->user()->cant('roles', 'company-admin')) {
-//             $query = $store->customers();
-//         }
-
-        if ($args->has($key = 'free_word')) {
-            if (is_null($args->get($key))) {
-                $args->forget($key);
-            }
+        if (! is_null($company) && $user->can('roles', 'company-admin')) {
+            return $company->customers($collection->all());
+        } elseif (! is_null($store) && $user->can('roles', 'store-user')) {
+            return $store->customers($collection->all());
+        } else {
+            return new DomainCollection;
         }
-
-        return [$query, $args->all()];
     }
 
 }
