@@ -348,6 +348,22 @@ final class Customer
     }
 
     /**
+     * @return void
+     */
+    public function delete(): void
+    {
+        $this->repo->delete($this->id());
+    }
+
+    /**
+     * @return void
+     */
+    public function restore(): void
+    {
+        $this->repo->restore($this->id());
+    }
+
+    /**
      * @param array $args
      * @return bool
      */

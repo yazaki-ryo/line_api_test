@@ -8,7 +8,6 @@ use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 use Domain\Models\User;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class UpdateCustomer
 {
@@ -32,8 +31,9 @@ final class UpdateCustomer
     }
 
     /**
-     * @param int $id
+     * @param  int $id
      * @return Customer
+     * @throws NotFoundException
      */
     public function getCustomer(int $id): Customer
     {
@@ -45,11 +45,10 @@ final class UpdateCustomer
     }
 
     /**
-     * @param Auth $auth
-     * @param Customer $customer
-     * @param array $args
+     * @param  User $user
+     * @param  Customer $customer
+     * @param  array $args
      * @return bool
-     * @throws NotFoundException
      */
     public function excute(User $user, Customer $customer, array $args = []): bool
     {
@@ -61,8 +60,8 @@ final class UpdateCustomer
     }
 
     /**
-     * @param User $user
-     * @param array $args
+     * @param  User $user
+     * @param  array $args
      * @return array
      */
     private function domainize(User $user, array $args = []): array

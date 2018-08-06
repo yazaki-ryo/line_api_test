@@ -41,13 +41,14 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(DeleteCustomer::class, function () {
             return new DeleteCustomer(
                 app(CustomersService::class),
-                app(CustomersService::class),
                 app(TransactionalInterface::class)
             );
         });
 
         $this->app->bind(GetCustomer::class, function () {
-            return new GetCustomer(app(CustomersService::class));
+            return new GetCustomer(
+                app(CustomersService::class)
+            );
         });
 
         $this->app->bind(GetCustomers::class, function () {
@@ -56,7 +57,6 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(RestoreCustomer::class, function () {
             return new RestoreCustomer(
-                app(CustomersService::class),
                 app(CustomersService::class),
                 app(TransactionalInterface::class)
             );

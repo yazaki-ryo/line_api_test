@@ -23,9 +23,9 @@ final class GetCustomer
     /**
      * @param  int $id
      * @param  bool $trashed
-     * @return Customer
+     * @return Customer|null
      */
-    public function excute(int $id, bool $trashed = false): Customer
+    public function excute(int $id, bool $trashed = false): ?Customer
     {
         return $this->finder->findById($id, $trashed);
     }

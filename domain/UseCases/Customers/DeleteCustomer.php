@@ -4,64 +4,55 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers;
 
 use Domain\Contracts\Model\FindableInterface;
-use Domain\Contracts\Model\DeletableInterface;
 use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Domain\Models\User;
 
 final class DeleteCustomer
 {
     /** @var FindableInterface */
     private $finder;
 
-    /** @var DeletableInterface */
-    private $deletor;
-
     /** @var TransactionalInterface */
     private $transactionalService;
 
     /**
      * @param FindableInterface $finder
-     * @param DeletableInterface $deletor
      * @param TransactionalInterface $transactionalService
      * @return void
      */
     public function __construct(
         FindableInterface $finder,
-        DeletableInterface $deletor,
         TransactionalInterface $transactionalService
     ) {
         $this->finder = $finder;
-        $this->deletor = $deletor;
         $this->transactionalService = $transactionalService;
     }
 
     /**
      * @param int $id
      * @return Customer
+     * @throws NotFoundException
      */
     public function getCustomer(int $id): Customer
     {
-        if (is_null($customer = $this->finder->findById($id))) {
+        if (is_null($resource = $this->finder->findById($id))) {
             throw new NotFoundException('Resource not found.');
         }
 
-        return $customer;
+        return $resource;
     }
 
     /**
-     * @param Auth $auth
-     * @param int $id
+     * @param User $user
+     * @param Customer $customer
      * @return void
-     * @throws NotFoundException
      */
-    public function excute(Auth $auth, int $id): void
+    public function excute(User $user, Customer $customer): void
     {
-        $this->getCustomer($id);
-
-        $this->transactionalService->transaction(function () use ($id) {
-            $this->deletor->delete($id);
+        $this->transactionalService->transaction(function () use ($customer) {
+            $customer->delete();
         });
     }
 

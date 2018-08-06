@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -37,12 +38,13 @@ final class RestoreController extends Controller
      */
     public function __invoke(int $customerId)
     {
+        $user = UserRepository::toModel($this->auth->user());
         $customer = $this->useCase->getCustomer($customerId);
 
         $this->authorize('restore', $customer);
 
-        $callback = function () use ($customerId) {
-            return $this->useCase->excute($this->auth, $customerId);
+        $callback = function () use ($user, $customer) {
+            return $this->useCase->excute($user, $customer);
         };
 
         if (! is_null(rescue($callback, false))) {
