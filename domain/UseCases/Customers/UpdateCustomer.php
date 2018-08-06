@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers;
 
 use Domain\Contracts\Model\FindableInterface;
-use Domain\Contracts\Model\UpdatableInterface;
 use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
+use Domain\Models\User;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class UpdateCustomer
@@ -15,25 +15,19 @@ final class UpdateCustomer
     /** @var FindableInterface */
     private $finder;
 
-    /** @var UpdatableInterface */
-    private $updater;
-
     /** @var TransactionalInterface */
     private $transactionalService;
 
     /**
      * @param FindableInterface $finder
-     * @param UpdatableInterface $updater
      * @param TransactionalInterface $transactionalService
      * @return void
      */
     public function __construct(
         FindableInterface $finder,
-        UpdatableInterface $updater,
         TransactionalInterface $transactionalService
     ) {
         $this->finder = $finder;
-        $this->updater = $updater;
         $this->transactionalService = $transactionalService;
     }
 
@@ -43,37 +37,35 @@ final class UpdateCustomer
      */
     public function getCustomer(int $id): Customer
     {
-        if (is_null($customer = $this->finder->findById($id))) {
+        if (is_null($resource = $this->finder->findById($id))) {
             throw new NotFoundException('Resource not found.');
         }
 
-        return $customer;
+        return $resource;
     }
 
     /**
      * @param Auth $auth
-     * @param int $id
+     * @param Customer $customer
      * @param array $args
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(Auth $auth, int $id, array $args = []): bool
+    public function excute(User $user, Customer $customer, array $args = []): bool
     {
-        $this->getCustomer($id);
+        $args = $this->domainize($user, $args);
 
-        $args = $this->domainize($auth, $args);
-
-        return $this->transactionalService->transaction(function () use ($id, $args) {
-            return $this->updater->update($id, $args);
+        return $this->transactionalService->transaction(function () use ($customer, $args) {
+            return $customer->update($args);
         });
     }
 
     /**
-     * @param Auth $auth
+     * @param User $user
      * @param array $args
      * @return array
      */
-    private function domainize(Auth $auth, array $args = []): array
+    private function domainize(User $user, array $args = []): array
     {
         $args = collect($args);
 
