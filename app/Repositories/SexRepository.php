@@ -77,11 +77,12 @@ final class SexRepository implements DomainableInterface
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function customers(): DomainCollection
+    public function customers(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->customers;
+        $collection = CustomerRepository::build($this->eloquent->customers(), $args);
         return CustomerRepository::toModels($collection);
     }
 
@@ -107,7 +108,7 @@ final class SexRepository implements DomainableInterface
      * @param array $args
      * @return Builder
      */
-    private function build(Builder $query, array $args = []): Builder
+    public static function build(Builder $query, array $args = []): Builder
     {
         $args = collect($args);
 

@@ -87,11 +87,12 @@ final class Permission
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function users(): DomainCollection
+    public function users(array $args = []): DomainCollection
     {
-        return $this->repo->users();
+        return $this->repo->users($args);
     }
 
     /**

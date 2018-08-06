@@ -77,11 +77,12 @@ final class PlanRepository implements DomainableInterface
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function companies(): DomainCollection
+    public function companies(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->companies;
+        $collection = CompanyRepository::build($this->eloquent->companies(), $args);
         return CompanyRepository::toModels($collection);
     }
 
@@ -107,7 +108,7 @@ final class PlanRepository implements DomainableInterface
      * @param array $args
      * @return Builder
      */
-    private function build(Builder $query, array $args = []): Builder
+    public static function build(Builder $query, array $args = []): Builder
     {
         $args = collect($args);
 

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Eloquents\EloquentUser;
 use App\Policies\CustomerPolicy;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Domain\Models\Customer;
@@ -25,7 +25,7 @@ final class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('authorize', function (EloquentUser $user, ...$args): bool {
+        Gate::define('authorize', function (Model $user, ...$args): bool {
             $args = is_array($args) ? $args : [$args];
 
             foreach ($args as $arg) {
@@ -36,7 +36,7 @@ final class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-        Gate::define('roles', function (EloquentUser $user, ...$args): bool {
+        Gate::define('roles', function (Model $user, ...$args): bool {
             $args = is_array($args) ? $args : [$args];
 
             foreach ($args as $arg) {

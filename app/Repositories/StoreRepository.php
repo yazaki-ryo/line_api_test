@@ -116,11 +116,22 @@ final class StoreRepository implements DomainableInterface
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function users(): DomainCollection
+    public function customers(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->users;
+        $collection = CustomerRepository::build($this->eloquent->customers(), $args)->get();
+        return CustomerRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function users(array $args = []): DomainCollection
+    {
+        $collection = UserRepository::build($this->eloquent->users(), $args);
         return UserRepository::toModels($collection);
     }
 
@@ -146,7 +157,7 @@ final class StoreRepository implements DomainableInterface
      * @param array $args
      * @return Builder
      */
-    private function build(Builder $query, array $args = []): Builder
+    public static function build(Builder $query, array $args = []): Builder
     {
         $args = collect($args);
 

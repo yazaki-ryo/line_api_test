@@ -339,11 +339,12 @@ final class Customer
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function tags(): DomainCollection
+    public function tags(array $args = []): DomainCollection
     {
-        return $this->repo->tags();
+        return $this->repo->tags($args);
     }
 
     /**

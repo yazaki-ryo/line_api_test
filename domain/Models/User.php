@@ -133,11 +133,12 @@ final class User
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function permissions(): DomainCollection
+    public function permissions(array $args = []): DomainCollection
     {
-        return $this->repo->permissions();
+        return $this->repo->permissions($args);
     }
 
     /**
@@ -147,6 +148,26 @@ final class User
     public function update(array $args = []): bool
     {
         return $this->repo->update($this->id(), $args);
+    }
+
+    /**
+     * @param  string  $ability
+     * @param  array|mixed  $arguments
+     * @return bool
+     */
+    public function can($ability, $arguments = []): bool
+    {
+        return $this->repo->can($ability, $arguments);
+    }
+
+    /**
+     * @param  string  $ability
+     * @param  array|mixed  $arguments
+     * @return bool
+     */
+    public function cant($ability, $arguments = []): bool
+    {
+        return ! $this->can($ability, $arguments);
     }
 
     /**

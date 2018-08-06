@@ -126,11 +126,12 @@ final class UserRepository implements DomainableInterface
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function permissions(): DomainCollection
+    public function permissions(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->permissions;
+        $collection = PermissionRepository::build($this->eloquent->permissions(), $args);
         return PermissionRepository::toModels($collection);
     }
 
@@ -156,11 +157,21 @@ final class UserRepository implements DomainableInterface
      * @param array $args
      * @return Builder
      */
-    private function build(Builder $query, array $args = []): Builder
+    public static function build(Builder $query, array $args = []): Builder
     {
         $args = collect($args);
 
         return $query;
+    }
+
+    /**
+     * @param  string  $ability
+     * @param  array|mixed  $arguments
+     * @return bool
+     */
+    public function can($ability, $arguments = []): bool
+    {
+        return $this->eloquent->can($ability, $arguments);
     }
 
 }

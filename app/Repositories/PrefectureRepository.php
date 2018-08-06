@@ -69,29 +69,32 @@ final class PrefectureRepository implements DomainableInterface
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function companies(): DomainCollection
+    public function companies(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->companies;
+        $collection = CompanyRepository::build($this->eloquent->companies(), $args);
         return CompanyRepository::toModels($collection);
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function customers(): DomainCollection
+    public function customers(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->customers;
+        $collection = CustomerRepository::build($this->eloquent->customers(), $args);
         return CustomerRepository::toModels($collection);
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function stores(): DomainCollection
+    public function stores(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->stores;
+        $collection = StoreRepository::build($this->eloquent->stores(), $args);
         return StoreRepository::toModels($collection);
     }
 
@@ -125,7 +128,7 @@ final class PrefectureRepository implements DomainableInterface
      * @param array $args
      * @return Builder
      */
-    private function build(Builder $query, array $args = []): Builder
+    public static function build(Builder $query, array $args = []): Builder
     {
         $args = collect($args);
 

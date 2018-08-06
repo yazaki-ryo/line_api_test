@@ -191,19 +191,21 @@ final class Company
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function customers(): DomainCollection
+    public function customers(array $args = []): DomainCollection
     {
-        return $this->repo->customers();
+        return $this->repo->customers($args);
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function users(): DomainCollection
+    public function users(array $args = []): DomainCollection
     {
-        return $this->repo->users();
+        return $this->repo->users($args);
     }
 
     /**
