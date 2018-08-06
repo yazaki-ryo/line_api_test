@@ -3,51 +3,59 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Customers\GetCustomersInterface;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use App\Services\DomainCollection;
+use Domain\Models\Company;
+use Domain\Models\Store;
+use Domain\Models\User;
 
 final class GetCustomers
 {
-    /** @var GetCustomersInterface */
-    private $getCustomersService;
-
     /**
-     * @param GetCustomersInterface $getCustomersService
      * @return void
      */
-    public function __construct(GetCustomersInterface $getCustomersService)
+    public function __construct()
     {
-        $this->getCustomersService = $getCustomersService;
+        //
     }
 
     /**
-     * @param Auth $auth
+     * @param User $user
      * @param array $args
      * @return DomainCollection
      */
-    public function excute(Auth $auth, array $args = []): DomainCollection
+    public function excute(User $user, array $args = []): DomainCollection
     {
-        $args = $this->domainize($auth, $args);
-
-        return $this->getCustomersService->findAll($args);
+        return $this->domainize($user, $args);
     }
 
     /**
-     * @param Auth $auth
+     * @param User $user
      * @param array $args
      * @return array
      */
-    private function domainize(Auth $auth, array $args = []): array
+    private function domainize(User $user, array $args = []): array
     {
         $args = collect($args);
-        $store = $auth->user()->store;
 
-        $args->put('company_id', optional($store)->company_id);
+        /** @var Store $store */
+        $store = $user->store();
 
-        if ($auth->user()->cant('roles', 'company-admin')) {
-            $args->put('store_id', optional($store)->id);
-        }
+        /** @var Company $company */
+        $company = $store->company();
+
+        /**
+         * TODO store, companyどちらかが削除済みかどうかの判定もここで必要か
+         */
+
+        /**
+         * TODO ここでモデル経由でEloquentガードのauthorizableトレイトを利用してロール判定
+         */
+
+        $query = $company->customers();
+
+//         if ($auth->user()->cant('roles', 'company-admin')) {
+//             $query = $store->customers();
+//         }
 
         if ($args->has($key = 'free_word')) {
             if (is_null($args->get($key))) {
@@ -55,7 +63,7 @@ final class GetCustomers
             }
         }
 
-        return $args->all();
+        return [$query, $args->all()];
     }
 
 }

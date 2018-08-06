@@ -1,17 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Sexes;
+namespace App\Services;
 
 use App\Repositories\SexRepository;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Sexes\GetSexInterface;
-use Domain\Contracts\Sexes\GetSexesInterface;
+use Domain\Contracts\Model\FindableInterface;
 use Domain\Models\Sex;
 
 final class SexesService implements
-    GetSexInterface,
-    GetSexesInterface
+    FindableInterface
 {
     /** @var SexRepository */
     private $repo;
@@ -25,12 +22,13 @@ final class SexesService implements
     }
 
     /**
-     * @param int $id
+     * @param  int $id
+     * @param  bool $trashed
      * @return Sex|null
      */
-    public function findById(int $id): ?Sex
+    public function findById(int $id, bool $trashed = false): ?Sex
     {
-        return $this->repo->findById($id);
+        return $this->repo->findById($id, $trashed);
     }
 
     /**

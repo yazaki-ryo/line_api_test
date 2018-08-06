@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentUser;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModelable;
+use App\Services\DomainCollection;
+use Domain\Contracts\Model\DomainableInterface;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\Role;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class UserRepository implements DomainModelable
+final class UserRepository implements DomainableInterface
 {
     /** @var EloquentUser */
     private $eloquent;
@@ -51,13 +51,13 @@ final class UserRepository implements DomainModelable
     }
 
     /**
-     * @param array $args
-     * @param int|null $id
+     * @param  int $id
+     * @param  array $args
      * @return bool
      */
-    public function update(array $args = [], int $id = null): bool
+    public function update(int $id, array $args = []): bool
     {
-        if (is_null($resource = is_null($id) ? $this->eloquent : $this->eloquent->find($id))) {
+        if (is_null($resource = $this->eloquent->find($id))) {
             return false;
         }
         return $resource->update($args);

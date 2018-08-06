@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\StoreRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class Store
@@ -249,16 +249,7 @@ final class Store
      */
     public function update(array $args = []): bool
     {
-        return $this->repo->update($args);
-    }
-
-    /**
-     * @param array $args
-     * @return bool
-     */
-    public function update(array $args = []): bool
-    {
-        return $this->repo->update($args);
+        return $this->repo->update($this->id(), $args);
     }
 
     /**

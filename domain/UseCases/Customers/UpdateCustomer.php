@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Customers\GetCustomerInterface;
-use Domain\Contracts\Customers\UpdateCustomerInterface;
+use Domain\Contracts\Model\FindableInterface;
+use Domain\Contracts\Model\UpdatableInterface;
 use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
@@ -12,28 +12,28 @@ use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class UpdateCustomer
 {
-    /** @var GetCustomerInterface */
-    private $getCustomerService;
+    /** @var FindableInterface */
+    private $finder;
 
-    /** @var UpdateCustomerInterface */
-    private $updateCustomerService;
+    /** @var UpdatableInterface */
+    private $updater;
 
     /** @var TransactionalInterface */
     private $transactionalService;
 
     /**
-     * @param GetCustomerInterface $getCustomerService
-     * @param UpdateCustomerInterface $updateCustomerService
+     * @param FindableInterface $finder
+     * @param UpdatableInterface $updater
      * @param TransactionalInterface $transactionalService
      * @return void
      */
     public function __construct(
-        GetCustomerInterface $getCustomerService,
-        UpdateCustomerInterface $updateCustomerService,
+        FindableInterface $finder,
+        UpdatableInterface $updater,
         TransactionalInterface $transactionalService
     ) {
-        $this->getCustomerService = $getCustomerService;
-        $this->updateCustomerService = $updateCustomerService;
+        $this->finder = $finder;
+        $this->updater = $updater;
         $this->transactionalService = $transactionalService;
     }
 
@@ -43,7 +43,7 @@ final class UpdateCustomer
      */
     public function getCustomer(int $id): Customer
     {
-        if (is_null($customer = $this->getCustomerService->findById($id))) {
+        if (is_null($customer = $this->finder->findById($id))) {
             throw new NotFoundException('Resource not found.');
         }
 
@@ -64,7 +64,7 @@ final class UpdateCustomer
         $args = $this->domainize($auth, $args);
 
         return $this->transactionalService->transaction(function () use ($id, $args) {
-            return $this->updateCustomerService->update($id, $args);
+            return $this->updater->update($id, $args);
         });
     }
 

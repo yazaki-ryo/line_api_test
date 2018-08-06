@@ -1,25 +1,22 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Customers;
+namespace App\Services;
 
 use App\Repositories\CustomerRepository;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Customers\CreateCustomerInterface;
-use Domain\Contracts\Customers\DeleteCustomerInterface;
-use Domain\Contracts\Customers\GetCustomerInterface;
-use Domain\Contracts\Customers\GetCustomersInterface;
-use Domain\Contracts\Customers\RestoreCustomerInterface;
-use Domain\Contracts\Customers\UpdateCustomerInterface;
+use Domain\Contracts\Model\CreatableInterface;
+use Domain\Contracts\Model\DeletableInterface;
+use Domain\Contracts\Model\FindableInterface;
+use Domain\Contracts\Model\RestorableInterface;
+use Domain\Contracts\Model\UpdatableInterface;
 use Domain\Models\Customer;
 
 final class CustomersService implements
-    CreateCustomerInterface,
-    DeleteCustomerInterface,
-    GetCustomerInterface,
-    GetCustomersInterface,
-    RestoreCustomerInterface,
-    UpdateCustomerInterface
+    CreatableInterface,
+    DeletableInterface,
+    FindableInterface,
+    RestorableInterface,
+    UpdatableInterface
 {
     /** @var CustomerRepository */
     private $repo;
@@ -61,11 +58,11 @@ final class CustomersService implements
     }
 
     /**
-     * @param int $id
-     * @param array $args
+     * @param  int $id
+     * @param  array $args
      * @return bool
      */
-    public function update(int $id, array $args = []): bool
+    public function update(int $id, array $args = [])
     {
         return $this->repo->update($id, $args);
     }
@@ -87,4 +84,5 @@ final class CustomersService implements
     {
         $this->repo->restore($id);
     }
+
 }

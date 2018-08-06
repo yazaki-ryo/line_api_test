@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

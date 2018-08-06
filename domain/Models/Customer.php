@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\CustomerRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 
 final class Customer
 {
@@ -344,6 +344,15 @@ final class Customer
     public function tags(): DomainCollection
     {
         return $this->repo->tags();
+    }
+
+    /**
+     * @param array $args
+     * @return bool
+     */
+    public function update(array $args = []): bool
+    {
+        return $this->repo->update($this->id(), $args);
     }
 
     /**

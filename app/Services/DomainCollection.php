@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Collection;
+namespace App\Services;
 
 use Illuminate\Database\Eloquent\Collection;
 

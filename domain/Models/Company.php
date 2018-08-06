@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\CompanyRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 
 final class Company
 {
@@ -193,6 +193,14 @@ final class Company
     /**
      * @return DomainCollection
      */
+    public function customers(): DomainCollection
+    {
+        return $this->repo->customers();
+    }
+
+    /**
+     * @return DomainCollection
+     */
     public function users(): DomainCollection
     {
         return $this->repo->users();
@@ -204,7 +212,7 @@ final class Company
      */
     public function update(array $args = []): bool
     {
-        return $this->repo->update($args);
+        return $this->repo->update($this->id(), $args);
     }
 
     /**

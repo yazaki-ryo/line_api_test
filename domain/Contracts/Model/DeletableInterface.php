@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\Contracts\Customers;
+namespace Domain\Contracts\Model;
 
-interface DeleteCustomerInterface
+interface DeletableInterface
 {
     /**
      * @param int $id

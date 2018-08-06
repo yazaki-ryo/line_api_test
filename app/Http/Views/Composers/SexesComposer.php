@@ -3,21 +3,21 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use Domain\Contracts\Sexes\GetSexesInterface;
+use App\Services\SexesService;
 use Illuminate\View\View;
 
 final class SexesComposer
 {
-    /** @var GetSexesInterface */
-    private $getSexesService;
+    /** @var SexesService */
+    private $service;
 
     /**
-     * @param  GetSexesInterface $getSexesService
+     * @param  SexesService $service
      * @return void
      */
-    public function __construct(GetSexesInterface $getSexesService)
+    public function __construct(SexesService $service)
     {
-        $this->getSexesService = $getSexesService;
+        $this->service = $service;
     }
 
     /**
@@ -44,6 +44,6 @@ final class SexesComposer
      */
     private function excute(View $view)
     {
-        $view->with('sexes', $this->getSexesService->findAll());
+        $view->with('sexes', $this->service->findAll());
     }
 }

@@ -3,26 +3,26 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use Domain\Contracts\Stores\GetStoresInterface;
+use App\Services\StoresService;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class StoresComposer
 {
-    /** @var GetStoresInterface */
-    private $getStoresService;
+    /** @var StoresService */
+    private $service;
 
     /** @var Auth */
     private $auth;
 
     /**
-     * @param  GetStoresInterface  $getStoresService
+     * @param  StoresService  $service
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(GetStoresInterface $getStoresService, Auth $auth)
+    public function __construct(StoresService $service, Auth $auth)
     {
-        $this->getStoresService = $getStoresService;
+        $this->service = $service;
         $this->auth = $auth;
     }
 
@@ -52,7 +52,7 @@ final class StoresComposer
     {
         $args = $this->domainize($this->auth);
 
-        $view->with('stores', $this->getStoresService->findAll($args));
+        $view->with('stores', $this->service->findAll($args));
     }
 
     /**
@@ -63,6 +63,10 @@ final class StoresComposer
     private function domainize(Auth $auth, array $args = []): array
     {
         $args = collect($args);
+
+        /**
+         * XXX TODO ここの処理はGetCustomersユースケースと酷似しているので、いずれ要調整
+         */
 
         $args->put('company_id', optional($auth->user()->store)->company_id);
 

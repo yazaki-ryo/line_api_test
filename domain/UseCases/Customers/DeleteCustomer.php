@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Customers\GetCustomerInterface;
-use Domain\Contracts\Customers\DeleteCustomerInterface;
+use Domain\Contracts\Model\FindableInterface;
+use Domain\Contracts\Model\DeletableInterface;
 use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
@@ -12,28 +12,28 @@ use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class DeleteCustomer
 {
-    /** @var GetCustomerInterface */
-    private $getCustomerService;
+    /** @var FindableInterface */
+    private $finder;
 
-    /** @var DeleteCustomerInterface */
-    private $deleteCustomerService;
+    /** @var DeletableInterface */
+    private $deletor;
 
     /** @var TransactionalInterface */
     private $transactionalService;
 
     /**
-     * @param GetCustomerInterface $getCustomerService
-     * @param DeleteCustomerInterface $deleteCustomerService
+     * @param FindableInterface $finder
+     * @param DeletableInterface $deletor
      * @param TransactionalInterface $transactionalService
      * @return void
      */
     public function __construct(
-        GetCustomerInterface $getCustomerService,
-        DeleteCustomerInterface $deleteCustomerService,
+        FindableInterface $finder,
+        DeletableInterface $deletor,
         TransactionalInterface $transactionalService
     ) {
-        $this->getCustomerService = $getCustomerService;
-        $this->deleteCustomerService = $deleteCustomerService;
+        $this->finder = $finder;
+        $this->deletor = $deletor;
         $this->transactionalService = $transactionalService;
     }
 
@@ -43,7 +43,7 @@ final class DeleteCustomer
      */
     public function getCustomer(int $id): Customer
     {
-        if (is_null($customer = $this->getCustomerService->findById($id))) {
+        if (is_null($customer = $this->finder->findById($id))) {
             throw new NotFoundException('Resource not found.');
         }
 
@@ -61,7 +61,7 @@ final class DeleteCustomer
         $this->getCustomer($id);
 
         $this->transactionalService->transaction(function () use ($id) {
-            $this->deleteCustomerService->delete($id);
+            $this->deletor->delete($id);
         });
     }
 

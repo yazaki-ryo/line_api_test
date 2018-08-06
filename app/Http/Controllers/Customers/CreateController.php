@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\CreateRequest;
+use App\Repositories\UserRepository;
 use Domain\Models\Customer;
 use Domain\UseCases\Customers\CreateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -50,10 +51,11 @@ final class CreateController extends Controller
      */
     public function create(CreateRequest $request)
     {
+        $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
-        $callback = function () use ($args) {
-            return $this->useCase->excute($this->auth, $args);
+        $callback = function () use ($user, $args) {
+            return $this->useCase->excute($user, $args);
         };
 
         if (($result = rescue($callback, false)) === false) {

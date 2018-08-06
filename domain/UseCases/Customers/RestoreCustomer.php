@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Customers\GetCustomerInterface;
-use Domain\Contracts\Customers\RestoreCustomerInterface;
+use Domain\Contracts\Model\FindableInterface;
+use Domain\Contracts\Model\RestorableInterface;
 use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
@@ -12,28 +12,28 @@ use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class RestoreCustomer
 {
-    /** @var GetCustomerInterface */
-    private $getCustomerService;
+    /** @var FindableInterface */
+    private $finder;
 
-    /** @var RestoreCustomerInterface */
-    private $restoreCustomerService;
+    /** @var RestorableInterface */
+    private $restorer;
 
     /** @var TransactionalInterface */
     private $transactionalService;
 
     /**
-     * @param GetCustomerInterface $getCustomerService
-     * @param RestoreCustomerInterface $restoreCustomerService
+     * @param FindableInterface $finder
+     * @param RestorableInterface $restorer
      * @param TransactionalInterface $transactionalService
      * @return void
      */
     public function __construct(
-        GetCustomerInterface $getCustomerService,
-        RestoreCustomerInterface $restoreCustomerService,
+        FindableInterface $finder,
+        RestorableInterface $restorer,
         TransactionalInterface $transactionalService
     ) {
-        $this->getCustomerService = $getCustomerService;
-        $this->restoreCustomerService = $restoreCustomerService;
+        $this->finder = $finder;
+        $this->restorer = $restorer;
         $this->transactionalService = $transactionalService;
     }
 
@@ -43,7 +43,7 @@ final class RestoreCustomer
      */
     public function getCustomer(int $id): Customer
     {
-        if (is_null($customer = $this->getCustomerService->findById($id, true))) {
+        if (is_null($customer = $this->finder->findById($id, true))) {
             throw new NotFoundException('Resource not found.');
         }
 
@@ -61,7 +61,7 @@ final class RestoreCustomer
         $this->getCustomer($id);
 
         $this->transactionalService->transaction(function () use ($id) {
-            $this->restoreCustomerService->restore($id);
+            $this->restorer->restore($id);
         });
     }
 

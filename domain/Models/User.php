@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\UserRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 
 final class User
 {
@@ -146,7 +146,7 @@ final class User
      */
     public function update(array $args = []): bool
     {
-        return $this->repo->update($args);
+        return $this->repo->update($this->id(), $args);
     }
 
     /**

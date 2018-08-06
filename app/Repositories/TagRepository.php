@@ -4,14 +4,14 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentTag;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModelable;
+use App\Services\DomainCollection;
+use Domain\Contracts\Model\DomainableInterface;
 use Domain\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class TagRepository implements DomainModelable
+final class TagRepository implements DomainableInterface
 {
     /** @var EloquentTag */
     private $eloquent;

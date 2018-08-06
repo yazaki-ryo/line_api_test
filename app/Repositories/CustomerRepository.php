@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentCustomer;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModelable;
+use App\Services\DomainCollection;
+use Domain\Contracts\Model\DomainableInterface;
 use Domain\Models\Company;
 use Domain\Models\Customer;
 use Domain\Models\Prefecture;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class CustomerRepository implements DomainModelable
+final class CustomerRepository implements DomainableInterface
 {
     /** @var EloquentCustomer */
     private $eloquent;
@@ -70,8 +70,8 @@ final class CustomerRepository implements DomainModelable
     }
 
     /**
-     * @param int $id
-     * @param array $args
+     * @param  int $id
+     * @param  array $args
      * @return bool
      */
     public function update(int $id, array $args = []): bool
@@ -213,6 +213,8 @@ final class CustomerRepository implements DomainModelable
      */
     private function build(Builder $query, array $args = []): Builder
     {
+        dd($args);
+
         $args = collect($args);
 
         $query->when($args->has($key = 'company_id'), function (Builder $q) use ($key, $args) {

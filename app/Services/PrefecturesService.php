@@ -1,17 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Prefectures;
+namespace App\Services;
 
 use App\Repositories\PrefectureRepository;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Prefectures\GetPrefectureInterface;
-use Domain\Contracts\Prefectures\GetPrefecturesInterface;
+use Domain\Contracts\Model\FindableInterface;
 use Domain\Models\Prefecture;
 
 final class PrefecturesService implements
-    GetPrefectureInterface,
-    GetPrefecturesInterface
+    FindableInterface
 {
     /** @var PrefectureRepository */
     private $repo;
@@ -26,11 +23,12 @@ final class PrefecturesService implements
 
     /**
      * @param int $id
+     * @param bool $trashed
      * @return Prefecture|null
      */
-    public function findById(int $id): ?Prefecture
+    public function findById(int $id, bool $trashed = false): ?Prefecture
     {
-        return $this->repo->findById($id);
+        return $this->repo->findById($id, $trashed);
     }
 
     /**
