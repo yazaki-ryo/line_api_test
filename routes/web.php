@@ -74,7 +74,7 @@ $router->group([
     });
 
     /**
-     * Configuration
+     * Configurations
      */
     $router->group([
         'prefix' => $prefix = 'configurations',
@@ -85,6 +85,15 @@ $router->group([
         $router->post('profile', \App\Http\Controllers\Configurations\ProfileController::class . '@update');
         $router->get( 'store', \App\Http\Controllers\Configurations\StoreController::class . '@view')->name(sprintf('%s.store', $prefix));
         $router->post('store', \App\Http\Controllers\Configurations\StoreController::class . '@update');
+    });
+
+    /**
+     * Notifications
+     */
+    $router->group([
+        'prefix' => $prefix = 'notifications',
+    ], function (Router $router) use ($prefix) {
+        $router->get( 'test', \App\Http\Controllers\Notifications\TestController::class)->name(sprintf('%s.test', $prefix));
     });
 
 });

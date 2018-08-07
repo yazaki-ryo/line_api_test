@@ -174,4 +174,13 @@ final class UserRepository implements DomainableInterface
         return $this->eloquent->can($ability, $arguments);
     }
 
+    /**
+     * @param  mixed  $instance
+     * @return void
+     */
+    public function notify($instance): void
+    {
+        $this->eloquent->notify($instance);
+    }
+
 }

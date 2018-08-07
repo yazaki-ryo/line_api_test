@@ -171,6 +171,15 @@ final class User
     }
 
     /**
+     * @param  mixed  $instance
+     * @return void
+     */
+    public function notify($instance): void
+    {
+        $this->repo->notify($instance);
+    }
+
+    /**
      * @param UserRepository $repo
      * @return self
      */
