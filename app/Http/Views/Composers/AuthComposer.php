@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
+use App\Repositories\UserRepository;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
@@ -44,7 +45,7 @@ final class AuthComposer
      */
     private function excute(View $view)
     {
-        $view->with('user', $this->auth->user());
+        $view->with('user', UserRepository::toModel($this->auth->user()));
     }
 
 }
