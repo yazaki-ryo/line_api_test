@@ -190,6 +190,24 @@ final class User
     }
 
     /**
+     * @param  array $args
+     * @return DatabaseNotificationCollection
+     */
+    public function readNotifications(array $args = []): DatabaseNotificationCollection
+    {
+        return $this->repo->readNotifications($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return DatabaseNotificationCollection
+     */
+    public function unreadNotifications(array $args = []): DatabaseNotificationCollection
+    {
+        return $this->repo->unreadNotifications($args);
+    }
+
+    /**
      * @param UserRepository $repo
      * @return self
      */

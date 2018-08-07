@@ -147,6 +147,26 @@ final class UserRepository implements DomainableInterface
     }
 
     /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function readNotifications(array $args = []): DatabaseNotificationCollection
+    {
+        $collection = NotificationRepository::build($this->eloquent->readNotifications(), $args)->get();
+        return NotificationRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function unreadNotifications(array $args = []): DatabaseNotificationCollection
+    {
+        $collection = NotificationRepository::build($this->eloquent->unreadNotifications(), $args)->get();
+        return NotificationRepository::toModels($collection);
+    }
+
+    /**
      * @param EloquentUser $eloquent
      * @return self
      */
