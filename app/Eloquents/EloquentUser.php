@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Services\DomainCollection;
+use App\Traits\Domainable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -13,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 
 final class EloquentUser extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Domainable, Notifiable, SoftDeletes;
 
     /** @var string */
     protected $table = 'users';
@@ -36,15 +36,6 @@ final class EloquentUser extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    /**
-     * @param  array  $models
-     * @return DomainCollection
-     */
-    public function newCollection(array $models = []): DomainCollection
-    {
-        return new DomainCollection($models);
-    }
 
     /**
      * @return BelongsTo

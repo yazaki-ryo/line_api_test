@@ -3,15 +3,14 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Services\DomainCollection;
-use Illuminate\Database\Eloquent\Collection;
+use App\Traits\Domainable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 final class EloquentTag extends Model
 {
-    use SoftDeletes;
+    use Domainable, SoftDeletes;
 
     /** @var string */
     protected $table = 'tags';
@@ -29,15 +28,6 @@ final class EloquentTag extends Model
     protected $hidden = [
         //
     ];
-
-    /**
-     * @param  array  $models
-     * @return Collection
-     */
-    public function newCollection(array $models = []): Collection
-    {
-        return new DomainCollection($models);
-    }
 
     /**
      * @return MorphToMany

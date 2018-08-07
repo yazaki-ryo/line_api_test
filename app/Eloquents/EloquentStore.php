@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Services\DomainCollection;
+use App\Traits\Domainable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class EloquentStore extends Model
 {
-    use SoftDeletes;
+    use Domainable, SoftDeletes;
 
     /** @var string */
     protected $table = 'stores';
@@ -60,15 +60,6 @@ final class EloquentStore extends Model
         'payment_flag' => 'bool',
         'user_limit'   => 'int',
     ];
-
-    /**
-     * @param  array  $models
-     * @return DomainCollection
-     */
-    public function newCollection(array $models = []): DomainCollection
-    {
-        return new DomainCollection($models);
-    }
 
     /**
      * @return BelongsTo
