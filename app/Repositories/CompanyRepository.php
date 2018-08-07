@@ -105,6 +105,16 @@ final class CompanyRepository implements DomainableInterface
      * @param  array $args
      * @return DomainCollection
      */
+    public function stores(array $args = []): DomainCollection
+    {
+        $collection = UserRepository::build($this->eloquent->stores(), $args)->get();
+        return StoreRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
     public function users(array $args = []): DomainCollection
     {
         $collection = UserRepository::build($this->eloquent->users(), $args)->get();

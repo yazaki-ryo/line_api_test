@@ -203,6 +203,15 @@ final class Company
      * @param  array $args
      * @return DomainCollection
      */
+    public function stores(array $args = []): DomainCollection
+    {
+        return $this->repo->stores($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
     public function users(array $args = []): DomainCollection
     {
         return $this->repo->users($args);

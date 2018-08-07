@@ -3,26 +3,24 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Services\StoresService;
+use App\Repositories\UserRepository;
+use App\Services\DomainCollection;
+use Domain\Models\Company;
+use Domain\Models\Store;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class StoresComposer
 {
-    /** @var StoresService */
-    private $service;
-
     /** @var Auth */
     private $auth;
 
     /**
-     * @param  StoresService  $service
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(StoresService $service, Auth $auth)
+    public function __construct(Auth $auth)
     {
-        $this->service = $service;
         $this->auth = $auth;
     }
 
@@ -50,30 +48,24 @@ final class StoresComposer
      */
     private function excute(View $view)
     {
-        $args = $this->domainize($this->auth);
+        $user = UserRepository::toModel($this->auth->user());
 
-        $view->with('stores', $this->service->findAll($args));
-    }
+        /** @var Store $store */
+        $store = $user->store();
 
-    /**
-     * @param Auth $auth
-     * @param array $args
-     * @return array
-     */
-    private function domainize(Auth $auth, array $args = []): array
-    {
-        $args = collect($args);
+        /** @var Company $company */
+        $company = $store->company();
 
-        /**
-         * XXX TODO ここの処理はGetCustomersユースケースと酷似しているので、いずれ要調整
-         */
+        /** @var DomainCollection $stores */
+        $stores = new DomainCollection;
 
-        $args->put('company_id', optional($auth->user()->store)->company_id);
-
-        if ($auth->user()->cant('roles', 'company-admin')) {
-            $args->put('id', $auth->user()->store_id);
+        if (! is_null($company) && $user->can('roles', 'company-admin')) {
+            $stores = $company->stores();
+        } elseif (! is_null($store) && $user->can('roles', 'store-user')) {
+            $stores = $stores->push($store);
         }
 
-        return $args->all();
+        $view->with('stores', $stores);
     }
+
 }
