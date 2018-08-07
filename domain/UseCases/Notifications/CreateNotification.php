@@ -22,7 +22,11 @@ final class CreateNotification
      */
     public function excute(User $user): void
     {
-        $user->notify(new TestNotification);
+//         $user->notify(new TestNotification);
+
+        foreach ($user->notifications() as $notification) {
+            dd($notification->notifiable());
+        }
 
         dd('end');
     }

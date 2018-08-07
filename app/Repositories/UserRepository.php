@@ -13,6 +13,7 @@ use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 
 final class UserRepository implements DomainableInterface
 {
@@ -133,6 +134,16 @@ final class UserRepository implements DomainableInterface
     {
         $collection = PermissionRepository::build($this->eloquent->permissions(), $args)->get();
         return PermissionRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function notifications(array $args = []): DatabaseNotificationCollection
+    {
+        $collection = NotificationRepository::build($this->eloquent->notifications(), $args)->get();
+        return NotificationRepository::toModels($collection);
     }
 
     /**

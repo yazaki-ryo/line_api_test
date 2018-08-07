@@ -5,6 +5,7 @@ namespace Domain\Models;
 
 use App\Repositories\UserRepository;
 use App\Services\DomainCollection;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 
 final class User
 {
@@ -177,6 +178,15 @@ final class User
     public function notify($instance): void
     {
         $this->repo->notify($instance);
+    }
+
+    /**
+     * @param  array $args
+     * @return DatabaseNotificationCollection
+     */
+    public function notifications(array $args = []): DatabaseNotificationCollection
+    {
+        return $this->repo->notifications($args);
     }
 
     /**
