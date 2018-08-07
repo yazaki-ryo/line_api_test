@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Notifications\Channels\CustomDatabaseChannel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -11,6 +12,11 @@ use Illuminate\Notifications\Messages\MailMessage;
 class TestNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    /**
+     * @var string
+     */
+    public $type = 'test';
 
     /**
      * @return void
@@ -27,7 +33,7 @@ class TestNotification extends Notification implements ShouldQueue
     public function via($notifiable): array
     {
         return [
-            'database',
+            CustomDatabaseChannel::class,
         ];
     }
 
