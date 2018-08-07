@@ -87,7 +87,7 @@ final class Notification
     /**
      * @return Datetime|null
      */
-    public function readdAt(): ?Datetime
+    public function readAt(): ?Datetime
     {
         return $this->readAt;
     }
