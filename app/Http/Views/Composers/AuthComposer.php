@@ -45,6 +45,8 @@ final class AuthComposer
      */
     private function excute(View $view)
     {
+        if (! $this->auth->check()) return;
+
         $view->with('user', UserRepository::toModel($this->auth->user()));
     }
 

@@ -48,6 +48,8 @@ final class StoresComposer
      */
     private function excute(View $view)
     {
+        if (! $this->auth->check()) return;
+
         $user = UserRepository::toModel($this->auth->user());
 
         /** @var Store $store */
@@ -57,15 +59,15 @@ final class StoresComposer
         $company = $store->company();
 
         /** @var DomainCollection $stores */
-        $stores = new DomainCollection;
+        $collection = new DomainCollection;
 
-        if (! is_null($company) && $user->can('roles', 'company-admin')) {
-            $stores = $company->stores();
-        } elseif (! is_null($store) && $user->can('roles', 'store-user')) {
-            $stores = $stores->push($store);
+        if ($user->can('roles', 'company-admin') && ! is_null($company)) {
+            $collection = $company->stores();
+        } elseif ($user->can('roles', 'store-user') && ! is_null($store)) {
+            $collection = $collection->push($store);
         }
 
-        $view->with('stores', $stores);
+        $view->with('stores', $collection);
     }
 
 }

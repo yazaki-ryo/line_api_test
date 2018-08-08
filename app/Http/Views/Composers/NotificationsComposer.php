@@ -46,6 +46,8 @@ final class NotificationsComposer
      */
     private function excute(View $view)
     {
+        if (! $this->auth->check()) return;
+
         $user = UserRepository::toModel($this->auth->user());
 
         $notifications = $user->notifications();
