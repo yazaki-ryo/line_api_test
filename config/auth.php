@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use App\Eloquents\EloquentUser;
+
 return [
 
     /*
@@ -71,11 +73,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Eloquents\EloquentUser::class,
+            'model' => EloquentUser::class,
         ],
 //         'administrators' => [
 //             'driver' => 'eloquent',
-//             'model' => App\Eloquents\EloquentAdministrator::class,
+//             'model' => EloquentAdministrator::class,
 //         ],
 
     ],

@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use App\Eloquents\EloquentUser;
+use Monolog\Logger;
+
 return [
 
     /*
@@ -31,14 +34,14 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\Eloquents\EloquentUser::class,
+        'model' => EloquentUser::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
     /*
-     * @param  string      $webhookUrl             Slack Webhook URL ※通知しない場合はnull
-     * @param  string|null $channel                Slack channel (encoded ID or name) ※デフォルトチャンネルを上書きする場合はここに
+     * @param  string      $webhookUrl             Slack Webhook URL
+     * @param  string|null $channel                Slack channel (encoded ID or name)
      * @param  string|null $username               Name of a bot
      * @param  bool        $useAttachment          Whether the message should be added to Slack as attachment (plain text otherwise)
      * @param  string|null $iconEmoji              The emoji name to use (or null)
@@ -48,17 +51,24 @@ return [
      * @param  bool        $bubble                 Whether the messages that are handled can bubble up the stack or not
      * @param  array       $excludeFields          Dot separated list of fields to exclude from slack message. E.g. ['context.field1', 'extra.field2']
      */
-    'slack'   => [
-        'webhook_url'               => env('SLACK_WEBHOOK_URL'),
-        'channel'                   => null,
+    'slack' => [
+        'webhook_url'               => env('SLACK_WEBHOOK_URL'),// Set null to not notify.
+        'channel'                   => null,// Write here if overwriting the default channel.
         'username'                  => sprintf('%s Bot [%s]', env('APP_NAME', 'Laravel'), env('APP_ENV', 'local')),
         'use_attachment'            => true,
         'icon_emoji'                => null,
         'use_short_attachment'      => true,
         'include_context_and_extra' => true,
-        'level'                     => env('SLACK_LOG_LEVEL', env('APP_LOG_LEVEL', \Monolog\Logger::ERROR)),
+        'level'                     => env('SLACK_LOG_LEVEL', env('APP_LOG_LEVEL', Logger::EMERGENCY)),
         'bubble'                    => true,
         'exclude_fields'            => [],
+    ],
+
+    'chatwork' => [
+        'token'  => env('CHATWORK_TOKEN'),
+        'room'   => env('CHATWORK_ROOM'),
+        'level'  => env('CHATWORK_LOG_LEVEL', env('APP_LOG_LEVEL', Logger::EMERGENCY)),
+        'bubble' => true,
     ],
 
 ];
