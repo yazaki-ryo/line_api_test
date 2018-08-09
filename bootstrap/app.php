@@ -1,4 +1,13 @@
 <?php
+declare(strict_types=1);
+
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Handler\HandlerInterface;
+use Monolog\Handler\RotatingFileHandler;
+use Monolog\Handler\SlackWebhookHandler;
+use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,16 +50,35 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-/**
- * Notifications for Slack
- */
-$app->configureMonologUsing(function($monolog) {
-    $config = config('services.slack');
-
-    if (! $config['webhook_url']) return null;
-
+$app->configureMonologUsing(function(LoggerInterface $monolog) {
+    /**
+     * Rotating File Handler
+     * @var Logger $monolog
+     */
     $monolog->pushHandler(
-        new \Monolog\Handler\SlackWebhookHandler(
+        tap(new RotatingFileHandler(
+            storage_path('logs/laravel.log'),
+            config('app.log_max_files'),
+            config('app.log_level')
+        ), function (HandlerInterface $handler) {
+            $handler->setFormatter(
+                tap(new LineFormatter(null, null, true, true), function (FormatterInterface $formatter) {
+                    $formatter->includeStacktraces();
+                })
+            );
+        })
+    );
+
+    $config = config('services.slack');
+    if (! $config['webhook_url']) {
+        return;
+    }
+
+    /**
+     * Slack Webhook Handler
+     */
+    $monolog->pushHandler(
+        new SlackWebhookHandler(
             $config['webhook_url'],
             $config['channel'],
             $config['username'],
