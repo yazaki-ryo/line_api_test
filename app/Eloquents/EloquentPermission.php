@@ -3,16 +3,15 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Services\Collection\DomainCollection;
+use App\Traits\Domainable;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BeLongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 final class EloquentPermission extends Model
 {
-    use SoftDeletes;
+    use Domainable, SoftDeletes;
 
     /** @var string */
     protected $table = 'permissions';
@@ -32,20 +31,11 @@ final class EloquentPermission extends Model
     ];
 
     /**
-     * @param  array  $models
-     * @return Collection
+     * @return MorphToMany
      */
-    public function newCollection(array $models = []): Collection
+    public function users(): MorphToMany
     {
-        return new DomainCollection($models);
-    }
-
-    /**
-     * @return BeLongsToMany
-     */
-    public function users(): BeLongsToMany
-    {
-        return $this->belongsToMany(EloquentUser::class, 'permission_user', 'permission_id', 'user_id')->withTimestamps();
+        return $this->morphedByMany(EloquentUser::class, 'permissible', 'permissibles', 'permission_id', 'permissible_id', 'id', 'id')->withTimestamps();
     }
 
     /**

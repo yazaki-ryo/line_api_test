@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\PrefectureRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 
 final class Prefecture
 {
@@ -84,27 +84,30 @@ final class Prefecture
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function companies(): DomainCollection
+    public function companies(array $args = []): DomainCollection
     {
-        return $this->repo->companies();
+        return $this->repo->companies($args);
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function customers(): DomainCollection
+    public function customers(array $args = []): DomainCollection
     {
-        return $this->repo->customers();
+        return $this->repo->customers($args);
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function stores(): DomainCollection
+    public function stores(array $args = []): DomainCollection
     {
-        return $this->repo->stores();
+        return $this->repo->stores($args);
     }
 
     /**

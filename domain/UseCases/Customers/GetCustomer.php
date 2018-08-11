@@ -3,30 +3,31 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Customers\GetCustomerInterface;
+use Domain\Contracts\Model\FindableInterface;
 use Domain\Models\Customer;
 
 final class GetCustomer
 {
-    /** @var GetCustomerInterface */
-    private $getCustomerService;
+    /** @var FindableInterface */
+    private $finder;
 
     /**
-     * @param GetCustomerInterface $usersService
+     * @param FindableInterface $finder
      * @return void
      */
-    public function __construct(GetCustomerInterface $getCustomerService)
+    public function __construct(FindableInterface $finder)
     {
-        $this->getCustomerService = $getCustomerService;
+        $this->finder = $finder;
     }
 
     /**
-     * @param int $id
-     * @return Customer
+     * @param  int $id
+     * @param  bool $trashed
+     * @return Customer|null
      */
-    public function excute(int $id): Customer
+    public function excute(int $id, bool $trashed = false): ?Customer
     {
-        return $this->getCustomerService->findById($id);
+        return $this->finder->findById($id, $trashed);
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Configurations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
+use App\Repositories\UserRepository;
 use Domain\UseCases\Configurations\UpdateProfile;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -36,10 +37,8 @@ final class ProfileController extends Controller
      */
     public function view()
     {
-        $id = $this->auth->user()->getAuthIdentifier();
-
         return view('configurations.profile', [
-            'row' => $this->useCase->getUser($id),
+            'row' => UserRepository::toModel($this->auth->user()),
         ]);
     }
 
@@ -49,11 +48,11 @@ final class ProfileController extends Controller
      */
     public function update(SelfUpdateRequest $request)
     {
-        $id = $this->auth->user()->getAuthIdentifier();
+        $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
-        $callback = function () use ($id, $args) {
-            $this->useCase->excute($this->auth, $id, $args);
+        $callback = function () use ($user, $args) {
+            $this->useCase->excute($user, $args);
         };
 
         if (! is_null(rescue($callback, false))) {

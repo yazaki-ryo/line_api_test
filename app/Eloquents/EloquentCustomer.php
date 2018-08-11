@@ -3,16 +3,17 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Services\Collection\DomainCollection;
+use App\Traits\Domainable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 final class EloquentCustomer extends Model
 {
-    use SoftDeletes;
+    use Domainable, SoftDeletes;
 
     /** @var string */
     protected $table = 'customers';
@@ -74,15 +75,6 @@ final class EloquentCustomer extends Model
     ];
 
     /**
-     * @param  array  $models
-     * @return DomainCollection
-     */
-    public function newCollection(array $models = []): DomainCollection
-    {
-        return new DomainCollection($models);
-    }
-
-    /**
      * @return HasOne
      */
     public function prefecture(): HasOne
@@ -104,6 +96,14 @@ final class EloquentCustomer extends Model
     public function store(): BelongsTo
     {
         return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
+    }
+
+    /**
+     * @return MorphToMany
+     */
+    public function tags(): MorphToMany
+    {
+        return $this->morphToMany(EloquentTag::class, 'taggable', 'taggables', 'taggable_id', 'tag_id', 'id', 'id')->withTimestamps();
     }
 
     /**

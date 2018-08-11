@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\PlanRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 
 final class Plan
 {
@@ -87,11 +87,12 @@ final class Plan
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function companies(): DomainCollection
+    public function companies(array $args = []): DomainCollection
     {
-        return $this->repo->companies();
+        return $this->repo->companies($args);
     }
 
     /**

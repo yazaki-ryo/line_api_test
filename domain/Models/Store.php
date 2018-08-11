@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\StoreRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class Store
@@ -236,11 +236,30 @@ final class Store
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function users(): DomainCollection
+    public function customers(array $args = []): DomainCollection
     {
-        return $this->repo->users();
+        return $this->repo->customers($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function users(array $args = []): DomainCollection
+    {
+        return $this->repo->users($args);
+    }
+
+    /**
+     * @param array $args
+     * @return bool
+     */
+    public function update(array $args = []): bool
+    {
+        return $this->repo->update($this->id(), $args);
     }
 
     /**

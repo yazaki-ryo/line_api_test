@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Configurations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
+use App\Repositories\UserRepository;
 use Domain\UseCases\Configurations\UpdateCompany;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -37,10 +38,10 @@ final class CompanyController extends Controller
      */
     public function view()
     {
-        $id = optional($this->auth->user()->store)->company_id;
+        $user = UserRepository::toModel($this->auth->user());
 
         return view('configurations.company', [
-            'row' => $this->useCase->getCompany($id),
+            'row' => $this->useCase->getCompany($user),
         ]);
     }
 
@@ -50,11 +51,11 @@ final class CompanyController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        $id = optional($this->auth->user()->store)->company_id;
+        $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
-        $callback = function () use ($id, $args) {
-            $this->useCase->excute($this->auth, $id, $args);
+        $callback = function () use ($user, $args) {
+            $this->useCase->excute($user, $args);
         };
 
         if (! is_null(rescue($callback, false))) {

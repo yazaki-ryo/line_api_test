@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 return [
 
@@ -129,9 +130,10 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
-    'log_level' => env('APP_LOG_LEVEL', 'debug'),
+    'log'           => env('APP_LOG', 'daily'),
+    'log_level'     => env('APP_LOG_LEVEL', 'debug'),
     'log_max_files' => env('APP_LOG_MAX_FILES', 5),
+    'log_channel'   => env('APP_LOG_CHANNEL', env('APP_ENV', 'production')),
 
     /*
     |--------------------------------------------------------------------------
@@ -187,6 +189,7 @@ return [
         App\Providers\DomainServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\LocalServiceProvider::class,
+        App\Providers\RelationServiceProvider::class,
         App\Providers\ResourceServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SchemaServiceProvider::class,

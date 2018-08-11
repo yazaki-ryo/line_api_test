@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
+use App\Eloquents\EloquentCustomer;
 use App\Eloquents\EloquentPermission;
+use App\Eloquents\EloquentTag;
 use App\Eloquents\EloquentUser;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Seeder;
@@ -245,6 +247,14 @@ class SampleDataSeeder extends Seeder
                         'updated_at'       => $now,
                     ])->all());
                 });
+
+                /**
+                 * Tags
+                 */
+                $ids = EloquentTag::all()->pluck('id');
+                foreach (EloquentCustomer::all() as $customer) {
+                    $customer->tags()->sync($ids->random(mt_rand(0, $ids->count())));
+                }
             });
         } catch (\Exception $e) {
             report($e);

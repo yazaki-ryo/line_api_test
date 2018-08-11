@@ -3,65 +3,56 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Customers\GetCustomerInterface;
-use Domain\Contracts\Customers\DeleteCustomerInterface;
+use Domain\Contracts\Model\FindableInterface;
 use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Domain\Models\User;
 
 final class DeleteCustomer
 {
-    /** @var GetCustomerInterface */
-    private $getCustomerService;
-
-    /** @var DeleteCustomerInterface */
-    private $deleteCustomerService;
+    /** @var FindableInterface */
+    private $finder;
 
     /** @var TransactionalInterface */
     private $transactionalService;
 
     /**
-     * @param GetCustomerInterface $getCustomerService
-     * @param DeleteCustomerInterface $deleteCustomerService
+     * @param FindableInterface $finder
      * @param TransactionalInterface $transactionalService
      * @return void
      */
     public function __construct(
-        GetCustomerInterface $getCustomerService,
-        DeleteCustomerInterface $deleteCustomerService,
+        FindableInterface $finder,
         TransactionalInterface $transactionalService
     ) {
-        $this->getCustomerService = $getCustomerService;
-        $this->deleteCustomerService = $deleteCustomerService;
+        $this->finder = $finder;
         $this->transactionalService = $transactionalService;
     }
 
     /**
      * @param int $id
      * @return Customer
+     * @throws NotFoundException
      */
     public function getCustomer(int $id): Customer
     {
-        if (is_null($customer = $this->getCustomerService->findById($id))) {
+        if (is_null($resource = $this->finder->findById($id))) {
             throw new NotFoundException('Resource not found.');
         }
 
-        return $customer;
+        return $resource;
     }
 
     /**
-     * @param Auth $auth
-     * @param int $id
+     * @param User $user
+     * @param Customer $customer
      * @return void
-     * @throws NotFoundException
      */
-    public function excute(Auth $auth, int $id): void
+    public function excute(User $user, Customer $customer): void
     {
-        $this->getCustomer($id);
-
-        $this->transactionalService->transaction(function () use ($id) {
-            $this->deleteCustomerService->delete($id);
+        $this->transactionalService->transaction(function () use ($customer) {
+            $customer->delete();
         });
     }
 

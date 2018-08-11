@@ -3,59 +3,61 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Customers\GetCustomersInterface;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use App\Services\DomainCollection;
+use Domain\Models\Company;
+use Domain\Models\Store;
+use Domain\Models\User;
+use Illuminate\Support\Collection;
 
 final class GetCustomers
 {
-    /** @var GetCustomersInterface */
-    private $getCustomersService;
-
     /**
-     * @param GetCustomersInterface $getCustomersService
      * @return void
      */
-    public function __construct(GetCustomersInterface $getCustomersService)
+    public function __construct()
     {
-        $this->getCustomersService = $getCustomersService;
+        //
     }
 
     /**
-     * @param Auth $auth
+     * @param User $user
      * @param array $args
      * @return DomainCollection
      */
-    public function excute(Auth $auth, array $args = []): DomainCollection
+    public function excute(User $user, array $args = []): DomainCollection
     {
-        $args = $this->domainize($auth, $args);
-
-        return $this->getCustomersService->findAll($args);
+        return $this->domainize($user, $args);
     }
 
     /**
-     * @param Auth $auth
+     * @param User $user
      * @param array $args
-     * @return array
+     * @return DomainCollection
      */
-    private function domainize(Auth $auth, array $args = []): array
+    private function domainize(User $user, array $args = []): DomainCollection
     {
-        $args = collect($args);
-        $store = $auth->user()->store;
+        /** @var Collection $collection */
+        $collection = collect($args);
 
-        $args->put('company_id', optional($store)->company_id);
-
-        if ($auth->user()->cant('roles', 'company-admin')) {
-            $args->put('store_id', optional($store)->id);
-        }
-
-        if ($args->has($key = 'free_word')) {
-            if (is_null($args->get($key))) {
-                $args->forget($key);
+        if ($collection->has($key = 'free_word')) {
+            if (is_null($collection->get($key))) {
+                $collection->forget($key);
             }
         }
 
-        return $args->all();
+        /** @var Store $store */
+        $store = $user->store();
+
+        /** @var Company $company */
+        $company = $store->company();
+
+        if (! is_null($company) && $user->can('roles', 'company-admin')) {
+            return $company->customers($collection->all());
+        } elseif (! is_null($store) && $user->can('roles', 'store-user')) {
+            return $store->customers($collection->all());
+        } else {
+            return new DomainCollection;
+        }
     }
 
 }

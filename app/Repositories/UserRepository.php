@@ -4,16 +4,18 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentUser;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModelable;
+use App\Services\DomainCollection;
+use Domain\Contracts\Model\DomainableInterface;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\Role;
 use Domain\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 
-final class UserRepository implements DomainModelable
+final class UserRepository implements DomainableInterface
 {
     /** @var EloquentUser */
     private $eloquent;
@@ -45,17 +47,13 @@ final class UserRepository implements DomainModelable
      */
     public function findAll(array $args = []): DomainCollection
     {
-        /**
-         * TODO Search process.
-         */
-
-        $collection = $this->eloquent->all();
+        $collection = $this->build($this->newQuery(), $args)->get();
         return self::toModels($collection);
     }
 
     /**
-     * @param int $id
-     * @param array $args
+     * @param  int $id
+     * @param  array $args
      * @return bool
      */
     public function update(int $id, array $args = []): bool
@@ -129,12 +127,43 @@ final class UserRepository implements DomainModelable
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function permissions(): DomainCollection
+    public function permissions(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->permissions;
+        $collection = PermissionRepository::build($this->eloquent->permissions(), $args)->get();
         return PermissionRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function notifications(array $args = []): DatabaseNotificationCollection
+    {
+        $collection = NotificationRepository::build($this->eloquent->notifications(), $args)->get();
+        return NotificationRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function readNotifications(array $args = []): DatabaseNotificationCollection
+    {
+        $collection = NotificationRepository::build($this->eloquent->readNotifications(), $args)->get();
+        return NotificationRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function unreadNotifications(array $args = []): DatabaseNotificationCollection
+    {
+        $collection = NotificationRepository::build($this->eloquent->unreadNotifications(), $args)->get();
+        return NotificationRepository::toModels($collection);
     }
 
     /**
@@ -144,6 +173,45 @@ final class UserRepository implements DomainModelable
     private static function of(EloquentUser $eloquent)
     {
         return new self($eloquent);
+    }
+
+    /**
+     * @return Builder
+     */
+    private function newQuery(): Builder
+    {
+        return $this->eloquent->newQuery();
+    }
+
+    /**
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
+     */
+    public static function build($query, array $args = [])
+    {
+        $args = collect($args);
+
+        return $query;
+    }
+
+    /**
+     * @param  string  $ability
+     * @param  array|mixed  $arguments
+     * @return bool
+     */
+    public function can($ability, $arguments = []): bool
+    {
+        return $this->eloquent->can($ability, $arguments);
+    }
+
+    /**
+     * @param  mixed  $instance
+     * @return void
+     */
+    public function notify($instance): void
+    {
+        $this->eloquent->notify($instance);
     }
 
 }

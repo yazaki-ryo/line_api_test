@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 return [
 
@@ -41,6 +42,7 @@ return [
 
     'labels' => [
         'action'         => '操作',
+        'data'           => 'データ',
         'information'    => '情報',
         'joining'        => '参加中',
         'no'             => 'いいえ',
@@ -54,6 +56,7 @@ return [
             'with'    => 'を含む',
             'only'    => 'のみ',
         ],
+        'tags'           => 'タグ',
         'trashed'        => '削除データ',
         'unpaid'         => '未',
         'yes'            => 'はい',

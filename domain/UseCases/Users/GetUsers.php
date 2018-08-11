@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Users;
 
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 use Domain\Contracts\Users\GetUsersInterface;
 
 final class GetUsers

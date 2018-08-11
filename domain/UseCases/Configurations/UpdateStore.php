@@ -4,77 +4,59 @@ declare(strict_types=1);
 namespace Domain\UseCases\Configurations;
 
 use Domain\Contracts\Database\TransactionalInterface;
-use Domain\Contracts\Stores\GetStoreInterface;
-use Domain\Contracts\Stores\UpdateStoreInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Store;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Domain\Models\User;
 
 final class UpdateStore
 {
-    /** @var GetStoreInterface */
-    private $getStoreService;
-
-    /** @var UpdateStoreInterface */
-    private $updateStoreService;
-
     /** @var TransactionalInterface */
     private $transactionalService;
 
     /**
-     * @param GetStoreInterface $getStoreService
-     * @param UpdateStoreInterface $updateStoreService
      * @param TransactionalInterface $transactionalService
      * @return void
      */
-    public function __construct(
-        GetStoreInterface $getStoreService,
-        UpdateStoreInterface $updateStoreService,
-        TransactionalInterface $transactionalService
-    ) {
-        $this->getStoreService = $getStoreService;
-        $this->updateStoreService = $updateStoreService;
+    public function __construct(TransactionalInterface $transactionalService)
+    {
         $this->transactionalService = $transactionalService;
     }
 
     /**
-     * @param int $id
+     * @param User $user
      * @return Store
      * @throws NotFoundException
      */
-    public function getStore(int $id): Store
+    public function getStore(User $user): Store
     {
-        if (is_null($store = $this->getStoreService->findById($id))) {
+        if (is_null($resource = $user->store())) {
             throw new NotFoundException('Resource not found.');
         }
-
-        return $store;
+        return $resource;
     }
 
     /**
-     * @param Auth $auth
-     * @param int $id
+     * @param User $user
      * @param array $args
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(Auth $auth, int $id, array $args = []): bool
+    public function excute(User $user, array $args = []): bool
     {
-        $this->getStore($id);
+        $resource = $this->getStore($user);
+        $args = $this->domainize($user, $args);
 
-        $args = $this->domainize($auth, $args);
-
-        return $this->transactionalService->transaction(function () use ($id, $args) {
-            return $this->updateStoreService->update($id, $args);
+        return $this->transactionalService->transaction(function () use ($resource, $args) {
+            return $resource->update($args);
         });
     }
 
     /**
-     * @param Auth $auth
+     * @param User $user
      * @param array $args
      * @return array
      */
-    private function domainize(Auth $auth, array $args = []): array
+    private function domainize(User $user, array $args = []): array
     {
         $args = collect($args);
 

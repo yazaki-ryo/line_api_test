@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\UserRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 
 final class User
 {
@@ -133,11 +134,77 @@ final class User
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function permissions(): DomainCollection
+    public function permissions(array $args = []): DomainCollection
     {
-        return $this->repo->permissions();
+        return $this->repo->permissions($args);
+    }
+
+    /**
+     * @param array $args
+     * @return bool
+     */
+    public function update(array $args = []): bool
+    {
+        return $this->repo->update($this->id(), $args);
+    }
+
+    /**
+     * @param  string  $ability
+     * @param  array|mixed  $arguments
+     * @return bool
+     */
+    public function can($ability, $arguments = []): bool
+    {
+        return $this->repo->can($ability, $arguments);
+    }
+
+    /**
+     * @param  string  $ability
+     * @param  array|mixed  $arguments
+     * @return bool
+     */
+    public function cant($ability, $arguments = []): bool
+    {
+        return ! $this->can($ability, $arguments);
+    }
+
+    /**
+     * @param  mixed  $instance
+     * @return void
+     */
+    public function notify($instance): void
+    {
+        $this->repo->notify($instance);
+    }
+
+    /**
+     * @param  array $args
+     * @return DatabaseNotificationCollection
+     */
+    public function notifications(array $args = []): DatabaseNotificationCollection
+    {
+        return $this->repo->notifications($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return DatabaseNotificationCollection
+     */
+    public function readNotifications(array $args = []): DatabaseNotificationCollection
+    {
+        return $this->repo->readNotifications($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return DatabaseNotificationCollection
+     */
+    public function unreadNotifications(array $args = []): DatabaseNotificationCollection
+    {
+        return $this->repo->unreadNotifications($args);
     }
 
     /**

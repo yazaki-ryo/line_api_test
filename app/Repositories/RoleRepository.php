@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentRole;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModelable;
+use App\Services\DomainCollection;
+use Domain\Contracts\Model\DomainableInterface;
 use Domain\Models\Role;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class RoleRepository implements DomainModelable
+final class RoleRepository implements DomainableInterface
 {
     /** @var EloquentRole */
     private $eloquent;
@@ -42,11 +43,7 @@ final class RoleRepository implements DomainModelable
      */
     public function findAll(array $args = []): DomainCollection
     {
-        /**
-         * TODO Search process.
-         */
-
-        $collection = $this->eloquent->all();
+        $collection = $this->build($this->newQuery(), $args)->get();
         return self::toModels($collection);
     }
 
@@ -80,11 +77,12 @@ final class RoleRepository implements DomainModelable
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function users(): DomainCollection
+    public function users(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->users;
+        $collection = UserRepository::build($this->eloquent->users(), $args)->get();
         return UserRepository::toModels($collection);
     }
 
@@ -95,6 +93,26 @@ final class RoleRepository implements DomainModelable
     private static function of(EloquentRole $eloquent)
     {
         return new self($eloquent);
+    }
+
+    /**
+     * @return Builder
+     */
+    private function newQuery(): Builder
+    {
+        return $this->eloquent->newQuery();
+    }
+
+    /**
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
+     */
+    public static function build($query, array $args = [])
+    {
+        $args = collect($args);
+
+        return $query;
     }
 
 }

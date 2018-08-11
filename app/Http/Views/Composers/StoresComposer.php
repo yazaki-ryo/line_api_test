@@ -3,26 +3,24 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use Domain\Contracts\Stores\GetStoresInterface;
+use App\Repositories\UserRepository;
+use App\Services\DomainCollection;
+use Domain\Models\Company;
+use Domain\Models\Store;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class StoresComposer
 {
-    /** @var GetStoresInterface */
-    private $getStoresService;
-
     /** @var Auth */
     private $auth;
 
     /**
-     * @param  GetStoresInterface  $getStoresService
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(GetStoresInterface $getStoresService, Auth $auth)
+    public function __construct(Auth $auth)
     {
-        $this->getStoresService = $getStoresService;
         $this->auth = $auth;
     }
 
@@ -50,26 +48,26 @@ final class StoresComposer
      */
     private function excute(View $view)
     {
-        $args = $this->domainize($this->auth);
+        if (! $this->auth->check()) return;
 
-        $view->with('stores', $this->getStoresService->findAll($args));
-    }
+        $user = UserRepository::toModel($this->auth->user());
 
-    /**
-     * @param Auth $auth
-     * @param array $args
-     * @return array
-     */
-    private function domainize(Auth $auth, array $args = []): array
-    {
-        $args = collect($args);
+        /** @var Store $store */
+        $store = $user->store();
 
-        $args->put('company_id', optional($auth->user()->store)->company_id);
+        /** @var Company $company */
+        $company = $store->company();
 
-        if ($auth->user()->cant('roles', 'company-admin')) {
-            $args->put('id', $auth->user()->store_id);
+        /** @var DomainCollection $stores */
+        $collection = new DomainCollection;
+
+        if ($user->can('roles', 'company-admin') && ! is_null($company)) {
+            $collection = $company->stores();
+        } elseif ($user->can('roles', 'store-user') && ! is_null($store)) {
+            $collection = $collection->push($store);
         }
 
-        return $args->all();
+        $view->with('stores', $collection);
     }
+
 }

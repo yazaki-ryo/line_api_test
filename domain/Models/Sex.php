@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\SexRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 
 final class Sex
 {
@@ -76,11 +76,12 @@ final class Sex
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function customers(): DomainCollection
+    public function customers(array $args = []): DomainCollection
     {
-        return $this->repo->customers();
+        return $this->repo->customers($args);
     }
 
     /**

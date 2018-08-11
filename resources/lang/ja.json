@@ -13,6 +13,7 @@
     "Test text...": "text...",
     "The :name information was :action.": ":name情報を:actionしました。",
     "The value sent is invalid.": "送信された値が不正です。",
+    "There is no :name.": ":nameがありません。",
     "Search for": "検索する",
     "Sub text": "サブテキスト",
     "User temporary registration is completed.": "ユーザー仮登録が完了しました。",

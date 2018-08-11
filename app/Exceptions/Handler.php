@@ -1,9 +1,11 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Exception;
 
 class Handler extends ExceptionHandler
 {
@@ -50,4 +52,27 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+
+    /**
+     * Render the given HttpException.
+     *
+     * @param  \Symfony\Component\HttpKernel\Exception\HttpException  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Exceptions\Handler::renderHttpException()
+     */
+    protected function renderHttpException(HttpException $e)
+    {
+        $paths = collect(config('view.paths'));
+
+        view()->replaceNamespace('errors', $paths->map(function ($path) {
+            return "{$path}/errors";
+        })->push(__DIR__.'/views')->all());
+
+        return response()->view("errors.exception", [
+            'exception' => $e,
+        ], $e->getStatusCode(), $e->getHeaders());
+    }
+
 }

@@ -3,17 +3,17 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Services\Collection\DomainCollection;
+use App\Traits\Domainable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 final class EloquentUser extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Domainable, Notifiable, SoftDeletes;
 
     /** @var string */
     protected $table = 'users';
@@ -38,15 +38,6 @@ final class EloquentUser extends Authenticatable
     ];
 
     /**
-     * @param  array  $models
-     * @return DomainCollection
-     */
-    public function newCollection(array $models = []): DomainCollection
-    {
-        return new DomainCollection($models);
-    }
-
-    /**
      * @return BelongsTo
      */
     public function store(): BelongsTo
@@ -63,11 +54,11 @@ final class EloquentUser extends Authenticatable
     }
 
     /**
-     * @return BeLongsToMany
+     * @return MorphToMany
      */
-    public function permissions(): BeLongsToMany
+    public function permissions(): MorphToMany
     {
-        return $this->belongsToMany(EloquentPermission::class, 'permission_user', 'user_id', 'permission_id')->withTimestamps();
+        return $this->morphToMany(EloquentPermission::class, 'permissible', 'permissibles', 'permissible_id', 'permission_id', 'id', 'id')->withTimestamps();
     }
 
 }

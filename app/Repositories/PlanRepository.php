@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentPlan;
-use App\Services\Collection\DomainCollection;
-use Domain\Contracts\Model\DomainModelable;
+use App\Services\DomainCollection;
+use Domain\Contracts\Model\DomainableInterface;
 use Domain\Models\Plan;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class PlanRepository implements DomainModelable
+final class PlanRepository implements DomainableInterface
 {
     /** @var EloquentPlan */
     private $eloquent;
@@ -42,11 +43,7 @@ final class PlanRepository implements DomainModelable
      */
     public function findAll(array $args = []): DomainCollection
     {
-        /**
-         * TODO Search process.
-         */
-
-        $collection = $this->eloquent->all();
+        $collection = $this->build($this->newQuery(), $args)->get();
         return self::toModels($collection);
     }
 
@@ -80,11 +77,12 @@ final class PlanRepository implements DomainModelable
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function companies(): DomainCollection
+    public function companies(array $args = []): DomainCollection
     {
-        $collection = $this->eloquent->companies;
+        $collection = CompanyRepository::build($this->eloquent->companies(), $args)->get();
         return CompanyRepository::toModels($collection);
     }
 
@@ -95,6 +93,26 @@ final class PlanRepository implements DomainModelable
     private static function of(EloquentPlan $eloquent)
     {
         return new self($eloquent);
+    }
+
+    /**
+     * @return Builder
+     */
+    private function newQuery(): Builder
+    {
+        return $this->eloquent->newQuery();
+    }
+
+    /**
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
+     */
+    public static function build($query, array $args = [])
+    {
+        $args = collect($args);
+
+        return $query;
     }
 
 }

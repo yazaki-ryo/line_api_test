@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\PermissionRepository;
-use App\Services\Collection\DomainCollection;
+use App\Services\DomainCollection;
 
 final class Permission
 {
@@ -87,11 +87,12 @@ final class Permission
     }
 
     /**
+     * @param  array $args
      * @return DomainCollection
      */
-    public function users(): DomainCollection
+    public function users(array $args = []): DomainCollection
     {
-        return $this->repo->users();
+        return $this->repo->users($args);
     }
 
     /**

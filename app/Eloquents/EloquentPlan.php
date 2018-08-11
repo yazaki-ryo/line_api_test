@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Services\Collection\DomainCollection;
+use App\Traits\Domainable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 final class EloquentPlan extends Model
 {
-    use SoftDeletes;
+    use Domainable, SoftDeletes;
 
     /** @var string */
     protected $table = 'plans';
@@ -28,15 +28,6 @@ final class EloquentPlan extends Model
     protected $hidden = [
         //
     ];
-
-    /**
-     * @param  array  $models
-     * @return DomainCollection
-     */
-    public function newCollection(array $models = []): DomainCollection
-    {
-        return new DomainCollection($models);
-    }
 
     /**
      * @return HasMany

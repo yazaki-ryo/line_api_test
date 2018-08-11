@@ -33,6 +33,9 @@
                     <li>
                         <a href="#history-tab" data-toggle="tab">@lang ('elements.actions.visit')@lang ('elements.actions.history')</a>
                     </li>
+                    <li>
+                        <a href="#tags-tab" data-toggle="tab">@lang ('elements.labels.tags')</a>
+                    </li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                           @lang ('elements.actions.menu') <span class="caret"></span>
@@ -65,6 +68,11 @@
                     <div class="tab-pane pt-10" id="history-tab">
                         <div class="well">
                             @lang ('Dedicated development in progress.')
+                        </div>
+                    </div>
+                    <div class="tab-pane pt-10" id="tags-tab">
+                        <div class="well">
+                            @include ('customers.components.tags')
                         </div>
                     </div>
                 </div>

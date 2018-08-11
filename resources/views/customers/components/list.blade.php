@@ -4,9 +4,9 @@
             <thead>
                 <tr>
                     <th>@lang ('attributes.customers.name')</th>
-                    <th>@lang ('attributes.customers.address')</th>
                     <th>@lang ('attributes.customers.tel')</th>
                     <th>@lang ('attributes.customers.mobile_phone')</th>
+                    <th>@lang ('attributes.customers.tags')</th>
                     <th>@lang ('attributes.customers.visited_cnt')</th>
                     <th>@lang ('elements.labels.action')</th>
                 </tr>
@@ -15,9 +15,9 @@
                 @foreach ($rows as $row)
                     <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
                         <td>{{ $row->{$camel = camel_case('name')}() }}</td>
-                        <td>{{ $row->{$camel = camel_case('address')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('tel')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
+                        <td>@include ('customers.components.tags')</td>
                         <td>{{ $row->{$camel = camel_case('visited_cnt')}()->asInt() }}</td>
                         <td>
                             @if ($row->{$camel = camel_case('deleted_at')}())
@@ -44,5 +44,5 @@
         </table>
     </div>
 @else
-    <p>データがありません。</p>
+    <p>@lang ('There is no :name.', ['name' => __('elements.labels.data')])</p>
 @endif

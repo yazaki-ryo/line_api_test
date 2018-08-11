@@ -1,4 +1,14 @@
 <?php
+declare(strict_types=1);
+
+use App\Log\Monolog\Handler\ChatWorkHandler;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Handler\HandlerInterface;
+use Monolog\Handler\RotatingFileHandler;
+use Monolog\Handler\SlackWebhookHandler;
+use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,28 +51,66 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-/**
- * Notifications for Slack
- */
-$app->configureMonologUsing(function($monolog) {
+$app->configureMonologUsing(function(LoggerInterface $monolog) {
+    /** @var FormatterInterface $formatter */
+    $formatter = getDefaultFormatter();
+
+    /**
+     * Daily log
+     * @var Logger $monolog
+     */
+    $monolog->pushHandler(
+        tap(new RotatingFileHandler(
+            storage_path('logs/laravel.log'),
+            config('app.log_max_files'),
+            config('app.log_level')
+        ), function (HandlerInterface $handler) use ($formatter) {
+            $handler->setFormatter($formatter);
+        })
+    );
+
     $config = config('services.slack');
 
-    if (! $config['webhook_url']) return null;
+    if ($config['webhook_url']) {
+        /**
+         * Slack Webhook
+         */
+        $monolog->pushHandler(
+            tap(new SlackWebhookHandler(
+                $config['webhook_url'],
+                $config['channel'],
+                $config['username'],
+                $config['use_attachment'],
+                $config['icon_emoji'],
+                $config['use_short_attachment'],
+                $config['include_context_and_extra'],
+                $config['level'],
+                $config['bubble'],
+                $config['exclude_fields']
+            ), function (HandlerInterface $handler) use ($formatter) {
+                $handler->setFormatter($formatter);
+            })
+        );
+    }
 
-    $monolog->pushHandler(
-        new \Monolog\Handler\SlackWebhookHandler(
-            $config['webhook_url'],
-            $config['channel'],
-            $config['username'],
-            $config['use_attachment'],
-            $config['icon_emoji'],
-            $config['use_short_attachment'],
-            $config['include_context_and_extra'],
-            $config['level'],
-            $config['bubble'],
-            $config['exclude_fields']
-        )
-    );
+    $config = config('services.chatwork');
+
+    if ($config['token']) {
+        /**
+         * ChatWork
+         */
+        $monolog->pushHandler(
+            tap(new ChatWorkHandler(
+                $config['token'],
+                $config['room'],
+                $config['level'],
+                $config['bubble']
+            ), function (HandlerInterface $handler) use ($formatter) {
+                $handler->setFormatter($formatter);
+            })
+        );
+    }
+
 });
 
 /*
@@ -77,3 +125,13 @@ $app->configureMonologUsing(function($monolog) {
 */
 
 return $app;
+
+/**
+ * @return FormatterInterface
+ */
+function getDefaultFormatter()
+{
+    return tap(new LineFormatter(null, null, true, true), function (FormatterInterface $formatter) {
+        $formatter->includeStacktraces();
+    });
+}
