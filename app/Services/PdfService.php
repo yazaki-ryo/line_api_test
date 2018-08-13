@@ -33,7 +33,7 @@ final class PdfService implements OutputInterface
         $this->processor->SetTitle($filename = 'sample.pdf');
 //         $this->processor->SetSubject('Hello World!');
 
-        $this->processor->setSourceFile(storage_path('app/pdf/postcards/postcard.pdf'));
+        $this->processor->setSourceFile(storage_path('system/pdf/postcards/postcard.pdf'));
         $index = $this->processor->importPage(1);
 
         $this->processor->AddPage();
