@@ -5,7 +5,7 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentCustomer;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Company;
 use Domain\Models\Customer;
 use Domain\Models\Prefecture;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class CustomerRepository implements DomainableInterface
+final class CustomerRepository implements DomainableContract
 {
     /** @var EloquentCustomer */
     private $eloquent;

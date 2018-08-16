@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\StoreRepository;
-use Domain\Contracts\Model\FindableInterface;
-use Domain\Contracts\Model\UpdatableInterface;
+use Domain\Contracts\Model\FindableContract;
+use Domain\Contracts\Model\UpdatableContract;
 use Domain\Models\Store;
 
 final class StoresService implements
-    FindableInterface,
-    UpdatableInterface
+    FindableContract,
+    UpdatableContract
 {
     /** @var StoreRepository */
     private $repo;

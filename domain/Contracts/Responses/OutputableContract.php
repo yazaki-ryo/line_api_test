@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Domain\Contracts\Responses;
 
-interface OutputInterface
+interface OutputableContract
 {
     /**
      * @param  string $mode

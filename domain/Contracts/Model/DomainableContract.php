@@ -6,7 +6,7 @@ namespace Domain\Contracts\Model;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-interface DomainableInterface
+interface DomainableContract
 {
     /**
      * @param Model $model

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Domain\Contracts\Model;
 
-interface DeletableInterface
+interface DeletableContract
 {
     /**
      * @param int $id

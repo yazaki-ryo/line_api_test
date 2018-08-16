@@ -4,19 +4,19 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\CustomerRepository;
-use Domain\Contracts\Model\CreatableInterface;
-use Domain\Contracts\Model\DeletableInterface;
-use Domain\Contracts\Model\FindableInterface;
-use Domain\Contracts\Model\RestorableInterface;
-use Domain\Contracts\Model\UpdatableInterface;
+use Domain\Contracts\Model\CreatableContract;
+use Domain\Contracts\Model\DeletableContract;
+use Domain\Contracts\Model\FindableContract;
+use Domain\Contracts\Model\RestorableContract;
+use Domain\Contracts\Model\UpdatableContract;
 use Domain\Models\Customer;
 
 final class CustomersService implements
-    CreatableInterface,
-    DeletableInterface,
-    FindableInterface,
-    RestorableInterface,
-    UpdatableInterface
+    CreatableContract,
+    DeletableContract,
+    FindableContract,
+    RestorableContract,
+    UpdatableContract
 {
     /** @var CustomerRepository */
     private $repo;

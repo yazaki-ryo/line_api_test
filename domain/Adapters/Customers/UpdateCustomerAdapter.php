@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Customers;
+namespace Domain\UseCases\Adapters;
 
 use Domain\Contracts\Model\FindableContract;
 use Domain\Contracts\Database\TransactionableContract;
@@ -9,7 +9,7 @@ use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 use Domain\Models\User;
 
-final class DeleteCustomer
+final class UpdateCustomerAdapter
 {
     /** @var FindableContract */
     private $finder;
@@ -28,32 +28,6 @@ final class DeleteCustomer
     ) {
         $this->finder = $finder;
         $this->transactionalService = $transactionalService;
-    }
-
-    /**
-     * @param int $id
-     * @return Customer
-     * @throws NotFoundException
-     */
-    public function getCustomer(int $id): Customer
-    {
-        if (is_null($resource = $this->finder->findById($id))) {
-            throw new NotFoundException('Resource not found.');
-        }
-
-        return $resource;
-    }
-
-    /**
-     * @param User $user
-     * @param Customer $customer
-     * @return void
-     */
-    public function excute(User $user, Customer $customer): void
-    {
-        $this->transactionalService->transaction(function () use ($customer) {
-            $customer->delete();
-        });
     }
 
 }

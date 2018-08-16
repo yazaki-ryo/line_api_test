@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Model\FindableInterface;
+use Domain\Contracts\Model\FindableContract;
 use Domain\Models\Customer;
 
 final class GetCustomer
 {
-    /** @var FindableInterface */
+    /** @var FindableContract */
     private $finder;
 
     /**
-     * @param FindableInterface $finder
+     * @param FindableContract $finder
      * @return void
      */
-    public function __construct(FindableInterface $finder)
+    public function __construct(FindableContract $finder)
     {
         $this->finder = $finder;
     }

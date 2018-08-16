@@ -5,13 +5,13 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentPlan;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Plan;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class PlanRepository implements DomainableInterface
+final class PlanRepository implements DomainableContract
 {
     /** @var EloquentPlan */
     private $eloquent;

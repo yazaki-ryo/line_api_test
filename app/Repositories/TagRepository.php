@@ -5,13 +5,13 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentTag;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class TagRepository implements DomainableInterface
+final class TagRepository implements DomainableContract
 {
     /** @var EloquentTag */
     private $eloquent;

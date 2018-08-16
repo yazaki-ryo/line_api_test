@@ -5,13 +5,13 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentPrefecture;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Prefecture;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class PrefectureRepository implements DomainableInterface
+final class PrefectureRepository implements DomainableContract
 {
     /** @var EloquentPrefecture */
     private $eloquent;

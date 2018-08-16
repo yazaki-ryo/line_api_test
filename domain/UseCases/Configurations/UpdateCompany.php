@@ -3,21 +3,21 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Configurations;
 
-use Domain\Contracts\Database\TransactionalInterface;
+use Domain\Contracts\Database\TransactionableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Company;
 use Domain\Models\User;
 
 final class UpdateCompany
 {
-    /** @var TransactionalInterface */
+    /** @var TransactionableContract */
     private $transactionalService;
 
     /**
-     * @param TransactionalInterface $transactionalService
+     * @param TransactionableContract $transactionalService
      * @return void
      */
-    public function __construct(TransactionalInterface $transactionalService)
+    public function __construct(TransactionableContract $transactionalService)
     {
         $this->transactionalService = $transactionalService;
     }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\SexRepository;
-use Domain\Contracts\Model\FindableInterface;
+use Domain\Contracts\Model\FindableContract;
 use Domain\Models\Sex;
 
 final class SexesService implements
-    FindableInterface
+    FindableContract
 {
     /** @var SexRepository */
     private $repo;

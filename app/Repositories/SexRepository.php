@@ -5,13 +5,13 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentSex;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Sex;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class SexRepository implements DomainableInterface
+final class SexRepository implements DomainableContract
 {
     /** @var EloquentSex */
     private $eloquent;

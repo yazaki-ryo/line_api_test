@@ -5,13 +5,13 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentPermission;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Permission;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 
-final class PermissionRepository implements DomainableInterface
+final class PermissionRepository implements DomainableContract
 {
     /** @var EloquentPermission */
     private $eloquent;

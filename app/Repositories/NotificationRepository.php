@@ -5,7 +5,7 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentUser;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Notification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 
-final class NotificationRepository implements DomainableInterface
+final class NotificationRepository implements DomainableContract
 {
     /** @var DatabaseNotification */
     private $eloquent;

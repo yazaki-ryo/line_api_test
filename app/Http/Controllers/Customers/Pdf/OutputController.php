@@ -42,7 +42,7 @@ final class OutputController extends Controller
 
 
         /**
-         * TODO Output Flow
+         * TODO Outputable Flow
          */
         $customer = $this->useCase->getCustomer($customerId);
 

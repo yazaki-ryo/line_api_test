@@ -3,25 +3,25 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Model\FindableInterface;
-use Domain\Contracts\Responses\OutputInterface;
+use Domain\Contracts\Model\FindableContract;
+use Domain\Contracts\Responses\OutputableContract;
 use Domain\Models\Customer;
 use Domain\Models\User;
 
 final class OutputPdf
 {
-    /** @var OutputInterface $response */
+    /** @var OutputableContract $response */
     private $response;
 
-    /** @var FindableInterface */
+    /** @var FindableContract */
     private $finder;
 
     /**
-     * @param  OutputInterface $response
-     * @param  FindableInterface $finder
+     * @param  OutputableContract $response
+     * @param  FindableContract $finder
      * @return void
      */
-    public function __construct(OutputInterface $response, FindableInterface $finder)
+    public function __construct(OutputableContract $response, FindableContract $finder)
     {
         $this->response = $response;
         $this->finder = $finder;

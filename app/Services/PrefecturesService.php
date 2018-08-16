@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\PrefectureRepository;
-use Domain\Contracts\Model\FindableInterface;
+use Domain\Contracts\Model\FindableContract;
 use Domain\Models\Prefecture;
 
 final class PrefecturesService implements
-    FindableInterface
+    FindableContract
 {
     /** @var PrefectureRepository */
     private $repo;

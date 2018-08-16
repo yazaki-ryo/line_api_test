@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use Domain\Contracts\Responses\OutputInterface;
+use Domain\Contracts\Responses\OutputableContract;
 use setasign\Fpdi\TcpdfFpdi;
 
-final class PdfService implements OutputInterface
+final class PdfService implements OutputableContract
 {
     /** @var TcpdfFpdi */
     private $processor;
@@ -48,7 +48,7 @@ final class PdfService implements OutputInterface
 //         $this->processor->Text(30, 30, "小塚ゴシックPro M1234567890@ABCabc");
 //         $this->processor->Rotate(-30, 10, 160);
 
-        $this->processor->Output($filename, 'I');
+        $this->processor->Outputable($filename, 'I');
     }
 
 }

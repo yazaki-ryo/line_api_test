@@ -3,27 +3,27 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Model\CreatableInterface;
-use Domain\Contracts\Database\TransactionalInterface;
+use Domain\Contracts\Model\CreatableContract;
+use Domain\Contracts\Database\TransactionableContract;
 use Domain\Models\Customer;
 use Domain\Models\User;
 
 final class CreateCustomer
 {
-    /** @var CreatableInterface */
+    /** @var CreatableContract */
     private $creator;
 
-    /** @var TransactionalInterface */
+    /** @var TransactionableContract */
     private $transactionalService;
 
     /**
-     * @param CreatableInterface $creator
-     * @param TransactionalInterface $transactionalService
+     * @param CreatableContract $creator
+     * @param TransactionableContract $transactionalService
      * @return void
      */
     public function __construct(
-        CreatableInterface $creator,
-        TransactionalInterface $transactionalService
+        CreatableContract $creator,
+        TransactionableContract $transactionalService
     ) {
         $this->creator = $creator;
         $this->transactionalService = $transactionalService;

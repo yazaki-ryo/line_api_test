@@ -5,7 +5,7 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentUser;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\Role;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 
-final class UserRepository implements DomainableInterface
+final class UserRepository implements DomainableContract
 {
     /** @var EloquentUser */
     private $eloquent;
