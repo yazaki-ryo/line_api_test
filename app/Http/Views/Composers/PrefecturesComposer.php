@@ -3,21 +3,21 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Services\PrefecturesService;
+use Domain\Contracts\Model\FindableContract;
 use Illuminate\View\View;
 
 final class PrefecturesComposer
 {
-    /** @var PrefecturesService */
-    private $service;
+    /** @var FindableContract */
+    private $finder;
 
     /**
-     * @param  PrefecturesService  $service
+     * @param  FindableContract $finder
      * @return void
      */
-    public function __construct(PrefecturesService $service)
+    public function __construct(FindableContract $finder)
     {
-        $this->service = $service;
+        $this->finder = $finder;
     }
 
     /**
@@ -44,6 +44,6 @@ final class PrefecturesComposer
      */
     private function excute(View $view)
     {
-        $view->with('prefectures', $this->service->findAll());
+        $view->with('prefectures', $this->finder->findAll());
     }
 }

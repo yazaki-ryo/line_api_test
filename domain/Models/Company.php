@@ -218,15 +218,6 @@ final class Company extends DomainModel
     }
 
     /**
-     * @param array $args
-     * @return bool
-     */
-    public function update(array $args = []): bool
-    {
-        return $this->repo->update($this->id(), $args);
-    }
-
-    /**
      * @param CompanyRepository $repo
      * @return self
      */

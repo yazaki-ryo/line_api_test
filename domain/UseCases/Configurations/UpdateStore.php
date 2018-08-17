@@ -3,23 +3,21 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Configurations;
 
-use Domain\Contracts\Database\TransactionableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Store;
 use Domain\Models\User;
+use Domain\Traits\Database\Transactionable;
 
 final class UpdateStore
 {
-    /** @var TransactionableContract */
-    private $transactionalService;
+    use Transactionable;
 
     /**
-     * @param TransactionableContract $transactionalService
      * @return void
      */
-    public function __construct(TransactionableContract $transactionalService)
+    public function __construct()
     {
-        $this->transactionalService = $transactionalService;
+        //
     }
 
     /**
@@ -46,7 +44,7 @@ final class UpdateStore
         $resource = $this->getStore($user);
         $args = $this->domainize($user, $args);
 
-        return $this->transactionalService->transaction(function () use ($resource, $args) {
+        return $this->transaction(function () use ($resource, $args) {
             return $resource->update($args);
         });
     }

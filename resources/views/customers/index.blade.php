@@ -68,7 +68,9 @@
                     </div>
                     <div class="tab-pane pt-10" id="print-tab">
                         <div class="well">
-                            @lang ('Dedicated development in progress.')
+                            {!! Form::open(['url' => route('customers.pdf.output'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                @include ('customers.components.postcard')
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

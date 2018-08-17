@@ -71,10 +71,7 @@ $router->group([
         $router->group([
             'prefix' => $prefix2 = 'pdf',
         ], function (Router $router) use ($prefix, $prefix2) {
-            /**
-             * TODO To POST
-             */
-            $router->get( 'output', \App\Http\Controllers\Customers\Pdf\OutputController::class)->name(sprintf('%s.%s.output', $prefix, $prefix2));
+            $router->post( 'output', \App\Http\Controllers\Customers\Pdf\OutputController::class)->name(sprintf('%s.%s.output', $prefix, $prefix2));
         });
     });
 
