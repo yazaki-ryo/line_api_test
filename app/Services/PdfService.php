@@ -30,7 +30,7 @@ final class PdfService implements OutputableContract
         $this->processor->SetAutoPageBreak(false);
         $this->processor->setPrintHeader(false);
         $this->processor->setPrintFooter(false);
-        $this->processor->SetTitle($filename = 'sample.pdf');
+        $this->processor->SetTitle($filename = 'postcard.pdf');
 //         $this->processor->SetSubject('Hello World!');
 
         $this->processor->setSourceFile(storage_path('system/pdf/postcards/postcard.pdf'));
@@ -40,15 +40,15 @@ final class PdfService implements OutputableContract
 
         $this->processor->useTemplate($index, null, null, null, null, true);
         $this->processor->SetFont("kozgopromedium"/*"kozminproregular"*/, "", 12);
-        $this->processor->Text(0, 0, "テスト");
+        $this->processor->Text(0, 0, __('Dedicated development in progress.'));
 
 //         $this->processor->Line(10, 160, 10 + 200 * cos(30 / 180 * 3.14), 160 - 200 * sin(30 / 180 * 3.14));
 //         $this->processor->SetFont("kozgopromedium", "", 16);
 //         $this->processor->Rotate(30, 10, 160);
-//         $this->processor->Text(30, 30, "小塚ゴシックPro M1234567890@ABCabc");
+//         $this->processor->Text(30, 30, "test");
 //         $this->processor->Rotate(-30, 10, 160);
 
-        $this->processor->Outputable($filename, 'I');
+        $this->processor->Output($filename, 'I');
     }
 
 }

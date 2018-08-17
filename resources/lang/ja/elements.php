@@ -24,6 +24,7 @@ return [
         'import'         => 'インポート',
         'log'            => 'ログ',
         'menu'           => 'メニュー',
+        'output'         => '出力',
         'print'          => '印刷',
         'printed'        => '印刷',
         'register'       => '登録',
@@ -45,22 +46,26 @@ return [
     'labels' => [
         'action'         => '操作',
         'data'           => 'データ',
+        'image'          => '画像',
         'information'    => '情報',
         'joining'        => '参加中',
+        'mode'           => 'モード',
         'name_collation' => '名寄せ',
         'no'             => 'いいえ',
         'notice'         => 'お知らせ',
         'notification'   => '通知',
         'paid'           => '済',
-        'postcard'       => 'ハガキ',
+        'postcard'       => 'はがき',
         'primary'        => 'メイン',
         'required'       => '必須',
+        'sample'         => 'サンプル',
         'state' => [
             'without' => '以外',
             'with'    => 'を含む',
             'only'    => 'のみ',
         ],
         'tags'           => 'タグ',
+        'test'           => 'テスト',
         'trashed'        => '削除データ',
         'unpaid'         => '未',
         'yes'            => 'はい',
@@ -97,6 +102,11 @@ return [
             'edit'  => '顧客情報編集',
         ],
         'home' => 'ホーム',
+    ],
+
+    'postcards' => [
+        'new_year_card'        => '年賀はがき',
+        'summer_greeting_card' => '暑中見舞い',
     ],
 
     'resources' => [
