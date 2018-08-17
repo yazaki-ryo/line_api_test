@@ -74,9 +74,7 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(UpdateCustomer::class, function () {
             return new UpdateCustomer(
-                app(CustomersService::class),
-                app(UpdateCustomerAdapter::class)
-//                 app(TransactionableContract::class)
+                app(CustomersService::class)
             );
         });
 
