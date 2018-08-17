@@ -6,10 +6,10 @@ namespace Domain\Models;
 use App\Repositories\PermissionRepository;
 use App\Services\DomainCollection;
 
-final class Permission
+final class Permission extends DomainModel
 {
     /** @var PermissionRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -132,7 +132,7 @@ final class Permission
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

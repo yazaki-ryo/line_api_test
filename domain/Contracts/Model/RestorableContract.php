@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Domain\Contracts\Model;
 
-interface DeletableInterface
+interface RestorableContract
 {
     /**
      * @param int $id
      * @return void
      */
-    public function delete(int $id): void;
+    public function restore(int $id): void;
 }

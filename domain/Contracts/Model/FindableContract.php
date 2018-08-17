@@ -5,7 +5,7 @@ namespace Domain\Contracts\Model;
 
 use App\Services\DomainCollection;
 
-interface FindableInterface
+interface FindableContract
 {
     /**
      * @param  int $id

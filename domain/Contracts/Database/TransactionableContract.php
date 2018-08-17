@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Domain\Contracts\Database;
 
-interface TransactionalInterface
+interface TransactionableContract
 {
     /**
      * @param callable $callee

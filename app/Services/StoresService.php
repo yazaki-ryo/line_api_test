@@ -4,14 +4,30 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\StoreRepository;
-use Domain\Contracts\Model\FindableInterface;
-use Domain\Contracts\Model\UpdatableInterface;
-use Domain\Models\Store;
+use App\Traits\Services\Creatable;
+use App\Traits\Services\Deletable;
+use App\Traits\Services\Findable;
+use App\Traits\Services\Restorable;
+use App\Traits\Services\Updatable;
+use Domain\Contracts\Model\CreatableContract;
+use Domain\Contracts\Model\DeletableContract;
+use Domain\Contracts\Model\FindableContract;
+use Domain\Contracts\Model\RestorableContract;
+use Domain\Contracts\Model\UpdatableContract;
 
 final class StoresService implements
-    FindableInterface,
-    UpdatableInterface
+    CreatableContract,
+    DeletableContract,
+    FindableContract,
+    RestorableContract,
+    UpdatableContract
 {
+    use Creatable,
+        Deletable,
+        Findable,
+        Restorable,
+        Updatable;
+
     /** @var StoreRepository */
     private $repo;
 
@@ -22,34 +38,4 @@ final class StoresService implements
     {
         $this->repo = $repo;
     }
-
-    /**
-     * @param  int $id
-     * @param  bool $trashed
-     * @return Store|null
-     */
-    public function findById(int $id, bool $trashed = false): ?Store
-    {
-        return $this->repo->findById($id, $trashed);
-    }
-
-    /**
-     * @param array $args
-     * @return DomainCollection
-     */
-    public function findAll(array $args = []): DomainCollection
-    {
-        return $this->repo->findAll($args);
-    }
-
-    /**
-     * @param  int $id
-     * @param  array $args
-     * @return bool
-     */
-    public function update(int $id, array $args = [])
-    {
-        return $this->repo->update($id, $args);
-    }
-
 }

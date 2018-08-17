@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Eloquents;
 
-use App\Traits\Domainable;
+use App\Traits\Collections\Domainable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

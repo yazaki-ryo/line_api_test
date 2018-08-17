@@ -6,10 +6,10 @@ namespace Domain\Models;
 use App\Repositories\PlanRepository;
 use App\Services\DomainCollection;
 
-final class Plan
+final class Plan extends DomainModel
 {
     /** @var PlanRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -132,7 +132,7 @@ final class Plan
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

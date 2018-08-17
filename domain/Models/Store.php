@@ -7,10 +7,10 @@ use App\Repositories\StoreRepository;
 use App\Services\DomainCollection;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
-final class Store
+final class Store extends DomainModel
 {
     /** @var StoreRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -299,7 +299,7 @@ final class Store
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

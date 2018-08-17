@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Domain\Contracts\Model;
 
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-interface DomainableInterface
+interface DomainableContract
 {
     /**
      * @param Model $model
@@ -14,7 +14,8 @@ interface DomainableInterface
     public static function toModel(Model $model);
 
     /**
-     * @param EloquentCollection $collection
+     * @param  Collection $collection
+     * @return Collection
      */
-    public static function toModels(EloquentCollection $collection);
+    public static function toModels(Collection $collection): Collection;
 }

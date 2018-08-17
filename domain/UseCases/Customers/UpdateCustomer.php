@@ -3,31 +3,31 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Model\FindableInterface;
-use Domain\Contracts\Database\TransactionalInterface;
+use Domain\Contracts\Model\FindableContract;
+use Domain\Contracts\Database\TransactionableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 use Domain\Models\User;
 
 final class UpdateCustomer
 {
-    /** @var FindableInterface */
+    /** @var FindableContract */
     private $finder;
 
-    /** @var TransactionalInterface */
-    private $transactionalService;
+    /** @var TransactionableContract */
+    private $transactionable;
 
     /**
-     * @param FindableInterface $finder
-     * @param TransactionalInterface $transactionalService
+     * @param FindableContract $finder
+     * @param TransactionableContract $transactionable
      * @return void
      */
     public function __construct(
-        FindableInterface $finder,
-        TransactionalInterface $transactionalService
+        FindableContract $finder,
+        TransactionableContract $transactionable
     ) {
         $this->finder = $finder;
-        $this->transactionalService = $transactionalService;
+        $this->transactionable = $transactionable;
     }
 
     /**
