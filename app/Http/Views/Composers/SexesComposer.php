@@ -3,21 +3,21 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Services\SexesService;
+use Domain\Contracts\Model\FindableContract;
 use Illuminate\View\View;
 
 final class SexesComposer
 {
-    /** @var SexesService */
-    private $service;
+    /** @var FindableContract */
+    private $finder;
 
     /**
-     * @param  SexesService $service
+     * @param  FindableContract $finder
      * @return void
      */
-    public function __construct(SexesService $service)
+    public function __construct(FindableContract $finder)
     {
-        $this->service = $service;
+        $this->finder = $finder;
     }
 
     /**
@@ -44,6 +44,6 @@ final class SexesComposer
      */
     private function excute(View $view)
     {
-        $view->with('sexes', $this->service->findAll());
+        $view->with('sexes', $this->finder->findAll());
     }
 }
