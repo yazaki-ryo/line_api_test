@@ -7,16 +7,17 @@ use App\Eloquents\EloquentCompany;
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Company;
+use Domain\Models\DomainModel;
 use Domain\Models\Plan;
 use Domain\Models\Prefecture;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
-final class CompanyRepository implements DomainableContract
+final class CompanyRepository extends EloquentRepository implements DomainableContract
 {
     /** @var EloquentCompany */
-    private $eloquent;
+    protected $eloquent;
 
     /**
      * @param EloquentCompany|null $eloquent
@@ -28,67 +29,23 @@ final class CompanyRepository implements DomainableContract
     }
 
     /**
-     * @param int $id
-     * @return Company|null
-     */
-    public function findById(int $id): ?Company
-    {
-        if (is_null($resource = $this->eloquent->find($id))) {
-            return null;
-        }
-        return self::toModel($resource);
-    }
-
-    /**
-     * @param array $args
-     * @return DomainCollection
-     */
-    public function findAll(array $args = []): DomainCollection
-    {
-        $collection = $this->build($this->newQuery(), $args)->get();
-        return self::toModels($collection);
-    }
-
-    /**
-     * @param  int $id
-     * @param  array $args
-     * @return bool
-     */
-    public function update(int $id, array $args = []): bool
-    {
-        if (is_null($resource = $this->eloquent->find($id))) {
-            return false;
-        }
-        return $resource->update($args);
-    }
-
-    /**
      * @param Model $model
-     * @param \Illuminate\Database\Eloquent\Model;
-     * @return Company
+     * @return DomainModel
      */
-    public static function toModel(Model $model): Company
+    public static function toModel(Model $model): DomainModel
     {
         return Company::of(self::of($model));
     }
 
     /**
-     * @param EloquentCollection $collection
-     * @return DomainCollection
+     * @param Collection $collection
+     * @return Collection
      */
-    public static function toModels(EloquentCollection $collection): DomainCollection
+    public static function toModels(Collection $collection): Collection
     {
         return $collection->transform(function (EloquentCompany $item) {
             return self::toModel($item);
         });
-    }
-
-    /**
-     * @return array
-     */
-    public function attributesToArray(): array
-    {
-        return $this->eloquent->attributesToArray();
     }
 
     /**
@@ -141,23 +98,6 @@ final class CompanyRepository implements DomainableContract
             return null;
         }
         return PrefectureRepository::toModel($resource);
-    }
-
-    /**
-     * @param EloquentCompany $eloquent
-     * @return self
-     */
-    private static function of(EloquentCompany $eloquent)
-    {
-        return new self($eloquent);
-    }
-
-    /**
-     * @return Builder
-     */
-    private function newQuery(): Builder
-    {
-        return $this->eloquent->newQuery();
     }
 
     /**

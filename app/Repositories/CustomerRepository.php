@@ -7,18 +7,19 @@ use App\Eloquents\EloquentCustomer;
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Company;
+use Domain\Models\DomainModel;
 use Domain\Models\Customer;
 use Domain\Models\Prefecture;
 use Domain\Models\Sex;
 use Domain\Models\Store;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
-final class CustomerRepository implements DomainableContract
+final class CustomerRepository extends EloquentRepository implements DomainableContract
 {
     /** @var EloquentCustomer */
-    private $eloquent;
+    protected $eloquent;
 
     /**
      * @param EloquentCustomer|null $eloquent
@@ -30,107 +31,23 @@ final class CustomerRepository implements DomainableContract
     }
 
     /**
-     * @param int $id
-     * @param bool $trashed
-     * @return Customer|null
-     */
-    public function findById(int $id, bool $trashed = false): ?Customer
-    {
-        $resource = $this->eloquent->newQuery()
-            ->when($trashed, function (Builder $query) {
-                $query->onlyTrashed();
-            })->find($id);
-
-        if (is_null($resource)) {
-            return null;
-        }
-        return self::toModel($resource);
-    }
-
-    /**
-     * @param array $args
-     * @return DomainCollection
-     */
-    public function findAll(array $args = []): DomainCollection
-    {
-        $collection = $this->build($this->newQuery(), $args)->get();
-        return self::toModels($collection);
-    }
-
-    /**
-     * @param array $args
-     * @return Customer|null
-     */
-    public function create(array $args = []): ?Customer
-    {
-        if (is_null($resource = $this->eloquent->create($args))) {
-            return null;
-        }
-        return self::toModel($resource);
-    }
-
-    /**
-     * @param  int $id
-     * @param  array $args
-     * @return bool
-     */
-    public function update(int $id, array $args = []): bool
-    {
-        if (is_null($resource = $this->eloquent->find($id))) {
-            return false;
-        }
-        return $resource->update($args);
-    }
-
-    /**
-     * @param int $id
-     * @return void
-     */
-    public function delete(int $id): void
-    {
-        if (! is_null($resource = $this->eloquent->find($id))) {
-            $resource->delete();
-        }
-    }
-
-    /**
-     * @param int $id
-     * @return void
-     */
-    public function restore(int $id): void
-    {
-        if (! is_null($resource = $this->eloquent->onlyTrashed()->find($id))) {
-            $resource->restore();
-        }
-    }
-
-    /**
      * @param Model $model
-     * @param \Illuminate\Database\Eloquent\Model;
      * @return Customer
      */
-    public static function toModel(Model $model): Customer
+    public static function toModel(Model $model): DomainModel
     {
         return Customer::of(self::of($model));
     }
 
     /**
-     * @param EloquentCollection $collection
-     * @return DomainCollection
+     * @param Collection $collection
+     * @return Collection
      */
-    public static function toModels(EloquentCollection $collection): DomainCollection
+    public static function toModels(Collection $collection): Collection
     {
         return $collection->transform(function (EloquentCustomer $item) {
             return self::toModel($item);
         });
-    }
-
-    /**
-     * @return array
-     */
-    public function attributesToArray(): array
-    {
-        return $this->eloquent->attributesToArray();
     }
 
     /**
@@ -188,23 +105,6 @@ final class CustomerRepository implements DomainableContract
     {
         $collection = TagRepository::build($this->eloquent->tags(), $args)->get();
         return TagRepository::toModels($collection);
-    }
-
-    /**
-     * @param EloquentCustomer $eloquent
-     * @return self
-     */
-    private static function of(EloquentCustomer $eloquent)
-    {
-        return new self($eloquent);
-    }
-
-    /**
-     * @return Builder
-     */
-    private function newQuery(): Builder
-    {
-        return $this->eloquent->newQuery();
     }
 
     /**

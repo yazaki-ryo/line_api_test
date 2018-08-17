@@ -6,15 +6,16 @@ namespace App\Repositories;
 use App\Eloquents\EloquentPrefecture;
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
+use Domain\Models\DomainModel;
 use Domain\Models\Prefecture;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
-final class PrefectureRepository implements DomainableContract
+final class PrefectureRepository extends EloquentRepository implements DomainableContract
 {
     /** @var EloquentPrefecture */
-    private $eloquent;
+    protected $eloquent;
 
     /**
      * @param EloquentPrefecture|null $eloquent
@@ -26,42 +27,19 @@ final class PrefectureRepository implements DomainableContract
     }
 
     /**
-     * @param int $id
-     * @return Prefecture|null
-     */
-    public function findById(int $id): ?Prefecture
-    {
-        if (is_null($resource = $this->eloquent->find($id))) {
-            return null;
-        }
-        return self::toModel($resource);
-    }
-
-    /**
-     * @param array $args
-     * @return DomainCollection
-     */
-    public function findAll(array $args = []): DomainCollection
-    {
-        $collection = $this->build($this->newQuery(), $args)->get();
-        return self::toModels($collection);
-    }
-
-    /**
      * @param Model $model
-     * @param \Illuminate\Database\Eloquent\Model;
-     * @return Prefecture
+     * @return DomainModel
      */
-    public static function toModel(Model $model): Prefecture
+    public static function toModel(Model $model): DomainModel
     {
         return Prefecture::of(self::of($model));
     }
 
     /**
-     * @param EloquentCollection $collection
-     * @return DomainCollection
+     * @param Collection $collection
+     * @return Collection
      */
-    public static function toModels(EloquentCollection $collection): DomainCollection
+    public static function toModels(Collection $collection): Collection
     {
         return $collection->transform(function (EloquentPrefecture $item) {
             return self::toModel($item);
@@ -96,31 +74,6 @@ final class PrefectureRepository implements DomainableContract
     {
         $collection = StoreRepository::build($this->eloquent->stores(), $args)->get();
         return StoreRepository::toModels($collection);
-    }
-
-    /**
-     * @return array
-     */
-    public function attributesToArray(): array
-    {
-        return $this->eloquent->attributesToArray();
-    }
-
-    /**
-     * @param EloquentPrefecture $eloquent
-     * @return self
-     */
-    private static function of(EloquentPrefecture $eloquent)
-    {
-        return new self($eloquent);
-    }
-
-    /**
-     * @return Builder
-     */
-    private function newQuery(): Builder
-    {
-        return $this->eloquent->newQuery();
     }
 
     /**

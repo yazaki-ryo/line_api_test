@@ -6,15 +6,16 @@ namespace App\Repositories;
 use App\Eloquents\EloquentPlan;
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
+use Domain\Models\DomainModel;
 use Domain\Models\Plan;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
-final class PlanRepository implements DomainableContract
+final class PlanRepository extends EloquentRepository implements DomainableContract
 {
     /** @var EloquentPlan */
-    private $eloquent;
+    protected $eloquent;
 
     /**
      * @param EloquentPlan|null $eloquent
@@ -26,54 +27,23 @@ final class PlanRepository implements DomainableContract
     }
 
     /**
-     * @param int $id
-     * @return Plan|null
-     */
-    public function findById(int $id): ?Plan
-    {
-        if (is_null($resource = $this->eloquent->find($id))) {
-            return null;
-        }
-        return self::toModel($resource);
-    }
-
-    /**
-     * @param array $args
-     * @return DomainCollection
-     */
-    public function findAll(array $args = []): DomainCollection
-    {
-        $collection = $this->build($this->newQuery(), $args)->get();
-        return self::toModels($collection);
-    }
-
-    /**
      * @param Model $model
-     * @param \Illuminate\Database\Eloquent\Model;
-     * @return Plan
+     * @return DomainModel
      */
-    public static function toModel(Model $model): Plan
+    public static function toModel(Model $model): DomainModel
     {
         return Plan::of(self::of($model));
     }
 
     /**
-     * @param EloquentCollection $collection
-     * @return DomainCollection
+     * @param Collection $collection
+     * @return Collection
      */
-    public static function toModels(EloquentCollection $collection): DomainCollection
+    public static function toModels(Collection $collection): Collection
     {
         return $collection->transform(function (EloquentPlan $item) {
             return self::toModel($item);
         });
-    }
-
-    /**
-     * @return array
-     */
-    public function attributesToArray(): array
-    {
-        return $this->eloquent->attributesToArray();
     }
 
     /**
@@ -84,23 +54,6 @@ final class PlanRepository implements DomainableContract
     {
         $collection = CompanyRepository::build($this->eloquent->companies(), $args)->get();
         return CompanyRepository::toModels($collection);
-    }
-
-    /**
-     * @param EloquentPlan $eloquent
-     * @return self
-     */
-    private static function of(EloquentPlan $eloquent)
-    {
-        return new self($eloquent);
-    }
-
-    /**
-     * @return Builder
-     */
-    private function newQuery(): Builder
-    {
-        return $this->eloquent->newQuery();
     }
 
     /**
