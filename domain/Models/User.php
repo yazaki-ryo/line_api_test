@@ -5,11 +5,12 @@ namespace Domain\Models;
 
 use App\Repositories\UserRepository;
 use App\Services\DomainCollection;
+use Domain\Traits\Models\Authorizable;
 use Domain\Traits\Models\Notifiable;
 
 final class User extends DomainModel
 {
-    use Notifiable;
+    use Authorizable, Notifiable;
 
     /** @var UserRepository */
     protected $repo;
@@ -142,26 +143,6 @@ final class User extends DomainModel
     public function permissions(array $args = []): DomainCollection
     {
         return $this->repo->permissions($args);
-    }
-
-    /**
-     * @param  string  $ability
-     * @param  array|mixed  $arguments
-     * @return bool
-     */
-    public function can($ability, $arguments = []): bool
-    {
-        return $this->repo->can($ability, $arguments);
-    }
-
-    /**
-     * @param  string  $ability
-     * @param  array|mixed  $arguments
-     * @return bool
-     */
-    public function cant($ability, $arguments = []): bool
-    {
-        return ! $this->can($ability, $arguments);
     }
 
     /**
