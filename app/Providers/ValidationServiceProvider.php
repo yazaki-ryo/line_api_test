@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Repositories\UserRepository;
 use Domain\Models\Email;
 use Domain\Models\Store;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -25,7 +26,7 @@ final class ValidationServiceProvider extends ServiceProvider
         }, null);// override
 
         $validator->extend('store_id', function ($attribute, $value) use ($auth) {
-            return Store::validateStoreId($auth, (int)$value);
+            return Store::validateStoreId(UserRepository::toModel($auth->user()), (int)$value);
         }, __('The value sent is invalid.'));
     }
 

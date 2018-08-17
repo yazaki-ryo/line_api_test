@@ -5,7 +5,6 @@ namespace Domain\Models;
 
 use App\Repositories\StoreRepository;
 use App\Services\DomainCollection;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class Store extends DomainModel
 {
@@ -370,24 +369,26 @@ final class Store extends DomainModel
     }
 
     /**
-     * @param Auth $auth
+     * @param User $user
      * @param int $value
      * @return bool
      */
-    public static function validateStoreId(Auth $auth, int $value): bool
+    public static function validateStoreId(User $user, int $value): bool
     {
-        if (is_null($store = $auth->user()->store)
-            || is_null($company = $store->company)
+        if (is_null($store = $user->store())
+            || is_null($company = $store->company())
         ) {
             return false;
         }
 
-        if ($auth->user()->can('roles', 'company-admin')) {
-            if ($company->stores->containsStrict('id', $value)) {
+        if ($user->can('roles', 'company-admin')) {
+            if ($company->stores()->containsStrict(function ($item) use ($value) {
+                return $item->id() === $value;
+            })) {
                 return true;
             }
         } else {
-            if ($store->id === $value) {
+            if ($store->id() === $value) {
                 return true;
             }
         }
