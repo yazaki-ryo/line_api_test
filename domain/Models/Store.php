@@ -254,15 +254,6 @@ final class Store extends DomainModel
     }
 
     /**
-     * @param array $args
-     * @return bool
-     */
-    public function update(array $args = []): bool
-    {
-        return $this->repo->update($this->id(), $args);
-    }
-
-    /**
      * @param StoreRepository $repo
      * @return self
      */

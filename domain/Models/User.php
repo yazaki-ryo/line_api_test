@@ -5,10 +5,12 @@ namespace Domain\Models;
 
 use App\Repositories\UserRepository;
 use App\Services\DomainCollection;
-use Illuminate\Notifications\DatabaseNotificationCollection;
+use Domain\Traits\Models\Notifiable;
 
 final class User extends DomainModel
 {
+    use Notifiable;
+
     /** @var UserRepository */
     protected $repo;
 
@@ -143,15 +145,6 @@ final class User extends DomainModel
     }
 
     /**
-     * @param array $args
-     * @return bool
-     */
-    public function update(array $args = []): bool
-    {
-        return $this->repo->update($this->id(), $args);
-    }
-
-    /**
      * @param  string  $ability
      * @param  array|mixed  $arguments
      * @return bool
@@ -169,42 +162,6 @@ final class User extends DomainModel
     public function cant($ability, $arguments = []): bool
     {
         return ! $this->can($ability, $arguments);
-    }
-
-    /**
-     * @param  mixed  $instance
-     * @return void
-     */
-    public function notify($instance): void
-    {
-        $this->repo->notify($instance);
-    }
-
-    /**
-     * @param  array $args
-     * @return DatabaseNotificationCollection
-     */
-    public function notifications(array $args = []): DatabaseNotificationCollection
-    {
-        return $this->repo->notifications($args);
-    }
-
-    /**
-     * @param  array $args
-     * @return DatabaseNotificationCollection
-     */
-    public function readNotifications(array $args = []): DatabaseNotificationCollection
-    {
-        return $this->repo->readNotifications($args);
-    }
-
-    /**
-     * @param  array $args
-     * @return DatabaseNotificationCollection
-     */
-    public function unreadNotifications(array $args = []): DatabaseNotificationCollection
-    {
-        return $this->repo->unreadNotifications($args);
     }
 
     /**
