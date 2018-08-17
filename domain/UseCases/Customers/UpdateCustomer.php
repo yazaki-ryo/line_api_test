@@ -15,19 +15,19 @@ final class UpdateCustomer
     private $finder;
 
     /** @var TransactionableContract */
-    private $transactionalService;
+    private $transactionable;
 
     /**
      * @param FindableContract $finder
-     * @param TransactionableContract $transactionalService
+     * @param TransactionableContract $transactionable
      * @return void
      */
     public function __construct(
         FindableContract $finder,
-        TransactionableContract $transactionalService
+        TransactionableContract $transactionable
     ) {
         $this->finder = $finder;
-        $this->transactionalService = $transactionalService;
+        $this->transactionable = $transactionable;
     }
 
     /**

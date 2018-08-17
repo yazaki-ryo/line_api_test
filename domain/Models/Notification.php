@@ -6,10 +6,10 @@ namespace Domain\Models;
 use App\Repositories\NotificationRepository;
 use App\Services\DomainCollection;
 
-final class Notification
+final class Notification extends DomainModel
 {
     /** @var NotificationRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -153,7 +153,7 @@ final class Notification
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

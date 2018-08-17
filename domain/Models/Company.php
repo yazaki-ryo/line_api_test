@@ -6,10 +6,10 @@ namespace Domain\Models;
 use App\Repositories\CompanyRepository;
 use App\Services\DomainCollection;
 
-final class Company
+final class Company extends DomainModel
 {
     /** @var CompanyRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -248,7 +248,7 @@ final class Company
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

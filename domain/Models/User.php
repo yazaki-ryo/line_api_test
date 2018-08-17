@@ -7,10 +7,10 @@ use App\Repositories\UserRepository;
 use App\Services\DomainCollection;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 
-final class User
+final class User extends DomainModel
 {
     /** @var UserRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -229,7 +229,7 @@ final class User
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

@@ -6,10 +6,10 @@ namespace Domain\Models;
 use App\Repositories\PrefectureRepository;
 use App\Services\DomainCollection;
 
-final class Prefecture
+final class Prefecture extends DomainModel
 {
     /** @var PrefectureRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -147,7 +147,7 @@ final class Prefecture
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

@@ -6,10 +6,10 @@ namespace Domain\Models;
 use App\Repositories\TagRepository;
 use App\Services\DomainCollection;
 
-final class Tag
+final class Tag extends DomainModel
 {
     /** @var TagRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -121,7 +121,7 @@ final class Tag
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 
