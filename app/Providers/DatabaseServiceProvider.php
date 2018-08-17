@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Domain\Contracts\Database\TransactionalInterface;
+use Domain\Contracts\Database\TransactionableContract;
 use Illuminate\Database\Connection;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +22,8 @@ final class DatabaseServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(TransactionalInterface::class, function () {
-            return new class implements TransactionalInterface
+        $this->app->bind(TransactionableContract::class, function () {
+            return new class implements TransactionableContract
             {
                 /**
                  * @param callable $callee

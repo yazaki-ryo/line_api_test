@@ -5,12 +5,11 @@ namespace Domain\Models;
 
 use App\Repositories\StoreRepository;
 use App\Services\DomainCollection;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
-final class Store
+final class Store extends DomainModel
 {
     /** @var StoreRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -254,15 +253,6 @@ final class Store
     }
 
     /**
-     * @param array $args
-     * @return bool
-     */
-    public function update(array $args = []): bool
-    {
-        return $this->repo->update($this->id(), $args);
-    }
-
-    /**
      * @param StoreRepository $repo
      * @return self
      */
@@ -299,7 +289,7 @@ final class Store
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 
@@ -379,24 +369,26 @@ final class Store
     }
 
     /**
-     * @param Auth $auth
+     * @param User $user
      * @param int $value
      * @return bool
      */
-    public static function validateStoreId(Auth $auth, int $value): bool
+    public static function validateStoreId(User $user, int $value): bool
     {
-        if (is_null($store = $auth->user()->store)
-            || is_null($company = $store->company)
+        if (is_null($store = $user->store())
+            || is_null($company = $store->company())
         ) {
             return false;
         }
 
-        if ($auth->user()->can('roles', 'company-admin')) {
-            if ($company->stores->containsStrict('id', $value)) {
+        if ($user->can('roles', 'company-admin')) {
+            if ($company->stores()->containsStrict(function ($item) use ($value) {
+                return $item->id() === $value;
+            })) {
                 return true;
             }
         } else {
-            if ($store->id === $value) {
+            if ($store->id() === $value) {
                 return true;
             }
         }

@@ -5,12 +5,15 @@ namespace Domain\Models;
 
 use App\Repositories\UserRepository;
 use App\Services\DomainCollection;
-use Illuminate\Notifications\DatabaseNotificationCollection;
+use Domain\Traits\Models\Authorizable;
+use Domain\Traits\Models\Notifiable;
 
-final class User
+final class User extends DomainModel
 {
+    use Authorizable, Notifiable;
+
     /** @var UserRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -143,71 +146,6 @@ final class User
     }
 
     /**
-     * @param array $args
-     * @return bool
-     */
-    public function update(array $args = []): bool
-    {
-        return $this->repo->update($this->id(), $args);
-    }
-
-    /**
-     * @param  string  $ability
-     * @param  array|mixed  $arguments
-     * @return bool
-     */
-    public function can($ability, $arguments = []): bool
-    {
-        return $this->repo->can($ability, $arguments);
-    }
-
-    /**
-     * @param  string  $ability
-     * @param  array|mixed  $arguments
-     * @return bool
-     */
-    public function cant($ability, $arguments = []): bool
-    {
-        return ! $this->can($ability, $arguments);
-    }
-
-    /**
-     * @param  mixed  $instance
-     * @return void
-     */
-    public function notify($instance): void
-    {
-        $this->repo->notify($instance);
-    }
-
-    /**
-     * @param  array $args
-     * @return DatabaseNotificationCollection
-     */
-    public function notifications(array $args = []): DatabaseNotificationCollection
-    {
-        return $this->repo->notifications($args);
-    }
-
-    /**
-     * @param  array $args
-     * @return DatabaseNotificationCollection
-     */
-    public function readNotifications(array $args = []): DatabaseNotificationCollection
-    {
-        return $this->repo->readNotifications($args);
-    }
-
-    /**
-     * @param  array $args
-     * @return DatabaseNotificationCollection
-     */
-    public function unreadNotifications(array $args = []): DatabaseNotificationCollection
-    {
-        return $this->repo->unreadNotifications($args);
-    }
-
-    /**
      * @param UserRepository $repo
      * @return self
      */
@@ -229,7 +167,7 @@ final class User
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

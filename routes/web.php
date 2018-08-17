@@ -58,10 +58,21 @@ $router->group([
         $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name($prefix);
         $router->get( 'add', \App\Http\Controllers\Customers\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
         $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
-        $router->get( '{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
-        $router->post('{customerId}/edit', \App\Http\Controllers\Customers\UpdateController::class . '@update');
-        $router->post('{customerId}/delete', \App\Http\Controllers\Customers\DeleteController::class)->name(sprintf('%s.delete', $prefix));
-        $router->post('{customerId}/restore', \App\Http\Controllers\Customers\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+
+        $router->group([
+            'prefix' => '{customerId}',
+        ], function (Router $router) use ($prefix) {
+            $router->get( 'edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+            $router->post('edit', \App\Http\Controllers\Customers\UpdateController::class . '@update');
+            $router->post('delete', \App\Http\Controllers\Customers\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+            $router->post('restore', \App\Http\Controllers\Customers\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+        });
+
+        $router->group([
+            'prefix' => $prefix2 = 'pdf',
+        ], function (Router $router) use ($prefix, $prefix2) {
+            $router->post( 'output', \App\Http\Controllers\Customers\Pdf\OutputController::class)->name(sprintf('%s.%s.output', $prefix, $prefix2));
+        });
     });
 
     /**

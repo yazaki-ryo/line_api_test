@@ -3,23 +3,21 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Configurations;
 
-use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\User;
+use Domain\Traits\Database\Transactionable;
 use Illuminate\Support\Collection;
 
 final class UpdateProfile
 {
-    /** @var TransactionalInterface */
-    private $transactionalService;
+    use Transactionable;
 
     /**
-     * @param TransactionalInterface $transactionalService
      * @return void
      */
-    public function __construct(TransactionalInterface $transactionalService)
+    public function __construct()
     {
-        $this->transactionalService = $transactionalService;
+        //
     }
 
     /**
@@ -34,7 +32,7 @@ final class UpdateProfile
 
         $args = $this->domainize($user, $args);
 
-        return $this->transactionalService->transaction(function () use ($user, $args) {
+        return $this->transaction(function () use ($user, $args) {
             return $user->update($args);
         });
     }

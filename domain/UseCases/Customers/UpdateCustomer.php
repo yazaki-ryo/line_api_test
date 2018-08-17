@@ -3,31 +3,26 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
-use Domain\Contracts\Model\FindableInterface;
-use Domain\Contracts\Database\TransactionalInterface;
+use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 use Domain\Models\User;
+use Domain\Traits\Database\Transactionable;
 
 final class UpdateCustomer
 {
-    /** @var FindableInterface */
+    use Transactionable;
+
+    /** @var FindableContract */
     private $finder;
 
-    /** @var TransactionalInterface */
-    private $transactionalService;
-
     /**
-     * @param FindableInterface $finder
-     * @param TransactionalInterface $transactionalService
+     * @param FindableContract $finder
      * @return void
      */
-    public function __construct(
-        FindableInterface $finder,
-        TransactionalInterface $transactionalService
-    ) {
+    public function __construct(FindableContract $finder)
+    {
         $this->finder = $finder;
-        $this->transactionalService = $transactionalService;
     }
 
     /**
@@ -54,7 +49,7 @@ final class UpdateCustomer
     {
         $args = $this->domainize($user, $args);
 
-        return $this->transactionalService->transaction(function () use ($customer, $args) {
+        return $this->transaction(function () use ($customer, $args) {
             return $customer->update($args);
         });
     }

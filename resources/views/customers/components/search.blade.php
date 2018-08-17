@@ -16,7 +16,7 @@
         @lang ("elements.labels.{$field}")
     </label>
 
-    <div class="col-md-6">
+    <div class="col-md-6 form-control-static">
         <label>
             <input type="radio" name="{{ $field }}" value="1" required checked /> @lang ("elements.labels.{$field}")@lang ('elements.labels.state.without')
         </label>

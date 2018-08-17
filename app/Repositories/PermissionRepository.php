@@ -5,16 +5,17 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentPermission;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
+use Domain\Models\DomainModel;
 use Domain\Models\Permission;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
-final class PermissionRepository implements DomainableInterface
+final class PermissionRepository extends EloquentRepository implements DomainableContract
 {
     /** @var EloquentPermission */
-    private $eloquent;
+    protected $eloquent;
 
     /**
      * @param EloquentPermission|null $eloquent
@@ -26,42 +27,19 @@ final class PermissionRepository implements DomainableInterface
     }
 
     /**
-     * @param int $id
-     * @return Permission|null
-     */
-    public function findById(int $id): ?Permission
-    {
-        if (is_null($resource = $this->eloquent->find($id))) {
-            return null;
-        }
-        return self::toModel($resource);
-    }
-
-    /**
-     * @param array $args
-     * @return DomainCollection
-     */
-    public function findAll(array $args = []): DomainCollection
-    {
-        $collection = $this->build($this->newQuery(), $args)->get();
-        return self::toModels($collection);
-    }
-
-    /**
      * @param Model $model
-     * @param \Illuminate\Database\Eloquent\Model;
-     * @return Permission
+     * @return DomainModel
      */
-    public static function toModel(Model $model): Permission
+    public static function toModel(Model $model): DomainModel
     {
         return Permission::of(self::of($model));
     }
 
     /**
-     * @param EloquentCollection $collection
-     * @return DomainCollection
+     * @param Collection $collection
+     * @return Collection
      */
-    public static function toModels(EloquentCollection $collection): DomainCollection
+    public static function toModels(Collection $collection): Collection
     {
         return $collection->transform(function (EloquentPermission $item) {
             return self::toModel($item);
@@ -76,31 +54,6 @@ final class PermissionRepository implements DomainableInterface
     {
         $collection = UserRepository::build($this->eloquent->users(), $args)->get();
         return UserRepository::toModels($collection);
-    }
-
-    /**
-     * @return array
-     */
-    public function attributesToArray(): array
-    {
-        return $this->eloquent->attributesToArray();
-    }
-
-    /**
-     * @param EloquentPermission $eloquent
-     * @return self
-     */
-    private static function of(EloquentPermission $eloquent)
-    {
-        return new self($eloquent);
-    }
-
-    /**
-     * @return Builder
-     */
-    private function newQuery(): Builder
-    {
-        return $this->eloquent->newQuery();
     }
 
     /**

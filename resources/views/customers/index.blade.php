@@ -38,19 +38,18 @@
                     <li>
                         <a href="#search-tab" data-toggle="tab">@lang ('Search for')</a>
                     </li>
-                    <li role="presentation" class="dropdown">
+                    <li>
+                        <a href="#print-tab" data-toggle="tab">@lang ('elements.labels.postcard')@lang ('elements.actions.print')</a>
+                    </li>
+                    <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                           @lang ('elements.actions.menu') <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li role="presentation" class="active">
+                            <li class="disabled">
                                 <a href="#">
-                                    @lang ('Sub text')
-                                    <span class="badge">{{ $rows->count() }}</span>
+                                    @lang ('elements.labels.name_collation')
                                 </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#">@lang ('Sub text')</a>
                             </li>
                         </ul>
                     </li>
@@ -64,6 +63,13 @@
                         <div class="well">
                             {!! Form::open(['url' => route('customers'), 'id' => '', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.search')
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                    <div class="tab-pane pt-10" id="print-tab">
+                        <div class="well">
+                            {!! Form::open(['url' => route('customers.pdf.output'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                @include ('customers.components.postcard')
                             {!! Form::close() !!}
                         </div>
                     </div>

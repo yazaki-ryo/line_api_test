@@ -14,6 +14,8 @@ final class LocalServiceProvider extends ServiceProvider
     protected $providers = [
         \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         \Barryvdh\Debugbar\ServiceProvider::class,
+//         \Laravel\Dusk\DuskServiceProvider::class,
+        \NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider::class,
     ];
 
     /**

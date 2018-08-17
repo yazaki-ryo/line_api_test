@@ -5,16 +5,17 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentSex;
 use App\Services\DomainCollection;
-use Domain\Contracts\Model\DomainableInterface;
+use Domain\Contracts\Model\DomainableContract;
+use Domain\Models\DomainModel;
 use Domain\Models\Sex;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
-final class SexRepository implements DomainableInterface
+final class SexRepository extends EloquentRepository implements DomainableContract
 {
     /** @var EloquentSex */
-    private $eloquent;
+    protected $eloquent;
 
     /**
      * @param EloquentSex|null $eloquent
@@ -26,54 +27,23 @@ final class SexRepository implements DomainableInterface
     }
 
     /**
-     * @param int $id
-     * @return Sex|null
-     */
-    public function findById(int $id): ?Sex
-    {
-        if (is_null($resource = $this->eloquent->find($id))) {
-            return null;
-        }
-        return self::toModel($resource);
-    }
-
-    /**
-     * @param array $args
-     * @return DomainCollection
-     */
-    public function findAll(array $args = []): DomainCollection
-    {
-        $collection = $this->build($this->newQuery(), $args)->get();
-        return self::toModels($collection);
-    }
-
-    /**
      * @param Model $model
-     * @param \Illuminate\Database\Eloquent\Model;
-     * @return Sex
+     * @return DomainModel
      */
-    public static function toModel(Model $model): Sex
+    public static function toModel(Model $model): DomainModel
     {
         return Sex::of(self::of($model));
     }
 
     /**
-     * @param EloquentCollection $collection
-     * @return DomainCollection
+     * @param Collection $collection
+     * @return Collection
      */
-    public static function toModels(EloquentCollection $collection): DomainCollection
+    public static function toModels(Collection $collection): Collection
     {
         return $collection->transform(function (EloquentSex $item) {
             return self::toModel($item);
         });
-    }
-
-    /**
-     * @return array
-     */
-    public function attributesToArray(): array
-    {
-        return $this->eloquent->attributesToArray();
     }
 
     /**
@@ -84,23 +54,6 @@ final class SexRepository implements DomainableInterface
     {
         $collection = CustomerRepository::build($this->eloquent->customers(), $args)->get();
         return CustomerRepository::toModels($collection);
-    }
-
-    /**
-     * @param EloquentSex $eloquent
-     * @return self
-     */
-    private static function of(EloquentSex $eloquent)
-    {
-        return new self($eloquent);
-    }
-
-    /**
-     * @return Builder
-     */
-    private function newQuery(): Builder
-    {
-        return $this->eloquent->newQuery();
     }
 
     /**

@@ -6,10 +6,10 @@ namespace Domain\Models;
 use App\Repositories\CustomerRepository;
 use App\Services\DomainCollection;
 
-final class Customer
+final class Customer extends DomainModel
 {
     /** @var CustomerRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -348,33 +348,8 @@ final class Customer
     }
 
     /**
-     * @return void
-     */
-    public function delete(): void
-    {
-        $this->repo->delete($this->id());
-    }
-
-    /**
-     * @return void
-     */
-    public function restore(): void
-    {
-        $this->repo->restore($this->id());
-    }
-
-    /**
-     * @param array $args
-     * @return bool
-     */
-    public function update(array $args = []): bool
-    {
-        return $this->repo->update($this->id(), $args);
-    }
-
-    /**
-     * @param CustomerRepository $repo
-     * @return self
+     * @param  CustomerRepository $repo
+     * @return  self
      */
     public static function of(CustomerRepository $repo): self
     {
@@ -394,7 +369,7 @@ final class Customer
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

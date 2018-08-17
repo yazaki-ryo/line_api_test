@@ -3,23 +3,21 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Configurations;
 
-use Domain\Contracts\Database\TransactionalInterface;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Company;
 use Domain\Models\User;
+use Domain\Traits\Database\Transactionable;
 
 final class UpdateCompany
 {
-    /** @var TransactionalInterface */
-    private $transactionalService;
+    use Transactionable;
 
     /**
-     * @param TransactionalInterface $transactionalService
      * @return void
      */
-    public function __construct(TransactionalInterface $transactionalService)
+    public function __construct()
     {
-        $this->transactionalService = $transactionalService;
+        //
     }
 
     /**
@@ -46,7 +44,7 @@ final class UpdateCompany
         $resource = $this->getCompany($user);
         $args = $this->domainize($user, $args);
 
-        return $this->transactionalService->transaction(function () use ($resource, $args) {
+        return $this->transaction(function () use ($resource, $args) {
             return $resource->update($args);
         });
     }

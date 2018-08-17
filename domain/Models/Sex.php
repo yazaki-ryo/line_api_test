@@ -6,10 +6,10 @@ namespace Domain\Models;
 use App\Repositories\SexRepository;
 use App\Services\DomainCollection;
 
-final class Sex
+final class Sex extends DomainModel
 {
     /** @var SexRepository */
-    private $repo;
+    protected $repo;
 
     /** @var int */
     private $id;
@@ -121,7 +121,7 @@ final class Sex
      * @param array $args
      * @return self
      */
-    private function propertiesByArray(array $args = []): self
+    protected function propertiesByArray(array $args = []): self
     {
         $args = collect($args);
 

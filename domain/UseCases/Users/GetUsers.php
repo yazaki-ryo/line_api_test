@@ -4,17 +4,17 @@ declare(strict_types=1);
 namespace Domain\UseCases\Users;
 
 use App\Services\DomainCollection;
-use Domain\Contracts\Users\GetUsersInterface;
+use Domain\Contracts\Users\GetUsersContract;
 
 final class GetUsers
 {
-    /** @var GetUsersInterface */
+    /** @var GetUsersContract */
     private $usersService;
 
     /**
      * @return void
      */
-    public function __construct(GetUsersInterface $usersService)
+    public function __construct(GetUsersContract $usersService)
     {
         $this->usersService = $usersService;
     }

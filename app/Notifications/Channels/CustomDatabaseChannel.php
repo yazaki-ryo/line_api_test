@@ -11,7 +11,7 @@ class CustomDatabaseChannel extends DatabaseChannel
     /**
      * @param  mixed  $notifiable
      * @param  \Illuminate\Notifications\Notification  $notification
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return Model
      *
      * {@inheritDoc}
      * @see \Illuminate\Notifications\Channels\DatabaseChannel::send()
