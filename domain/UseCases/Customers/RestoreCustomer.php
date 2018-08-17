@@ -4,28 +4,24 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers;
 
 use Domain\Contracts\Model\FindableContract;
-use Domain\Contracts\Database\TransactionableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 use Domain\Models\User;
+use Domain\Traits\Database\Transactionable;
 
 final class RestoreCustomer
 {
+    use Transactionable;
+
     /** @var FindableContract */
     private $finder;
 
-    /** @var TransactionableContract */
-    private $transactionalService;
-
     /**
      * @param FindableContract $finder
-     * @param TransactionableContract $transactionalService
      * @return void
      */
-    public function __construct(
-        FindableContract $finder,
-        TransactionableContract $transactionalService
-    ) {
+    public function __construct(FindableContract $finder)
+    {
         $this->finder = $finder;
         $this->transactionalService = $transactionalService;
     }
@@ -51,7 +47,7 @@ final class RestoreCustomer
      */
     public function excute(User $user, Customer $customer): void
     {
-        $this->transactionalService->transaction(function () use ($customer) {
+        $this->transaction(function () use ($customer) {
             $customer->restore();
         });
     }

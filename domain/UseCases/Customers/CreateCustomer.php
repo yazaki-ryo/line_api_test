@@ -4,29 +4,24 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers;
 
 use Domain\Contracts\Model\CreatableContract;
-use Domain\Contracts\Database\TransactionableContract;
 use Domain\Models\Customer;
 use Domain\Models\User;
+use Domain\Traits\Database\Transactionable;
 
 final class CreateCustomer
 {
+    use Transactionable;
+
     /** @var CreatableContract */
     private $creator;
 
-    /** @var TransactionableContract */
-    private $transactionalService;
-
     /**
      * @param CreatableContract $creator
-     * @param TransactionableContract $transactionalService
      * @return void
      */
-    public function __construct(
-        CreatableContract $creator,
-        TransactionableContract $transactionalService
-    ) {
+    public function __construct(CreatableContract $creator)
+    {
         $this->creator = $creator;
-        $this->transactionalService = $transactionalService;
     }
 
     /**
@@ -38,7 +33,7 @@ final class CreateCustomer
     {
         $args = $this->domainize($user, $args);
 
-        return $this->transactionalService->transaction(function () use ($args) {
+        return $this->transaction(function () use ($args) {
             return $this->creator->create($args);
         });
     }

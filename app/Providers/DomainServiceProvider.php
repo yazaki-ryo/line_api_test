@@ -5,8 +5,6 @@ namespace App\Providers;
 
 use App\Services\CustomersService;
 use App\Services\PdfService;
-use Domain\Adapters\Customers\UpdateCustomerAdapter;
-use Domain\Contracts\Database\TransactionableContract;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Domain\UseCases\Customers\GetCustomers;
@@ -36,15 +34,13 @@ final class DomainServiceProvider extends ServiceProvider
          */
         $this->app->bind(CreateCustomer::class, function () {
             return new CreateCustomer(
-                app(CustomersService::class),
-                app(TransactionableContract::class)
+                app(CustomersService::class)
             );
         });
 
         $this->app->bind(DeleteCustomer::class, function () {
             return new DeleteCustomer(
-                app(CustomersService::class),
-                app(TransactionableContract::class)
+                app(CustomersService::class)
             );
         });
 
@@ -67,8 +63,7 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(RestoreCustomer::class, function () {
             return new RestoreCustomer(
-                app(CustomersService::class),
-                app(TransactionableContract::class)
+                app(CustomersService::class)
             );
         });
 
