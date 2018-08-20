@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\NotificationRepository;
-use App\Services\DomainCollection;
 
 final class Notification extends DomainModel
 {
