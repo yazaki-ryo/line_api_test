@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use Domain\Contracts\Cache\CacheableContract;
-use Illuminate\Contracts\Cache\Factory;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\ServiceProvider;
 
 final class CacheServiceProvider extends ServiceProvider
@@ -33,10 +33,10 @@ final class CacheServiceProvider extends ServiceProvider
                  */
                 public function remember(string $key, int $minutes = 0, callable $callee = null)
                 {
-                    /** @var Factory $factory */
-                    $factory = app(Factory::class);
+                    /** @var Repository $repository */
+                    $repository = app(Repository::class);
 
-                    return $factory->remember($key, $minutes, $callee);
+                    return $repository->remember($key, $minutes, $callee);
                 }
             };
         });
