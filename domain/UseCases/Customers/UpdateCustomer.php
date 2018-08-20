@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
+use App\Traits\Database\Transactionable;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 use Domain\Models\User;
-use Domain\Traits\Database\Transactionable;
 
 final class UpdateCustomer
 {
