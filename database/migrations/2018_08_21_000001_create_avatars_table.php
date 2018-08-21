@@ -24,7 +24,6 @@ class CreateAvatarsTable extends Migration
                 $table->string('name')->comment('ファイル名');
                 $table->morphs('avatarable');
                 $table->timestamps();
-                $table->softDeletes();
             });
 
             DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));

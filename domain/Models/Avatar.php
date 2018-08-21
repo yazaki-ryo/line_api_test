@@ -28,9 +28,6 @@ final class Avatar extends DomainModel
     /** @var Datetime */
     private $updatedAt;
 
-    /** @var Datetime */
-    private $deletedAt;
-
     /**
      * @param AvatarRepository|null $repo
      * @return void
@@ -59,7 +56,7 @@ final class Avatar extends DomainModel
     /**
      * @return int|null
      */
-    public function avatarableId(): ?string
+    public function avatarableId(): ?int
     {
         return $this->avatarableId;
     }
@@ -86,14 +83,6 @@ final class Avatar extends DomainModel
     public function updatedAt(): ?Datetime
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @return Datetime|null
-     */
-    public function deletedAt(): ?Datetime
-    {
-        return $this->deletedAt;
     }
 
     /**
@@ -151,10 +140,6 @@ final class Avatar extends DomainModel
         }
 
         if ($args->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
-        }
-
-        if ($args->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 

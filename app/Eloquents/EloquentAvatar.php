@@ -5,12 +5,11 @@ namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 final class EloquentAvatar extends Model
 {
-    use Domainable, SoftDeletes;
+    use Domainable;
 
     /** @var string */
     protected $table = 'avatars';

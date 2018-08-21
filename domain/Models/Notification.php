@@ -62,7 +62,7 @@ final class Notification extends DomainModel
     /**
      * @return int|null
      */
-    public function notifiableId(): ?string
+    public function notifiableId(): ?int
     {
         return $this->notifiableId;
     }
