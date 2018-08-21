@@ -67,7 +67,7 @@
     </label>
 
     <div class="col-md-6 form-control-static">
-        {!! Form::file($field, null, ['class' => 'form-control', 'id' => $field, 'placeholder' => 'test']) !!}
+        {!! Form::file($field, null, ['class' => 'form-control', 'id' => $field, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

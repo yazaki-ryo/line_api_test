@@ -59,7 +59,8 @@ final class ProfileController extends Controller
 
         /** @var UploadedFile $file */
         if (! is_null($file = $request->file('avatar'))) {
-            $args['avatar'] = $file->getClientOriginalName();
+            $args['avatar_path'] = sprintf('images/avatars/users/%s', $user->id());
+            $args['avatar_name'] = sprintf('%s_%s_%s', time(), str_random(16), $file->getClientOriginalName());
         }
 
         $callback = function () use ($user, $args) {
@@ -72,7 +73,7 @@ final class ProfileController extends Controller
         }
 
         if (! is_null($file)) {
-            $file->storeAs(sprintf('images/avatars/users/%s', $user->id()), $args['avatar'], 'public');
+            $file->storeAs($args['avatar_path'], $args['avatar_name'], 'public');
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.resources.users'), 'action' => __('elements.actions.updated')]), 'success');

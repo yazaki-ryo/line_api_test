@@ -18,6 +18,7 @@ final class EloquentAvatar extends Model
      * @var array
      */
     protected $fillable = [
+        'path',
         'name',
     ];
 

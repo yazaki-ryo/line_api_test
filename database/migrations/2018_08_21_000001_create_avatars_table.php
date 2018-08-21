@@ -21,7 +21,8 @@ class CreateAvatarsTable extends Migration
         try {
             Schema::create($this->table, function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('name')->comment('ファイル名');
+                $table->string('path')->nullable()->comment('パス');
+                $table->string('name')->unique()->comment('ファイル名');
                 $table->morphs('avatarable');
                 $table->timestamps();
             });

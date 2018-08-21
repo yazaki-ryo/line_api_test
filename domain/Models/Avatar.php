@@ -14,6 +14,9 @@ final class Avatar extends DomainModel
     private $id;
 
     /** @var string */
+    private $path;
+
+    /** @var string */
     private $name;
 
     /** @var int */
@@ -43,6 +46,14 @@ final class Avatar extends DomainModel
     public function id(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function path(): ?string
+    {
+        return $this->path;
     }
 
     /**
@@ -120,6 +131,10 @@ final class Avatar extends DomainModel
         $args = collect($args);
 
         if ($args->has($key = 'id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'path')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

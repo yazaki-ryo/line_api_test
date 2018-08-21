@@ -31,7 +31,8 @@ final class UpdateProfile
         return $this->transaction(function () use ($user, $args) {
             if (!empty($args['avatar'])) {
                 $user->addAvatar([
-                    'name' => $args['avatar'],
+                    'path' => $args['avatar_path'],
+                    'name' => $args['avatar_name'],
                 ]);
             }
             return $user->update($args);
