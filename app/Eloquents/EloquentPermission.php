@@ -24,13 +24,6 @@ final class EloquentPermission extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-
-    /**
      * @return MorphToMany
      */
     public function users(): MorphToMany

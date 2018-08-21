@@ -41,13 +41,6 @@ final class EloquentStore extends Model
     /**
      * @var array
      */
-    protected $hidden = [
-        //
-    ];
-
-    /**
-     * @var array
-     */
     protected $dates = [
         'starts_at',
         'ends_at',

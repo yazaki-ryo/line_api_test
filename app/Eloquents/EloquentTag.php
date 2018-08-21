@@ -23,13 +23,6 @@ final class EloquentTag extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-
-    /**
      * @return MorphToMany
      */
     public function customers(): MorphToMany

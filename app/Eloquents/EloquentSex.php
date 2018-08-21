@@ -23,13 +23,6 @@ final class EloquentSex extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-
-    /**
      * @return HasMany
      */
     public function customers(): HasMany

@@ -43,7 +43,7 @@ final class EloquentUser extends Authenticatable
      */
     public function avatars(): MorphMany
     {
-        return $this->morphMany(EloquentAvatar::class, 'avatarable');
+        return $this->morphMany(EloquentAvatar::class, 'avatarable', 'avatarable_type', 'avatarable_id', 'id');
     }
 
     /**

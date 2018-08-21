@@ -23,18 +23,11 @@ final class EloquentAvatar extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-
-    /**
      * @return MorphTo
      */
     public function avatarable(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo('avatarable', 'avatarable_type', 'avatarable_id');
     }
 
 }
