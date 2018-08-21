@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Configurations;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\User;
 use Domain\UseCases\Configurations\UpdateCompany;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -38,6 +39,7 @@ final class CompanyController extends Controller
      */
     public function view()
     {
+        /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
         return view('configurations.company', [
@@ -51,6 +53,7 @@ final class CompanyController extends Controller
      */
     public function update(UpdateRequest $request)
     {
+        /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 

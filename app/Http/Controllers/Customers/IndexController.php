@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\SearchRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\User;
 use Domain\UseCases\Customers\GetCustomers;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -39,8 +40,12 @@ final class IndexController extends Controller
      */
     public function __invoke(SearchRequest $request)
     {
+        /** @var User $user */
+        $user = UserRepository::toModel($this->auth->user());
+        $args = $request->validated();
+
         return view('customers.index', [
-            'rows' => $this->useCase->excute(UserRepository::toModel($this->auth->user()), $request->validated()),
+            'rows' => $this->useCase->excute($user, $args),
         ]);
     }
 

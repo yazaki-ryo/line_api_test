@@ -41,12 +41,20 @@ class SelfUpdateRequest extends FormRequest
                 'max:16',
                 'confirmed',
             ],
+            'avatar' => [
+                'nullable',
+                'file',
+                'image',
+                'mimes:jpg,jpeg,png,gif',
+                'max:2048',
+                // Rule::dimensions()->maxWidth(1000)->maxHeight(500)->ratio(3 / 2), // サイズ, 比率を指定する場合
+            ],
         ];
     }
 
     /**
-     * Get the validation messages that apply to the request.
-     *
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Http\FormRequest::messages()
      * @return array
      */
     public function messages(): array
@@ -57,8 +65,8 @@ class SelfUpdateRequest extends FormRequest
     }
 
     /**
-     * Get the validation attributes that apply to the request.
-     *
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Http\FormRequest::attributes()
      * @return array
      */
     public function attributes(): array

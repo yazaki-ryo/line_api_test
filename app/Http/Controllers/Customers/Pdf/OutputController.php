@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customers\Pdf;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
+use Domain\Models\User;
 use Domain\UseCases\Customers\OutputPdf;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -37,6 +38,7 @@ final class OutputController extends Controller
      */
     public function __invoke()
     {
+        /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         return $this->useCase->excute($user);
 
