@@ -3,32 +3,28 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNotificationsTable extends Migration
+class CreateAvatarsTable extends Migration
 {
     /** @var string */
-    private $table = 'notifications';
+    private $table = 'avatars';
 
     /** @var string */
-    private $name = '通知';
+    private $name = 'アバター';
 
     /**
-     * Run the migrations.
-     *
      * @return void
      */
     public function up()
     {
         try {
             Schema::create($this->table, function (Blueprint $table) {
-                $table->uuid('id')->primary();
-                $table->string('type')->comment('通知タイプ');
-                $table->morphs('notifiable');
-                $table->text('data');
-                $table->timestamp('read_at')->nullable()->comment('既読/未読');
+                $table->increments('id');
+                $table->string('name')->comment('ファイル名');
+                $table->morphs('avatarable');
                 $table->timestamps();
+                $table->softDeletes();
             });
 
             DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
@@ -40,8 +36,6 @@ class CreateNotificationsTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
-     *
      * @return void
      */
     public function down()

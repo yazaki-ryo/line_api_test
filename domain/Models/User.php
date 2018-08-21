@@ -97,6 +97,15 @@ final class User extends DomainModel
     }
 
     /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function avatars(array $args = []): DomainCollection
+    {
+        return $this->repo->avatars($args);
+    }
+
+    /**
      * @return int|null
      */
     public function roleId(): ?int

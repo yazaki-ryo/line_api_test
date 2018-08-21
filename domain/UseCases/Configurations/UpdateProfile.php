@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Domain\UseCases\Configurations;
 
 use App\Traits\Database\Transactionable;
-use Domain\Exceptions\NotFoundException;
 use Domain\Models\User;
 use Illuminate\Support\Collection;
 
@@ -24,12 +23,9 @@ final class UpdateProfile
      * @param  User $user
      * @param  array $args
      * @return bool
-     * @throws NotFoundException
      */
     public function excute(User $user, array $args = []): bool
     {
-        if (is_null($user)) throw new NotFoundException('Resource not found.');
-
         $args = $this->domainize($user, $args);
 
         return $this->transaction(function () use ($user, $args) {

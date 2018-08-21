@@ -3,30 +3,24 @@ declare(strict_types=1);
 
 namespace Domain\Models;
 
-use App\Repositories\NotificationRepository;
+use App\Repositories\AvatarRepository;
 
-final class Notification extends DomainModel
+final class Avatar extends DomainModel
 {
-    /** @var NotificationRepository */
+    /** @var AvatarRepository */
     protected $repo;
 
     /** @var int */
     private $id;
 
     /** @var string */
-    private $type;
-
-    /** @var string */
-    private $data;
+    private $name;
 
     /** @var int */
-    private $notifiableId;
+    private $avatarableId;
 
     /** @var string */
-    private $notifiableType;
-
-    /** @var Datetime */
-    private $readAt;
+    private $avatarableType;
 
     /** @var Datetime */
     private $createdAt;
@@ -34,13 +28,16 @@ final class Notification extends DomainModel
     /** @var Datetime */
     private $updatedAt;
 
+    /** @var Datetime */
+    private $deletedAt;
+
     /**
-     * @param NotificationRepository $repo
+     * @param AvatarRepository|null $repo
      * @return void
      */
-    public function __construct(NotificationRepository $repo)
+    public function __construct(AvatarRepository $repo = null)
     {
-        $this->repo = is_null($repo) ? new NotificationRepository : $repo;
+        $this->repo = is_null($repo) ? new AvatarRepository : $repo;
     }
 
     /**
@@ -54,41 +51,25 @@ final class Notification extends DomainModel
     /**
      * @return string|null
      */
-    public function type(): ?string
+    public function name(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
     /**
      * @return int|null
      */
-    public function notifiableId(): ?string
+    public function avatarableId(): ?string
     {
-        return $this->notifiableId;
+        return $this->avatarableId;
     }
 
     /**
      * @return string|null
      */
-    public function notifiableType(): ?string
+    public function avatarableType(): ?string
     {
-        return $this->notifiableType;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function data(): ?array
-    {
-        return $this->data;
-    }
-
-    /**
-     * @return Datetime|null
-     */
-    public function readAt(): ?Datetime
-    {
-        return $this->readAt;
+        return $this->avatarableType;
     }
 
     /**
@@ -108,18 +89,26 @@ final class Notification extends DomainModel
     }
 
     /**
-     * @return mixed DomainModel
+     * @return Datetime|null
      */
-    public function notifiable(): DomainModel
+    public function deletedAt(): ?Datetime
     {
-        return $this->repo->notifiable();
+        return $this->deletedAt;
     }
 
     /**
-     * @param NotificationRepository $repo
+     * @return mixed DomainModel
+     */
+    public function avatarable(): DomainModel
+    {
+        return $this->repo->avatarable();
+    }
+
+    /**
+     * @param AvatarRepository $repo
      * @return self
      */
-    public static function of(NotificationRepository $repo): self
+    public static function of(AvatarRepository $repo): self
     {
         return (new self($repo))->propertiesByArray($repo->attributesToArray());
     }
@@ -130,22 +119,7 @@ final class Notification extends DomainModel
      */
     public static function ofByArray(array $args = []): self
     {
-        return (new self(new NotificationRepository))->propertiesByArray($args);
-    }
-
-    /**
-     * @param array $args
-     * @return array
-     */
-    public static function domainizeAttributes(array $args = []): array
-    {
-        $args = collect($args);
-
-        if ($args->has($key = 'test')) {
-//             $args->put($key, 'test');
-        }
-
-        return $args->all();
+        return (new self(new AvatarRepository))->propertiesByArray($args);
     }
 
     /**
@@ -160,24 +134,16 @@ final class Notification extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'type')) {
+        if ($args->has($key = 'name')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'notifiable_id')) {
+        if ($args->has($key = 'avatarable_id')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'notifiable_type')) {
+        if ($args->has($key = 'avatarable_type')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
-        }
-
-        if ($args->has($key = 'data')) {
-            $this->{$camel = camel_case($key)} = $args->get($key);
-        }
-
-        if ($args->has($key = 'read_at')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
         if ($args->has($key = 'created_at')) {
@@ -185,6 +151,10 @@ final class Notification extends DomainModel
         }
 
         if ($args->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 

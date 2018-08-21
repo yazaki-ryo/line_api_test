@@ -7,6 +7,7 @@ use App\Traits\Collections\Domainable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,6 +37,14 @@ final class EloquentUser extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * @return MorphMany
+     */
+    public function avatars(): MorphMany
+    {
+        return $this->morphMany(EloquentAvatar::class, 'avatarable');
+    }
 
     /**
      * @return BelongsTo

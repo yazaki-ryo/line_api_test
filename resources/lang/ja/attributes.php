@@ -14,22 +14,6 @@ return [
     |
     */
 
-    'users' => [
-        'id'                    => 'ID',
-        'name'                  => 'ログイン名',
-        'email'                 => 'メールアドレス',
-        'store_id'              => '店舗',
-        'company_id'            => '企業',
-        'role_id'               => 'ロール',
-        'password'              => 'パスワード',
-        'password_confirmation' => 'パスワード(確認)',
-        'remember'              => 'ログイン状態を記憶する',
-
-        'created_at'            => '登録日時',
-        'updated_at'            => '更新日時',
-        'deleted_at'            => '削除日時',
-    ],
-
     'companies' => [
         'id'                    => 'ID',
         'plan_id'               => 'プラン',
@@ -102,6 +86,23 @@ return [
         'user_limit'            => 'ユーザー上限数',
         'starts_at'             => 'サービス開始日時',
         'ends_at'               => 'サービス終了日時',
+
+        'created_at'            => '登録日時',
+        'updated_at'            => '更新日時',
+        'deleted_at'            => '削除日時',
+    ],
+
+    'users' => [
+        'id'                    => 'ID',
+        'name'                  => 'ログイン名',
+        'email'                 => 'メールアドレス',
+        'avatar'                => 'アイコン',
+        'store_id'              => '店舗',
+        'company_id'            => '企業',
+        'role_id'               => 'ロール',
+        'password'              => 'パスワード',
+        'password_confirmation' => 'パスワード(確認)',
+        'remember'              => 'ログイン状態を記憶する',
 
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',

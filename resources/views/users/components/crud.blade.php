@@ -60,6 +60,18 @@
     </div>
 </div>
 
+@set ($field, 'avatar')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.users.{$field}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        {!! Form::file($field, null, ['class' => 'form-control', 'id' => $field, 'placeholder' => 'test']) !!}
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
 @set ($field, 'password')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
