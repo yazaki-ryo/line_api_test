@@ -67,6 +67,8 @@
     </label>
 
     <div class="col-md-6 form-control-static">
+        @include ('users.components.avatars')
+
         {!! Form::file($field, null, ['class' => 'form-control', 'id' => $field, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
