@@ -29,6 +29,11 @@ final class UpdateProfile
         $args = $this->domainize($user, $args);
 
         return $this->transaction(function () use ($user, $args) {
+            if (!empty($args['avatar'])) {
+                $user->addAvatar([
+                    'name' => $args['avatar'],
+                ]);
+            }
             return $user->update($args);
         });
     }
