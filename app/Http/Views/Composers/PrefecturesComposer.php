@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
+use App\Traits\Cache\Cacheable;
 use Domain\Contracts\Model\FindableContract;
 use Illuminate\View\View;
 
 final class PrefecturesComposer
 {
+    use Cacheable;
+
     /** @var FindableContract */
     private $finder;
 
@@ -44,6 +47,11 @@ final class PrefecturesComposer
      */
     private function excute(View $view)
     {
-        $view->with('prefectures', $this->finder->findAll());
+        $view->with(
+            'prefectures',
+            $this->remember('prefectures', 30, function () {
+                return $this->finder->findAll();
+            })
+        );
     }
 }

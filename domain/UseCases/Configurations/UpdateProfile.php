@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Configurations;
 
+use App\Traits\Database\Transactionable;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\User;
-use Domain\Traits\Database\Transactionable;
 use Illuminate\Support\Collection;
 
 final class UpdateProfile

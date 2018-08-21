@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\Traits\Database;
+namespace App\Traits\Database;
 
 use Domain\Contracts\Database\TransactionableContract;
 
