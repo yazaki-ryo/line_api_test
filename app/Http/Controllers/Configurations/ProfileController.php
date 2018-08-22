@@ -8,8 +8,8 @@ use App\Http\Requests\Users\SelfUpdateRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\User;
 use Domain\UseCases\Configurations\UpdateProfile;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\UploadedFile;
 
 final class ProfileController extends Controller
 {
@@ -58,22 +58,15 @@ final class ProfileController extends Controller
         $args = $request->validated();
 
         /** @var UploadedFile $file */
-        if (! is_null($file = $request->file('avatar'))) {
-            $args['avatar_path'] = sprintf('images/avatars/users/%s', $user->id());
-            $args['avatar_name'] = sprintf('%s_%s_%s', time(), str_random(16), $file->getClientOriginalName());
-        }
+        $file = $request->file('avatar');
 
-        $callback = function () use ($user, $args) {
-            $this->useCase->excute($user, $args);
+        $callback = function () use ($user, $args, $file) {
+            $this->useCase->excute($user, $args, $file);
         };
 
         if (! is_null(rescue($callback, false))) {
             flash(__('An internal error occurred. Please contact the administrator.'), 'danger');
             return back()->withInput();
-        }
-
-        if (! is_null($file)) {
-            $file->storeAs($args['avatar_path'], $args['avatar_name'], 'public');
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.resources.users'), 'action' => __('elements.actions.updated')]), 'success');

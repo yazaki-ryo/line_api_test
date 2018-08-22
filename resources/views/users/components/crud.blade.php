@@ -60,7 +60,9 @@
     </div>
 </div>
 
+{{--
 @set ($field, 'avatar')
+@set ($field2, 'drop_avatar')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.users.{$field}")
@@ -71,8 +73,16 @@
 
         {!! Form::file($field, null, ['class' => 'form-control', 'id' => $field, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+
+        @if ($row->avatars()->count())
+            <div class="checkbox">
+                <label>{!! Form::checkbox($field2, 1, old($field2), ['class' => '', 'id' => $field2]) !!} @lang ('Delete the current image.')</label>
+                {!! $errors->first($field2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+            </div>
+        @endif
     </div>
 </div>
+--}}
 
 @set ($field, 'password')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">

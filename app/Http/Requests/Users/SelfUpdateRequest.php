@@ -49,6 +49,9 @@ class SelfUpdateRequest extends FormRequest
                 'max:2048',
                 // Rule::dimensions()->maxWidth(1000)->maxHeight(500)->ratio(3 / 2), // サイズ, 比率を指定する場合
             ],
+            'drop_avatar' => [
+                'boolean',
+            ],
         ];
     }
 
