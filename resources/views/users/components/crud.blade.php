@@ -72,6 +72,7 @@
         @include ('users.components.avatars')
 
         {!! Form::file($field, null, ['class' => 'form-control', 'id' => $field, 'placeholder' => '']) !!}
+        {!! Form::hidden('MAX_FILE_SIZE', 2097152) !!}{{-- TODO いずれ設定値から取得 --}}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
 
         @if ($row->avatars()->count())

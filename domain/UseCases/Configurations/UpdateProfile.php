@@ -44,6 +44,7 @@ final class UpdateProfile
             }
 
             if (! is_null($file)) {
+                $this->dropAvatars($user);
                 $this->addAvatar($user, $file);
             }
         });
@@ -95,10 +96,11 @@ final class UpdateProfile
         /** @var Avatar $avatar */
         foreach ($user->avatars() as $avatar) {
             $avatar->delete();
-//             $this->filesystem->disk('public')->delete(str_finish($avatar->path(), '/') . $avatar->name());
+            // Per file.
+            // $this->filesystem->disk('public')->delete(str_finish($avatar->path(), '/') . $avatar->name());
         }
 
-        // all
+        // Per directory.
         $this->filesystem->disk('public')->deleteDirectory(sprintf('images/avatars/users/%s', $user->id()));
     }
 }
