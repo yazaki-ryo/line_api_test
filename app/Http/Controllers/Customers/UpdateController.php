@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\UpdateRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\User;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -39,6 +40,7 @@ final class UpdateController extends Controller
      */
     public function view(int $customerId)
     {
+        /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);
 
         $this->authorize('update', $customer);
@@ -55,7 +57,9 @@ final class UpdateController extends Controller
      */
     public function update(UpdateRequest $request, int $customerId)
     {
+        /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+        /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);
         $args = $request->validated();
 

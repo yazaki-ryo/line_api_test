@@ -73,8 +73,8 @@ class UpdateRequest extends FormRequest
     }
 
     /**
-     * Get the validation messages that apply to the request.
-     *
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Http\FormRequest::messages()
      * @return array
      */
     public function messages(): array
@@ -85,8 +85,8 @@ class UpdateRequest extends FormRequest
     }
 
     /**
-     * Get the validation attributes that apply to the request.
-     *
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Http\FormRequest::attributes()
      * @return array
      */
     public function attributes(): array

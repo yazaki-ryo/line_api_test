@@ -3,29 +3,27 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Eloquents\EloquentAvatar;
 use App\Eloquents\EloquentUser;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Exceptions\DomainRuleException;
 use Domain\Models\DomainModel;
-use Domain\Models\Notification;
-use Illuminate\Database\Eloquent\Builder;
+use Domain\Models\Avatar;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\DatabaseNotification;
-use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Support\Collection;
 
-final class NotificationRepository extends EloquentRepository implements DomainableContract
+final class AvatarRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var DatabaseNotification */
+    /** @var EloquentAvatar */
     protected $eloquent;
 
     /**
-     * @param DatabaseNotification|null $eloquent
+     * @param EloquentAvatar|null $eloquent
      * @return void
      */
-    public function __construct(DatabaseNotification $eloquent = null)
+    public function __construct(EloquentAvatar $eloquent = null)
     {
-        $this->eloquent = is_null($eloquent) ? new DatabaseNotification: $eloquent;
+        $this->eloquent = is_null($eloquent) ? new EloquentAvatar : $eloquent;
     }
 
     /**
@@ -34,7 +32,7 @@ final class NotificationRepository extends EloquentRepository implements Domaina
      */
     public static function toModel(Model $model): DomainModel
     {
-        return Notification::of(self::of($model));
+        return Avatar::of(self::of($model));
     }
 
     /**
@@ -43,7 +41,7 @@ final class NotificationRepository extends EloquentRepository implements Domaina
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (DatabaseNotification $item) {
+        return $collection->transform(function (EloquentAvatar $item) {
             return self::toModel($item);
         });
     }
@@ -52,9 +50,9 @@ final class NotificationRepository extends EloquentRepository implements Domaina
      * @return mixed DomainModel
      * @throws DomainRuleException
      */
-    public function notifiable(): DomainModel
+    public function avatarable(): DomainModel
     {
-        $resource = $this->eloquent->notifiable;
+        $resource = $this->eloquent->avatarable;
 
         if ($resource instanceof EloquentUser) {
             return UserRepository::toModel($resource);

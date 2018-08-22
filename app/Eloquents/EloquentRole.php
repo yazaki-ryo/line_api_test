@@ -23,13 +23,6 @@ final class EloquentRole extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-
-    /**
      * @return HasMany
      */
     public function users(): HasMany

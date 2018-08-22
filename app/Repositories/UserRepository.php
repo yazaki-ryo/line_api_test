@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Eloquents\EloquentUser;
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
+use Domain\Models\Avatar;
 use Domain\Models\Company;
 use Domain\Models\DomainModel;
 use Domain\Models\Role;
@@ -48,6 +49,28 @@ final class UserRepository extends EloquentRepository implements DomainableContr
         return $collection->transform(function (EloquentUser $item) {
             return self::toModel($item);
         });
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function avatars(array $args = []): DomainCollection
+    {
+        $collection = AvatarRepository::build($this->eloquent->avatars(), $args)->get();
+        return AvatarRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return Avatar
+     */
+    public function addAvatar(array $args = []): Avatar
+    {
+        if (is_null($resource = $this->eloquent->avatars()->create($args))) {
+            return null;
+        }
+        return AvatarRepository::toModel($resource);
     }
 
     /**

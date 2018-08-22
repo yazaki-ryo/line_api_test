@@ -28,7 +28,7 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('configurations.profile'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('configurations.profile'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal', 'files' => true]) !!}
                             @include ('users.components.crud')
                         {!! Form::close() !!}
                     </div>

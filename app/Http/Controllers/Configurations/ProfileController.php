@@ -6,8 +6,10 @@ namespace App\Http\Controllers\Configurations;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\User;
 use Domain\UseCases\Configurations\UpdateProfile;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\UploadedFile;
 
 final class ProfileController extends Controller
 {
@@ -37,8 +39,11 @@ final class ProfileController extends Controller
      */
     public function view()
     {
+        /** @var User $user */
+        $user = UserRepository::toModel($this->auth->user());
+
         return view('configurations.profile', [
-            'row' => UserRepository::toModel($this->auth->user()),
+            'row' => $user,
         ]);
     }
 
@@ -48,11 +53,15 @@ final class ProfileController extends Controller
      */
     public function update(SelfUpdateRequest $request)
     {
+        /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
-        $callback = function () use ($user, $args) {
-            $this->useCase->excute($user, $args);
+        /** @var UploadedFile $file */
+        $file = $request->file('avatar');
+
+        $callback = function () use ($user, $args, $file) {
+            $this->useCase->excute($user, $args, $file);
         };
 
         if (! is_null(rescue($callback, false))) {

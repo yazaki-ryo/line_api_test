@@ -53,15 +53,9 @@ final class EloquentCustomer extends Model
     /**
      * @var array
      */
-    protected $hidden = [
-        //
-    ];
-
-    /**
-     * @var array
-     */
     protected $dates = [
-        //
+        // 'anniversary',
+        // 'birthday',
     ];
 
     /**

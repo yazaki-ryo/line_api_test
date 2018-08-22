@@ -23,6 +23,8 @@ return [
         'history'        => '履歴',
         'import'         => 'インポート',
         'log'            => 'ログ',
+        'login'          => 'ログイン',
+        'logout'         => 'ログアウト',
         'menu'           => 'メニュー',
         'output'         => '出力',
         'print'          => '印刷',

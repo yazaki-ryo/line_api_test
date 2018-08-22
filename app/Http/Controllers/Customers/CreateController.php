@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\CreateRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\Customer;
+use Domain\Models\User;
 use Domain\UseCases\Customers\CreateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -51,6 +52,7 @@ final class CreateController extends Controller
      */
     public function create(CreateRequest $request)
     {
+        /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
