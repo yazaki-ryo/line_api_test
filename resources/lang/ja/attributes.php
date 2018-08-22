@@ -102,7 +102,7 @@ return [
         'role_id'               => 'ロール',
         'password'              => 'パスワード',
         'password_confirmation' => 'パスワード(確認)',
-        'remember'              => 'ログイン状態を記憶する',
+        'remember'              => '次回から自動でログインする',
 
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
