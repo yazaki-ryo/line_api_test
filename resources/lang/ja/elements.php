@@ -38,6 +38,8 @@ return [
         'save'           => '保存',
         'saved'          => '保存',
         'search'         => '検索',
+        'select'         => '選択',
+        'selected'       => '選択',
         'set'            => '設定',
         'submit'         => '送信',
         'update'         => '更新',

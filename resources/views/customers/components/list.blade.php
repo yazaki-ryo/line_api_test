@@ -3,6 +3,7 @@
         <table id="customers-table" class="table table-striped table-hover table-condensed">
             <thead>
                 <tr>
+                    <th><span class="glyphicon glyphicon-check"></span></th>
                     <th>@lang ('attributes.customers.name')</th>
                     <th>@lang ('attributes.customers.tel')</th>
                     <th>@lang ('attributes.customers.mobile_phone')</th>
@@ -14,6 +15,11 @@
             <tbody>
                 @foreach ($rows as $row)
                     <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
+                        <td>
+                            <div class="checkbox">
+                                <label>{!! Form::checkbox('selection[]', $row->{$camel = camel_case('id')}(), old('select'), []) !!}</label>
+                            </div>
+                        </td>
                         <td>{{ $row->{$camel = camel_case('name')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('tel')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>

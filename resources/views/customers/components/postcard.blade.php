@@ -19,8 +19,8 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">
+        <a href="{{ route('customers.pdf.output') }}" class="btn btn-primary" onclick="addValuesOnSubmit('{{ route('customers.pdf.output') }}', 'selection[]'); return false;">
             @lang ('elements.labels.test')@lang ('elements.actions.output')
-        </button>
+        </a>
     </div>
 </div>
