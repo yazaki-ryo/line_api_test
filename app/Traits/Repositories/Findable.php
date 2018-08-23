@@ -14,7 +14,7 @@ trait Findable
      * @param bool $trashed
      * @return DomainModel|null
      */
-    public function findById(int $id, bool $trashed = false): ?DomainModel
+    public function find(int $id, bool $trashed = false): ?DomainModel
     {
         $resource = $this->eloquent->newQuery()
             ->when($trashed, function (Builder $query) {
@@ -31,7 +31,7 @@ trait Findable
      * @param array $args
      * @return DomainCollection
      */
-    public function findAll(array $args = []): DomainCollection
+    public function findMany(array $args = []): DomainCollection
     {
         $collection = $this->build($this->newQuery(), $args)->get();
         return static::toModels($collection);

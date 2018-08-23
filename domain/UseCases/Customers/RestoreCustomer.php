@@ -33,7 +33,7 @@ final class RestoreCustomer
      */
     public function getCustomer(int $id): Customer
     {
-        if (is_null($resource = $this->finder->findById($id, true))) {
+        if (is_null($resource = $this->finder->find($id, true))) {
             throw new NotFoundException('Resource not found.');
         }
 

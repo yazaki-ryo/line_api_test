@@ -13,17 +13,17 @@ trait Findable
      * @param bool $trashed
      * @return DomainModel|null
      */
-    public function findById(int $id, bool $trashed = false): ?DomainModel
+    public function find(int $id, bool $trashed = false): ?DomainModel
     {
-        return $this->repo->findById($id, $trashed);
+        return $this->repo->find($id, $trashed);
     }
 
     /**
      * @param array $args
      * @return DomainCollection
      */
-    public function findAll(array $args = []): DomainCollection
+    public function findMany(array $args = []): DomainCollection
     {
-        return $this->repo->findAll($args);
+        return $this->repo->findMany($args);
     }
 }

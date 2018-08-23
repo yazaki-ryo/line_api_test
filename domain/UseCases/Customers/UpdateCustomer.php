@@ -32,7 +32,7 @@ final class UpdateCustomer
      */
     public function getCustomer(int $id): Customer
     {
-        if (is_null($resource = $this->finder->findById($id))) {
+        if (is_null($resource = $this->finder->find($id))) {
             throw new NotFoundException('Resource not found.');
         }
 

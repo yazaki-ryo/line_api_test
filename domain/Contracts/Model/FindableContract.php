@@ -11,18 +11,12 @@ interface FindableContract
      * @param  int $id
      * @param  bool $trashed
      */
-    public function findById(int $id, bool $trashed = false);
-
-    /**
-     * @param array $ids
-     * @return DomainCollection
-     */
-//     public function findMany(array $ids = []): DomainCollection;
+    public function find(int $id, bool $trashed = false);
 
     /**
      * @param array $args
      * @return DomainCollection
      */
-    public function findAll(array $args = []): DomainCollection;
+    public function findMany(array $args = []): DomainCollection;
 
 }
