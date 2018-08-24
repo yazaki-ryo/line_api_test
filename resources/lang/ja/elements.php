@@ -54,6 +54,7 @@ return [
         'information'    => '情報',
         'joining'        => '参加中',
         'mode'           => 'モード',
+        'name'           => '氏名',
         'name_collation' => '名寄せ',
         'no'             => 'いいえ',
         'notice'         => 'お知らせ',

@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th><span class="glyphicon glyphicon-check"></span></th>
-                    <th>@lang ('attributes.customers.name')</th>
+                    <th>@lang ('elements.labels.name')</th>
                     <th>@lang ('attributes.customers.office')</th>
                     <th>@lang ('attributes.customers.tel')</th>
                     <th>@lang ('attributes.customers.mobile_phone')</th>
@@ -20,7 +20,7 @@
                                 <label>{!! Form::checkbox('selection[]', $row->{$camel = camel_case('id')}(), old('select'), []) !!}</label>
                             </div>
                         </td>
-                        <td>{{ $row->{$camel = camel_case('name')}() }}</td>
+                        <td>{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('office')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('tel')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
