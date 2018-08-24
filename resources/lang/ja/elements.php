@@ -60,6 +60,8 @@ return [
         'notification'   => '通知',
         'paid'           => '済',
         'postcard'       => 'はがき',
+        'pdf'            => 'PDF',
+        'preview'        => 'プレビュー',
         'primary'        => 'メイン',
         'required'       => '必須',
         'sample'         => 'サンプル',

@@ -20,7 +20,11 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         <a href="{{ route('customers.pdf.output') }}" class="btn btn-primary" onclick="addValuesOnSubmit('{{ route('customers.pdf.output') }}', 'selection[]'); return false;">
-            @lang ('elements.labels.test')@lang ('elements.actions.output')
+            @lang ('elements.labels.pdf')@lang ('elements.actions.output')
         </a>
+        <button type="button" class="btn btn-default" disabled>
+            @lang ('elements.labels.preview')
+            <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="tooltip" data-container="body" data-placement="top" data-original-title="@lang ('Preview can be displayed with a postcard background.')"></span>
+        </button>
     </div>
 </div>
