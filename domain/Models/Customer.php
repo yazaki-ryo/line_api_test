@@ -27,6 +27,9 @@ final class Customer extends DomainModel
     private $office;
 
     /** @var string */
+    private $officeKana;
+
+    /** @var string */
     private $department;
 
     /** @var string */
@@ -136,6 +139,14 @@ final class Customer extends DomainModel
     public function office(): ?string
     {
         return $this->office;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function officeKana(): ?string
+    {
+        return $this->officeKana;
     }
 
     /**
@@ -390,6 +401,10 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'office')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'office_kana')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

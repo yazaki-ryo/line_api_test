@@ -42,7 +42,8 @@ return [
         'name'                  => '氏名',
         'kana'                  => 'フリガナ',
         'age'                   => '年齢',
-        'office'                => '勤務先',
+        'office'                => '会社名',
+        'office_kana'           => 'フリガナ',
         'department'            => '部署',
         'position'              => '役職',
 

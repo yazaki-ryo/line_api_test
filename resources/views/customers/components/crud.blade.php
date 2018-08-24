@@ -64,6 +64,18 @@
     </div>
 </div>
 
+@set ($field, 'office_kana')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.{$field}")
+    </label>
+
+    <div class="col-md-6">
+        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
 @set ($field, 'department')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">

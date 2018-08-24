@@ -48,6 +48,12 @@ class UpdateRequest extends FormRequest
                 'string',
                 'max:191',
             ],
+            'office_kana' => [
+                'nullable',
+                'string',
+                // TODO フリガナバリデートルール
+                'max:191',
+            ],
             'department' => [
                 'nullable',
                 'string',

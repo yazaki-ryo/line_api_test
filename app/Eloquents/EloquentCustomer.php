@@ -31,6 +31,7 @@ final class EloquentCustomer extends Model
         'kana',
         'age',
         'office',
+        'office_kana',
         'department',
         'position',
 

@@ -5,9 +5,9 @@
                 <tr>
                     <th><span class="glyphicon glyphicon-check"></span></th>
                     <th>@lang ('attributes.customers.name')</th>
+                    <th>@lang ('attributes.customers.office')</th>
                     <th>@lang ('attributes.customers.tel')</th>
                     <th>@lang ('attributes.customers.mobile_phone')</th>
-                    <th>@lang ('attributes.customers.tags')</th>
                     <th>@lang ('attributes.customers.visited_cnt')</th>
                     <th>@lang ('elements.labels.action')</th>
                 </tr>
@@ -21,9 +21,9 @@
                             </div>
                         </td>
                         <td>{{ $row->{$camel = camel_case('name')}() }}</td>
+                        <td>{{ $row->{$camel = camel_case('office')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('tel')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
-                        <td>@include ('customers.components.tags')</td>
                         <td>{{ $row->{$camel = camel_case('visited_cnt')}()->asInt() }}</td>
                         <td>
                             @if ($row->{$camel = camel_case('deleted_at')}())
