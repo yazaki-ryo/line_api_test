@@ -22,12 +22,23 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'last_name' => [
                 'required',
                 'string',
                 'max:191',
             ],
-            'kana' => [
+            'first_name' => [
+                'required',
+                'string',
+                'max:191',
+            ],
+            'last_name_kana' => [
+                'nullable',
+                'string',
+                // TODO フリガナバリデートルール
+                'max:191',
+            ],
+            'first_name_kana' => [
                 'nullable',
                 'string',
                 // TODO フリガナバリデートルール

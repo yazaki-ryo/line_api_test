@@ -1,25 +1,37 @@
-@set ($field, 'name')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$field}")
+@set ($field1, 'last_name')
+@set ($field2, 'first_name')
+<div class="form-group{{ $errors->has($field1) || $errors->has($field2) ? ' has-error' : '' }}">
+    <label for="{{ $field1 }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.{$field1}")@lang ("attributes.customers.{$field2}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
-    <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    <div class="col-md-3">
+        {!! Form::text($field1, old($field1, request($field1, $row->{$camel = camel_case($field1)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field1, 'maxlength' => 191, 'placeholder' => __("attributes.customers.{$field1}")]) !!}
+        {!! $errors->first($field1, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+
+    <div class="col-md-3">
+        {!! Form::text($field2, old($field2, request($field2, $row->{$camel = camel_case($field2)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field2, 'maxlength' => 191, 'placeholder' => __("attributes.customers.{$field2}")]) !!}
+        {!! $errors->first($field2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
 
-@set ($field, 'kana')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$field}")
+@set ($field1, 'last_name_kana')
+@set ($field2, 'first_name_kana')
+<div class="form-group{{ $errors->has($field1) || $errors->has($field2) ? ' has-error' : '' }}">
+    <label for="{{ $field1 }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.last_name")@lang ("attributes.customers.{$field2}")
     </label>
 
-    <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    <div class="col-md-3">
+        {!! Form::text($field1, old($field1, request($field1, $row->{$camel = camel_case($field1)}() ?? null)), ['class' => 'form-control', 'id' => $field1, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field1}")]) !!}
+        {!! $errors->first($field1, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+
+    <div class="col-md-3">
+        {!! Form::text($field2, old($field2, request($field2, $row->{$camel = camel_case($field2)}() ?? null)), ['class' => 'form-control', 'id' => $field2, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field2}")]) !!}
+        {!! $errors->first($field2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
 
@@ -47,7 +59,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -59,7 +71,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -71,7 +83,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -83,7 +95,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -95,7 +107,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -107,7 +119,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -131,7 +143,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
+        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -143,7 +155,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
+        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -156,7 +168,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -168,7 +180,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -180,7 +192,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::email($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::email($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -192,7 +204,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -234,7 +246,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
+        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

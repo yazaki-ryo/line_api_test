@@ -28,8 +28,10 @@ class CreateCustomersTable extends Migration
 //                 $table->unsignedInteger('group_id')->nullable()->comment('グループID');
 //                 $table->unsignedInteger('introducer_id')->nullable()->comment('紹介者ID');
 
-                $table->string('name')->nullable()->comment('氏名');
-                $table->string('kana')->nullable()->comment('フリガナ');
+                $table->string('last_name')->nullable()->comment('姓');
+                $table->string('first_name')->nullable()->comment('名');
+                $table->string('last_name_kana')->nullable()->comment('姓フリガナ');
+                $table->string('first_name_kana')->nullable()->comment('名フリガナ');
                 $table->unsignedTinyInteger('age')->nullable()->comment('年齢');
                 $table->string('office')->nullable()->comment('会社名');
                 $table->string('office_kana')->nullable()->comment('フリガナ');

@@ -15,10 +15,16 @@ final class Customer extends DomainModel
     private $id;
 
     /** @var string */
-    private $name;
+    private $lastName;
 
     /** @var string */
-    private $kana;
+    private $firstName;
+
+    /** @var string */
+    private $lastNameKana;
+
+    /** @var string */
+    private $firstNameKana;
 
     /** @var int */
     private $age;
@@ -112,17 +118,33 @@ final class Customer extends DomainModel
     /**
      * @return string|null
      */
-    public function name(): ?string
+    public function lastName(): ?string
     {
-        return $this->name;
+        return $this->lastName;
     }
 
     /**
      * @return string|null
      */
-    public function kana(): ?string
+    public function firstName(): ?string
     {
-        return $this->kana;
+        return $this->firstName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function lastNameKana(): ?string
+    {
+        return $this->lastNameKana;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function firstNameKana(): ?string
+    {
+        return $this->firstNameKana;
     }
 
     /**
@@ -388,11 +410,19 @@ final class Customer extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'name')) {
+        if ($args->has($key = 'last_name')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'kana')) {
+        if ($args->has($key = 'first_name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'last_name_kana')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'first_name_kana')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

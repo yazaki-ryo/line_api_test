@@ -1,7 +1,8 @@
 @set ($field, 'mode')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ('elements.actions.output')@lang ("elements.labels.{$field}")
+        @lang ('elements.actions.output')
+        @lang ("elements.labels.{$field}")
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -20,7 +21,8 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         <a href="{{ route('customers.pdf.output') }}" class="btn btn-primary" onclick="addValuesOnSubmit('{{ route('customers.pdf.output') }}', 'selection[]'); return false;">
-            @lang ('elements.labels.pdf')@lang ('elements.actions.output')
+            @lang ('elements.labels.pdf')
+            @lang ('elements.actions.output')
         </a>
         <button type="button" class="btn btn-default" disabled>
             @lang ('elements.labels.preview')

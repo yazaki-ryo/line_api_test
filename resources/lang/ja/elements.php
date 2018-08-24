@@ -110,6 +110,26 @@ return [
         'home' => 'ホーム',
     ],
 
+    'placeholders' => [
+        'customers' => [
+            'last_name_kana'  => 'セイ',
+            'first_name_kana' => 'メイ',
+            'age'             => '35',
+            'office'          => '株式会社サンプル',
+            'office_kana'     => 'カブシキガイシャサンプル',
+            'department'      => '営業部',
+            'position'        => '課長',
+            'postal_code'     => '5420085',
+            'address'         => '大阪市中央区心斎橋筋2-2-30',
+            'building_name'   => 'サンプルマンション801',
+            'tel'             => '0661112222',
+            'fax'             => '0663334444',
+            'email'           => 'sample@sample.jp',
+            'mobile_phone'    => '09011112222',
+            'note'            => 'パーソナルメモとしてご利用ください',
+        ],
+    ],
+
     'postcards' => [
         'new_year_card'        => '年賀はがき',
         'summer_greeting_card' => '暑中見舞い',
