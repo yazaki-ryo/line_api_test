@@ -42,10 +42,6 @@ final class OutputController extends Controller
         $user = UserRepository::toModel($this->auth->user());
         return $this->useCase->excute($user);
 
-
-        /**
-         * TODO Outputable Flow
-         */
         $customer = $this->useCase->getCustomer($customerId);
 
         $this->authorize('delete', $customer);
