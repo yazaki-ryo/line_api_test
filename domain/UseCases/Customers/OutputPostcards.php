@@ -9,32 +9,31 @@ use Domain\Models\User;
 
 final class OutputPostcards
 {
-    /** @var OutputableContract $response */
-    private $response;
+    /** @var OutputableContract $service */
+    private $service;
 
     /** @var FindableContract */
     private $finder;
 
     /**
-     * @param  OutputableContract $response
+     * @param  OutputableContract $service
      * @param  FindableContract $finder
      * @return void
      */
-    public function __construct(OutputableContract $response, FindableContract $finder)
+    public function __construct(OutputableContract $service, FindableContract $finder)
     {
-        $this->response = $response;
+        $this->service = $service;
         $this->finder = $finder;
     }
 
     /**
-     * @param  User $user
+     * @param User $user
      */
     public function excute(User $user)
     {
-        $mode = 'test';
-        $data = [];
-
-        return $this->response->output($mode, $data);
+        return $this->service
+            ->setHandlersByKeys('new_year_card')// TODO Here is selected mode.
+            ->output($this->finder->findMany());// TODO Here is selected customers.
     }
 
 }

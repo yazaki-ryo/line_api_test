@@ -8,7 +8,7 @@ use App\Http\Views\Composers\SexesComposer;
 use App\Services\CustomersService;
 use App\Services\SexesService;
 use App\Services\Pdf\PdfService;
-use App\Services\Pdf\Handlers\PostcardHandler;
+use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use App\Services\PrefecturesService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
@@ -63,9 +63,7 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(OutputPostcards::class, function () {
             return new OutputPostcards(
-                new PdfService(
-                    app(PostcardHandler::class)
-                ),
+                app(PdfService::class),
                 app(CustomersService::class)
             );
         });

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Pdf\Handlers;
+namespace App\Services\Pdf\Handlers\Postcards;
 
 use Domain\Contracts\Handlers\HandlableContract;
 use setasign\Fpdi\TcpdfFpdi;
 use TCPDF_FONTS;
 
-final class PostcardHandler implements HandlableContract
+final class VerticallyPostcardHandler implements HandlableContract
 {
     /** @var TcpdfFpdi */
     private $processor;
@@ -28,7 +28,7 @@ final class PostcardHandler implements HandlableContract
     /**
      * @return void
      */
-    public function process(): void
+    public function process($data): void
     {
         $this->processor->SetMargins(0,0,0);
         $this->processor->SetAutoPageBreak(false);

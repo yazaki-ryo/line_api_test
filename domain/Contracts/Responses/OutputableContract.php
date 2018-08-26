@@ -6,8 +6,7 @@ namespace Domain\Contracts\Responses;
 interface OutputableContract
 {
     /**
-     * @param  string $mode
-     * @param  array $data
+     * @param mixed $data
      */
-    public function output(string $mode, array $data);
+    public function output($data);
 }
