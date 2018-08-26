@@ -33,7 +33,7 @@ final class OutputPostcards
     {
         return $this->service
             ->setHandlersByKeys('new_year_card')// TODO Here is selected mode.
-            ->output($this->finder->findMany());// TODO Here is selected customers.
+            ->output($this->finder->findMany()->toArray());// TODO Here is selected customers.
     }
 
 }

@@ -24,9 +24,9 @@ final class PdfService implements OutputableContract
     }
 
     /**
-     * @param mixed $data
+     * @param array $data
      */
-    public function output($data)
+    public function output(array $data)
     {
         foreach ($this->handlers as $handler) {
             $handler->process($data);
@@ -44,10 +44,9 @@ final class PdfService implements OutputableContract
     }
 
     /**
-     * @param HandlableContract $handler
      * @return Collection
      */
-    public function popHandler(HandlableContract $handler): HandlableContract
+    public function popHandler(): HandlableContract
     {
         if (!$this->handlers) {
             throw new \LogicException('You tried to pop from an empty handler stack.');
