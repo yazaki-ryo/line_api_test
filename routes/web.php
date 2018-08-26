@@ -69,9 +69,9 @@ $router->group([
         });
 
         $router->group([
-            'prefix' => $prefix2 = 'pdf',
+            'prefix' => $prefix2 = 'postcards',
         ], function (Router $router) use ($prefix, $prefix2) {
-            $router->post( 'output', \App\Http\Controllers\Customers\Pdf\OutputController::class)->name(sprintf('%s.%s.output', $prefix, $prefix2));
+            $router->post( 'output', \App\Http\Controllers\Customers\Postcards\OutputController::class)->name(sprintf('%s.%s.output', $prefix, $prefix2));
         });
     });
 

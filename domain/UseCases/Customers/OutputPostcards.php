@@ -5,10 +5,9 @@ namespace Domain\UseCases\Customers;
 
 use Domain\Contracts\Model\FindableContract;
 use Domain\Contracts\Responses\OutputableContract;
-use Domain\Models\Customer;
 use Domain\Models\User;
 
-final class OutputPdf
+final class OutputPostcards
 {
     /** @var OutputableContract $response */
     private $response;

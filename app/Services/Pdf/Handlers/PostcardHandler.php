@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services;
+namespace App\Services\Pdf\Handlers;
 
-use Domain\Contracts\Responses\OutputableContract;
+use Domain\Contracts\Handlers\HandlableContract;
 use setasign\Fpdi\TcpdfFpdi;
 use TCPDF_FONTS;
 
-final class PdfService implements OutputableContract
+final class PostcardHandler implements HandlableContract
 {
     /** @var TcpdfFpdi */
     private $processor;
@@ -26,10 +26,9 @@ final class PdfService implements OutputableContract
     }
 
     /**
-     * @param  string $mode
-     * @param  array $data
+     * @return void
      */
-    public function output(string $mode, array $data)
+    public function process(): void
     {
         $this->processor->SetMargins(0,0,0);
         $this->processor->SetAutoPageBreak(false);
@@ -61,12 +60,11 @@ final class PdfService implements OutputableContract
             $this->processor->Output($filename, 'I');
         }
 
-        // test
+// test
 //         $this->processor->Line(10, 160, 10 + 200 * cos(30 / 180 * 3.14), 160 - 200 * sin(30 / 180 * 3.14));
 //         $this->processor->SetFont("kozgopromedium", "", 16);
 //         $this->processor->Rotate(30, 10, 160);
 //         $this->processor->Text(30, 30, "test");
 //         $this->processor->Rotate(-30, 10, 160);
     }
-
 }

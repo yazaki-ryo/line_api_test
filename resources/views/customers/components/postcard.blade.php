@@ -20,7 +20,7 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        <a href="{{ route('customers.pdf.output') }}" class="btn btn-primary" onclick="addValuesOnSubmit('{{ route('customers.pdf.output') }}', 'selection[]'); return false;">
+        <a href="{{ route('customers.postcards.output') }}" class="btn btn-primary" onclick="addValuesOnSubmit('{{ route('customers.postcards.output') }}', 'selection[]'); return false;">
             @lang ('elements.labels.pdf')
             @lang ('elements.actions.output')
         </a>
