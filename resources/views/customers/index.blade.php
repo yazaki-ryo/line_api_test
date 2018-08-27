@@ -129,7 +129,9 @@
             var element = document.createElement('input');
             element.setAttribute('type', 'hidden');
             element.setAttribute('name', name);
-            element.setAttribute('value', elementsByName(name));
+
+            var value = elementsByName(name);
+            element.setAttribute('value', value);
 
             var form = document.getElementById('customers-postcards-form');
             form.action = url;

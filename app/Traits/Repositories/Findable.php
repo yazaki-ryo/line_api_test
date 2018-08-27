@@ -33,7 +33,7 @@ trait Findable
      */
     public function findMany(array $ids = []): DomainCollection
     {
-        $collection = $this->eloquent->findAll($ids);
+        $collection = $this->eloquent->findMany($ids);
         return static::toModels($collection);
     }
 

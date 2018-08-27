@@ -24,7 +24,7 @@ trait Findable
      */
     public function findMany(array $ids = []): DomainCollection
     {
-        return $collection = $this->repo->findMany($ids);
+        return $this->repo->findMany($ids);
     }
 
     /**

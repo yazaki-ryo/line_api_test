@@ -525,4 +525,65 @@ final class Customer extends DomainModel
         return $this;
     }
 
+    /**
+     * @param User $user
+     * @param int $value
+     * @return bool
+     */
+    public static function validateCustomerId(User $user, int $value): bool
+    {
+        if (is_null($store = $user->store())
+            || is_null($company = $store->company())
+        ) {
+            return false;
+        }
+
+        if ($user->can('roles', 'company-admin')) {
+            if ($company->customers()->containsStrict(function ($item) use ($value) {
+                return $item->id() === $value;
+            })) {
+                return true;
+            }
+        } else {
+            if ($store->customers()->containsStrict(function ($item) use ($value) {
+                return $item->id() === $value;
+            })) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param User $user
+     * @param string $value
+     * @return bool
+     */
+    public static function validateCustomerIdsFromCsvStringForOutputPostcards(User $user, string $value): bool
+    {
+        if (is_null($store = $user->store())
+            || is_null($company = $store->company())
+        ) {
+            return false;
+        }
+
+        foreach (collect(explode(',', $value)) as $id) {
+            if ($user->can('roles', 'company-admin')) {
+                if (! $company->customers()->containsStrict(function ($item) use ($id) {
+                    return $item->id() === (int)$id;
+                })) {
+                    return false;
+                }
+            } else {
+                if (! $store->customers()->containsStrict(function ($item) use ($id) {
+                    return $item->id() === (int)$id;
+                })) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

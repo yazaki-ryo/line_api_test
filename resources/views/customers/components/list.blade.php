@@ -17,7 +17,8 @@
                     <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
                         <td>
                             <div class="checkbox">
-                                <label>{!! Form::checkbox('selection', $row->{$camel = camel_case('id')}(), old('select'), []) !!}</label>
+                                @set ($field, 'selection')
+                                <label><input type="checkbox" name="{{ $field }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($field)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($field))) ? 'checked' : '' }} /></label>
                             </div>
                         </td>
                         <td>{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>

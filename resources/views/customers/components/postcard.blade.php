@@ -7,10 +7,12 @@
 
     <div class="col-md-6 form-control-static">
         <label>
-            <input type="radio" name="{{ $field }}" value="new_year_card" required checked /> @lang ('elements.postcards.new_year_card')
+            @set ($value, 'new_year_card')
+            <input type="radio" name="{{ $field }}" value="{{ $value }}" required checked /> @lang ("elements.postcards.{$value}")
         </label>
         <label>
-            <input type="radio" name="{{ $field }}" value="summer_greeting_card" required {{ (int)old($field, request($field)) === 2 ? 'checked' : '' }} /> @lang ('elements.postcards.summer_greeting_card')
+            @set ($value, 'summer_greeting_card')
+            <input type="radio" name="{{ $field }}" value="{{ $value }}" required {{ !empty(old($field)) && old($field) === $value || request()->has($field) && request($field) === $value ? 'checked' : '' }} /> @lang ("elements.postcards.{$value}")
         </label>
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
