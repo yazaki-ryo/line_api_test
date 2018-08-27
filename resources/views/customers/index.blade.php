@@ -68,7 +68,7 @@
                     </div>
                     <div class="tab-pane pt-10" id="print-tab">
                         <div class="well">
-                            {!! Form::open(['url' => route('customers.postcards.output'), 'id' => 'customers-pdf-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                            {!! Form::open(['url' => route('customers.postcards.output'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.postcard')
                             {!! Form::close() !!}
                         </div>
@@ -125,13 +125,13 @@
          * @param string name
          * @return void
          */
-        function addValuesOnSubmit(url, name) {
+        function submitPostcardsForm(url, name) {
             var element = document.createElement('input');
             element.setAttribute('type', 'hidden');
             element.setAttribute('name', name);
             element.setAttribute('value', elementsByName(name));
 
-            var form = document.getElementById('basic-post-form');
+            var form = document.getElementById('customers-postcards-form');
             form.action = url;
             form.appendChild(element);
             form.submit();

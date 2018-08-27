@@ -28,6 +28,16 @@ trait Findable
     }
 
     /**
+     * @param array $ids
+     * @return DomainCollection
+     */
+    public function findIds(array $ids = []): DomainCollection
+    {
+        $collection = $this->eloquent->findMany($ids);
+        return static::toModels($collection);
+    }
+
+    /**
      * @param array $args
      * @return DomainCollection
      */

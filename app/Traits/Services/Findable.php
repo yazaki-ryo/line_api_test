@@ -19,6 +19,15 @@ trait Findable
     }
 
     /**
+     * @param array $ids
+     * @return DomainCollection
+     */
+    public function findIds(array $ids = []): DomainCollection
+    {
+        return $collection = $this->repo->findIds($ids);
+    }
+
+    /**
      * @param array $args
      * @return DomainCollection
      */

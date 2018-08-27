@@ -28,12 +28,34 @@ final class OutputPostcards
 
     /**
      * @param User $user
+     * @param array $args
      */
-    public function excute(User $user)
+    public function excute(User $user, array $args)
     {
+        $args = $this->domainize($user, $args);
+        $data = $this->finder->findIds($args['ids'])->toArray();
+
         return $this->service
-            ->setHandlersByKeys('new_year_card')// TODO Here is selected mode.
-            ->output($this->finder->findMany()->toArray());// TODO Here is selected customers.
+            ->setHandlersByKeys($args['mode'])
+            ->output($data);
+    }
+
+    /**
+     * @param User $user
+     * @param array $args
+     * @return array
+     */
+    private function domainize(User $user, array $args = []): array
+    {
+        /** @var Collection $collection */
+        $collection = collect($args);
+
+        if ($collection->has($key = 'selection')) {
+            $collection->put('ids', explode(',', $collection->get($key)));
+            $collection->forget($key);
+        }
+
+        return $collection->all();
     }
 
 }

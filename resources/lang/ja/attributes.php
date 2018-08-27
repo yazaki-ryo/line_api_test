@@ -70,6 +70,10 @@ return [
 
         'free_word'             => 'フリーワード',
         'tags'                  => 'タグ',
+
+        'postcards' => [
+            'selection' => '顧客選択',
+        ],
     ],
 
     'stores' => [
