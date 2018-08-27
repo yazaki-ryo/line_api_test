@@ -22,17 +22,17 @@ trait Findable
      * @param array $ids
      * @return DomainCollection
      */
-    public function findIds(array $ids = []): DomainCollection
+    public function findMany(array $ids = []): DomainCollection
     {
-        return $collection = $this->repo->findIds($ids);
+        return $collection = $this->repo->findMany($ids);
     }
 
     /**
      * @param array $args
      * @return DomainCollection
      */
-    public function findMany(array $args = []): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
-        return $this->repo->findMany($args);
+        return $this->repo->findAll($args);
     }
 }

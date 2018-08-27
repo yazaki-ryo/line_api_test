@@ -50,7 +50,7 @@ final class PrefecturesComposer
         $view->with(
             'prefectures',
             $this->remember('prefectures', 30, function () {
-                return $this->finder->findMany();
+                return $this->finder->findAll();
             })
         );
     }

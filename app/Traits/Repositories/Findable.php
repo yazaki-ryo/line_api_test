@@ -31,9 +31,9 @@ trait Findable
      * @param array $ids
      * @return DomainCollection
      */
-    public function findIds(array $ids = []): DomainCollection
+    public function findMany(array $ids = []): DomainCollection
     {
-        $collection = $this->eloquent->findMany($ids);
+        $collection = $this->eloquent->findAll($ids);
         return static::toModels($collection);
     }
 
@@ -41,7 +41,7 @@ trait Findable
      * @param array $args
      * @return DomainCollection
      */
-    public function findMany(array $args = []): DomainCollection
+    public function findAll(array $args = []): DomainCollection
     {
         $collection = $this->build($this->newQuery(), $args)->get();
         return static::toModels($collection);

@@ -17,6 +17,6 @@ interface FindableContract
      * @param array $args
      * @return DomainCollection
      */
-    public function findMany(array $args = []): DomainCollection;
+    public function findAll(array $args = []): DomainCollection;
 
 }

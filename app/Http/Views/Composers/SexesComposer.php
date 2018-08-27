@@ -50,7 +50,7 @@ final class SexesComposer
         $view->with(
             'sexes',
             $this->remember('sexes', 30, function () {
-                return $this->finder->findMany();
+                return $this->finder->findAll();
             })
         );
     }

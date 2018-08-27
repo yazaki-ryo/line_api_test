@@ -33,7 +33,7 @@ final class OutputPostcards
     public function excute(User $user, array $args)
     {
         $args = $this->domainize($user, $args);
-        $data = $this->finder->findIds($args['ids'])->toArray();
+        $data = $this->finder->findMany($args['ids'])->toArray();
 
         return $this->service
             ->setHandlersByKeys($args['mode'])
