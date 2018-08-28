@@ -6,7 +6,7 @@ namespace App\Http\Requests\Customers\Postcards;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class OutputRequest extends FormRequest
+class ExportRequest extends FormRequest
 {
     /**
      * @return bool

@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Domain\Contracts\Responses;
 
-interface OutputableContract
+interface ExportableContract
 {
     /**
      * @param array $data
      */
-    public function output(array $data);
+    public function export(array $data);
 }

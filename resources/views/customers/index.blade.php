@@ -68,7 +68,7 @@
                     </div>
                     <div class="tab-pane pt-10" id="print-tab">
                         <div class="well">
-                            {!! Form::open(['url' => route('customers.postcards.output'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                            {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.postcard')
                             {!! Form::close() !!}
                         </div>

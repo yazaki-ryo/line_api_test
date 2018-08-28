@@ -8,12 +8,11 @@ use App\Http\Views\Composers\SexesComposer;
 use App\Services\CustomersService;
 use App\Services\SexesService;
 use App\Services\Pdf\PdfService;
-use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use App\Services\PrefecturesService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Domain\UseCases\Customers\GetCustomers;
-use Domain\UseCases\Customers\OutputPostcards;
+use Domain\UseCases\Customers\ExportPostcards;
 use Domain\UseCases\Customers\GetCustomer;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
@@ -61,8 +60,8 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->bind(OutputPostcards::class, function () {
-            return new OutputPostcards(
+        $this->app->bind(ExportPostcards::class, function () {
+            return new ExportPostcards(
                 app(PdfService::class),
                 app(CustomersService::class)
             );

@@ -5,10 +5,10 @@ namespace App\Services\Pdf;
 
 use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use Domain\Contracts\Handlers\HandlableContract;
-use Domain\Contracts\Responses\OutputableContract;
+use Domain\Contracts\Responses\ExportableContract;
 use Illuminate\Support\Collection;
 
-final class PdfService implements OutputableContract
+final class PdfService implements ExportableContract
 {
     /** @var Collection */
     private $handlers;
@@ -26,7 +26,7 @@ final class PdfService implements OutputableContract
     /**
      * @param array $data
      */
-    public function output(array $data)
+    public function export(array $data)
     {
         foreach ($this->handlers as $handler) {
             $handler->process($data);

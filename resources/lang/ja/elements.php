@@ -22,6 +22,7 @@ return [
         'export'         => 'エクスポート',
         'history'        => '履歴',
         'import'         => 'インポート',
+        'input'          => '入力',
         'log'            => 'ログ',
         'login'          => 'ログイン',
         'logout'         => 'ログアウト',
@@ -31,7 +32,7 @@ return [
         'printed'        => '印刷',
         'register'       => '登録',
         'registered'     => '登録',
-        'reset_search'   => '条件リセット',
+        'reset'          => 'リセット',
         'restore'        => '復旧',
         'restored'       => '復旧',
         'result'         => '結果',
@@ -49,6 +50,7 @@ return [
 
     'labels' => [
         'action'         => '操作',
+        'conditions'     => '条件',
         'data'           => 'データ',
         'image'          => '画像',
         'information'    => '情報',

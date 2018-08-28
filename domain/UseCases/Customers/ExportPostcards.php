@@ -4,23 +4,23 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers;
 
 use Domain\Contracts\Model\FindableContract;
-use Domain\Contracts\Responses\OutputableContract;
+use Domain\Contracts\Responses\ExportableContract;
 use Domain\Models\User;
 
-final class OutputPostcards
+final class ExportPostcards
 {
-    /** @var OutputableContract $service */
+    /** @var ExportableContract $service */
     private $service;
 
     /** @var FindableContract */
     private $finder;
 
     /**
-     * @param  OutputableContract $service
+     * @param  ExportableContract $service
      * @param  FindableContract $finder
      * @return void
      */
-    public function __construct(OutputableContract $service, FindableContract $finder)
+    public function __construct(ExportableContract $service, FindableContract $finder)
     {
         $this->service = $service;
         $this->finder = $finder;
@@ -37,7 +37,7 @@ final class OutputPostcards
 
         return $this->service
             ->setHandlersByKeys($args['mode'])
-            ->output($data);
+            ->export($data);
     }
 
     /**

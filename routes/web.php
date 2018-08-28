@@ -71,7 +71,7 @@ $router->group([
         $router->group([
             'prefix' => $prefix2 = 'postcards',
         ], function (Router $router) use ($prefix, $prefix2) {
-            $router->post( 'output', \App\Http\Controllers\Customers\Postcards\OutputController::class)->name(sprintf('%s.%s.output', $prefix, $prefix2));
+            $router->post( 'export', \App\Http\Controllers\Customers\Postcards\ExportController::class)->name(sprintf('%s.%s.export', $prefix, $prefix2));
         });
     });
 

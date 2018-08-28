@@ -1,8 +1,7 @@
 @set ($field, 'mode')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ('elements.actions.output')
-        @lang ("elements.labels.{$field}")
+        @lang ('elements.actions.output')@lang ("elements.labels.{$field}")
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -22,9 +21,8 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        <a href="{{ route('customers.postcards.output') }}" class="btn btn-primary" onclick="submitPostcardsForm('{{ route('customers.postcards.output') }}', 'selection'); return false;">
-            @lang ('elements.labels.pdf')
-            @lang ('elements.actions.output')
+        <a href="{{ route('customers.postcards.export') }}" class="btn btn-primary" onclick="submitPostcardsForm('{{ route('customers.postcards.export') }}', 'selection'); return false;">
+            @lang ('elements.labels.pdf')@lang ('elements.actions.export')
         </a>
         <button type="button" class="btn btn-default" disabled>
             @lang ('elements.labels.preview')
