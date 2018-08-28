@@ -9,20 +9,20 @@ use Domain\Models\User;
 
 final class ExportPostcards
 {
-    /** @var ExportableContract $service */
-    private $service;
+    /** @var ExportableContract $exporter */
+    private $exporter;
 
     /** @var FindableContract */
     private $finder;
 
     /**
-     * @param  ExportableContract $service
+     * @param  ExportableContract $exporter
      * @param  FindableContract $finder
      * @return void
      */
-    public function __construct(ExportableContract $service, FindableContract $finder)
+    public function __construct(ExportableContract $exporter, FindableContract $finder)
     {
-        $this->service = $service;
+        $this->exporter = $exporter;
         $this->finder = $finder;
     }
 
@@ -33,11 +33,11 @@ final class ExportPostcards
     public function excute(User $user, array $args)
     {
         $args = $this->domainize($user, $args);
-        $data = $this->finder->findMany($args['ids'])->toArray();
+        $args = $this->finder->findMany($args['ids'])->toArray();
 
-        return $this->service
+        return $this->exporter
             ->setHandlersByKeys($args['mode'])
-            ->export($data);
+            ->export($args);
     }
 
     /**

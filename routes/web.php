@@ -73,6 +73,13 @@ $router->group([
         ], function (Router $router) use ($prefix, $prefix2) {
             $router->post( 'export', \App\Http\Controllers\Customers\Postcards\ExportController::class)->name(sprintf('%s.%s.export', $prefix, $prefix2));
         });
+
+        $router->group([
+            'prefix' => $prefix2 = 'files',
+        ], function (Router $router) use ($prefix, $prefix2) {
+            $router->get( 'import', \App\Http\Controllers\Customers\Files\ImportController::class . '@view')->name(sprintf('%s.%s.import', $prefix, $prefix2));
+            $router->post('import', \App\Http\Controllers\Customers\Files\ImportController::class . '@import');
+        });
     });
 
     /**

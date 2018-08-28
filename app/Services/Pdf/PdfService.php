@@ -24,12 +24,12 @@ final class PdfService implements ExportableContract
     }
 
     /**
-     * @param array $data
+     * @param array $args
      */
-    public function export(array $data)
+    public function export(array $args)
     {
         foreach ($this->handlers as $handler) {
-            $handler->process($data);
+            $handler->process($args);
         }
     }
 

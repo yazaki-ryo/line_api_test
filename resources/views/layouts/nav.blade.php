@@ -59,6 +59,10 @@
                             @can ('authorize', ['customers.*', 'customers.create'])
                                 <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.pages.customers.add')</a></li>
                             @endcan
+
+                            @can ('authorize', ['customers.*', 'customers.files.import'])
+                                <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }}"><a href="{{ route('customers.files.import') }}">@lang ('elements.actions.import')</a></li>
+                            @endcan
                         </ul>
                     </li>
 

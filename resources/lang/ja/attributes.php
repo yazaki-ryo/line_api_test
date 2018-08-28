@@ -74,6 +74,10 @@ return [
         'postcards' => [
             'selection' => '顧客選択',
         ],
+
+        'files' => [
+            'csv_file' => 'CSVファイル',
+        ],
     ],
 
     'stores' => [

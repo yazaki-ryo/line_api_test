@@ -51,6 +51,7 @@ return [
     'labels' => [
         'action'         => '操作',
         'conditions'     => '条件',
+        'csv'            => 'CSV',
         'data'           => 'データ',
         'image'          => '画像',
         'information'    => '情報',

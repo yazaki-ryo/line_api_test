@@ -46,12 +46,12 @@ final class VerticallyPostcardHandler extends AbstractPdfHandler implements Hand
     }
 
     /**
-     * @param DomainModel[] $data
+     * @param DomainModel[] $args
      * @return void
      */
-    public function process(array $data): void
+    public function process(array $args): void
     {
-        $this->setData($data);
+        $this->setData($args);
         $this->init();
         $this->loop();
         $this->output();

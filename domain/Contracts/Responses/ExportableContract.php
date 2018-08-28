@@ -6,7 +6,7 @@ namespace Domain\Contracts\Responses;
 interface ExportableContract
 {
     /**
-     * @param array $data
+     * @param array $args
      */
-    public function export(array $data);
+    public function export(array $args);
 }
