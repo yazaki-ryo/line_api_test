@@ -33,11 +33,11 @@ final class ExportPostcards
     public function excute(User $user, array $args)
     {
         $args = $this->domainize($user, $args);
-        $args = $this->finder->findMany($args['ids'])->toArray();
+        $data = $this->finder->findMany($args['ids'])->toArray();
 
         return $this->exporter
             ->setHandlersByKeys($args['mode'])
-            ->export($args);
+            ->export($data);
     }
 
     /**
