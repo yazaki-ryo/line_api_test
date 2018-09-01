@@ -18,7 +18,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
     private $fonts;
 
     /** @var string */
-    private $jfont;
+    private $font;
 
     /** @var string */
     private $fontPath;
@@ -38,12 +38,11 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     public function __construct(TcpdfFpdi $pdf, TCPDF_FONTS $fonts)
     {
-        $this->tplPath  = storage_path('system/pdf/postcards/postcard.pdf');
-        $this->fontPath = storage_path('system/fonts/HanaMinA.ttf');
-
         $this->processor = $pdf;
-        $this->fonts = $fonts;
-        $this->data = collect([]);
+        $this->fonts     = $fonts;
+        $this->data      = collect([]);
+        $this->tplPath   = config('pdf.templates.vertically_postcard');
+        $this->fontPath  = config('pdf.fonts.hanamina');
     }
 
     /**
@@ -76,7 +75,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->processor->setPrintFooter(false);
         $this->processor->setSourceFile($this->tplPath);
         $this->tpl = $this->processor->importPage(1);
-        $this->jfont = $this->fonts->addTTFfont($this->fontPath);
+        $this->font = $this->fonts->addTTFfont($this->fontPath);
         $this->processor->SetTitle($this->filename);
 //         $this->processor->SetSubject('Hello World!');
     }
@@ -110,7 +109,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     private function postalCode(string $value): void
     {
-        $this->processor->SetFont($this->jfont, '', 20, '', true);
+        $this->processor->SetFont($this->font, '', 20, '', true);
         $this->processor->setFontSpacing(3.5);
         $this->processor->text(45.0, 12.0, $value);
     }
