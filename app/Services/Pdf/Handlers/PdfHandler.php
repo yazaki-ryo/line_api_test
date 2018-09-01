@@ -10,13 +10,13 @@ use Illuminate\Support\Collection;
 abstract class PdfHandler implements HandlableContract
 {
     /** @var Collection */
-    protected $args;
+    protected $data;
 
     /**
-     * @param DomainModel[] $args
+     * @param DomainModel[] $data
      * @return void
      */
-    abstract public function process(array $args): void;
+    abstract public function process(array $data): void;
 
     /**
      * @return void
@@ -64,12 +64,14 @@ abstract class PdfHandler implements HandlableContract
     }
 
     /**
-     * @param DomainModel[] $model
+     * @param DomainModel[] $data
      * @return $this
      */
-    public function setData(array $args = []): self
+    public function setData(array $data = []): self
     {
-        foreach (collect($args) as $value) {
+        $this->data = collect([]);
+
+        foreach (collect($data) as $value) {
             $this->pushData($value);
         }
 

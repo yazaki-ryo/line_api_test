@@ -4,54 +4,24 @@ declare(strict_types=1);
 namespace App\Services\Pdf\Handlers\Postcards;
 
 use App\Services\Pdf\Handlers\PdfHandler;
+use App\Services\Pdf\Processors\TcpdfFpdiProcessor;
 use Domain\Contracts\Handlers\HandlableContract;
 use Domain\Models\DomainModel;
-use setasign\Fpdi\TcpdfFpdi;
-use TCPDF_FONTS;
 
 final class VerticallyPostcardHandler extends PdfHandler implements HandlableContract
 {
-    /** @var TcpdfFpdi */
-    private $processor;
-
-    /** @var TCPDF_FONTS */
-    private $fonts;
-
-    /** @var string */
-    private $font;
-
-    /** @var string */
-    private $fontPath;
-
-    /** @var string */
-    private $tpl;
-
-    /** @var string */
-    private $tplPath;
+    use TcpdfFpdiProcessor;
 
     /** @var string */
     private $filename = 'postcard.pdf';
 
     /**
-     * @param TcpdfFpdi $processor
-     * @param TCPDF_FONTS $fonts
-     */
-    public function __construct(TcpdfFpdi $pdf, TCPDF_FONTS $fonts)
-    {
-        $this->processor = $pdf;
-        $this->fonts     = $fonts;
-        $this->data      = collect([]);
-        $this->tplPath   = config('pdf.templates.vertically_postcard');
-        $this->fontPath  = config('pdf.fonts.hanamina');
-    }
-
-    /**
-     * @param DomainModel[] $args
+     * @param DomainModel[] $data
      * @return void
      */
-    public function process(array $args): void
+    public function process(array $data): void
     {
-        $this->setData($args);
+        $this->setData($data);
         $this->init();
         $this->loop();
         $this->output();
@@ -73,9 +43,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->processor->SetAutoPageBreak(false);
         $this->processor->setPrintHeader(false);
         $this->processor->setPrintFooter(false);
-        $this->processor->setSourceFile($this->tplPath);
-        $this->tpl = $this->processor->importPage(1);
-        $this->font = $this->fonts->addTTFfont($this->fontPath);
+        $this->templates('vertically_postcard');
+        $this->fonts('hanamina');// TODO Use variables.
         $this->processor->SetTitle($this->filename);
 //         $this->processor->SetSubject('Hello World!');
     }
