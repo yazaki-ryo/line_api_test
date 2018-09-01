@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Services\Pdf\Handlers\Postcards;
+namespace App\Services\Pdf\Handlers;
 
 use Domain\Contracts\Handlers\HandlableContract;
 use Domain\Models\DomainModel;
 use Illuminate\Support\Collection;
 
-abstract class AbstractPdfHandler implements HandlableContract
+abstract class PdfHandler implements HandlableContract
 {
     /** @var Collection */
     protected $args;

@@ -3,12 +3,13 @@ declare(strict_types=1);
 
 namespace App\Services\Pdf\Handlers\Postcards;
 
+use App\Services\Pdf\Handlers\PdfHandler;
 use Domain\Contracts\Handlers\HandlableContract;
 use Domain\Models\DomainModel;
 use setasign\Fpdi\TcpdfFpdi;
 use TCPDF_FONTS;
 
-final class VerticallyPostcardHandler extends AbstractPdfHandler implements HandlableContract
+final class VerticallyPostcardHandler extends PdfHandler implements HandlableContract
 {
     /** @var TcpdfFpdi */
     private $processor;
