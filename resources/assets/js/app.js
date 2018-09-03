@@ -32,11 +32,17 @@ $(function () {
 	 */
     $('[data-toggle="tooltip"]').tooltip({
         container: "body",
-        delay: { "show": 400, "hide": 100 },
+        delay: { "show": 300, "hide": 100 },
         html: true
     });
 });
 
 $(function () {
-    $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover({
+    	    container: "body",
+    	    placement: "top",
+    	    trigger: "hover",
+        delay: { "show": 300, "hide": 100 },
+        html: true
+    });
 });

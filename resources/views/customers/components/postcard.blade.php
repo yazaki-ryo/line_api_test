@@ -26,7 +26,7 @@
         </a>
         <button type="button" class="btn btn-default" disabled>
             @lang ('elements.labels.preview')
-            <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="tooltip" data-original-title="@lang ('Preview can be displayed with a postcard background.')"></span>
+            <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('Preview can be displayed with a postcard background.')"></span>
         </button>
     </div>
 </div>
