@@ -30,6 +30,7 @@ final class PdfService implements ExportableContract
     {
         foreach ($this->handlers as $handler) {
             $handler->process($args);
+            $handler->render();
         }
     }
 

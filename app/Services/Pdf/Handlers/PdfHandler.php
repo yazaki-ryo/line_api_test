@@ -31,7 +31,12 @@ abstract class PdfHandler implements HandlableContract
     /**
      * @return void
      */
-    abstract protected function output(): void;
+    abstract protected function render(): void;
+
+    /**
+     * @return void
+     */
+    abstract protected function export(): void;
 
     /**
      * @param DomainModel $model

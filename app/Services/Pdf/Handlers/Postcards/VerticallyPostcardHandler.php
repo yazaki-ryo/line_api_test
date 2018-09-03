@@ -24,7 +24,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->setData($data);
         $this->init();
         $this->loop();
-        $this->output();
+        $this->render();
 
         // test
 //         $this->processor->Line(10, 160, 10 + 200 * cos(30 / 180 * 3.14), 160 - 200 * sin(30 / 180 * 3.14));
@@ -65,11 +65,19 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
     /**
      * @return void
      */
-    protected function output(): void
+    protected function render(): void
     {
         if ($this->processor->getPage()) {
             $this->processor->Output($this->filename, 'I');
         }
+    }
+
+    /**
+     * @return void
+     */
+    protected function export(): void
+    {
+        //
     }
 
     /**
