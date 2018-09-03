@@ -36,14 +36,21 @@ trait TcpdfFpdiProcessor
      */
     private function fonts(string $name): void
     {
-        $this->font = $name;
-
         // Conversion is necessary except pre-installed fonts.
         switch ($name) {
             case 'hanamina':
             case 'hanaminb':
                 $path = config(sprintf('pdf.fonts.%s', $name));
-                $this->fonts->addTTFfont($path);
+                $this->font = $this->fonts->addTTFfont($path);
+                break;
+
+            case 'mincho':
+                $this->font = 'kozminproregular';
+                break;
+
+            case 'gothic':// no break.
+            default:
+                $this->font = 'kozgopromedium';
         }
     }
 
