@@ -1,33 +1,33 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Configurations;
+namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\SelfUpdateRequest;
+use App\Http\Requests\Companies\UpdateRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\User;
-use Domain\UseCases\Configurations\UpdateProfile;
+use Domain\UseCases\Settings\UpdateCompany;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\Http\UploadedFile;
 
-final class ProfileController extends Controller
+final class CompanyController extends Controller
 {
-    /** @var UpdateProfile */
+    /** @var UpdateCompany */
     private $useCase;
 
     /** @var Auth */
     private $auth;
 
     /**
-     * @param  UpdateProfile $useCase
+     * @param  UpdateCompany $useCase
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateProfile $useCase, Auth $auth)
+    public function __construct(UpdateCompany $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
+            sprintf('authorize:%s|%s', 'companies.*', 'companies.update'),
         ]);
 
         $this->useCase = $useCase;
@@ -42,26 +42,23 @@ final class ProfileController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        return view('settings.profile', [
-            'row' => $user,
+        return view('settings.company', [
+            'row' => $this->useCase->getCompany($user),
         ]);
     }
 
     /**
-     * @param SelfUpdateRequest $request
+     * @param UpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(SelfUpdateRequest $request)
+    public function update(UpdateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
-        /** @var UploadedFile $file */
-        $file = $request->file('avatar');
-
-        $callback = function () use ($user, $args, $file) {
-            $this->useCase->excute($user, $args, $file);
+        $callback = function () use ($user, $args) {
+            $this->useCase->excute($user, $args);
         };
 
         if (! is_null(rescue($callback, false))) {
@@ -69,8 +66,8 @@ final class ProfileController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.resources.users'), 'action' => __('elements.actions.updated')]), 'success');
-        return redirect()->route('settings.profile');
+        flash(__('The :name information was :action.', ['name' => __('elements.resources.companies'), 'action' => __('elements.actions.updated')]), 'success');
+        return redirect()->route('settings.company');
     }
 
 }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Configurations;
+namespace Domain\UseCases\Settings;
 
 use App\Traits\Database\Transactionable;
 use Domain\Exceptions\NotFoundException;

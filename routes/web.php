@@ -92,7 +92,7 @@ $router->group([
     });
 
     /**
-     * Configurations
+     * Settings
      */
     $router->group([
         'prefix' => $prefix = 'settings',

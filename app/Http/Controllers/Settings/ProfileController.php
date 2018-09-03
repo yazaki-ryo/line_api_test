@@ -1,33 +1,33 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Configurations;
+namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Stores\UpdateRequest;
+use App\Http\Requests\Users\SelfUpdateRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\User;
-use Domain\UseCases\Configurations\UpdateStore;
+use Domain\UseCases\Settings\UpdateProfile;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\UploadedFile;
 
-final class StoreController extends Controller
+final class ProfileController extends Controller
 {
-    /** @var UpdateStore */
+    /** @var UpdateProfile */
     private $useCase;
 
     /** @var Auth */
     private $auth;
 
     /**
-     * @param  UpdateStore $useCase
+     * @param  UpdateProfile $useCase
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateStore $useCase, Auth $auth)
+    public function __construct(UpdateProfile $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'stores.*', 'stores.update'),
         ]);
 
         $this->useCase = $useCase;
@@ -42,23 +42,26 @@ final class StoreController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        return view('settings.store', [
-            'row' => $this->useCase->getStore($user),
+        return view('settings.profile', [
+            'row' => $user,
         ]);
     }
 
     /**
-     * @param UpdateRequest $request
+     * @param SelfUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request)
+    public function update(SelfUpdateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
-        $callback = function () use ($user, $args) {
-            $this->useCase->excute($user, $args);
+        /** @var UploadedFile $file */
+        $file = $request->file('avatar');
+
+        $callback = function () use ($user, $args, $file) {
+            $this->useCase->excute($user, $args, $file);
         };
 
         if (! is_null(rescue($callback, false))) {
@@ -66,8 +69,8 @@ final class StoreController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.resources.stores'), 'action' => __('elements.actions.updated')]), 'success');
-        return redirect()->route('settings.store');
+        flash(__('The :name information was :action.', ['name' => __('elements.resources.users'), 'action' => __('elements.actions.updated')]), 'success');
+        return redirect()->route('settings.profile');
     }
 
 }
