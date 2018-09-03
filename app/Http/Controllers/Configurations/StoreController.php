@@ -42,7 +42,7 @@ final class StoreController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        return view('configurations.store', [
+        return view('settings.store', [
             'row' => $this->useCase->getStore($user),
         ]);
     }
@@ -67,7 +67,7 @@ final class StoreController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.resources.stores'), 'action' => __('elements.actions.updated')]), 'success');
-        return redirect()->route('configurations.store');
+        return redirect()->route('settings.store');
     }
 
 }

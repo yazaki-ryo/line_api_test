@@ -124,18 +124,18 @@
                     <!-- Configurations menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.configurations') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
+                            @lang ('elements.menus.settings') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li class="{{ request()->route()->named('configurations.profile') ? 'active' : '' }}"><a href="{{ route('configurations.profile') }}">@lang ('elements.pages.configurations.profile')</a></li>
+                            <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.pages.settings.profile')</a></li>
 
                             @can ('authorize', ['stores.*', 'stores.update'])
-                                <li class="{{ request()->route()->named('configurations.store') ? 'active' : '' }}"><a href="{{ route('configurations.store') }}">@lang ('elements.pages.configurations.store')</a></li>
+                                <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.pages.settings.store')</a></li>
                             @endcan
 
                             @can ('authorize', ['companies.*', 'companies.update'])
-                                <li class="{{ request()->route()->named('configurations.company') ? 'active' : '' }}"><a href="{{ route('configurations.company') }}">@lang ('elements.pages.configurations.company')</a></li>
+                                <li class="{{ request()->route()->named('settings.company') ? 'active' : '' }}"><a href="{{ route('settings.company') }}">@lang ('elements.pages.settings.company')</a></li>
                             @endcan
 
                             <li class="disabled"><a href="#">@lang ('elements.labels.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>

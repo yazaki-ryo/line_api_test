@@ -88,7 +88,7 @@ return [
         'menus'          => 'メニュー管理',
         'surveys'        => 'アンケート管理',
         'coupons'        => 'クーポン管理',
-        'configurations' => '各種設定',
+        'settings' => '各種設定',
     ],
 
     'pages' => [
@@ -101,7 +101,7 @@ return [
             ],
             'register' => 'ユーザー登録',
         ],
-        'configurations' => [
+        'settings' => [
             'company' => '企業情報編集',
             'profile' => 'ユーザー情報編集',
             'store'   => '店舗情報編集',

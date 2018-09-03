@@ -95,7 +95,7 @@ $router->group([
      * Configurations
      */
     $router->group([
-        'prefix' => $prefix = 'configurations',
+        'prefix' => $prefix = 'settings',
     ], function (Router $router) use ($prefix) {
         $router->get( 'company', \App\Http\Controllers\Configurations\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
         $router->post('company', \App\Http\Controllers\Configurations\CompanyController::class . '@update');

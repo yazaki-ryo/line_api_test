@@ -42,7 +42,7 @@ final class ProfileController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        return view('configurations.profile', [
+        return view('settings.profile', [
             'row' => $user,
         ]);
     }
@@ -70,7 +70,7 @@ final class ProfileController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.resources.users'), 'action' => __('elements.actions.updated')]), 'success');
-        return redirect()->route('configurations.profile');
+        return redirect()->route('settings.profile');
     }
 
 }

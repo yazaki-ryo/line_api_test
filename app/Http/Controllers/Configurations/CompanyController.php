@@ -42,7 +42,7 @@ final class CompanyController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        return view('configurations.company', [
+        return view('settings.company', [
             'row' => $this->useCase->getCompany($user),
         ]);
     }
@@ -67,7 +67,7 @@ final class CompanyController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.resources.companies'), 'action' => __('elements.actions.updated')]), 'success');
-        return redirect()->route('configurations.company');
+        return redirect()->route('settings.company');
     }
 
 }

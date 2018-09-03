@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.pages.configurations.profile') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.pages.settings.store') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.pages.configurations.profile') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.pages.settings.store') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -28,8 +28,8 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('configurations.profile'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal', 'files' => true]) !!}
-                            @include ('users.components.crud')
+                        {!! Form::open(['url' => route('settings.store'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                            @include ('stores.components.crud')
                         {!! Form::close() !!}
                     </div>
                 </div>

@@ -122,7 +122,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->fonts('mincho');
         $this->processor->SetFont($this->font, '', 12, '', true);
         $this->processor->setFontSpacing(0);
-        $this->processor->MultiCell(70.0, 20.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, 15.0, 45.0, true, 0, false, true, 20, 'T', true);
+        $this->processor->MultiCell(70.0, 25.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, 15.0, 45.0, true, 0, false, true, 25, 'T', true);
     }
 
     /**
@@ -134,8 +134,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
     {
         $this->fonts('mincho');
         $this->processor->SetFont($this->font, '', 14, '', true);
-        $this->processor->setFontSpacing(3.0);
-        $this->processor->MultiCell(60.0, 20.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'L', 0, 0, 20.0, 65.0, true, 0, false, true, 20, 'T', true);
+        $this->processor->setFontSpacing(2.0);
+        $this->processor->MultiCell(60.0, 25.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'L', 0, 0, 20.0, 70.0, true, 0, false, true, 25, 'T', true);
     }
 
 }
