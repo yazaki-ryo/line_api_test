@@ -17,6 +17,8 @@
         <link href="{{ asset('css/default.css') }}" rel="stylesheet">
     @endif
 
+    <link href="{{ asset('vendor/Bootstrap/bootstrap-theme.min.css') }}" rel="stylesheet">
+
     @yield('styles')
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
