@@ -10,4 +10,15 @@ interface HandlableContract
      * @return void
      */
     public function process(array $args): void;
+
+    /**
+     * @return void
+     */
+    public function render(): void;
+
+    /**
+     * @return void
+     */
+    public function export(): void;
+
 }

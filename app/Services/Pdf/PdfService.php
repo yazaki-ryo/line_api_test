@@ -28,6 +28,7 @@ final class PdfService implements ExportableContract
      */
     public function export(array $args)
     {
+        /** @var HandlableContract $handler */
         foreach ($this->handlers as $handler) {
             $handler->process($args);
             $handler->render();
