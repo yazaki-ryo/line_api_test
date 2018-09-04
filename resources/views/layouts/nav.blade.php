@@ -11,7 +11,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
@@ -61,7 +61,7 @@
                             @endcan
 
                             @can ('authorize', ['customers.*', 'customers.files.import'])
-                                <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }}"><a href="{{ route('customers.files.import') }}">@lang ('elements.actions.import')</a></li>
+                                <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.actions.import')</a></li>
                             @endcan
                         </ul>
                     </li>
@@ -121,7 +121,7 @@
                         </ul>
                     </li>
 
-                    <!-- Configurations menu -->
+                    <!-- Settings menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.settings') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
@@ -139,7 +139,16 @@
                             @endcan
 
                             <li class="disabled"><a href="#">@lang ('elements.labels.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>
-                            <li class="disabled"><a href="#">@lang ('elements.actions.set')</a></li>
+
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.actions.set') <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li class="{{ request()->route()->named('settings.configurations.printings') ? 'active' : '' }}"><a href="{{ route('settings.configurations.printings') }}">@lang ('elements.actions.print')@lang ('elements.actions.set')</a></li>
+                                </ul>
+                            </li>
 
                             <li role="separator" class="divider"></li>
 
