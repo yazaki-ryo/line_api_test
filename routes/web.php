@@ -110,8 +110,8 @@ $router->group([
         $router->group([
             'prefix' => $prefix2 = 'configurations',
         ], function (Router $router) use ($prefix, $prefix2) {
-            $router->get( 'printings', \App\Http\Controllers\Customers\Files\ImportController::class . '@view')->name(sprintf('%s.%s.printings', $prefix, $prefix2));
-            $router->post('printings', \App\Http\Controllers\Customers\Files\ImportController::class . '@update');
+            $router->get( 'printings', \App\Http\Controllers\Settings\Configurations\PrintingsController::class . '@view')->name(sprintf('%s.%s.printings', $prefix, $prefix2));
+            $router->post('printings/{settingId}', \App\Http\Controllers\Settings\Configurations\PrintingsController::class . '@update')->name(sprintf('%s.%s.printings.update', $prefix, $prefix2));
         });
     });
 

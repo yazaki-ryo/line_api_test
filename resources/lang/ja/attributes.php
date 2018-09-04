@@ -120,4 +120,17 @@ return [
         'deleted_at'            => '削除日時',
     ],
 
+    'settings' => [
+        'printings' => [
+            'name'              => '名称',
+            'pc_position'       => '郵便番号出力位置',
+            'pc_frame'          => '郵便番号枠出力',
+            'pc_symbol'         => '〒マーク出力',
+            'pc_x'              => '郵便番号 横（X）座標',
+            'pc_y'              => '郵便番号 縦（Y）座標',
+            'pc_font'           => '郵便番号書体',
+            'pc_font_size'      => '郵便番号文字サイズ',
+        ],
+    ],
+
 ];
