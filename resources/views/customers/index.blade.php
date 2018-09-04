@@ -56,17 +56,17 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active pt-10" id="result-tab">
+                    <div class="tab-pane active fade in pt-10" id="result-tab">
                         @include ('customers.components.list')
                     </div>
-                    <div class="tab-pane pt-10" id="search-tab">
+                    <div class="tab-pane fade pt-10" id="search-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('customers'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.search')
                             {!! Form::close() !!}
                         </div>
                     </div>
-                    <div class="tab-pane pt-10" id="print-tab">
+                    <div class="tab-pane fade pt-10" id="print-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.postcard')
