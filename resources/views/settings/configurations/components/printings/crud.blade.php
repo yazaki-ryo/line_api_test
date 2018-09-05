@@ -1,7 +1,8 @@
-@set ($field, "name_{$key}")
+@set ($attribute, 'name')
+@set ($field, "{$attribute}_{$key}")
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.name")
+        @lang ("attributes.settings.printings.{$attribute}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 

@@ -35,4 +35,41 @@ return [
         'free'  => '自由位置',
     ],
 
+    'defaults' => [
+        'pc_position'              => 'fixed',
+        'pc_frame'                 => false,
+        'pc_symbol'                => true,
+        'pc_x'                     => 15,
+        'pc_y'                     => 40,
+        'pc_font'                  => 'gothic',
+        'pc_font_size'             => 12,
+
+        'address_x'                => 0,
+        'address_y'                => 0,
+        'address_font'             => 'gothic',
+        'address_font_size'        => 12,
+
+        'name_x'                   => 0,
+        'name_y'                   => 0,
+        'name_font'                => 'gothic',
+        'name_font_size'           => 14,
+
+        'sender_flag'              => true,
+        'sender_pc_symbol'         => true,
+        'sender_pc_x'              => 0,
+        'sender_pc_y'              => 0,
+        'sender_pc_font'           => 'gothic',
+        'sender_pc_font_size'      => 10,
+
+        'sender_address_x'         => 0,
+        'sender_address_y'         => 0,
+        'sender_address_font'      => 'gothic',
+        'sender_address_font_size' => 10,
+
+        'sender_name_x'            => 0,
+        'sender_name_y'            => 0,
+        'sender_name_font'         => 'gothic',
+        'sender_name_font_size'    => 12,
+    ],
+
 ];
