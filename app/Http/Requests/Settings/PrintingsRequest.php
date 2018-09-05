@@ -236,6 +236,13 @@ class PrintingsRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return \Lang::get('attributes.settings.printings');
+        $attributes = [];
+        for ($i = 3; $i > 0; $i--) {
+            foreach (\Lang::get('attributes.settings.printings') as $key => $attribute) {
+                $attributes[sprintf('%s_%s', $key, $i)] = $attribute;
+            }
+        }
+
+        return $attributes;
     }
 }

@@ -45,9 +45,6 @@ final class PrintingsController extends Controller
         $cookie2 = $request->cookie('settings_configurations_printings_2');
         $cookie3 = $request->cookie('settings_configurations_printings_3');
 
-//         dd($request->cookies);
-//         dd($cookie1);
-
         return view('settings.configurations.printings', [
             'rows' => [
                 1 => is_null($cookie1) ? $cookie1 : json_decode($cookie1),
@@ -65,7 +62,8 @@ final class PrintingsController extends Controller
     public function update(PrintingsRequest $request, int $settingId)
     {
         $cookie = cookie()->forever(sprintf('settings_configurations_printings_%s', $settingId), json_encode($request->validated()));
-//         cookie()->queue($cookie);
+
+        flash(__('The :name information was :action.', ['name' => __('elements.actions.print') . __('elements.actions.set'), 'action' => __('elements.actions.updated')]), 'success');
 
         return redirect()
             ->route('settings.configurations.printings')
