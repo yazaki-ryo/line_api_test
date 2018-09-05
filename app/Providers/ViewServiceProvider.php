@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Http\Views\Composers\AuthComposer;
 use App\Http\Views\Composers\NotificationsComposer;
 use App\Http\Views\Composers\PrefecturesComposer;
+use App\Http\Views\Composers\PrintSettingsComposer;
 use App\Http\Views\Composers\SexesComposer;
 use App\Http\Views\Composers\StoresComposer;
 
@@ -33,6 +34,10 @@ final class ViewServiceProvider extends ServiceProvider
             'customers.add',
             'customers.edit',
         ], PrefecturesComposer::class);
+
+        View::creator([
+            'settings.configurations.printings',
+        ], PrintSettingsComposer::class);
 
         View::creator([
             'customers.add',

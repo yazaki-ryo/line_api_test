@@ -54,25 +54,6 @@ final class PrintingsController extends Controller
                 2 => is_null($cookie2) ? $cookie2 : json_decode($cookie2),
                 3 => is_null($cookie3) ? $cookie3 : json_decode($cookie3),
             ],
-            /**
-             * TODO 設定ファイルへ移行
-             */
-            'fonts' => [
-                'gothic' => 'ゴシック',
-                'mincho' => '明朝',
-            ],
-            'font_sizes' => [
-                9 => '9（ポイント）',
-                10 => '10（ポイント）',
-                11 => '11（ポイント）',
-                12 => '12（ポイント）',
-                13 => '13（ポイント）',
-                14 => '14（ポイント）',
-                15 => '15（ポイント）',
-                16 => '16（ポイント）',
-                17 => '17（ポイント）',
-                18 => '18（ポイント）',
-            ],
         ]);
     }
 

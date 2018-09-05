@@ -71,10 +71,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.reservations') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Tags menu -->
@@ -82,10 +83,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.tags') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Menus menu -->
@@ -93,10 +95,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.menus') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Surveys menu -->
@@ -104,10 +107,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.surveys') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Coupons menu -->
@@ -115,10 +119,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.coupons') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Settings menu -->

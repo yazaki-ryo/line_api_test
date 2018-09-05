@@ -5,13 +5,8 @@
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can choose whether to output the postal code to the prescribed position or to the arbitrary position.')"></span>
     </label>
 
-    <div class="col-md-7 form-control-static">
-        <label>
-            <input type="radio" name="{{ $field }}" value="fixed" required checked /> @lang ("elements.labels.fixed")@lang ("elements.labels.position")
-        </label>
-        <label>
-            <input type="radio" name="{{ $field }}" value="free" required {{ (string)old($field, request($field, $row->{$field} ?? null)) === 'free' ? 'checked' : '' }} /> @lang ("elements.labels.free")@lang ("elements.labels.position")
-        </label>
+    <div class="col-md-3">
+        {!! Form::select($field, $positions, old($field, request($field, $row->{$field} ?? 'fixed')), ['required', 'class' => 'form-control', 'id' => $field]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -86,7 +81,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::select($field, $fonts, old($field, request($field, $row->{$field} ?? 'gothic')), ['required', 'class' => 'form-control', 'id' => $field]) !!}
+        {!! Form::select($field, $fonttypes, old($field, request($field, $row->{$field} ?? 'gothic')), ['required', 'class' => 'form-control', 'id' => $field]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -99,7 +94,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::select($field, $font_sizes, old($field, request($field, $row->{$field} ?? 12)), ['required', 'class' => 'form-control', 'id' => $field]) !!}
+        {!! Form::select($field, $fontsizes, old($field, request($field, $row->{$field} ?? 12)), ['required', 'class' => 'form-control', 'id' => $field]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

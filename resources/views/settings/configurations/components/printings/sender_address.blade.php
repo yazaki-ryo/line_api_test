@@ -32,7 +32,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::select($field, $fonts, old($field, request($field, $row->{$field} ?? 'gothic')), ['required', 'class' => 'form-control', 'id' => $field]) !!}
+        {!! Form::select($field, $fonttypes, old($field, request($field, $row->{$field} ?? 'gothic')), ['required', 'class' => 'form-control', 'id' => $field]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -45,7 +45,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::select($field, $font_sizes, old($field, request($field, $row->{$field} ?? 10)), ['required', 'class' => 'form-control', 'id' => $field]) !!}
+        {!! Form::select($field, $fontsizes, old($field, request($field, $row->{$field} ?? 10)), ['required', 'class' => 'form-control', 'id' => $field]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
