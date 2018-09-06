@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Customers;
 
+use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Contracts\Responses\ExportableContract;
 use Domain\Models\User;
@@ -36,8 +37,8 @@ final class ExportPostcards
         $data = $this->finder->findMany($args['ids'])->toArray();
 
         return $this->exporter
-            ->setHandlersByKeys($args['mode'])
-            ->export($data);
+            ->pushHandler(app(VerticallyPostcardHandler::class))
+            ->export($data, $args['settings']);
     }
 
     /**

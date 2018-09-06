@@ -40,17 +40,17 @@ return [
         'pc_frame'                 => false,
         'pc_symbol'                => true,
         'pc_x'                     => 15,
-        'pc_y'                     => 40,
+        'pc_y'                     => 35,
         'pc_font'                  => 'gothic',
         'pc_font_size'             => 12,
 
-        'address_x'                => 0,
-        'address_y'                => 0,
+        'address_x'                => 15,
+        'address_y'                => 40,
         'address_font'             => 'gothic',
         'address_font_size'        => 12,
 
-        'name_x'                   => 0,
-        'name_y'                   => 0,
+        'name_x'                   => 20,
+        'name_y'                   => 70,
         'name_font'                => 'gothic',
         'name_font_size'           => 14,
 

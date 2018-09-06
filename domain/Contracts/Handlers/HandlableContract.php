@@ -6,10 +6,10 @@ namespace Domain\Contracts\Handlers;
 interface HandlableContract
 {
     /**
-     * @param array $args
+     * @param array $data
      * @return void
      */
-    public function process(array $args): void;
+    public function process(array $data): void;
 
     /**
      * @return void

@@ -12,6 +12,9 @@ abstract class PdfHandler implements HandlableContract
     /** @var Collection */
     protected $data;
 
+    /** @var array */
+    protected $settings = [];
+
     /**
      * @param DomainModel[] $data
      * @return void
@@ -80,6 +83,24 @@ abstract class PdfHandler implements HandlableContract
             $this->pushData($value);
         }
 
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSettings(): array
+    {
+        return $this->settings;
+    }
+
+    /**
+     * @param array $args
+     * @return $this
+     */
+    public function setSettings(array $args = []): self
+    {
+        $this->settings = $args;
         return $this;
     }
 }

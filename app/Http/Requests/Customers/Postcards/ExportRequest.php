@@ -24,9 +24,9 @@ class ExportRequest extends FormRequest
         return [
             'mode' => [
                 'required',
-                'string',
-                'max:191',
-                // TODO Validate value.
+                'numeric',
+                'max:3',
+                'in:1,2,3',// TODO Validate value.
             ],
             'selection' => [
                 'required',

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Services\Pdf;
 
-use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use Domain\Contracts\Handlers\HandlableContract;
 use Domain\Contracts\Responses\ExportableContract;
 use Illuminate\Support\Collection;
@@ -24,13 +23,15 @@ final class PdfService implements ExportableContract
     }
 
     /**
-     * @param array $args
+     * @param array $data
+     * @param array $settings
      */
-    public function export(array $args)
+    public function export(array $data, array $settings = [])
     {
         /** @var HandlableContract $handler */
         foreach ($this->handlers as $handler) {
-            $handler->process($args);
+            $handler->setSettings($settings);
+            $handler->process($data);
             $handler->render();
         }
     }
@@ -73,32 +74,6 @@ final class PdfService implements ExportableContract
     {
         foreach (collect($handlers) as $handler) {
             $this->pushHandler($handler);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param array|string $keys
-     * @return Collection
-     */
-    public function setHandlersByKeys($keys): self
-    {
-        $keys = is_array($keys) ? $keys : [$keys];
-
-        foreach (collect($keys) as $key) {
-            switch ($key) {
-                case ('new_year_card'):
-                    $this->pushHandler(app(VerticallyPostcardHandler::class));
-                    break;
-
-//                 case ('summer_greeting_card'):
-//                     $this->pushHandler();
-//                     break;
-
-                default:
-                    throw new \LogicException('The specified mode name is invalid.');
-            }
         }
 
         return $this;
