@@ -21,13 +21,8 @@ class PrintingsRequest extends FormRequest
      */
     public function rules(): array
     {
-        $i = $this->segment(4);
-        if (! is_numeric($i)) {
-            throw new \InvalidArgumentException('The transmitted setting ID is invalid.');
-        }
-
         return [
-            sprintf('name_%s', $i) => [
+            'name' => [
                 'required',
                 'string',
                 'max:191',
@@ -36,37 +31,37 @@ class PrintingsRequest extends FormRequest
             /**
              * Postalcode
              */
-            sprintf('pc_position_%s', $i) => [
+            'pc_position' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.positions'))),
             ],
-            sprintf('pc_frame_%s', $i) => [
+            'pc_frame' => [
                 'required',
                 'boolean',
             ],
-            sprintf('pc_symbol_%s', $i) => [
+            'pc_symbol' => [
                 'required',
                 'boolean',
             ],
-            sprintf('pc_x_%s', $i) => [
+            'pc_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('pc_y_%s', $i) => [
+            'pc_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('pc_font_%s', $i) => [
+            'pc_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            sprintf('pc_font_size_%s', $i) => [
+            'pc_font_size' => [
                 'required',
                 'string',
                 'max:191',
@@ -76,23 +71,23 @@ class PrintingsRequest extends FormRequest
             /**
              * Address
              */
-            sprintf('address_x_%s', $i) => [
+            'address_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('address_y_%s', $i) => [
+            'address_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('address_font_%s', $i) => [
+            'address_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            sprintf('address_font_size_%s', $i) => [
+            'address_font_size' => [
                 'required',
                 'string',
                 'max:191',
@@ -102,23 +97,23 @@ class PrintingsRequest extends FormRequest
             /**
              * Name
              */
-            sprintf('name_x_%s', $i) => [
+            'name_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('name_y_%s', $i) => [
+            'name_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('name_font_%s', $i) => [
+            'name_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            sprintf('name_font_size_%s', $i) => [
+            'name_font_size' => [
                 'required',
                 'string',
                 'max:191',
@@ -128,7 +123,7 @@ class PrintingsRequest extends FormRequest
             /**
              * Senders
              */
-            sprintf('sender_flag_%s', $i) => [
+            'sender_flag' => [
                 'required',
                 'boolean',
             ],
@@ -136,27 +131,27 @@ class PrintingsRequest extends FormRequest
             /**
              * Sender postalcode
              */
-            sprintf('pc_symbol_%s', $i) => [
+            'pc_symbol' => [
                 'required',
                 'boolean',
             ],
-            sprintf('sender_pc_x_%s', $i) => [
+            'sender_pc_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('sender_pc_y_%s', $i) => [
+            'sender_pc_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('sender_pc_font_%s', $i) => [
+            'sender_pc_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            sprintf('sender_pc_font_size_%s', $i) => [
+            'sender_pc_font_size' => [
                 'required',
                 'string',
                 'max:191',
@@ -166,23 +161,23 @@ class PrintingsRequest extends FormRequest
             /**
              * Sender address
              */
-            sprintf('sender_address_x_%s', $i) => [
+            'sender_address_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('sender_address_y_%s', $i) => [
+            'sender_address_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('sender_address_font_%s', $i) => [
+            'sender_address_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            sprintf('sender_address_font_size_%s', $i) => [
+            'sender_address_font_size' => [
                 'required',
                 'string',
                 'max:191',
@@ -192,23 +187,23 @@ class PrintingsRequest extends FormRequest
             /**
              * Sender name
              */
-            sprintf('sender_name_x_%s', $i) => [
+            'sender_name_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('sender_name_y_%s', $i) => [
+            'sender_name_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            sprintf('sender_name_font_%s', $i) => [
+            'sender_name_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            sprintf('sender_name_font_size_%s', $i) => [
+            'sender_name_font_size' => [
                 'required',
                 'string',
                 'max:191',
@@ -236,13 +231,15 @@ class PrintingsRequest extends FormRequest
      */
     public function attributes(): array
     {
-        $attributes = [];
-        for ($i = 3; $i > 0; $i--) {
-            foreach (\Lang::get('attributes.settings.printings') as $key => $attribute) {
-                $attributes[sprintf('%s_%s', $key, $i)] = $attribute;
-            }
-        }
+        return \Lang::get('attributes.settings.printings');
+    }
 
-        return $attributes;
+    /**
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator): void
+    {
+        $this->errorBag = sprintf('setting_%s', $this->segment(4));
     }
 }

@@ -9,6 +9,7 @@ use App\Repositories\UserRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\GetCustomers;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class IndexController extends Controller
 {
@@ -46,7 +47,23 @@ final class IndexController extends Controller
 
         return view('customers.index', [
             'rows' => $this->useCase->excute($user, $args),
+            'printSettings' => $this->printSettings($request),
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private function printSettings(Request $request): array
+    {
+        $cookies = [];
+        for ($i = 1; $i < 4; $i++) {
+            if (! is_null($cookie = $request->cookie(sprintf('settings_configurations_printings_%s', $i)))) {
+                $cookies[$i] = (json_decode($cookie))->name;
+            }
+        }
+        return $cookies;
     }
 
 }

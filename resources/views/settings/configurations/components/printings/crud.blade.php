@@ -1,14 +1,13 @@
 @set ($attribute, 'name')
-@set ($field, "{$attribute}_{$key}")
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-5 control-label">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
         <span class="label label-danger">@lang ("elements.labels.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$field} ?? __('elements.actions.set') . $key)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$attribute} ?? __('elements.actions.set') . $key)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! $errors->{$errorBag}->first($attribute, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
 

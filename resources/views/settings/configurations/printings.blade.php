@@ -20,7 +20,7 @@
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
 
-                @if ($errors->any())
+                @if ($errors->setting_1->any() || $errors->setting_2->any() || $errors->setting_3->any())
                     <div class="alert alert-danger alert-dismissible fade in" role="alert">
                         <button type="button" class="close" data-dismiss="alert">
                             <span aria-hidden="true">&times;</span>
@@ -39,7 +39,7 @@
                             @if (empty($rows[1]))
                                 @lang ('elements.actions.set')1
                             @else
-                                {{ $rows[1]->name_1 }}
+                                {{ $rows[1]->name }}
                             @endif
                         </a>
                     </li>
@@ -48,7 +48,7 @@
                             @if (empty($rows[2]))
                                 @lang ('elements.actions.set')2
                             @else
-                                {{ $rows[2]->name_2 }}
+                                {{ $rows[2]->name }}
                             @endif
                         </a>
                     </li>
@@ -57,7 +57,7 @@
                             @if (empty($rows[3]))
                                 @lang ('elements.actions.set')3
                             @else
-                                {{ $rows[3]->name_3 }}
+                                {{ $rows[3]->name }}
                             @endif
                         </a>
                     </li>
@@ -67,21 +67,21 @@
                     <div class="tab-pane active fade in pt-10" id="setting1-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('settings.configurations.printings.update', 1), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[1], 'key' => 1])
+                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[1], 'key' => 1, 'errorBag' => 'setting_1'])
                             {!! Form::close() !!}
                         </div>
                     </div>
                     <div class="tab-pane fade pt-10" id="setting2-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('settings.configurations.printings.update', 2), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[2], 'key' => 2])
+                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[2], 'key' => 2, 'errorBag' => 'setting_2'])
                             {!! Form::close() !!}
                         </div>
                     </div>
                     <div class="tab-pane fade pt-10" id="setting3-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('settings.configurations.printings.update', 3), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[3], 'key' => 3])
+                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[3], 'key' => 3, 'errorBag' => 'setting_3'])
                             {!! Form::close() !!}
                         </div>
                     </div>

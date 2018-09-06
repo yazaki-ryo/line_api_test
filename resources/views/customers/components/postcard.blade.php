@@ -2,17 +2,11 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ('elements.actions.output')@lang ("elements.labels.{$field}")
+        <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('Please select the setting registered by print setting.')"></span>
     </label>
 
-    <div class="col-md-6 form-control-static">
-        <label>
-            @set ($value, 'new_year_card')
-            <input type="radio" name="{{ $field }}" value="{{ $value }}" required checked /> @lang ("elements.postcards.{$value}")
-        </label>
-        <label>
-            @set ($value, 'summer_greeting_card')
-            <input type="radio" name="{{ $field }}" value="{{ $value }}" required {{ !empty(old($field)) && old($field) === $value || request()->has($field) && request($field) === $value ? 'checked' : '' }} /> @lang ("elements.postcards.{$value}")
-        </label>
+    <div class="col-md-5">
+        {!! Form::select($field, $printSettings, old($field, request($field, null)), ['required', 'class' => 'form-control', 'id' => $field, 'placeholder' => __('Please select')]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
