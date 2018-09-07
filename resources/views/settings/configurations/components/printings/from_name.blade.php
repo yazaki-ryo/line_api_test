@@ -1,4 +1,4 @@
-@set ($attribute, 'sender_name_x')
+@set ($attribute, 'from_name_x')
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
@@ -11,7 +11,7 @@
     </div>
 </div>
 
-@set ($attribute, 'sender_name_y')
+@set ($attribute, 'from_name_y')
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
@@ -24,7 +24,7 @@
     </div>
 </div>
 
-@set ($attribute, 'sender_name_font')
+@set ($attribute, 'from_name_font')
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
@@ -37,7 +37,7 @@
     </div>
 </div>
 
-@set ($attribute, 'sender_name_font_size')
+@set ($attribute, 'from_name_font_size')
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")

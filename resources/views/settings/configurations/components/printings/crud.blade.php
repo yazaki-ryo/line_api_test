@@ -23,15 +23,15 @@
 
 <hr>
 
-@include ('settings.configurations.components.printings.sender_pc')
+@include ('settings.configurations.components.printings.from_pc')
 
 <hr>
 
-@include ('settings.configurations.components.printings.sender_address')
+@include ('settings.configurations.components.printings.from_address')
 
 <hr>
 
-@include ('settings.configurations.components.printings.sender_name')
+@include ('settings.configurations.components.printings.from_name')
 
 <hr>
 

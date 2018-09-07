@@ -123,7 +123,7 @@ class PrintingsRequest extends FormRequest
             /**
              * Senders
              */
-            'sender_flag' => [
+            'from_flag' => [
                 'required',
                 'boolean',
             ],
@@ -131,27 +131,27 @@ class PrintingsRequest extends FormRequest
             /**
              * Sender postalcode
              */
-            'pc_symbol' => [
+            'from_pc_symbol' => [
                 'required',
                 'boolean',
             ],
-            'sender_pc_x' => [
+            'from_pc_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            'sender_pc_y' => [
+            'from_pc_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            'sender_pc_font' => [
+            'from_pc_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            'sender_pc_font_size' => [
+            'from_pc_font_size' => [
                 'required',
                 'string',
                 'max:191',
@@ -161,23 +161,23 @@ class PrintingsRequest extends FormRequest
             /**
              * Sender address
              */
-            'sender_address_x' => [
+            'from_address_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            'sender_address_y' => [
+            'from_address_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            'sender_address_font' => [
+            'from_address_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            'sender_address_font_size' => [
+            'from_address_font_size' => [
                 'required',
                 'string',
                 'max:191',
@@ -187,23 +187,23 @@ class PrintingsRequest extends FormRequest
             /**
              * Sender name
              */
-            'sender_name_x' => [
+            'from_name_x' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            'sender_name_y' => [
+            'from_name_y' => [
                 'required',
                 'numeric',
                 'max:999',
             ],
-            'sender_name_font' => [
+            'from_name_font' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::in(array_keys(config('pdf.fonttypes'))),
             ],
-            'sender_name_font_size' => [
+            'from_name_font_size' => [
                 'required',
                 'string',
                 'max:191',

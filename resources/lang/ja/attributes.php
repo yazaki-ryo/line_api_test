@@ -72,6 +72,7 @@ return [
         'tags'                  => 'タグ',
 
         'postcards' => [
+            'mode'      => '出力モード',
             'selection' => '顧客選択',
         ],
 
@@ -141,22 +142,22 @@ return [
             'name_font'         => '氏名書体',
             'name_font_size'    => '氏名文字サイズ',
 
-            'sender_flag'              => '差出人情報出力',
-            'sender_pc_symbol'         => '（差出人）〒マーク出力',
-            'sender_pc_x'              => '（差出人）郵便番号 横（X）座標',
-            'sender_pc_y'              => '（差出人）郵便番号 縦（Y）座標',
-            'sender_pc_font'           => '（差出人）郵便番号書体',
-            'sender_pc_font_size'      => '（差出人）郵便番号文字サイズ',
+            'from_flag'              => '差出人情報出力',
+            'from_pc_symbol'         => '（差出人）〒マーク出力',
+            'from_pc_x'              => '（差出人）郵便番号 横（X）座標',
+            'from_pc_y'              => '（差出人）郵便番号 縦（Y）座標',
+            'from_pc_font'           => '（差出人）郵便番号書体',
+            'from_pc_font_size'      => '（差出人）郵便番号文字サイズ',
 
-            'sender_address_x'         => '（差出人）住所 横（X）座標',
-            'sender_address_y'         => '（差出人）住所 縦（Y）座標',
-            'sender_address_font'      => '（差出人）住所書体',
-            'sender_address_font_size' => '（差出人）住所文字サイズ',
+            'from_address_x'         => '（差出人）住所 横（X）座標',
+            'from_address_y'         => '（差出人）住所 縦（Y）座標',
+            'from_address_font'      => '（差出人）住所書体',
+            'from_address_font_size' => '（差出人）住所文字サイズ',
 
-            'sender_name_x'            => '（差出人）氏名 横（X）座標',
-            'sender_name_y'            => '（差出人）氏名 縦（Y）座標',
-            'sender_name_font'         => '（差出人）氏名書体',
-            'sender_name_font_size'    => '（差出人）氏名文字サイズ',
+            'from_name_x'            => '（差出人）氏名 横（X）座標',
+            'from_name_y'            => '（差出人）氏名 縦（Y）座標',
+            'from_name_font'         => '（差出人）氏名書体',
+            'from_name_font_size'    => '（差出人）氏名文字サイズ',
         ],
     ],
 

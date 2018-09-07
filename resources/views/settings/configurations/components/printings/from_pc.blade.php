@@ -1,4 +1,39 @@
-@set ($attribute, 'sender_address_x')
+@set ($attribute, 'from_flag')
+<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-5 control-label">
+        @lang ("attributes.settings.printings.{$attribute}")
+        <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can choose whether to output information of sender such as zip code, address, name etc.')"></span>
+    </label>
+
+    <div class="col-md-7 form-control-static">
+        <label>
+            <input type="radio" name="{{ $attribute }}" value="1" required checked /> @lang ("elements.labels.yes")
+        </label>
+        <label>
+            <input type="radio" name="{{ $attribute }}" value="0" required {{ (bool)old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])) === false ? 'checked' : '' }} /> @lang ("elements.labels.no")
+        </label>
+        {!! $errors->{$errorBag}->first($attribute, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
+@set ($attribute, 'from_pc_symbol')
+<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-5 control-label">
+        @lang ("attributes.settings.printings.{$attribute}")
+    </label>
+
+    <div class="col-md-7 form-control-static">
+        <label>
+            <input type="radio" name="{{ $attribute }}" value="1" required checked /> @lang ("elements.labels.yes")
+        </label>
+        <label>
+            <input type="radio" name="{{ $attribute }}" value="0" required {{ (bool)old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])) === false ? 'checked' : '' }} /> @lang ("elements.labels.no")
+        </label>
+        {!! $errors->{$errorBag}->first($attribute, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
+@set ($attribute, 'from_pc_x')
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
@@ -11,7 +46,7 @@
     </div>
 </div>
 
-@set ($attribute, 'sender_address_y')
+@set ($attribute, 'from_pc_y')
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
@@ -24,7 +59,7 @@
     </div>
 </div>
 
-@set ($attribute, 'sender_address_font')
+@set ($attribute, 'from_pc_font')
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
@@ -37,7 +72,7 @@
     </div>
 </div>
 
-@set ($attribute, 'sender_address_font_size')
+@set ($attribute, 'from_pc_font_size')
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")

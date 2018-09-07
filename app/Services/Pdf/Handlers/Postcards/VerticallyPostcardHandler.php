@@ -149,17 +149,17 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     private function fromPostalCode(string $value): void
     {
-        if (! $this->settings['sender_flag']) return;
+        if (! $this->settings['from_flag']) return;
 
         /**
          * TODO XXX
          */
 //         $value = '1234567';
 
-//         $this->fonts($this->settings['sender_pc_font']);
-//         $this->processor->SetFont($this->font, '', $this->settings['sender_pc_font_size'], '', true);
+//         $this->fonts($this->settings['from_pc_font']);
+//         $this->processor->SetFont($this->font, '', $this->settings['from_pc_font_size'], '', true);
 //         $this->processor->setFontSpacing(0.5);
-//         $this->processor->text($this->settings['sender_pc_x'], $this->settings['sender_pc_y'], sprintf('%s%s-%s', $this->settings['sender_pc_symbol'] ? '〒' : '', mb_substr($value, 0, 3), mb_substr($value, 3, 4)));
+//         $this->processor->text($this->settings['from_pc_x'], $this->settings['from_pc_y'], sprintf('%s%s-%s', $this->settings['from_pc_symbol'] ? '〒' : '', mb_substr($value, 0, 3), mb_substr($value, 3, 4)));
     }
 
     /**
@@ -169,10 +169,10 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     private function fromAddress(string $address, string $building = null): void
     {
-//         $this->fonts($this->settings['sender_address_font']);
-//         $this->processor->SetFont($this->font, '', $this->settings['sender_address_font_size'], '', true);
+//         $this->fonts($this->settings['from_address_font']);
+//         $this->processor->SetFont($this->font, '', $this->settings['from_address_font_size'], '', true);
 //         $this->processor->setFontSpacing(0);
-//         $this->processor->MultiCell(70.0, 25.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, $this->settings['sender_address_x'], $this->settings['sender_address_y'], true, 0, false, true, 25, 'T', true);
+//         $this->processor->MultiCell(70.0, 25.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, $this->settings['from_address_x'], $this->settings['from_address_y'], true, 0, false, true, 25, 'T', true);
     }
 
     /**
@@ -181,10 +181,10 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     private function fromName(string $value): void
     {
-//         $this->fonts($this->settings['sender_name_font']);
-//         $this->processor->SetFont($this->font, '', $this->settings['sender_name_font_size'], '', true);
+//         $this->fonts($this->settings['from_name_font']);
+//         $this->processor->SetFont($this->font, '', $this->settings['from_name_font_size'], '', true);
 //         $this->processor->setFontSpacing(2.0);
-//         $this->processor->MultiCell(60.0, 25.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'L', 0, 0, $this->settings['sender_name_x'], $this->settings['sender_name_y'], true, 0, false, true, 25, 'T', true);
+//         $this->processor->MultiCell(60.0, 25.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'L', 0, 0, $this->settings['from_name_x'], $this->settings['from_name_y'], true, 0, false, true, 25, 'T', true);
     }
 
 }
