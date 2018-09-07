@@ -34,11 +34,10 @@ final class ExportPostcards
     public function excute(User $user, array $args)
     {
         $args = $this->domainize($user, $args);
-        $data = $this->finder->findMany($args['ids'])->toArray();
 
         return $this->exporter
             ->pushHandler(app(VerticallyPostcardHandler::class))
-            ->export($data, $args['settings']);
+            ->export($args);
     }
 
     /**
@@ -50,10 +49,11 @@ final class ExportPostcards
     {
         /** @var Collection $collection */
         $collection = collect($args);
+        $collection->put('from', $user->store());
 
         if ($collection->has($key = 'selection')) {
-            $collection->put('ids', explode(',', $collection->get($key)));
-            $collection->forget($key);
+            $ids = explode(',', $collection->get($key));
+            $collection->put('data', $this->finder->findMany($ids)->toArray());
         }
 
         return $collection->all();

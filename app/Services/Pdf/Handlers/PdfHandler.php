@@ -12,14 +12,17 @@ abstract class PdfHandler implements HandlableContract
     /** @var Collection */
     protected $data;
 
+    /** @var DomainModel|null */
+    protected $from;
+
     /** @var array */
     protected $settings = [];
 
     /**
-     * @param DomainModel[] $data
+     * @param array $args
      * @return void
      */
-    abstract public function process(array $data): void;
+    abstract public function process(array $args): void;
 
     /**
      * @return void
@@ -72,17 +75,35 @@ abstract class PdfHandler implements HandlableContract
     }
 
     /**
-     * @param DomainModel[] $data
+     * @param DomainModel[] $args
      * @return $this
      */
-    public function setData(array $data = []): self
+    public function setData(array $args = []): self
     {
         $this->data = collect([]);
 
-        foreach (collect($data) as $value) {
+        foreach (collect($args) as $value) {
             $this->pushData($value);
         }
 
+        return $this;
+    }
+
+    /**
+     * @return DomainModel|null
+     */
+    public function getFrom(): ?DomainModel
+    {
+        return $this->from;
+    }
+
+    /**
+     * @param DomainModel $model
+     * @return $this
+     */
+    public function setFrom(DomainModel $model = null): self
+    {
+        $this->from = $model;
         return $this;
     }
 

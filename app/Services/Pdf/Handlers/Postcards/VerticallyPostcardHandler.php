@@ -58,7 +58,11 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
 
             $this->postalCode($item->postalCode());
             $this->address($item->address(), $item->buildingName());
-            $this->name($item->lastName(), $item->firstName());
+            $this->name($item->lastName(), $item->firstName(), $item->office(), $item->department(), $item->position());
+
+            $this->fromPostalCode($this->from->postalCode());
+            $this->fromAddress($this->from->address(), $this->from->buildingName());
+            $this->fromName($this->from->name());
         }
     }
 
@@ -112,10 +116,10 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
 
     /**
      * @param string $value
-     * string $building
+     * string $building|null
      * @return void
      */
-    private function address(string $address, string $building = ''): void
+    private function address(string $address, string $building = null): void
     {
         $this->fonts($this->settings['address_font']);
         $this->processor->SetFont($this->font, '', $this->settings['address_font_size'], '', true);
@@ -126,14 +130,61 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
     /**
      * @param string $lastName
      * @param string $firstName
+     * @param string|null $company
+     * @param string|null $department
+     * @param string|null $position
      * @return void
      */
-    private function name(string $lastName, string $firstName): void
+    private function name(string $lastName, string $firstName, string $company = null, string $department = null, string $position = null): void
     {
         $this->fonts($this->settings['name_font']);
         $this->processor->SetFont($this->font, '', $this->settings['name_font_size'], '', true);
         $this->processor->setFontSpacing(2.0);
         $this->processor->MultiCell(60.0, 25.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'L', 0, 0, $this->settings['name_x'], $this->settings['name_y'], true, 0, false, true, 25, 'T', true);
+    }
+
+    /**
+     * @param string $value
+     * @return void
+     */
+    private function fromPostalCode(string $value): void
+    {
+        if (! $this->settings['sender_flag']) return;
+
+        /**
+         * TODO XXX
+         */
+//         $value = '1234567';
+
+//         $this->fonts($this->settings['sender_pc_font']);
+//         $this->processor->SetFont($this->font, '', $this->settings['sender_pc_font_size'], '', true);
+//         $this->processor->setFontSpacing(0.5);
+//         $this->processor->text($this->settings['sender_pc_x'], $this->settings['sender_pc_y'], sprintf('%s%s-%s', $this->settings['sender_pc_symbol'] ? '〒' : '', mb_substr($value, 0, 3), mb_substr($value, 3, 4)));
+    }
+
+    /**
+     * @param string $value
+     * string $building|null
+     * @return void
+     */
+    private function fromAddress(string $address, string $building = null): void
+    {
+//         $this->fonts($this->settings['sender_address_font']);
+//         $this->processor->SetFont($this->font, '', $this->settings['sender_address_font_size'], '', true);
+//         $this->processor->setFontSpacing(0);
+//         $this->processor->MultiCell(70.0, 25.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, $this->settings['sender_address_x'], $this->settings['sender_address_y'], true, 0, false, true, 25, 'T', true);
+    }
+
+    /**
+     * @param string $value
+     * @return void
+     */
+    private function fromName(string $value): void
+    {
+//         $this->fonts($this->settings['sender_name_font']);
+//         $this->processor->SetFont($this->font, '', $this->settings['sender_name_font_size'], '', true);
+//         $this->processor->setFontSpacing(2.0);
+//         $this->processor->MultiCell(60.0, 25.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'L', 0, 0, $this->settings['sender_name_x'], $this->settings['sender_name_y'], true, 0, false, true, 25, 'T', true);
     }
 
 }

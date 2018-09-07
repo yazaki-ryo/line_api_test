@@ -23,15 +23,15 @@ final class PdfService implements ExportableContract
     }
 
     /**
-     * @param array $data
-     * @param array $settings
+     * @param array $args
      */
-    public function export(array $data, array $settings = [])
+    public function export(array $args)
     {
         /** @var HandlableContract $handler */
         foreach ($this->handlers as $handler) {
-            $handler->setSettings($settings);
-            $handler->process($data);
+            $handler->setSettings($args['settings']);
+            $handler->setFrom($args['from']);
+            $handler->process($args['data']);
             $handler->render();
         }
     }
