@@ -23,13 +23,6 @@ final class EloquentPrefecture extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-
-    /**
      * @return HasMany
      */
     public function companies(): HasMany

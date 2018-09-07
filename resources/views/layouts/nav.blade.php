@@ -11,7 +11,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </div>
@@ -59,6 +59,10 @@
                             @can ('authorize', ['customers.*', 'customers.create'])
                                 <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.pages.customers.add')</a></li>
                             @endcan
+
+                            @can ('authorize', ['customers.*', 'customers.files.import'])
+                                <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.actions.import')</a></li>
+                            @endcan
                         </ul>
                     </li>
 
@@ -67,10 +71,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.reservations') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Tags menu -->
@@ -78,10 +83,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.tags') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Menus menu -->
@@ -89,10 +95,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.menus') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Surveys menu -->
@@ -100,10 +107,11 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.surveys') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
                     <!-- Coupons menu -->
@@ -111,31 +119,41 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.menus.coupons') <span class="caret"></span>
                         </a>
-
+{{--
                         <ul class="dropdown-menu">
                             <li><a href="#">test</a></li>
                         </ul>
+--}}
                     </li>
 
-                    <!-- Configurations menu -->
+                    <!-- Settings menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.configurations') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
+                            @lang ('elements.menus.settings') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li class="{{ request()->route()->named('configurations.profile') ? 'active' : '' }}"><a href="{{ route('configurations.profile') }}">@lang ('elements.pages.configurations.profile')</a></li>
+                            <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.pages.settings.profile')</a></li>
 
                             @can ('authorize', ['stores.*', 'stores.update'])
-                                <li class="{{ request()->route()->named('configurations.store') ? 'active' : '' }}"><a href="{{ route('configurations.store') }}">@lang ('elements.pages.configurations.store')</a></li>
+                                <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.pages.settings.store')</a></li>
                             @endcan
 
                             @can ('authorize', ['companies.*', 'companies.update'])
-                                <li class="{{ request()->route()->named('configurations.company') ? 'active' : '' }}"><a href="{{ route('configurations.company') }}">@lang ('elements.pages.configurations.company')</a></li>
+                                <li class="{{ request()->route()->named('settings.company') ? 'active' : '' }}"><a href="{{ route('settings.company') }}">@lang ('elements.pages.settings.company')</a></li>
                             @endcan
 
                             <li class="disabled"><a href="#">@lang ('elements.labels.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>
-                            <li class="disabled"><a href="#">@lang ('elements.actions.set')</a></li>
+
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.actions.set') <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li class="{{ request()->route()->named('settings.configurations.printings') ? 'active' : '' }}"><a href="{{ route('settings.configurations.printings') }}">@lang ('elements.actions.print')@lang ('elements.actions.set')</a></li>
+                                </ul>
+                            </li>
 
                             <li role="separator" class="divider"></li>
 

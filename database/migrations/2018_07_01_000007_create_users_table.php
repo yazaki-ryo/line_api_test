@@ -11,7 +11,7 @@ class CreateUsersTable extends Migration
     private $table = 'users';
 
     /** @var string */
-    private $name = 'ユーザー';
+    private $name = 'ユーザ';
 
     /**
      * @return void
@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
                 $table->unsignedInteger('store_id')->nullable()->comment('店舗ID');
                 $table->unsignedInteger('role_id')->nullable()->comment('ロールID');
 
-                $table->string('name')->nullable()->comment('名称');
+                $table->string('name')->nullable()->comment('表示名');
                 $table->string('email')->unique()->comment('E-Mail');
                 $table->string('password');
                 $table->rememberToken();

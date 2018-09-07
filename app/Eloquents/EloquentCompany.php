@@ -34,13 +34,6 @@ final class EloquentCompany extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $hidden = [
-        //
-    ];
-
-    /**
      * @return HasMany
      */
     public function stores(): HasMany

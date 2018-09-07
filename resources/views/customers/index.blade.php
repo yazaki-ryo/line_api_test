@@ -23,6 +23,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
+                @include ('components.parts.any_errors')
             </div>
         </div>
 
@@ -56,19 +57,19 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active pt-10" id="result-tab">
+                    <div class="tab-pane active fade in pt-10" id="result-tab">
                         @include ('customers.components.list')
                     </div>
-                    <div class="tab-pane pt-10" id="search-tab">
+                    <div class="tab-pane fade pt-10" id="search-tab">
                         <div class="well">
-                            {!! Form::open(['url' => route('customers'), 'id' => '', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                            {!! Form::open(['url' => route('customers'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.search')
                             {!! Form::close() !!}
                         </div>
                     </div>
-                    <div class="tab-pane pt-10" id="print-tab">
+                    <div class="tab-pane fade pt-10" id="print-tab">
                         <div class="well">
-                            {!! Form::open(['url' => route('customers.pdf.output'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                            {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.postcard')
                             {!! Form::close() !!}
                         </div>
@@ -107,14 +108,55 @@
                 stateSave: true
             });
         });
-    </script>
-    <script type="text/javascript">
+
+        /**
+         * @param string url
+         * @return void
+         */
         function restoreRecord(url) {
             if( confirm('@lang ("Do you really want to restore this?")') ) {
                 var form = document.getElementById('basic-post-form');
                 form.action = url;
                 form.submit();
             }
+        }
+
+        /**
+         * @param string url
+         * @param string name
+         * @return void
+         */
+        function submitPostcardsForm(url, name) {
+            var element = document.createElement('input');
+            element.setAttribute('type', 'hidden');
+            element.setAttribute('name', name);
+
+            var value = elementsByName(name);
+            element.setAttribute('value', value);
+
+            var form = document.getElementById('customers-postcards-form');
+            form.action = url;
+            form.appendChild(element);
+            form.submit();
+        }
+
+        /**
+         * @param string name
+         * @param bool onlyChecked
+         * @return array
+         */
+        function elementsByName(name, onlyChecked = true) {
+            var element = document.getElementsByName(name);
+            var selected = [];
+
+            for (var item of element) {
+                if (item.checked === false && onlyChecked) {
+                    continue;
+                }
+                selected.push(parseInt(item.value));
+            }
+
+            return selected;
         }
     </script>
 @endsection

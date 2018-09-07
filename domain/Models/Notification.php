@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\NotificationRepository;
-use App\Services\DomainCollection;
 
 final class Notification extends DomainModel
 {
@@ -63,7 +62,7 @@ final class Notification extends DomainModel
     /**
      * @return int|null
      */
-    public function notifiableId(): ?string
+    public function notifiableId(): ?int
     {
         return $this->notifiableId;
     }
@@ -109,9 +108,9 @@ final class Notification extends DomainModel
     }
 
     /**
-     * @return mixed [Some notifiable model.]
+     * @return mixed DomainModel
      */
-    public function notifiable()
+    public function notifiable(): DomainModel
     {
         return $this->repo->notifiable();
     }

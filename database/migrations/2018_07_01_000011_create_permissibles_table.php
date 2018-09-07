@@ -28,6 +28,12 @@ class CreatePermissiblesTable extends Migration
                 $table->foreign('permission_id')
                     ->references('id')
                     ->on('permissions');
+
+                $table->unique([
+                    'permission_id',
+                    'permissible_id',
+                    'permissible_type',
+                ],sprintf("%s_permissible_unique", $this->table));
             });
 
             DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));

@@ -1,12 +1,17 @@
 @if ($rows->count())
+    <div class="form-group{{ $errors->has('selection') ? ' has-error' : '' }}">
+        {!! $errors->first('selection', '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+
     <div class="table-responsive">
         <table id="customers-table" class="table table-striped table-hover table-condensed">
             <thead>
                 <tr>
-                    <th>@lang ('attributes.customers.name')</th>
+                    <th><span class="glyphicon glyphicon-check"></span></th>
+                    <th>@lang ('elements.labels.name')</th>
+                    <th>@lang ('attributes.customers.office')</th>
                     <th>@lang ('attributes.customers.tel')</th>
                     <th>@lang ('attributes.customers.mobile_phone')</th>
-                    <th>@lang ('attributes.customers.tags')</th>
                     <th>@lang ('attributes.customers.visited_cnt')</th>
                     <th>@lang ('elements.labels.action')</th>
                 </tr>
@@ -14,10 +19,16 @@
             <tbody>
                 @foreach ($rows as $row)
                     <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
-                        <td>{{ $row->{$camel = camel_case('name')}() }}</td>
+                        <td>
+                            <div class="checkbox">
+                                @set ($field, 'selection')
+                                <label><input type="checkbox" name="{{ $field }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($field)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($field))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
+                            </div>
+                        </td>
+                        <td>{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
+                        <td>{{ $row->{$camel = camel_case('office')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('tel')}() }}</td>
                         <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
-                        <td>@include ('customers.components.tags')</td>
                         <td>{{ $row->{$camel = camel_case('visited_cnt')}()->asInt() }}</td>
                         <td>
                             @if ($row->{$camel = camel_case('deleted_at')}())

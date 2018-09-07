@@ -15,16 +15,25 @@ final class Customer extends DomainModel
     private $id;
 
     /** @var string */
-    private $name;
+    private $lastName;
 
     /** @var string */
-    private $kana;
+    private $firstName;
+
+    /** @var string */
+    private $lastNameKana;
+
+    /** @var string */
+    private $firstNameKana;
 
     /** @var int */
     private $age;
 
     /** @var string */
     private $office;
+
+    /** @var string */
+    private $officeKana;
 
     /** @var string */
     private $department;
@@ -109,17 +118,33 @@ final class Customer extends DomainModel
     /**
      * @return string|null
      */
-    public function name(): ?string
+    public function lastName(): ?string
     {
-        return $this->name;
+        return $this->lastName;
     }
 
     /**
      * @return string|null
      */
-    public function kana(): ?string
+    public function firstName(): ?string
     {
-        return $this->kana;
+        return $this->firstName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function lastNameKana(): ?string
+    {
+        return $this->lastNameKana;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function firstNameKana(): ?string
+    {
+        return $this->firstNameKana;
     }
 
     /**
@@ -136,6 +161,14 @@ final class Customer extends DomainModel
     public function office(): ?string
     {
         return $this->office;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function officeKana(): ?string
+    {
+        return $this->officeKana;
     }
 
     /**
@@ -377,11 +410,19 @@ final class Customer extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'name')) {
+        if ($args->has($key = 'last_name')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'kana')) {
+        if ($args->has($key = 'first_name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'last_name_kana')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'first_name_kana')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
@@ -390,6 +431,10 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'office')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'office_kana')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
@@ -480,4 +525,65 @@ final class Customer extends DomainModel
         return $this;
     }
 
+    /**
+     * @param User $user
+     * @param int $value
+     * @return bool
+     */
+    public static function validateCustomerId(User $user, int $value): bool
+    {
+        if (is_null($store = $user->store())
+            || is_null($company = $store->company())
+        ) {
+            return false;
+        }
+
+        if ($user->can('roles', 'company-admin')) {
+            if ($company->customers()->containsStrict(function ($item) use ($value) {
+                return $item->id() === $value;
+            })) {
+                return true;
+            }
+        } else {
+            if ($store->customers()->containsStrict(function ($item) use ($value) {
+                return $item->id() === $value;
+            })) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param User $user
+     * @param string $value
+     * @return bool
+     */
+    public static function validateCustomerIdsFromCsvStringForOutputPostcards(User $user, string $value): bool
+    {
+        if (is_null($store = $user->store())
+            || is_null($company = $store->company())
+        ) {
+            return false;
+        }
+
+        foreach (collect(explode(',', $value)) as $id) {
+            if ($user->can('roles', 'company-admin')) {
+                if (! $company->customers()->containsStrict(function ($item) use ($id) {
+                    return $item->id() === (int)$id;
+                })) {
+                    return false;
+                }
+            } else {
+                if (! $store->customers()->containsStrict(function ($item) use ($id) {
+                    return $item->id() === (int)$id;
+                })) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

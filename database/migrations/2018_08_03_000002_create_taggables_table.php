@@ -28,6 +28,12 @@ class CreateTaggablesTable extends Migration
                 $table->foreign('tag_id')
                     ->references('id')
                     ->on('tags');
+
+                $table->unique([
+                    'tag_id',
+                    'taggable_id',
+                    'taggable_type',
+                ]);
             });
 
             DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));

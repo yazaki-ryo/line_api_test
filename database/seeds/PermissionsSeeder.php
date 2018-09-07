@@ -122,6 +122,14 @@ class PermissionsSeeder extends Seeder
             'name'  => '顧客復旧',
             'slug'  => 'customers.restore',
         ],
+
+        /**
+         * Settings
+         */
+        [
+            'name'  => '各種設定',
+            'slug'  => 'settings.*',
+        ],
     ];
 
     /**

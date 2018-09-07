@@ -34,7 +34,11 @@
                                 <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
 
                                 <div class="col-md-6">
-                                    {!! Form::email($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon-{{ $field }}">@</span>
+                                        {!! Form::email($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '',  'aria-describedby' => "basic-addon-{$field}"]) !!}
+                                    </div>
+
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
@@ -44,7 +48,11 @@
                                 <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
 
                                 <div class="col-md-6">
-                                    <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon-{{ $field }}"><span class="glyphicon glyphicon-lock"></span></span>
+                                        <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
+                                    </div>
+
                                     {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
                                 </div>
                             </div>
@@ -63,7 +71,7 @@
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        @lang ('elements.actions.submit')
+                                        @lang ('elements.actions.login')
                                     </button>
 
                                     <a class="btn btn-link" href="{{ route('password.request') }}">

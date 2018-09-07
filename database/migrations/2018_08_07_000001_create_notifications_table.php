@@ -24,10 +24,10 @@ class CreateNotificationsTable extends Migration
         try {
             Schema::create($this->table, function (Blueprint $table) {
                 $table->uuid('id')->primary();
-                $table->string('type');
+                $table->string('type')->comment('通知タイプ');
                 $table->morphs('notifiable');
                 $table->text('data');
-                $table->timestamp('read_at')->nullable();
+                $table->timestamp('read_at')->nullable()->comment('既読/未読');
                 $table->timestamps();
             });
 

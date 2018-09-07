@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Notifications;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\UserRepository;
+use Domain\Models\User;
 use Domain\UseCases\Notifications\CreateNotification;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -36,6 +37,7 @@ final class TestController extends Controller
      */
     public function __invoke()
     {
+        /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $this->useCase->excute($user);
     }

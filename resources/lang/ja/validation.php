@@ -39,6 +39,7 @@ return [
     'digits_between'       => ':attributeは、:min 桁から:max 桁にしてください。',
     'email'                => ':attributeは有効なメールアドレス形式で入力してください。',
     'exists'               => '入力された :attributeは存在しないか、不正なデータです。',
+    'file'                 => ':attributeは正しいファイル形式を指定してください。',
     'filled'               => ':attributeは必須です。',
     'image'                => ':attributeは、画像を指定してください。',
     'in'                   => '選択された :attributeは、有効ではありません。',
@@ -88,11 +89,11 @@ return [
      |
      */
 
-    'custom_alpha_dash'  => ':attributeは、半角英数字と半角ハイフンが使用できます。',
-    'exists_files'  => '指定した:attributeが、存在しません。',
-    'strings' => [
-        'zenkaku_katakana' => ':attributeは、全角カタカナで入力してください。',
-    ],
+//     'custom_alpha_dash'  => ':attributeは、半角英数字と半角ハイフンが使用できます。',
+//     'exists_files'  => '指定した:attributeが、存在しません。',
+//     'strings' => [
+//         'zenkaku_katakana' => ':attributeは、全角カタカナで入力してください。',
+//     ],
 
     /*
     |--------------------------------------------------------------------------
@@ -105,6 +106,7 @@ return [
     |
     */
 
+    // 使用しない
     'custom' => [
         'attribute-name' => [
             'rule-name'  => 'custom-message',

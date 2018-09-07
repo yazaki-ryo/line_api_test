@@ -27,10 +27,13 @@ final class EloquentCustomer extends Model
         'sex_id',
 //         'group_id',
 //         'introducer_id',
-        'name',
-        'kana',
+        'last_name',
+        'first_name',
+        'last_name_kana',
+        'first_name_kana',
         'age',
         'office',
+        'office_kana',
         'department',
         'position',
 
@@ -53,15 +56,9 @@ final class EloquentCustomer extends Model
     /**
      * @var array
      */
-    protected $hidden = [
-        //
-    ];
-
-    /**
-     * @var array
-     */
     protected $dates = [
-        //
+        // 'anniversary',
+        // 'birthday',
     ];
 
     /**
@@ -112,9 +109,26 @@ final class EloquentCustomer extends Model
      * @param  string $operator
      * @return Builder
      */
-    public function scopeName(Builder $query, string $value, string $operator = '='): Builder
+    public function scopeLastName(Builder $query, string $value, string $operator = '='): Builder
     {
-        $field = sprintf('%s.name', $this->getTable());
+        $field = sprintf('%s.last_name', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            $q->where($field, 'like', "%{$value}%");
+        }, function(Builder $q) use ($value, $field, $operator) {
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeFirstName(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.first_name', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
             $q->where($field, 'like', "%{$value}%");
@@ -150,7 +164,10 @@ final class EloquentCustomer extends Model
     {
         return $query->where(function(Builder $q1) use ($value) {
             $q1->orWhere(function(Builder $q2) use ($value) {
-                $q2->name($value, 'like');
+                $q2->lastName($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->firstName($value, 'like');
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
                 $q2->office($value, 'like');

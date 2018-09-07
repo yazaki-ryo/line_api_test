@@ -7,12 +7,14 @@ use App\Http\Views\Composers\PrefecturesComposer;
 use App\Http\Views\Composers\SexesComposer;
 use App\Services\CustomersService;
 use App\Services\SexesService;
-use App\Services\PdfService;
+use App\Services\Pdf\PdfService;
+use App\Services\FilesService;
 use App\Services\PrefecturesService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Domain\UseCases\Customers\GetCustomers;
-use Domain\UseCases\Customers\OutputPdf;
+use Domain\UseCases\Customers\ImportFiles;
+use Domain\UseCases\Customers\ExportPostcards;
 use Domain\UseCases\Customers\GetCustomer;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
@@ -60,8 +62,15 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->bind(OutputPdf::class, function () {
-            return new OutputPdf(
+        $this->app->bind(ImportFiles::class, function () {
+            return new ImportFiles(
+                app(FilesService::class),
+                app(CustomersService::class)
+            );
+        });
+
+        $this->app->bind(ExportPostcards::class, function () {
+            return new ExportPostcards(
                 app(PdfService::class),
                 app(CustomersService::class)
             );

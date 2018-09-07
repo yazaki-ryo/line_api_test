@@ -13,9 +13,18 @@ trait Findable
      * @param bool $trashed
      * @return DomainModel|null
      */
-    public function findById(int $id, bool $trashed = false): ?DomainModel
+    public function find(int $id, bool $trashed = false): ?DomainModel
     {
-        return $this->repo->findById($id, $trashed);
+        return $this->repo->find($id, $trashed);
+    }
+
+    /**
+     * @param array $ids
+     * @return DomainCollection
+     */
+    public function findMany(array $ids = []): DomainCollection
+    {
+        return $this->repo->findMany($ids);
     }
 
     /**

@@ -52,7 +52,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active pt-10" id="edit-tab">
+                    <div class="tab-pane active fade in pt-10" id="edit-tab">
                         <div class="panel panel-default">
                             <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
@@ -63,12 +63,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane pt-10" id="tags-tab">
+                    <div class="tab-pane fade pt-10" id="tags-tab">
                         <div class="well">
                             @include ('customers.components.tags')
                         </div>
                     </div>
-                    <div class="tab-pane pt-10" id="history-tab">
+                    <div class="tab-pane fade pt-10" id="history-tab">
                         <div class="well">
                             @lang ('Dedicated development in progress.')
                         </div>

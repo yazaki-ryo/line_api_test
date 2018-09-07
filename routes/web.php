@@ -69,9 +69,16 @@ $router->group([
         });
 
         $router->group([
-            'prefix' => $prefix2 = 'pdf',
+            'prefix' => $prefix2 = 'postcards',
         ], function (Router $router) use ($prefix, $prefix2) {
-            $router->post( 'output', \App\Http\Controllers\Customers\Pdf\OutputController::class)->name(sprintf('%s.%s.output', $prefix, $prefix2));
+            $router->post( 'export', \App\Http\Controllers\Customers\Postcards\ExportController::class)->name(sprintf('%s.%s.export', $prefix, $prefix2));
+        });
+
+        $router->group([
+            'prefix' => $prefix2 = 'files',
+        ], function (Router $router) use ($prefix, $prefix2) {
+            $router->get( 'import', \App\Http\Controllers\Customers\Files\ImportController::class . '@view')->name(sprintf('%s.%s.import', $prefix, $prefix2));
+            $router->post('import', \App\Http\Controllers\Customers\Files\ImportController::class . '@import');
         });
     });
 
@@ -81,21 +88,31 @@ $router->group([
     $router->group([
         'prefix' => $prefix = 'users',
     ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name($prefix);
+
     });
 
     /**
-     * Configurations
+     * Settings
      */
     $router->group([
-        'prefix' => $prefix = 'configurations',
+        'prefix' => $prefix = 'settings',
     ], function (Router $router) use ($prefix) {
-        $router->get( 'company', \App\Http\Controllers\Configurations\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
-        $router->post('company', \App\Http\Controllers\Configurations\CompanyController::class . '@update');
-        $router->get( 'profile', \App\Http\Controllers\Configurations\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
-        $router->post('profile', \App\Http\Controllers\Configurations\ProfileController::class . '@update');
-        $router->get( 'store', \App\Http\Controllers\Configurations\StoreController::class . '@view')->name(sprintf('%s.store', $prefix));
-        $router->post('store', \App\Http\Controllers\Configurations\StoreController::class . '@update');
+        $router->get( 'company', \App\Http\Controllers\Settings\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
+        $router->post('company', \App\Http\Controllers\Settings\CompanyController::class . '@update');
+        $router->get( 'profile', \App\Http\Controllers\Settings\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
+        $router->post('profile', \App\Http\Controllers\Settings\ProfileController::class . '@update');
+        $router->get( 'store', \App\Http\Controllers\Settings\StoreController::class . '@view')->name(sprintf('%s.store', $prefix));
+        $router->post('store', \App\Http\Controllers\Settings\StoreController::class . '@update');
+
+        /**
+         * Settings
+         */
+        $router->group([
+            'prefix' => $prefix2 = 'configurations',
+        ], function (Router $router) use ($prefix, $prefix2) {
+            $router->get( 'printings', \App\Http\Controllers\Settings\Configurations\PrintingsController::class . '@view')->name(sprintf('%s.%s.printings', $prefix, $prefix2));
+            $router->post('printings/{settingId}', \App\Http\Controllers\Settings\Configurations\PrintingsController::class . '@update')->name(sprintf('%s.%s.printings.update', $prefix, $prefix2));
+        });
     });
 
     /**

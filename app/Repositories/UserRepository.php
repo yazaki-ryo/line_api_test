@@ -5,7 +5,10 @@ namespace App\Repositories;
 
 use App\Eloquents\EloquentUser;
 use App\Services\DomainCollection;
+use App\Traits\Repositories\Authorizable;
+use App\Traits\Repositories\Notifiable;
 use Domain\Contracts\Model\DomainableContract;
+use Domain\Models\Avatar;
 use Domain\Models\Company;
 use Domain\Models\DomainModel;
 use Domain\Models\Role;
@@ -13,11 +16,12 @@ use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Support\Collection;
 
 final class UserRepository extends EloquentRepository implements DomainableContract
 {
+    use Authorizable, Notifiable;
+
     /** @var EloquentUser */
     protected $eloquent;
 
@@ -48,6 +52,28 @@ final class UserRepository extends EloquentRepository implements DomainableContr
         return $collection->transform(function (EloquentUser $item) {
             return self::toModel($item);
         });
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function avatars(array $args = []): DomainCollection
+    {
+        $collection = AvatarRepository::build($this->eloquent->avatars(), $args)->get();
+        return AvatarRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return Avatar
+     */
+    public function addAvatar(array $args = []): Avatar
+    {
+        if (is_null($resource = $this->eloquent->avatars()->create($args))) {
+            return null;
+        }
+        return AvatarRepository::toModel($resource);
     }
 
     /**
@@ -94,36 +120,6 @@ final class UserRepository extends EloquentRepository implements DomainableContr
     }
 
     /**
-     * @param  array $args
-     * @return DomainCollection
-     */
-    public function notifications(array $args = []): DatabaseNotificationCollection
-    {
-        $collection = NotificationRepository::build($this->eloquent->notifications(), $args)->get();
-        return NotificationRepository::toModels($collection);
-    }
-
-    /**
-     * @param  array $args
-     * @return DomainCollection
-     */
-    public function readNotifications(array $args = []): DatabaseNotificationCollection
-    {
-        $collection = NotificationRepository::build($this->eloquent->readNotifications(), $args)->get();
-        return NotificationRepository::toModels($collection);
-    }
-
-    /**
-     * @param  array $args
-     * @return DomainCollection
-     */
-    public function unreadNotifications(array $args = []): DatabaseNotificationCollection
-    {
-        $collection = NotificationRepository::build($this->eloquent->unreadNotifications(), $args)->get();
-        return NotificationRepository::toModels($collection);
-    }
-
-    /**
      * @param  mixed $query
      * @param  array $args
      * @return mixed
@@ -133,25 +129,6 @@ final class UserRepository extends EloquentRepository implements DomainableContr
         $args = collect($args);
 
         return $query;
-    }
-
-    /**
-     * @param  string  $ability
-     * @param  array|mixed  $arguments
-     * @return bool
-     */
-    public function can($ability, $arguments = []): bool
-    {
-        return $this->eloquent->can($ability, $arguments);
-    }
-
-    /**
-     * @param  mixed  $instance
-     * @return void
-     */
-    public function notify($instance): void
-    {
-        $this->eloquent->notify($instance);
     }
 
 }

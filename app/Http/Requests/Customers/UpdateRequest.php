@@ -22,12 +22,23 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
+            'last_name' => [
                 'required',
                 'string',
                 'max:191',
             ],
-            'kana' => [
+            'first_name' => [
+                'required',
+                'string',
+                'max:191',
+            ],
+            'last_name_kana' => [
+                'nullable',
+                'string',
+                // TODO フリガナバリデートルール
+                'max:191',
+            ],
+            'first_name_kana' => [
                 'nullable',
                 'string',
                 // TODO フリガナバリデートルール
@@ -46,6 +57,12 @@ class UpdateRequest extends FormRequest
             'office' => [
                 'nullable',
                 'string',
+                'max:191',
+            ],
+            'office_kana' => [
+                'nullable',
+                'string',
+                // TODO フリガナバリデートルール
                 'max:191',
             ],
             'department' => [
@@ -124,8 +141,8 @@ class UpdateRequest extends FormRequest
     }
 
     /**
-     * Get the validation messages that apply to the request.
-     *
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Http\FormRequest::messages()
      * @return array
      */
     public function messages(): array
@@ -136,8 +153,8 @@ class UpdateRequest extends FormRequest
     }
 
     /**
-     * Get the validation attributes that apply to the request.
-     *
+     * {@inheritDoc}
+     * @see \Illuminate\Foundation\Http\FormRequest::attributes()
      * @return array
      */
     public function attributes(): array
