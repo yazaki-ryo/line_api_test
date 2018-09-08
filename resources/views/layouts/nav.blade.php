@@ -60,10 +60,6 @@
                                 <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.words.customers')@lang ('elements.words.register')</a></li>
                             @endcan
 
-                            @can ('authorize', ['customers.*', 'customers.visited_histories.create'])
-                                <li class="{{ request()->route()->named('customers.visited_histories.add') ? 'active' : '' }}"><a href="{{ route('customers.visited_histories.add') }}">@lang ('elements.words.visit')@lang ('elements.words.register')</a></li>
-                            @endcan
-
                             @can ('authorize', ['customers.*', 'customers.files.import'])
                                 <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.words.import')</a></li>
                             @endcan

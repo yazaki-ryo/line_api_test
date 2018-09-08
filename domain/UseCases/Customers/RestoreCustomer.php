@@ -23,7 +23,6 @@ final class RestoreCustomer
     public function __construct(FindableContract $finder)
     {
         $this->finder = $finder;
-        $this->transactionalService = $transactionalService;
     }
 
     /**

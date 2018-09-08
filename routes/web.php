@@ -60,19 +60,19 @@ $router->group([
         $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
 
         $router->group([
-            'prefix' => $prefix2 = 'visited_histories',
-        ], function (Router $router) use ($prefix, $prefix2) {
-            $router->get( 'add', \App\Http\Controllers\Customers\CreateController::class . '@view')->name(sprintf('%s.%s.add', $prefix, $prefix2));
-            $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
-        });
-
-        $router->group([
             'prefix' => '{customerId}',
         ], function (Router $router) use ($prefix) {
             $router->get( 'edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
             $router->post('edit', \App\Http\Controllers\Customers\UpdateController::class . '@update');
             $router->post('delete', \App\Http\Controllers\Customers\DeleteController::class)->name(sprintf('%s.delete', $prefix));
             $router->post('restore', \App\Http\Controllers\Customers\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+
+            $router->group([
+                'prefix' => $prefix2 = 'visited_histories',
+            ], function (Router $router) use ($prefix, $prefix2) {
+                $router->get( 'add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@view')->name(sprintf('%s.%s.add', $prefix, $prefix2));
+                $router->post('add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@create');
+            });
         });
 
         $router->group([

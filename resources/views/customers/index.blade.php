@@ -42,18 +42,6 @@
                     <li>
                         <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
                     </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                          <span class="glyphicon glyphicon-option-horizontal"></span> <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="disabled">
-                                <a href="#">
-                                    @lang ('elements.words.name_collation')
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
 
                 <div class="tab-content">
@@ -108,6 +96,18 @@
                 stateSave: true
             });
         });
+
+        /**
+         * @param string url
+         * @return void
+         */
+        function deleteRecord(url) {
+            if( confirm('@lang ("Do you really want to delete this?")') ) {
+                var form = document.getElementById('basic-post-form');
+                form.action = url;
+                form.submit();
+            }
+        }
 
         /**
          * @param string url
