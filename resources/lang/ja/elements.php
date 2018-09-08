@@ -58,6 +58,7 @@ return [
         'image'          => '画像',
         'information'    => '情報',
         'joining'        => '参加中',
+        'list'           => '一覧',
         'mode'           => 'モード',
         'name'           => '氏名',
         'name_collation' => '名寄せ',

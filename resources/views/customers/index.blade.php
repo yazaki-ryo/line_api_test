@@ -32,12 +32,12 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#result-tab" data-toggle="tab">
-                            @lang ('elements.actions.search')@lang ('elements.actions.result')
+                            @lang ('elements.labels.list')
                             <span class="badge">{{ $rows->count() }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#search-tab" data-toggle="tab">@lang ('Search for')</a>
+                        <a href="#search-tab" data-toggle="tab">@lang ('elements.actions.search')</a>
                     </li>
                     <li>
                         <a href="#print-tab" data-toggle="tab">@lang ('elements.labels.postcard')@lang ('elements.actions.print')</a>
