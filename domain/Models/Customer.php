@@ -381,6 +381,15 @@ final class Customer extends DomainModel
     }
 
     /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function visitedHistories(array $args = []): DomainCollection
+    {
+        return $this->repo->visitedHistories($args);
+    }
+
+    /**
      * @param  CustomerRepository $repo
      * @return  self
      */

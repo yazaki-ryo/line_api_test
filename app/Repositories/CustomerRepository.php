@@ -108,6 +108,16 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
     }
 
     /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function visitedHistories(array $args = []): DomainCollection
+    {
+        $collection = VisitedHistoryRepository::build($this->eloquent->visitedHistories(), $args)->get();
+        return VisitedHistoryRepository::toModels($collection);
+    }
+
+    /**
      * @param  mixed $query
      * @param  array $args
      * @return mixed

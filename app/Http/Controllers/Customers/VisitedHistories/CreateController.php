@@ -8,6 +8,7 @@ use App\Http\Requests\Customers\CreateRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
+use Domain\Models\VisitedHistory;
 use Domain\UseCases\Customers\CreateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -36,13 +37,15 @@ final class CreateController extends Controller
     }
 
     /**
-     * @param Customer $customer
+     * @param VisitedHistory $visitedHistory
+     * @param int $customerId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(Customer $customer)
+    public function view(VisitedHistory $visitedHistory, int $customerId)
     {
         return view('customers.visited_histories.add', [
-            'row' => $customer,
+            'row'        => $visitedHistory,
+            'customerId' => $customerId,
         ]);
     }
 

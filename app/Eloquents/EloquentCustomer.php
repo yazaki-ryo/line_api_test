@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
@@ -101,6 +102,14 @@ final class EloquentCustomer extends Model
     public function tags(): MorphToMany
     {
         return $this->morphToMany(EloquentTag::class, 'taggable', 'taggables', 'taggable_id', 'tag_id', 'id', 'id')->withTimestamps();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function visitedHistories(): HasMany
+    {
+        return $this->hasMany(EloquentVisitedHistory::class, 'customer_id', 'id');
     }
 
     /**
