@@ -12,6 +12,7 @@ use Domain\Models\Customer;
 use Domain\Models\Prefecture;
 use Domain\Models\Sex;
 use Domain\Models\Store;
+use Domain\Models\VisitedHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -115,6 +116,18 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
     {
         $collection = VisitedHistoryRepository::build($this->eloquent->visitedHistories(), $args)->get();
         return VisitedHistoryRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return VisitedHistory|null
+     */
+    public function createVisitedHistory(array $args = []): ?VisitedHistory
+    {
+        if (is_null($resource = $this->eloquent->visitedHistories()->create($args))) {
+            return null;
+        }
+        return VisitedHistoryRepository::toModel($resource);
     }
 
     /**
