@@ -8,12 +8,12 @@
             <thead>
                 <tr>
                     <th><span class="glyphicon glyphicon-check"></span></th>
-                    <th>@lang ('elements.labels.name')</th>
+                    <th>@lang ('elements.words.name')</th>
                     <th>@lang ('attributes.customers.office')</th>
                     <th>@lang ('attributes.customers.tel')</th>
                     <th>@lang ('attributes.customers.mobile_phone')</th>
                     <th>@lang ('attributes.customers.visited_cnt')</th>
-                    <th>@lang ('elements.labels.action')</th>
+                    <th>@lang ('elements.words.action')</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +34,7 @@
                             @if ($row->{$camel = camel_case('deleted_at')}())
                                 @can ('authorize', ['customers.*', 'customers.restore'])
                                     @can ('restore', $row)
-                                        <a href="{{ route('customers.restore', $row->id()) }}" class="btn btn-sm btn-warning" title="@lang ('elements.actions.restore')" onclick="restoreRecord('{{ route('customers.restore', $row->id()) }}'); return false;">
+                                        <a href="{{ route('customers.restore', $row->id()) }}" class="btn btn-sm btn-warning" title="@lang ('elements.words.restore')" onclick="restoreRecord('{{ route('customers.restore', $row->id()) }}'); return false;">
                                             <span class="glyphicon glyphicon-refresh"></span>
                                         </a>
                                     @endcan
@@ -42,7 +42,7 @@
                             @else
                                 @can ('authorize', ['customers.*', 'customers.update'])
                                     @can ('update', $row)
-                                        <a href="{{ route('customers.edit', $row->id()) }}" class="btn btn-sm btn-success" title="@lang ('elements.actions.edit')">
+                                        <a href="{{ route('customers.edit', $row->id()) }}" class="btn btn-sm btn-success" title="@lang ('elements.words.edit')">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                     @endcan
@@ -55,5 +55,5 @@
         </table>
     </div>
 @else
-    <p>@lang ('There is no :name.', ['name' => __('elements.labels.data')])</p>
+    <p>@lang ('There is no :name.', ['name' => __('elements.words.data')])</p>
 @endif

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.pages.home') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.home') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.pages.home') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.home') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="well" style="height: 220px; overflow: auto;">
-                    <p class="lead">■@lang ('elements.labels.notice')</p>
+                    <p class="lead">■@lang ('elements.words.notice')</p>
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
@@ -53,7 +53,7 @@
 
             <div class="col-md-6 col-md-offset-0">
                 <div class="well" style="height:220px;overflow:auto;">
-                    <p class="lead">■@lang ('elements.resources.customers')@lang ('elements.labels.information')</p>
+                    <p class="lead">■@lang ('elements.words.customers')@lang ('elements.words.information')</p>
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
@@ -70,7 +70,7 @@
 
             <div class="col-md-6 col-md-offset-0">
                 <div class="well" style="height:220px;overflow:auto;">
-                    <p class="lead">■@lang ('elements.resources.stores')@lang ('elements.labels.information')</p>
+                    <p class="lead">■@lang ('elements.words.stores')@lang ('elements.words.information')</p>
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
@@ -87,7 +87,7 @@
 
             <div class="col-md-6 col-md-offset-0">
                 <div class="well" style="height:220px;overflow:auto;">
-                    <p class="lead">■@lang ('elements.resources.users')@lang ('elements.labels.information')</p>
+                    <p class="lead">■@lang ('elements.words.users')@lang ('elements.words.information')</p>
                     <div class="media">
                         <div class="media-left">
                             <a href="#">
@@ -104,7 +104,7 @@
 
             <div class="col-md-6 col-md-offset-0">
                 <div class="well" style="height:220px;overflow:auto;">
-                    <p class="lead">■@lang ('elements.resources.companies')@lang ('elements.labels.information')</p>
+                    <p class="lead">■@lang ('elements.words.companies')@lang ('elements.words.information')</p>
                     <div class="media">
                         <div class="media-left">
                             <a href="#">

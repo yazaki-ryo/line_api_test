@@ -29,17 +29,17 @@
                 @guest
                     <li>
                         <a href="{{ route('login') }}">
-                            <i class="fa fa-sign-in"></i>@lang ('elements.pages.auth.login')
+                            <i class="fa fa-sign-in"></i>@lang ('elements.words.login')
                         </a>
                     </li>
 
-{{--
-                    <li>
-                        <a href="{{ route('register') }}">
-                            <i class="fa fa-sign-in"></i>@lang ('elements.pages.auth.register')
-                        </a>
-                    </li>
---}}
+                    @if (\Route::has('register'))
+                        <li>
+                            <a href="{{ route('register') }}">
+                                <i class="fa fa-sign-in"></i>@lang ('elements.words.user')@lang ('elements.words.register')
+                            </a>
+                        </li>
+                    @endif
                 @else
                     <li class="dropdown-header">
                         @lang ('Welcome, :name.', ['name' => $user->name()])
@@ -48,20 +48,24 @@
                     <!-- Customers menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.customers') <span class="caret"></span>
+                            @lang ('elements.words.customers')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
                             @can ('authorize', ['customers.*', 'customers.select'])
-                                <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers') }}">@lang ('elements.pages.customers.index')</a></li>
+                                <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers') }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
                             @endcan
 
                             @can ('authorize', ['customers.*', 'customers.create'])
-                                <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.pages.customers.add')</a></li>
+                                <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.words.customers')@lang ('elements.words.register')</a></li>
+                            @endcan
+
+                            @can ('authorize', ['customers.*', 'customers.visited_histories.create'])
+                                <li class="{{ request()->route()->named('customers.visited_histories.add') ? 'active' : '' }}"><a href="{{ route('customers.visited_histories.add') }}">@lang ('elements.words.visit')@lang ('elements.words.register')</a></li>
                             @endcan
 
                             @can ('authorize', ['customers.*', 'customers.files.import'])
-                                <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.actions.import')</a></li>
+                                <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.words.import')</a></li>
                             @endcan
                         </ul>
                     </li>
@@ -69,7 +73,7 @@
                     <!-- Reservations menu -->
                     <li class="dropdown disabled">
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.reservations') <span class="caret"></span>
+                            @lang ('elements.words.reservations')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
 {{--
                         <ul class="dropdown-menu">
@@ -81,7 +85,7 @@
                     <!-- Tags menu -->
                     <li class="dropdown disabled">
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.tags') <span class="caret"></span>
+                            @lang ('elements.words.tags')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
 {{--
                         <ul class="dropdown-menu">
@@ -93,7 +97,7 @@
                     <!-- Menus menu -->
                     <li class="dropdown disabled">
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.menus') <span class="caret"></span>
+                            @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
 {{--
                         <ul class="dropdown-menu">
@@ -105,7 +109,7 @@
                     <!-- Surveys menu -->
                     <li class="dropdown disabled">
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.surveys') <span class="caret"></span>
+                            @lang ('elements.words.surveys')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
 {{--
                         <ul class="dropdown-menu">
@@ -117,7 +121,7 @@
                     <!-- Coupons menu -->
                     <li class="dropdown disabled">
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.coupons') <span class="caret"></span>
+                            @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
 {{--
                         <ul class="dropdown-menu">
@@ -129,29 +133,29 @@
                     <!-- Settings menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.menus.settings') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
+                            @lang ('elements.words.various')@lang ('elements.words.settings') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.pages.settings.profile')</a></li>
+                            <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.words.user')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
 
                             @can ('authorize', ['stores.*', 'stores.update'])
-                                <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.pages.settings.store')</a></li>
+                                <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
                             @endcan
 
                             @can ('authorize', ['companies.*', 'companies.update'])
-                                <li class="{{ request()->route()->named('settings.company') ? 'active' : '' }}"><a href="{{ route('settings.company') }}">@lang ('elements.pages.settings.company')</a></li>
+                                <li class="{{ request()->route()->named('settings.company') ? 'active' : '' }}"><a href="{{ route('settings.company') }}">@lang ('elements.words.company')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
                             @endcan
 
-                            <li class="disabled"><a href="#">@lang ('elements.labels.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>
+                            <li class="disabled"><a href="#">@lang ('elements.words.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>
 
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    @lang ('elements.actions.set') <span class="caret"></span>
+                                    @lang ('elements.words.settings') <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li class="{{ request()->route()->named('settings.configurations.printings') ? 'active' : '' }}"><a href="{{ route('settings.configurations.printings') }}">@lang ('elements.actions.print')@lang ('elements.actions.set')</a></li>
+                                    <li class="{{ request()->route()->named('settings.configurations.printings') ? 'active' : '' }}"><a href="{{ route('settings.configurations.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
                                 </ul>
                             </li>
 
@@ -159,7 +163,7 @@
 
                             <li>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('@lang ('Do you want to log out?')')) document.getElementById('logout-form').submit(); return false;">
-                                    <i class="fa fa-sign-out pull-right"></i>@lang ('elements.pages.auth.logout')
+                                    <i class="fa fa-sign-out pull-right"></i>@lang ('elements.words.logout')
                                 </a>
 
                                 {{ Form::open(['id' => 'logout-form', 'url' => route('logout'), 'method' => 'post', 'style' => 'display: none;']) }}{{ Form::close() }}

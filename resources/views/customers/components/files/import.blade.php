@@ -2,7 +2,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.files.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -16,7 +16,7 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         <button type="submit" class="btn btn-primary">
-            @lang ('elements.labels.csv')@lang ('elements.actions.import')
+            @lang ('elements.words.csv')@lang ('elements.words.import')
         </button>
     </div>
 </div>

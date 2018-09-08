@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.pages.customers.edit') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.customers')@lang ('elements.words.edit') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.pages.customers.edit') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.edit') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -27,18 +27,18 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#edit-tab" data-toggle="tab">
-                            @lang ('elements.actions.edit')
+                            @lang ('elements.words.edit')
                         </a>
                     </li>
                     <li>
-                        <a href="#tags-tab" data-toggle="tab">@lang ('elements.labels.tags')</a>
+                        <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
                     </li>
                     <li>
-                        <a href="#history-tab" data-toggle="tab">@lang ('elements.actions.visit')@lang ('elements.actions.history')</a>
+                        <a href="#history-tab" data-toggle="tab">@lang ('elements.words.visit')@lang ('elements.words.history')</a>
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                          @lang ('elements.actions.menu') <span class="caret"></span>
+                          @lang ('elements.words.menu') <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="active">

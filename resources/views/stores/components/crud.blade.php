@@ -2,7 +2,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -15,7 +15,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -28,7 +28,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -41,7 +41,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -54,7 +54,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -79,7 +79,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -104,7 +104,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -134,7 +134,7 @@
     <div class="col-md-6 form-control-static">
         <span class="text-{{ $row->{$camel = camel_case($field)}()->asBoolean() === true ? 'success' : 'danger' }}">
             @set ($status, $row->{$camel = camel_case($field)}()->asBoolean() === true ? 'paid' : 'unpaid')
-            @lang ("elements.labels.{$status}")
+            @lang ("elements.words.{$status}")
         </span>
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -193,7 +193,7 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         <button type="submit" class="btn btn-primary">
-            @lang ('elements.actions.save')
+            @lang ('elements.words.save')
         </button>
     </div>
 </div>

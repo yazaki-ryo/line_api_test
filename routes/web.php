@@ -60,6 +60,13 @@ $router->group([
         $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
 
         $router->group([
+            'prefix' => $prefix2 = 'visited_histories',
+        ], function (Router $router) use ($prefix, $prefix2) {
+            $router->get( 'add', \App\Http\Controllers\Customers\CreateController::class . '@view')->name(sprintf('%s.%s.add', $prefix, $prefix2));
+            $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
+        });
+
+        $router->group([
             'prefix' => '{customerId}',
         ], function (Router $router) use ($prefix) {
             $router->get( 'edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));

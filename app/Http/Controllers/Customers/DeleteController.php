@@ -55,7 +55,7 @@ final class DeleteController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.resources.customers'), 'action' => __('elements.actions.deleted')]), 'info');
+        flash(__('The :name information was :action.', ['name' => __('elements.words.customers'), 'action' => __('elements.words.deleted')]), 'info');
         return redirect()->route('customers');
     }
 
