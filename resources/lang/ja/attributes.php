@@ -79,6 +79,13 @@ return [
         'files' => [
             'csv_file' => 'CSVファイル',
         ],
+
+        'visited_histories' => [
+            'date'   => '来店日',
+            'time'   => 'チェックイン',
+            'amount' => '人数',
+            'seat'   => '席',
+        ],
     ],
 
     'stores' => [

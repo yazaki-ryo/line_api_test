@@ -28,7 +28,7 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('customers.visited_histories.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('customers.visited_histories.add', $customerId), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                             @include ('customers.visited_histories.components.crud', ['mode' => 'add'])
                         {!! Form::close() !!}
                     </div>
