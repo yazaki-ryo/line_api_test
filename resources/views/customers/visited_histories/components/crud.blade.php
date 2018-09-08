@@ -1,4 +1,4 @@
-@set ($field, 'date')
+@set ($field, 'visited_date')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.visited_histories.{$field}")
@@ -6,12 +6,12 @@
     </label>
 
     <div class="col-md-3 form-control-static">
-        {!! Form::date($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d'))), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::tel($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d'))), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
 
-@set ($field, 'time')
+@set ($field, 'visited_time')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.visited_histories.{$field}")
@@ -19,7 +19,7 @@
     </label>
 
     <div class="col-md-3 form-control-static">
-        {!! Form::time($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i:s'))), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::time($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i:s'))), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 5, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -31,7 +31,7 @@
     </label>
 
     <div class="col-md-3 form-control-static">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

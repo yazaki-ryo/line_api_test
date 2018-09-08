@@ -81,10 +81,10 @@ return [
         ],
 
         'visited_histories' => [
-            'date'   => '来店日',
-            'time'   => 'チェックイン',
-            'amount' => '人数',
-            'seat'   => '席',
+            'visited_date' => '来店日',
+            'visited_time' => 'チェックイン',
+            'amount'       => '人数',
+            'seat'         => '席',
         ],
     ],
 

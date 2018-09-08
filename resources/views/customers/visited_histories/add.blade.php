@@ -6,6 +6,10 @@
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
 
+@section('styles')
+    <link href="{{ asset('vendor/jquery-ui/datepicker/datepicker.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -39,7 +43,15 @@
 @endsection
 
 @section ('scripts')
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/datepicker/datepicker.js') }}"></script>
     <script type="text/javascript">
-        //
+        (function($){
+        	    $('#visited_date').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+        })(jQuery);
     </script>
 @endsection
