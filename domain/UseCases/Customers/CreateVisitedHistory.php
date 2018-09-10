@@ -69,11 +69,11 @@ final class CreateVisitedHistory
         if ($args->has($key1 = 'visited_date')) {
             $date = $args->get($key1);
 
-            if ($args->has($key2 = 'visited_time')) {
+            if ($args->has($key2 = 'visited_time') && !is_null($args->get($key2))) {
                 $date = sprintf('%s %s', $date, $args->get($key2));
             }
 
-            $args->put('visited_at', Carbon::createFromTimeString($date));
+            $args->put('visited_at', Carbon::parse($date));
         }
 
         return $args->all();

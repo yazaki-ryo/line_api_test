@@ -23,31 +23,22 @@ final class CustomerPolicy
 
     /**
      * @param  EloquentUser  $user
-     * @return bool
-     */
-//     public function index(EloquentUser $user): bool
-//     {
-//         return false;
-//     }
-
-    /**
-     * @param  EloquentUser  $user
      * @param  Customer  $customer
      * @return bool
      */
-//     public function get(EloquentUser $user, Customer $customer): bool
-//     {
-//         return false;
-//     }
+    public function get(EloquentUser $user, Customer $customer): bool
+    {
+        return false;
+    }
 
     /**
      * @param  EloquentUser  $user
      * @return bool
      */
-//     public function create(EloquentUser $user): bool
-//     {
-//         return false;
-//     }
+    public function create(EloquentUser $user): bool
+    {
+        return false;
+    }
 
     /**
      * @param  EloquentUser  $user

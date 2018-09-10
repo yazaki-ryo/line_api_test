@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Customers\VisitedHistories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\VisitedHistories\CreateRequest;
-use App\Repositories\CustomerRepository;
 use App\Repositories\UserRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
@@ -44,7 +43,13 @@ final class CreateController extends Controller
      */
     public function view(VisitedHistory $visitedHistory, int $customerId)
     {
+        /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);
+
+        $this->authorize('create', [
+            $visitedHistory,
+            $customer,
+        ]);
 
         return view('customers.visited_histories.add', [
             'row'        => $visitedHistory,
@@ -54,14 +59,22 @@ final class CreateController extends Controller
 
     /**
      * @param CreateRequest $request
+     * @param VisitedHistory $visitedHistory
      * @param int $customerId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(CreateRequest $request, int $customerId)
+    public function create(CreateRequest $request, VisitedHistory $visitedHistory, int $customerId)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+        /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);
+
+        $this->authorize('create', [
+            $visitedHistory,
+            $customer,
+        ]);
+
         $args = $request->validated();
 
         $callback = function () use ($user, $customer, $args) {
