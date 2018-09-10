@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\UpdateRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -47,6 +48,7 @@ final class UpdateController extends Controller
 
         return view('customers.edit', [
             'row' => $customer,
+            'visitedHistories' => $customer->visitedHistories(),
         ]);
     }
 
