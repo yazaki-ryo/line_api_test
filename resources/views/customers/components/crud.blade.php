@@ -264,20 +264,6 @@
     </div>
 </div>
 
-@set ($field, 'visited_cnt')
-@if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-        <label for="{{ $field }}" class="col-md-4 control-label">
-            @lang ("attributes.customers.{$field}")
-        </label>
-
-        <div class="col-md-6 form-control-static">
-            {{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}
-            {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-        </div>
-    </div>
-@endif
-
 @set ($field, 'cancel_cnt')
 @if ($mode === 'edit')
     <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">

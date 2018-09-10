@@ -11,7 +11,7 @@
                 <th>@lang ('attributes.customers.office')</th>
                 <th>@lang ('attributes.customers.tel')</th>
                 <th>@lang ('attributes.customers.mobile_phone')</th>
-                <th>@lang ('attributes.customers.visited_cnt')</th>
+                <th>@lang ('elements.words.visited')@lang ('elements.words.num')</th>
                 <th>@lang ('elements.words.action')</th>
             </tr>
         </thead>
@@ -28,7 +28,7 @@
                     <td>{{ $row->{$camel = camel_case('office')}() }}</td>
                     <td>{{ $row->{$camel = camel_case('tel')}() }}</td>
                     <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
-                    <td>{{ $row->{$camel = camel_case('visited_cnt')}()->asInt() }}</td>
+                    <td>{{ $row->visitedHistories()->count() }}</td>
                     <td class="dropdown">
                         <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <span class="glyphicon glyphicon-option-horizontal"></span>

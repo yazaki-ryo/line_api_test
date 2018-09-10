@@ -23,8 +23,8 @@
                             <label><input type="checkbox" name="{{ $field }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($field)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($field))) ? 'checked' : '' }} /></label>
                         </div>
                     </td>
-                    <td>{{ $row->{$camel = camel_case('visited_at')}()->format('Y-m-d') }}</td>
-                    <td>{{ $row->{$camel = camel_case('visited_at')}()->format('H:i') }}</td>
+                    <td>{{ empty($row->{$camel = camel_case('visited_at')}()) ? '' : $row->{$camel}()->format('Y-m-d') }}</td>
+                    <td>{{ empty($row->{$camel = camel_case('visited_at')}()) ? '' : $row->{$camel}()->format('H:i') }}</td>
                     <td>{{ $row->{$camel = camel_case('amount')}() }}</td>
                     <td>{{ $row->{$camel = camel_case('seat')}() }}</td>
                     <td class="dropdown">

@@ -49,7 +49,6 @@ final class EloquentCustomer extends Model
         'mourning_flag',
         'likes_and_dislikes',
         'note',
-//         'visited_cnt',
 //         'cancel_cnt',
 //         'noshow_cnt',
     ];
@@ -67,7 +66,6 @@ final class EloquentCustomer extends Model
      */
     protected $casts = [
         'mourning_flag' => 'bool',
-        'visited_cnt'   => 'int',
         'cancel_cnt'    => 'int',
         'noshow_cnt'    => 'int',
     ];

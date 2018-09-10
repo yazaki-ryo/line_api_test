@@ -50,7 +50,6 @@ class CreateCustomersTable extends Migration
                 $table->text('likes_and_dislikes')->nullable()->comment('好き嫌い');
                 $table->text('note')->nullable()->comment('メモ');
 
-                $table->unsignedInteger('visited_cnt')->default(0)->comment('来店回数');
                 $table->unsignedInteger('cancel_cnt')->default(0)->comment('キャンセル回数');
                 $table->unsignedInteger('noshow_cnt')->default(0)->comment('ノーショウ回数');
 

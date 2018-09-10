@@ -29,6 +29,7 @@ return [
         'companies'      => '企業',
         'conditions'     => '条件',
         'copy'           => 'コピー',
+        'count'          => '回数',
         'coupon'         => 'クーポン',
         'coupons'        => 'クーポン',
         'create'         => '登録',
@@ -111,6 +112,8 @@ return [
         'no'             => 'いいえ',
         'notice'         => 'お知らせ',
         'notification'   => '通知',
+        'num'            => '数',
+        'number'         => '番号',
 
         /**
          * O

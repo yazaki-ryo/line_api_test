@@ -504,10 +504,6 @@ final class Customer extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'visited_cnt')) {
-            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
-        }
-
         if ($args->has($key = 'cancel_cnt')) {
             $this->{$camel = camel_case($key)} = Count::of($args->get($key));
         }
