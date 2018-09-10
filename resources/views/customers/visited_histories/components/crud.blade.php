@@ -18,7 +18,7 @@
     </label>
 
     <div class="col-md-3 form-control-static">
-        {!! Form::time($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i:s'))), ['class' => 'form-control', 'id' => $field, 'maxlength' => 5, 'placeholder' => '']) !!}
+        {!! Form::time($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i'))), ['class' => 'form-control', 'id' => $field, 'maxlength' => 5, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

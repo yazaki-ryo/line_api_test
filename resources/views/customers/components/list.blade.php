@@ -46,7 +46,7 @@
                                 @endcan
                             @else
                                 @can ('authorize', ['customers.*', 'customers.update'])
-                                    @can ('update', $row)
+                                    @can ('get', $row)
                                         <li>
                                             <a href="{{ route('customers.edit', $row->id()) }}">
                                                 @lang ('elements.words.edit')

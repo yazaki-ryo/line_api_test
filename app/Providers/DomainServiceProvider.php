@@ -19,6 +19,7 @@ use Domain\UseCases\Customers\GetCustomer;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\Customers\CreateVisitedHistory;
+use Domain\UseCases\Customers\UpdateVisitedHistory;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
@@ -91,6 +92,12 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(CreateVisitedHistory::class, function () {
             return new CreateVisitedHistory(
+                app(CustomersService::class)
+            );
+        });
+
+        $this->app->bind(UpdateVisitedHistory::class, function () {
+            return new UpdateVisitedHistory(
                 app(CustomersService::class)
             );
         });

@@ -33,26 +33,28 @@
                         </button>
                         <ul class="dropdown-menu">
                             @can ('authorize', ['customers.*', 'customers.visited_histories.update'])
-                                @can ('update', $row)
+                                @can ('get', $row)
                                     <li>
-                                        <a href="{{ route('customers.edit', $row->id()) }}">
+                                        <a href="{{ route('customers.visited_histories.edit', [$row->customerId(), $row->id()]) }}">
                                             @lang ('elements.words.edit')
                                         </a>
                                     </li>
                                 @endcan
                             @endcan
 
+{{--
                             @can ('authorize', ['customers.*', 'customers.visited_histories.delete'])
                                 @can ('delete', $row)
                                     <li role="separator" class="divider"></li>
 
                                     <li>
-                                        <a href="{{-- route('customers.delete', $row->id()) --}}" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
+                                        <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
                                             @lang ('elements.words.delete')
                                         </a>
                                     </li>
                                 @endcan
                             @endcan
+--}}
                         </ul>
                     </td>
                 </tr>

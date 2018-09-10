@@ -9,6 +9,7 @@ use Domain\Exceptions\DomainRuleException;
 use Domain\Models\Customer;
 use Domain\Models\DomainModel;
 use Domain\Models\VisitedHistory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -67,6 +68,10 @@ final class VisitedHistoryRepository extends EloquentRepository implements Domai
     public static function build($query, array $args = [])
     {
         $args = collect($args);
+
+        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
+            $q->id($args->get($key));
+        });
 
         return $query;
     }

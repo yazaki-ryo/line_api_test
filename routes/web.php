@@ -72,6 +72,14 @@ $router->group([
             ], function (Router $router) use ($prefix, $prefix2) {
                 $router->get( 'add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@view')->name(sprintf('%s.%s.add', $prefix, $prefix2));
                 $router->post('add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@create');
+
+                $router->group([
+                    'prefix' => '{visitedHistoryId}',
+                ], function (Router $router) use ($prefix, $prefix2) {
+                    $router->get( 'edit', \App\Http\Controllers\Customers\VisitedHistories\UpdateController::class . '@view')->name(sprintf('%s.%s.edit', $prefix, $prefix2));
+                    $router->post('edit', \App\Http\Controllers\Customers\VisitedHistories\UpdateController::class . '@update');
+//                     $router->post('delete', \App\Http\Controllers\Customers\VisitedHistories\DeleteController::class)->name(sprintf('%s.%s.delete', $prefix, $prefix2));
+                });
             });
         });
 

@@ -29,6 +29,16 @@ final class VisitedHistoryPolicy
      */
     public function get(EloquentUser $user, VisitedHistory $visitedHistory): bool
     {
+        if ($user->can('roles', 'company-admin')
+            && optional($user->store)->company_id === optional(optional($visitedHistory->customer())->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('roles', 'store-user')
+            && $user->store_id === optional($visitedHistory->customer())->storeId()
+        ) {
+            return true;
+        }
+
         return false;
     }
 
@@ -59,15 +69,15 @@ final class VisitedHistoryPolicy
      */
     public function update(EloquentUser $user, VisitedHistory $visitedHistory): bool
     {
-//         if ($user->can('roles', 'company-admin')
-//             && optional($user->store)->company_id === optional($visitedHistory->store())->companyId()
-//         ) {
-//             return true;
-//         } elseif ($user->can('roles', 'store-user')
-//             && $user->store_id === $visitedHistory->storeId()
-//         ) {
-//             return true;
-//         }
+        if ($user->can('roles', 'company-admin')
+            && optional($user->store)->company_id === optional(optional($visitedHistory->customer())->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('roles', 'store-user')
+            && $user->store_id === optional($visitedHistory->customer())->storeId()
+        ) {
+            return true;
+        }
 
         return false;
     }
@@ -79,11 +89,15 @@ final class VisitedHistoryPolicy
      */
     public function delete(EloquentUser $user, VisitedHistory $visitedHistory): bool
     {
-//         if ($user->can('roles', 'company-admin')
-//             && optional($user->store)->company_id === optional($visitedHistory->store())->companyId()
-//         ) {
-//             return true;
-//         }
+        if ($user->can('roles', 'company-admin')
+            && optional($user->store)->company_id === optional(optional($visitedHistory->customer())->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('roles', 'store-user')
+            && $user->store_id === optional($visitedHistory->customer())->storeId()
+        ) {
+            return true;
+        }
 
         return false;
     }

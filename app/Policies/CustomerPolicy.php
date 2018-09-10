@@ -28,6 +28,16 @@ final class CustomerPolicy
      */
     public function get(EloquentUser $user, Customer $customer): bool
     {
+        if ($user->can('roles', 'company-admin')
+            && optional($user->store)->company_id === optional($customer->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('roles', 'store-user')
+            && $user->store_id === $customer->storeId()
+        ) {
+            return true;
+        }
+
         return false;
     }
 
