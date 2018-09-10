@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers;
 
 use App\Traits\Database\Transactionable;
+use Carbon\Carbon;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
@@ -65,8 +66,14 @@ final class CreateVisitedHistory
     {
         $args = collect($args);
 
-        if ($args->has($key = '')) {
-            //
+        if ($args->has($key1 = 'visited_date')) {
+            $date = $args->get($key1);
+
+            if ($args->has($key2 = 'visited_time')) {
+                $date = sprintf('%s %s', $date, $args->get($key2));
+            }
+
+            $args->put('visited_at', Carbon::createFromTimeString($date));
         }
 
         return $args->all();

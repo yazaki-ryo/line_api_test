@@ -30,7 +30,6 @@ class CreateRequest extends FormRequest
                 'before_or_equal:' . now()->format('Y-m-d'),
             ],
             'visited_time' => [
-                'required',
                 'string',
                 'max:5',
                 'date_format:H:i',
