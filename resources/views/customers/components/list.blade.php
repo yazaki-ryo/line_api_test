@@ -83,5 +83,5 @@
         </tbody>
     </table>
 @else
-    <p>@lang ('There is no :name.', ['name' => __('elements.words.data')])</p>
+    <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.customers'), __('elements.words.data'))])</p>
 @endif
