@@ -121,7 +121,7 @@ final class EloquentCustomer extends Model
         $field = sprintf('%s.last_name', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', "%{$value}%");
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
         }, function(Builder $q) use ($value, $field, $operator) {
             $q->where($field, $operator, $value);
         });
@@ -138,7 +138,7 @@ final class EloquentCustomer extends Model
         $field = sprintf('%s.first_name', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', "%{$value}%");
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
         }, function(Builder $q) use ($value, $field, $operator) {
             $q->where($field, $operator, $value);
         });
@@ -155,7 +155,7 @@ final class EloquentCustomer extends Model
         $field = sprintf('%s.office', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', "%{$value}%");
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
         }, function(Builder $q) use ($value, $field, $operator) {
             $q->where($field, $operator, $value);
         });
