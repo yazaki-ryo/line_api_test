@@ -67,6 +67,7 @@ final class CreateController extends Controller
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);
 
@@ -87,7 +88,7 @@ final class CreateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.visit'), 'action' => __('elements.words.created')]), 'success');
-        return redirect()->route('customers.edit', $customerId);
+        return redirect()->route('customers.edit', $customer->id());
     }
 
 }

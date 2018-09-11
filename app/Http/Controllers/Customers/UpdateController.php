@@ -61,6 +61,7 @@ final class UpdateController extends Controller
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);
         $args = $request->validated();

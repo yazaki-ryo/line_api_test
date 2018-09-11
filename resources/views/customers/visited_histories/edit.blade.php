@@ -53,5 +53,17 @@
                 showButtonPanel: true
             });
         })(jQuery);
+
+        /**
+         * @param string url
+         * @return void
+         */
+        function deleteRecord(url) {
+            if( confirm('@lang ("Do you really want to delete this?")') ) {
+                var form = document.getElementById('basic-post-form');
+                form.action = url;
+                form.submit();
+            }
+        }
     </script>
 @endsection

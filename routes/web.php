@@ -78,7 +78,7 @@ $router->group([
                 ], function (Router $router) use ($prefix, $prefix2) {
                     $router->get( 'edit', \App\Http\Controllers\Customers\VisitedHistories\UpdateController::class . '@view')->name(sprintf('%s.%s.edit', $prefix, $prefix2));
                     $router->post('edit', \App\Http\Controllers\Customers\VisitedHistories\UpdateController::class . '@update');
-//                     $router->post('delete', \App\Http\Controllers\Customers\VisitedHistories\DeleteController::class)->name(sprintf('%s.%s.delete', $prefix, $prefix2));
+                    $router->post('delete', \App\Http\Controllers\Customers\VisitedHistories\DeleteController::class)->name(sprintf('%s.%s.delete', $prefix, $prefix2));
                 });
             });
         });

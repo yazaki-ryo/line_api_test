@@ -6,30 +6,30 @@
     <table id="customers-table" class="table table-striped table-hover table-condensed">
         <thead>
             <tr>
-                <th><span class="glyphicon glyphicon-check"></span></th>
-                <th>@lang ('elements.words.name')</th>
-                <th>@lang ('attributes.customers.office')</th>
-                <th>@lang ('attributes.customers.tel')</th>
-                <th>@lang ('attributes.customers.mobile_phone')</th>
-                <th>@lang ('elements.words.visited')@lang ('elements.words.num')</th>
-                <th>@lang ('elements.words.action')</th>
+                <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
+                <th class="text-center">@lang ('elements.words.name')</th>
+                <th class="text-center">@lang ('attributes.customers.office')</th>
+                <th class="text-center">@lang ('attributes.customers.tel')</th>
+                <th class="text-center">@lang ('attributes.customers.mobile_phone')</th>
+                <th class="text-center">@lang ('elements.words.visited')@lang ('elements.words.num')</th>
+                <th class="text-center">@lang ('elements.words.action')</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($rows as $row)
                 <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
-                    <td>
+                    <td class="text-center">
                         <div class="checkbox">
                             @set ($field, 'selection')
                             <label><input type="checkbox" name="{{ $field }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($field)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($field))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
                     </td>
-                    <td>{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
-                    <td>{{ $row->{$camel = camel_case('office')}() }}</td>
-                    <td>{{ $row->{$camel = camel_case('tel')}() }}</td>
-                    <td>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
-                    <td>{{ $row->visitedHistories()->count() }}</td>
-                    <td class="dropdown">
+                    <td class="text-center">{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('office')}() }}</td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('tel')}() }}</td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
+                    <td class="text-center">{{ $row->visitedHistories()->count() }}</td>
+                    <td class="text-center dropdown">
                         <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <span class="glyphicon glyphicon-option-horizontal"></span>
                         </button>

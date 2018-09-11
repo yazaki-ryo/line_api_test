@@ -86,8 +86,8 @@ final class UpdateController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.words.visit'), 'action' => __('elements.words.created')]), 'success');
-        return redirect()->route('customers.edit', $customerId);
+        flash(__('The :name information was :action.', ['name' => __('elements.words.visit'), 'action' => __('elements.words.updated')]), 'success');
+        return redirect()->route('customers.edit', $customer->id());
     }
 
 }

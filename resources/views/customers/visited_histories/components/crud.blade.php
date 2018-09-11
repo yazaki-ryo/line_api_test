@@ -62,15 +62,13 @@
                 @endcan
             @endcan
 
-{{--
             @can ('authorize', ['customers.*', 'customers.visited_histories.delete'])
                 @can ('delete', $row)
-                    <a href="{{ route('customers.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
-                        <i class="fa fa-trash"></i>@lang ('elements.words.delete')
+                    <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
+                        @lang ('elements.words.delete')
                     </a>
                 @endcan
             @endcan
---}}
         @endif
     </div>
 </div>
