@@ -6,7 +6,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$attribute} ?? __('elements.words.set') . $key)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$attribute} ?? __('elements.words.settings') . $key)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
         {!! $errors->{$errorBag}->first($attribute, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

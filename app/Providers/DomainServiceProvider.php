@@ -12,14 +12,14 @@ use App\Services\FilesService;
 use App\Services\PrefecturesService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
-use Domain\UseCases\Customers\GetCustomers;
-use Domain\UseCases\Customers\ImportFiles;
-use Domain\UseCases\Customers\ExportPostcards;
+use Domain\UseCases\Customers\Files\ImportFiles;
 use Domain\UseCases\Customers\GetCustomer;
+use Domain\UseCases\Customers\GetCustomers;
+use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
-use Domain\UseCases\Customers\CreateVisitedHistory;
-use Domain\UseCases\Customers\UpdateVisitedHistory;
+use Domain\UseCases\Customers\VisitedHistories\CreateVisitedHistory;
+use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider

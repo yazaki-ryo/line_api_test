@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Files\ImportRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\User;
-use Domain\UseCases\Customers\ImportFiles;
+use Domain\UseCases\Customers\Files\ImportFiles;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class ImportController extends Controller

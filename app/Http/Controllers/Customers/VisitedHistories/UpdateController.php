@@ -9,7 +9,7 @@ use App\Repositories\UserRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
-use Domain\UseCases\Customers\UpdateVisitedHistory;
+use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class UpdateController extends Controller

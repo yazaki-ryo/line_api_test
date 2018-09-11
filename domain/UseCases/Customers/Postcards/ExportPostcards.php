@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Customers;
+namespace Domain\UseCases\Customers\Postcards;
 
 use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use Domain\Contracts\Model\FindableContract;

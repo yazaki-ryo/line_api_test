@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Customers;
+namespace Domain\UseCases\Customers\VisitedHistories;
 
 use App\Traits\Database\Transactionable;
 use Carbon\Carbon;
@@ -11,7 +11,7 @@ use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 
-final class UpdateVisitedHistory
+final class CreateVisitedHistory
 {
     use Transactionable;
 
@@ -42,41 +42,27 @@ final class UpdateVisitedHistory
     }
 
     /**
-     * @param  int $id
-     * @param Customer $customer
-     * @return VisitedHistory
-     * @throws NotFoundException
-     */
-    public function getVisitedHistory(Customer $customer, int $id): VisitedHistory
-    {
-        if (is_null($resource = $customer->visitedHistories(['id' => $id])->first())) {
-            throw new NotFoundException('Resource not found.');
-        }
-
-        return $resource;
-    }
-
-    /**
      * @param User $user
-     * @param VisitedHistory $visitedHistory
+     * @param Customer $customer
      * @param array $args
-     * @return bool
+     * @return Customer
      */
-    public function excute(User $user, VisitedHistory $visitedHistory, array $args = []): bool
+    public function excute(User $user, Customer $customer, array $args = []): VisitedHistory
     {
-        $args = $this->domainize($user, $args);
+        $args = $this->domainize($user, $customer, $args);
 
-        return $this->transaction(function () use ($visitedHistory, $args) {
-            return $visitedHistory->update($args);
+        return $this->transaction(function () use ($customer, $args) {
+            return $customer->createVisitedHistory($args);
         });
     }
 
     /**
      * @param User $user
+     * @param Customer $customer
      * @param array $args
      * @return array
      */
-    private function domainize(User $user, array $args = []): array
+    private function domainize(User $user, Customer $customer, array $args = []): array
     {
         $args = collect($args);
 

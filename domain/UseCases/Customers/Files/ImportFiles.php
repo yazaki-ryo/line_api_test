@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Customers;
+namespace Domain\UseCases\Customers\Files;
 
 use Domain\Contracts\Model\CreatableContract;
 use Domain\Contracts\File\ParsableContract;
