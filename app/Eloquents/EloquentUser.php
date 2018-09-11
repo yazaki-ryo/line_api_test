@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
+use App\Traits\Database\Eloquent\Scopable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -14,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
 
 final class EloquentUser extends Authenticatable
 {
-    use Domainable, Notifiable, SoftDeletes;
+    use Domainable, Notifiable, Scopable, SoftDeletes;
 
     /** @var string */
     protected $table = 'users';
