@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.pages.auth.register') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.user')@lang ('elements.words.register') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.pages.auth.register') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.user')@lang ('elements.words.register') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
                                     @lang ("attributes.users.{$field}")
-                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                    <span class="label label-danger">@lang ("elements.words.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
@@ -47,7 +47,7 @@
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
                                     @lang ("attributes.users.{$field}")
-                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                    <span class="label label-danger">@lang ("elements.words.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
@@ -60,7 +60,7 @@
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
                                     @lang ("attributes.users.{$field}")
-                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                    <span class="label label-danger">@lang ("elements.words.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
@@ -73,7 +73,7 @@
                             <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
                                 <label for="{{ $field }}" class="col-md-4 control-label">
                                     @lang ("attributes.users.{$field}")
-                                    <span class="label label-danger">@lang ("elements.labels.required")</span>
+                                    <span class="label label-danger">@lang ("elements.words.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
@@ -85,7 +85,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        @lang ('elements.actions.register')
+                                        @lang ('elements.words.register')
                                     </button>
                                 </div>
                             </div>

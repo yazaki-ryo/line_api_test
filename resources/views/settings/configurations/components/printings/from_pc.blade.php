@@ -7,10 +7,10 @@
 
     <div class="col-md-7 form-control-static">
         <label>
-            <input type="radio" name="{{ $attribute }}" value="1" required checked /> @lang ("elements.labels.yes")
+            <input type="radio" name="{{ $attribute }}" value="1" required checked /> @lang ("elements.words.yes")
         </label>
         <label>
-            <input type="radio" name="{{ $attribute }}" value="0" required {{ (bool)old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])) === false ? 'checked' : '' }} /> @lang ("elements.labels.no")
+            <input type="radio" name="{{ $attribute }}" value="0" required {{ (bool)old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])) === false ? 'checked' : '' }} /> @lang ("elements.words.no")
         </label>
         {!! $errors->{$errorBag}->first($attribute, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -24,10 +24,10 @@
 
     <div class="col-md-7 form-control-static">
         <label>
-            <input type="radio" name="{{ $attribute }}" value="1" required checked /> @lang ("elements.labels.yes")
+            <input type="radio" name="{{ $attribute }}" value="1" required checked /> @lang ("elements.words.yes")
         </label>
         <label>
-            <input type="radio" name="{{ $attribute }}" value="0" required {{ (bool)old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])) === false ? 'checked' : '' }} /> @lang ("elements.labels.no")
+            <input type="radio" name="{{ $attribute }}" value="0" required {{ (bool)old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])) === false ? 'checked' : '' }} /> @lang ("elements.words.no")
         </label>
         {!! $errors->{$errorBag}->first($attribute, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -37,7 +37,7 @@
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-3">
@@ -50,7 +50,7 @@
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-3">
@@ -63,7 +63,7 @@
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-3">
@@ -76,7 +76,7 @@
 <div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-3">

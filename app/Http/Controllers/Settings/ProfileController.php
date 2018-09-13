@@ -69,7 +69,7 @@ final class ProfileController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.resources.users'), 'action' => __('elements.actions.updated')]), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.words.users'), 'action' => __('elements.words.updated')]), 'success');
         return redirect()->route('settings.profile');
     }
 

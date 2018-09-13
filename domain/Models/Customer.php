@@ -381,6 +381,24 @@ final class Customer extends DomainModel
     }
 
     /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function visitedHistories(array $args = []): DomainCollection
+    {
+        return $this->repo->visitedHistories($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return VisitedHistory|null
+     */
+    public function createVisitedHistory(array $args = []): ?VisitedHistory
+    {
+        return $this->repo->createVisitedHistory($args);
+    }
+
+    /**
      * @param  CustomerRepository $repo
      * @return  self
      */
@@ -484,10 +502,6 @@ final class Customer extends DomainModel
 
         if ($args->has($key = 'note')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
-        }
-
-        if ($args->has($key = 'visited_cnt')) {
-            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
         }
 
         if ($args->has($key = 'cancel_cnt')) {

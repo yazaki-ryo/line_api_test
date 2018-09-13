@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.actions.print')@lang ('elements.actions.set') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.print')@lang ('elements.words.settings') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.actions.print')@lang ('elements.actions.set') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.print')@lang ('elements.words.settings') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@
                     <li class="active">
                         <a href="#setting1-tab" data-toggle="tab">
                             @if (empty($rows[1]))
-                                @lang ('elements.actions.set')1
+                                @lang ('elements.words.settings')1
                             @else
                                 {{ $rows[1]->name }}
                             @endif
@@ -46,7 +46,7 @@
                     <li>
                         <a href="#setting2-tab" data-toggle="tab">
                             @if (empty($rows[2]))
-                                @lang ('elements.actions.set')2
+                                @lang ('elements.words.settings')2
                             @else
                                 {{ $rows[2]->name }}
                             @endif
@@ -55,7 +55,7 @@
                     <li>
                         <a href="#setting3-tab" data-toggle="tab">
                             @if (empty($rows[3]))
-                                @lang ('elements.actions.set')3
+                                @lang ('elements.words.settings')3
                             @else
                                 {{ $rows[3]->name }}
                             @endif

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.pages.customers.index') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.customers')@lang ('elements.words.list') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.pages.customers.index') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.list') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>
@@ -32,27 +32,15 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#result-tab" data-toggle="tab">
-                            @lang ('elements.actions.search')@lang ('elements.actions.result')
+                            @lang ('elements.words.list')
                             <span class="badge">{{ $rows->count() }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#search-tab" data-toggle="tab">@lang ('Search for')</a>
+                        <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                     </li>
                     <li>
-                        <a href="#print-tab" data-toggle="tab">@lang ('elements.labels.postcard')@lang ('elements.actions.print')</a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                          @lang ('elements.actions.menu') <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="disabled">
-                                <a href="#">
-                                    @lang ('elements.labels.name_collation')
-                                </a>
-                            </li>
-                        </ul>
+                        <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
                     </li>
                 </ul>
 
@@ -108,6 +96,18 @@
                 stateSave: true
             });
         });
+
+        /**
+         * @param string url
+         * @return void
+         */
+        function deleteRecord(url) {
+            if( confirm('@lang ("Do you really want to delete this?")') ) {
+                var form = document.getElementById('basic-post-form');
+                form.action = url;
+                form.submit();
+            }
+        }
 
         /**
          * @param string url

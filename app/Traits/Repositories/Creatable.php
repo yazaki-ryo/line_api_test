@@ -16,7 +16,7 @@ trait Creatable
         if (is_null($resource = $this->eloquent->create($args))) {
             return null;
         }
-        return self::toModel($resource);
+        return static::toModel($resource);
     }
 
 }

@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Postcards\ExportRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\User;
-use Domain\UseCases\Customers\ExportPostcards;
+use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 

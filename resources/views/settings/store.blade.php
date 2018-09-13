@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.pages.settings.store') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.store')@lang ('elements.words.information')@lang ('elements.words.edit') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.pages.settings.store') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.store')@lang ('elements.words.information')@lang ('elements.words.edit') <small><code>@lang ('Sub text')</code></small></h1>
                 </div>
             </div>
         </div>

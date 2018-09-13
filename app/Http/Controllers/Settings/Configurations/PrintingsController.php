@@ -63,7 +63,7 @@ final class PrintingsController extends Controller
     {
         $cookie = cookie()->forever(sprintf('settings_configurations_printings_%s', $settingId), json_encode($request->validated()));
 
-        flash(__('The :name information was :action.', ['name' => __('elements.actions.print') . __('elements.actions.set'), 'action' => __('elements.actions.updated')]), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.set'), 'action' => __('elements.words.updated')]), 'success');
 
         return redirect()
             ->route('settings.configurations.printings')

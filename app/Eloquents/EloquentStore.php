@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
+use App\Traits\Database\Eloquent\Scopable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class EloquentStore extends Model
 {
-    use Domainable, SoftDeletes;
+    use Domainable, Scopable, SoftDeletes;
 
     /** @var string */
     protected $table = 'stores';

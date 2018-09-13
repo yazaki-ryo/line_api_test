@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
+use App\Traits\Database\Eloquent\Scopable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 final class EloquentPermission extends Model
 {
-    use Domainable, SoftDeletes;
+    use Domainable, Scopable, SoftDeletes;
 
     /** @var string */
     protected $table = 'permissions';
@@ -42,7 +43,7 @@ final class EloquentPermission extends Model
         $field = sprintf('%s.slug', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', "%{$value}%");
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
         }, function(Builder $q) use ($value, $field, $operator) {
             $q->where($field, $operator, $value);
         });

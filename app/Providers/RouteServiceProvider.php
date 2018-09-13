@@ -9,26 +9,29 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 final class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
 
+    /** @var array */
+    private $numerics = [
+        'id',
+        'companyId',
+        'customerId',
+        'settingId',
+        'storeId',
+        'userId',
+        'visitedHistoryId',
+    ];
+
     /**
-     * Define your route model bindings, pattern filters, etc.
-     *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        Route::pattern('id', '[0-9]+');
-        Route::pattern('companyId', '[0-9]+');
-        Route::pattern('customerId', '[0-9]+');
-        Route::pattern('storeId', '[0-9]+');
-        Route::pattern('userId', '[0-9]+');
+        foreach ($this->numerics as $key) {
+            Route::pattern($key, '[0-9]+');
+        }
 
         parent::boot();
     }
@@ -43,11 +46,9 @@ final class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the routes for the application.
-     *
      * @return void
      */
-    public function map()
+    public function map(): void
     {
         $this->mapApiRoutes();
 
@@ -57,13 +58,9 @@ final class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
      * @return void
      */
-    protected function mapWebRoutes()
+    protected function mapWebRoutes(): void
     {
         Route::middleware('web')
 //              ->namespace($this->namespace)
@@ -71,13 +68,9 @@ final class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes(): void
     {
         Route::prefix('api')
              ->middleware('api')

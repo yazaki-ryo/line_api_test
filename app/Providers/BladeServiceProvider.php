@@ -14,7 +14,11 @@ final class BladeServiceProvider extends ServiceProvider
     {
         \Blade::directive('set', function(string $arg){
             list($key, $value) = explode(',', $arg);
-            return "<?php $key = $value; ?>";
+            return sprintf('<?php %s = %s; ?>', $key, $value);
+        });
+
+        \Blade::if('env', function ($env) {
+            return app()->environment($env);
         });
     }
 

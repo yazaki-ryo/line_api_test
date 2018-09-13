@@ -3,7 +3,7 @@
 <div class="form-group{{ $errors->has($field1) || $errors->has($field2) ? ' has-error' : '' }}">
     <label for="{{ $field1 }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field1}")@lang ("attributes.customers.{$field2}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-3">
@@ -164,7 +164,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -213,15 +213,15 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6 form-control-static">
         <label>
-            <input type="radio" name="{{ $field }}" value="0" required {{ (bool)old($field, request($field, optional($row->{$camel = camel_case($field)}())->asBoolean() ?? null)) === false ? 'checked' : '' }} /> <span class="text-success">@lang ("elements.labels.no")</span>
+            <input type="radio" name="{{ $field }}" value="0" required {{ (bool)old($field, request($field, optional($row->{$camel = camel_case($field)}())->asBoolean() ?? null)) === false ? 'checked' : '' }} /> <span class="text-success">@lang ("elements.words.no")</span>
         </label>
         <label>
-            <input type="radio" name="{{ $field }}" value="1" required {{ (bool)old($field, request($field, optional($row->{$camel = camel_case($field)}())->asBoolean() ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ("elements.labels.yes")</span>
+            <input type="radio" name="{{ $field }}" value="1" required {{ (bool)old($field, request($field, optional($row->{$camel = camel_case($field)}())->asBoolean() ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ("elements.words.yes")</span>
         </label>
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -255,7 +255,7 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
-        <span class="label label-danger">@lang ("elements.labels.required")</span>
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
@@ -263,20 +263,6 @@
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
-
-@set ($field, 'visited_cnt')
-@if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-        <label for="{{ $field }}" class="col-md-4 control-label">
-            @lang ("attributes.customers.{$field}")
-        </label>
-
-        <div class="col-md-6 form-control-static">
-            {{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}
-            {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-        </div>
-    </div>
-@endif
 
 @set ($field, 'cancel_cnt')
 @if ($mode === 'edit')
@@ -326,19 +312,19 @@
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
             @can ('authorize', ['customers.*', 'customers.create'])
-                <button type="submit" class="btn btn-primary">@lang ('elements.actions.register')</button>
+                <button type="submit" class="btn btn-primary">@lang ('elements.words.register')</button>
             @endcan
         @elseif ($mode === 'edit')
             @can ('authorize', ['customers.*', 'customers.update'])
                 @can ('update', $row)
-                    <button type="submit" class="btn btn-primary">@lang ('elements.actions.save')</button>
+                    <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
                 @endcan
             @endcan
 
             @can ('authorize', ['customers.*', 'customers.delete'])
                 @can ('delete', $row)
                     <a href="{{ route('customers.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
-                        <i class="fa fa-trash"></i>@lang ('elements.actions.delete')
+                        <i class="fa fa-trash"></i>@lang ('elements.words.delete')
                     </a>
                 @endcan
             @endcan

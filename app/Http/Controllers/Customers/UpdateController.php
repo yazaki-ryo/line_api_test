@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\UpdateRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -47,6 +48,7 @@ final class UpdateController extends Controller
 
         return view('customers.edit', [
             'row' => $customer,
+            'visitedHistories' => $customer->visitedHistories(),
         ]);
     }
 
@@ -59,6 +61,7 @@ final class UpdateController extends Controller
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);
         $args = $request->validated();
@@ -74,7 +77,7 @@ final class UpdateController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.resources.customers'), 'action' => __('elements.actions.updated')]), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.words.customers'), 'action' => __('elements.words.updated')]), 'success');
         return redirect()->route('customers.edit', $customerId);
     }
 

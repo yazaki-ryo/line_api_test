@@ -6,7 +6,7 @@
     "sInfoEmpty": " 該当 0 件",
     "sInfoFiltered": "（全 _MAX_ 件より抽出）",
     "sInfoPostFix": "",
-    "sSearch": "検索: ",
+    "sSearch": "絞り込み: ",
     "sUrl": "",
     "oPaginate": {
         "sFirst": "<<",

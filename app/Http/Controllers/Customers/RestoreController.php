@@ -41,6 +41,7 @@ final class RestoreController extends Controller
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);
 
@@ -55,7 +56,7 @@ final class RestoreController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.resources.customers'), 'action' => __('elements.actions.restored')]), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.words.customers'), 'action' => __('elements.words.restored')]), 'success');
         return redirect()->route('customers');
     }
 

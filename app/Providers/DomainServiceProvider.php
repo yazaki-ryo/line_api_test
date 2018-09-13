@@ -12,12 +12,15 @@ use App\Services\FilesService;
 use App\Services\PrefecturesService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
-use Domain\UseCases\Customers\GetCustomers;
-use Domain\UseCases\Customers\ImportFiles;
-use Domain\UseCases\Customers\ExportPostcards;
+use Domain\UseCases\Customers\Files\ImportFiles;
 use Domain\UseCases\Customers\GetCustomer;
+use Domain\UseCases\Customers\GetCustomers;
+use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
+use Domain\UseCases\Customers\VisitedHistories\CreateVisitedHistory;
+use Domain\UseCases\Customers\VisitedHistories\DeleteVisitedHistory;
+use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
@@ -87,6 +90,25 @@ final class DomainServiceProvider extends ServiceProvider
                 app(CustomersService::class)
             );
         });
+
+        $this->app->bind(CreateVisitedHistory::class, function () {
+            return new CreateVisitedHistory(
+                app(CustomersService::class)
+            );
+        });
+
+        $this->app->bind(DeleteVisitedHistory::class, function () {
+            return new DeleteVisitedHistory(
+                app(CustomersService::class)
+            );
+        });
+
+        $this->app->bind(UpdateVisitedHistory::class, function () {
+            return new UpdateVisitedHistory(
+                app(CustomersService::class)
+            );
+        });
+
 
         /**
          * View Composers

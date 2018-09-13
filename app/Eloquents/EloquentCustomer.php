@@ -4,16 +4,18 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
+use App\Traits\Database\Eloquent\Scopable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 final class EloquentCustomer extends Model
 {
-    use Domainable, SoftDeletes;
+    use Domainable, Scopable, SoftDeletes;
 
     /** @var string */
     protected $table = 'customers';
@@ -48,7 +50,6 @@ final class EloquentCustomer extends Model
         'mourning_flag',
         'likes_and_dislikes',
         'note',
-//         'visited_cnt',
 //         'cancel_cnt',
 //         'noshow_cnt',
     ];
@@ -66,7 +67,6 @@ final class EloquentCustomer extends Model
      */
     protected $casts = [
         'mourning_flag' => 'bool',
-        'visited_cnt'   => 'int',
         'cancel_cnt'    => 'int',
         'noshow_cnt'    => 'int',
     ];
@@ -104,6 +104,14 @@ final class EloquentCustomer extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function visitedHistories(): HasMany
+    {
+        return $this->hasMany(EloquentVisitedHistory::class, 'customer_id', 'id');
+    }
+
+    /**
      * @param  Builder $query
      * @param  string $value
      * @param  string $operator
@@ -114,7 +122,7 @@ final class EloquentCustomer extends Model
         $field = sprintf('%s.last_name', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', "%{$value}%");
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
         }, function(Builder $q) use ($value, $field, $operator) {
             $q->where($field, $operator, $value);
         });
@@ -131,7 +139,7 @@ final class EloquentCustomer extends Model
         $field = sprintf('%s.first_name', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', "%{$value}%");
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
         }, function(Builder $q) use ($value, $field, $operator) {
             $q->where($field, $operator, $value);
         });
@@ -148,7 +156,7 @@ final class EloquentCustomer extends Model
         $field = sprintf('%s.office', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', "%{$value}%");
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
         }, function(Builder $q) use ($value, $field, $operator) {
             $q->where($field, $operator, $value);
         });
