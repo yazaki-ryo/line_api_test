@@ -35,7 +35,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control p-postal-code', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('No hyphen, 7 numeric digits')]) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control p-postal-code', 'id' => $field, 'maxlength' => 7, 'placeholder' => __('No hyphen, 7 numeric digits')]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

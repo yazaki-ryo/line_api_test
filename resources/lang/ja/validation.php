@@ -62,6 +62,7 @@ return [
     ],
     'not_in'               => '選択された:attributeは、有効ではありません。',
     'numeric'              => ':attributeは数値で入力してください。',
+    'postal_code'          => ':attributeは有効な郵便番号形式で入力してください。',
     'regex'                => ':attributeの形式が不正です。',
     'required'             => ':attributeは必須項目です。',
     'required_if'          => ':other が :value の場合、 :attributeを指定してください。',

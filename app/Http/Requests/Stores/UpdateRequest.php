@@ -35,8 +35,9 @@ class UpdateRequest extends FormRequest
             ],
             'postal_code' => [
                 'required',
-                'string',// TODO 数値とハイフンバリデート（郵便番号正規表現の方が良いか、又はハイフン無しで限定した方が良いか）
-                'max:191',
+                'postal_code',
+//                 'string',
+//                 'max:7',
             ],
             'prefecture_id' => [
                 'required',
