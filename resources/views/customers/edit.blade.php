@@ -51,7 +51,7 @@
                             <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                             <div class="panel-body">
-                                {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
                                     @include ('customers.components.crud', ['mode' => 'edit'])
                                 {!! Form::close() !!}
                             </div>
@@ -73,6 +73,7 @@
 
 @section ('scripts')
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
         jQuery(function($){
             $.extend( $.fn.dataTable.defaults, {

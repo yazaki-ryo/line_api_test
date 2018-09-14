@@ -1,3 +1,5 @@
+{!! Form::hidden(null, 'Japan', ['class' => 'p-country-name']) !!}
+
 @set ($field1, 'last_name')
 @set ($field2, 'first_name')
 <div class="form-group{{ $errors->has($field1) || $errors->has($field2) ? ' has-error' : '' }}">
@@ -116,10 +118,11 @@
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")
+        <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('By entering the postal code, the prefecture city, town, village address is automatically entered.')"></span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
+        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control p-postal-code', 'id' => $field, 'maxlength' => 7, 'placeholder' => __("No hyphen, 7 numeric digits")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -131,7 +134,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($field, $prefectures->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
+        {!! Form::select($field, $prefectures->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control p-region-id', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -143,7 +146,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
+        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control p-locality p-street-address', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => __("elements.placeholders.customers.{$field}")]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
