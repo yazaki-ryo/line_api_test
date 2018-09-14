@@ -28,7 +28,7 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('settings.store'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('settings.store'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
                             @include ('stores.components.crud')
                         {!! Form::close() !!}
                     </div>
@@ -39,6 +39,7 @@
 @endsection
 
 @section ('scripts')
+    <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
         //
     </script>

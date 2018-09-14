@@ -112,43 +112,5 @@
                 form.submit();
             }
         }
-
-        /**
-         * @param string url
-         * @param string name
-         * @return void
-         */
-//         function submitPostcardsForm(url, name) {
-//             var element = document.createElement('input');
-//             element.setAttribute('type', 'hidden');
-//             element.setAttribute('name', name);
-
-//             var value = elementsByName(name);
-//             element.setAttribute('value', value);
-
-//             var form = document.getElementById('customers-postcards-form');
-//             form.action = url;
-//             form.appendChild(element);
-//             form.submit();
-//         }
-
-        /**
-         * @param string name
-         * @param bool onlyChecked
-         * @return array
-         */
-//         function elementsByName(name, onlyChecked = true) {
-//             var element = document.getElementsByName(name);
-//             var selected = [];
-
-//             for (var item of element) {
-//                 if (item.checked === false && onlyChecked) {
-//                     continue;
-//                 }
-//                 selected.push(parseInt(item.value));
-//             }
-
-//             return selected;
-//         }
     </script>
 @endsection
