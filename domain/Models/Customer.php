@@ -48,7 +48,7 @@ final class Customer extends DomainModel
     private $address;
 
     /** @var string */
-    private $buildingName;
+    private $building;
 
     /** @var string */
     private $tel;
@@ -206,9 +206,9 @@ final class Customer extends DomainModel
     /**
      * @return string|null
      */
-    public function buildingName(): ?string
+    public function building(): ?string
     {
-        return $this->buildingName;
+        return $this->building;
     }
 
     /**
@@ -472,7 +472,7 @@ final class Customer extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'building_name')) {
+        if ($args->has($key = 'building')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

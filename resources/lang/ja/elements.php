@@ -230,7 +230,7 @@ return [
             'position'        => '課長',
             'postal_code'     => '5420085',
             'address'         => '大阪市中央区心斎橋筋2-2-30',
-            'building_name'   => 'サンプルマンション801',
+            'building'        => 'サンプルマンション801',
             'tel'             => '0661112222',
             'fax'             => '0663334444',
             'email'           => 'sample@sample.jp',

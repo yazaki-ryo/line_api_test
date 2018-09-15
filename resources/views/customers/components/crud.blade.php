@@ -151,7 +151,7 @@
     </div>
 </div>
 
-@set ($field, 'building_name')
+@set ($field, 'building')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$field}")

@@ -57,11 +57,11 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $this->processor->useTemplate($this->tpl, 0, 0, null, null, true);
 
             $this->postalCode($item->postalCode());
-            $this->address($item->address(), $item->buildingName());
+            $this->address($item->address(), $item->building());
             $this->name($item->lastName(), $item->firstName(), $item->office(), $item->department(), $item->position());
 
             $this->fromPostalCode($this->from->postalCode());
-            $this->fromAddress($this->from->address(), $this->from->buildingName());
+            $this->fromAddress($this->from->address(), $this->from->building());
             $this->fromName($this->from->name());
         }
     }

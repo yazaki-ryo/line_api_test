@@ -89,7 +89,7 @@ class UpdateRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
-            'building_name' => [
+            'building' => [
                 'nullable',
                 'string',
                 'max:1000',

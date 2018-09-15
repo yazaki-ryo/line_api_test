@@ -41,7 +41,7 @@ final class EloquentCustomer extends Model
 
         'postal_code',
         'address',
-        'building_name',
+        'building',
         'tel',
         'fax',
         'email',
