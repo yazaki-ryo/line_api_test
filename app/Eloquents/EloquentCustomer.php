@@ -33,7 +33,6 @@ final class EloquentCustomer extends Model
         'first_name',
         'last_name_kana',
         'first_name_kana',
-        'age',
         'office',
         'office_kana',
         'department',

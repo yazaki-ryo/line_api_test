@@ -32,7 +32,6 @@ class CreateCustomersTable extends Migration
                 $table->string('first_name')->nullable()->comment('名');
                 $table->string('last_name_kana')->nullable()->comment('姓フリガナ');
                 $table->string('first_name_kana')->nullable()->comment('名フリガナ');
-                $table->unsignedTinyInteger('age')->nullable()->comment('年齢');
                 $table->string('office')->nullable()->comment('会社名');
                 $table->string('office_kana')->nullable()->comment('フリガナ');
                 $table->string('department')->nullable()->comment('部署');

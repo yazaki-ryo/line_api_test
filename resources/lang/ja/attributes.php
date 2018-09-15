@@ -43,7 +43,6 @@ return [
         'first_name'            => '名',
         'last_name_kana'        => '姓フリガナ',
         'first_name_kana'       => '名フリガナ',
-        'age'                   => '年齢',
         'office'                => '会社名',
         'office_kana'           => '会社名フリガナ',
         'department'            => '部署',

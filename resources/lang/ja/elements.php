@@ -223,7 +223,6 @@ return [
         'customers' => [
             'last_name_kana'  => 'セイ',
             'first_name_kana' => 'メイ',
-            'age'             => '35',
             'office'          => '株式会社サンプル',
             'office_kana'     => 'カブシキガイシャサンプル',
             'department'      => '営業部',

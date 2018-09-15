@@ -49,11 +49,6 @@ class CreateRequest extends FormRequest
                 'numeric',
                 Rule::exists('sexes', 'id'),
             ],
-            'age' => [
-                'nullable',
-                'numeric',
-                'max:150',
-            ],
             'office' => [
                 'nullable',
                 'string',

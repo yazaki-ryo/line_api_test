@@ -26,9 +26,6 @@ final class Customer extends DomainModel
     /** @var string */
     private $firstNameKana;
 
-    /** @var int */
-    private $age;
-
     /** @var string */
     private $office;
 
@@ -148,14 +145,6 @@ final class Customer extends DomainModel
     public function firstNameKana(): ?string
     {
         return $this->firstNameKana;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function age(): ?int
-    {
-        return $this->age;
     }
 
     /**
@@ -466,10 +455,6 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'first_name_kana')) {
-            $this->{$camel = camel_case($key)} = $args->get($key);
-        }
-
-        if ($args->has($key = 'age')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
