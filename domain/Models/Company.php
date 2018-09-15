@@ -20,7 +20,7 @@ final class Company extends DomainModel
     /** @var string */
     private $kana;
 
-    /** @var string */
+    /** @var PostalCode */
     private $postalCode;
 
     /** @var string */
@@ -87,9 +87,9 @@ final class Company extends DomainModel
     }
 
     /**
-     * @return string|null
+     * @return PostalCode|null
      */
-    public function postalCode(): ?string
+    public function postalCode(): ?PostalCode
     {
         return $this->postalCode;
     }
@@ -256,7 +256,7 @@ final class Company extends DomainModel
         }
 
         if ($args->has($key = 'postal_code')) {
-            $this->{$camel = camel_case($key)} = $args->get($key);
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : PostalCode::of($args->get($key));
         }
 
         if ($args->has($key = 'address')) {

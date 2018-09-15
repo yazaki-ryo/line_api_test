@@ -16,7 +16,7 @@ final class PostalCode
     private function __construct(string $value)
     {
         if (self::validate($value) === false) {
-            throw new InvariantException(sprintf('Invalid postal_code: %s', $value));
+            throw new InvariantException(sprintf('Invalid postal code: %s', $value));
         }
         $this->value = $value;
     }
