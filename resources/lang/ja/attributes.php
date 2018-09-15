@@ -57,10 +57,11 @@ return [
         'email'                 => 'メールアドレス',
         'mobile_phone'          => '携帯電話番号',
 
-        'mourning_flag'         => '喪中フラグ',
+        'mourning_flag'         => '喪中設定',
+        'birthday'              => '誕生日',
+        'anniversary'           => '記念日',
         'likes_and_dislikes'    => '好き嫌い',
         'note'                  => 'メモ',
-        'visited_cnt'           => '来店回数',
         'cancel_cnt'            => 'キャンセル回数',
         'noshow_cnt'            => 'ノーショウ回数',
 

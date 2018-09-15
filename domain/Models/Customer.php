@@ -65,14 +65,17 @@ final class Customer extends DomainModel
     /** @var Datetime */
     private $mournedAt;
 
+    /** @var Datetime */
+    private $birthday;
+
+    /** @var Datetime */
+    private $anniversary;
+
     /** @var string */
     private $likesAndDislikes;
 
     /** @var string */
     private $note;
-
-    /** @var Count */
-    private $visitedCnt;
 
     /** @var Count */
     private $cancelCnt;
@@ -252,6 +255,22 @@ final class Customer extends DomainModel
     }
 
     /**
+     * @return Datetime|null
+     */
+    public function birthday(): ?Datetime
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @return Datetime|null
+     */
+    public function anniversary(): ?Datetime
+    {
+        return $this->anniversary;
+    }
+
+    /**
      * @return string|null
      */
     public function likesAndDislikes(): ?string
@@ -265,14 +284,6 @@ final class Customer extends DomainModel
     public function note(): ?string
     {
         return $this->note;
-    }
-
-    /**
-     * @return Count|null
-     */
-    public function visitedCnt(): ?Count
-    {
-        return $this->visitedCnt;
     }
 
     /**
@@ -507,6 +518,14 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'mourned_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'birthday')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'anniversary')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 

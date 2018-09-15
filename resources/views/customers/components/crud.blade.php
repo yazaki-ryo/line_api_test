@@ -212,6 +212,30 @@
     </div>
 </div>
 
+@set ($field, 'birthday')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.{$field}")
+    </label>
+
+    <div class="col-md-3 form-control-static">
+        {!! Form::tel($field, old($field, request($field, empty($row->{$camel = camel_case($field)}()) ? null : $row->{$camel = camel_case($field)}()->format('Y-m-d'))), ['class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
+@set ($field, 'anniversary')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.{$field}")
+    </label>
+
+    <div class="col-md-3 form-control-static">
+        {!! Form::tel($field, old($field, request($field, empty($row->{$camel = camel_case($field)}()) ? null : $row->{$camel = camel_case($field)}()->format('Y-m-d'))), ['class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
 @set ($field, 'mourning_flag')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">

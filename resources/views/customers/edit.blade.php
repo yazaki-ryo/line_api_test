@@ -6,8 +6,9 @@
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
 
-@section('css')
+@section('styles')
     <link href="{{ asset('vendor/DataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/jquery-ui/datepicker/datepicker.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -73,6 +74,7 @@
 
 @section ('scripts')
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/datepicker/datepicker.js') }}"></script>
     <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
         jQuery(function($){
@@ -100,6 +102,21 @@
                 stateSave: true
             });
         });
+
+        (function($){
+            $('#birthday').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+            $('#anniversary').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+        })(jQuery);
 
         /**
          * @param string url

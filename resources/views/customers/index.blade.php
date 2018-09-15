@@ -6,7 +6,7 @@
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
 
-@section('css')
+@section('styles')
     <link href="{{ asset('vendor/DataTables/datatables.min.css') }}" rel="stylesheet">
 @endsection
 

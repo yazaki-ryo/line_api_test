@@ -46,6 +46,8 @@ class CreateCustomersTable extends Migration
                 $table->string('email')->nullable()->comment('E-Mail');
                 $table->string('mobile_phone')->nullable()->comment('携帯電話番号');
 
+                $table->date('birthday')->nullable()->comment('誕生日');
+                $table->date('anniversary')->nullable()->comment('記念日');
                 $table->timestamp('mourned_at')->nullable()->comment('喪中設定日');
 
                 $table->text('likes_and_dislikes')->nullable()->comment('好き嫌い');

@@ -48,10 +48,10 @@ final class EloquentCustomer extends Model
         'mobile_phone',
 
         'mourned_at',
+        'birthday',
+        'anniversary',
         'likes_and_dislikes',
         'note',
-//         'cancel_cnt',
-//         'noshow_cnt',
     ];
 
     /**
@@ -65,6 +65,8 @@ final class EloquentCustomer extends Model
      * @var array
      */
     protected $casts = [
+        'anniversary' => 'date',
+        'birthday'    => 'date',
         'cancel_cnt'  => 'int',
         'noshow_cnt'  => 'int',
     ];

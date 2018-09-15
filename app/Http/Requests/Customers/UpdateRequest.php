@@ -119,6 +119,19 @@ class UpdateRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'birthday' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                'before_or_equal:' . now()->format('Y-m-d'),
+            ],
+            'anniversary' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+            ],
             'likes_and_dislikes' => [
                 'nullable',
                 'string',
