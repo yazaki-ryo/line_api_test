@@ -79,9 +79,10 @@
             });
             $("#customers-table").DataTable({
                 columnDefs: [
-//                     { targets: 0, visible: false },
-//                     { targets: 1, width: 150 },
-//                     { targets: [6, 7], orderable: false }
+                    {
+                        targets: [0, 6],
+                        orderable: false
+                    }
                 ],
                 displayLength: 25,
                 info: true,
@@ -89,9 +90,7 @@
                 lengthMenu: [10, 25, 50, 100],
                 ordering: true,
                 paging: true,
-//                 order: [0, "asc"],
-//                 scrollX: true,
-//                 scrollY: true,
+                // order: [0, "asc"],
                 searching: true,
                 stateSave: true
             });
