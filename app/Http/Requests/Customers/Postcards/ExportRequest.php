@@ -33,7 +33,7 @@ class ExportRequest extends FormRequest
                 'string',
                 'max:20000',
                 'customer_ids_from_csv_string_for_output_postcards',
-                // TODO Validate mourning_flag.
+                // TODO Validate mourned_at.
             ],
         ];
     }

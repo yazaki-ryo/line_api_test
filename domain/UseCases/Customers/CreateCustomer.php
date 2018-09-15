@@ -47,20 +47,8 @@ final class CreateCustomer
     {
         $args = collect($args);
 
-        /**
-         * TODO XXX 値自体はリクエスト時にバリデーションしているので、ここの処理が冗長でも必要かどうか要検討
-         */
-//         if ($user->user()->can('roles', 'company-admin')) {
-//             /**
-//              * TODO プルダウンで選択出来る実装になった場合、ここで企業に紐付く店舗IDかどうか判定 -> 例外をスロー
-//              */
-//             $args->put('store_id', optional($user->user()->store)->id);
-//         } else {
-//             $args->put('store_id', optional($user->user()->store)->id);
-//         }
-
-        if ($args->has($key = '')) {
-            //
+        if ($args->has($key = 'mourning_flag') && (bool)$args->get($key)) {
+            $args['mourned_at'] = now();
         }
 
         return $args->all();

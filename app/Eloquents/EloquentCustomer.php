@@ -47,7 +47,7 @@ final class EloquentCustomer extends Model
         'email',
         'mobile_phone',
 
-        'mourning_flag',
+        'mourned_at',
         'likes_and_dislikes',
         'note',
 //         'cancel_cnt',
@@ -58,17 +58,15 @@ final class EloquentCustomer extends Model
      * @var array
      */
     protected $dates = [
-        // 'anniversary',
-        // 'birthday',
+        'mourned_at',
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'mourning_flag' => 'bool',
-        'cancel_cnt'    => 'int',
-        'noshow_cnt'    => 'int',
+        'cancel_cnt'  => 'int',
+        'noshow_cnt'  => 'int',
     ];
 
     /**

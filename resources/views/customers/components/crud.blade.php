@@ -221,10 +221,10 @@
 
     <div class="col-md-6 form-control-static">
         <label>
-            <input type="radio" name="{{ $field }}" value="0" required {{ (bool)old($field, request($field, optional($row->{$camel = camel_case($field)}())->asBoolean() ?? null)) === false ? 'checked' : '' }} /> <span class="text-success">@lang ("elements.words.no")</span>
+            <input type="radio" name="{{ $field }}" value="0" required checked /> <span class="text-success">@lang ("elements.words.no")</span>
         </label>
         <label>
-            <input type="radio" name="{{ $field }}" value="1" required {{ (bool)old($field, request($field, optional($row->{$camel = camel_case($field)}())->asBoolean() ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ("elements.words.yes")</span>
+            <input type="radio" name="{{ $field }}" value="1" required {{ (bool)old($field, request($field, !empty($row->mournedAt()) ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ("elements.words.yes")</span>
         </label>
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>

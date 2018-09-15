@@ -62,8 +62,8 @@ final class Customer extends DomainModel
     /** @var string */
     private $mobilePhone;
 
-    /** @var Flag */
-    private $mourningFlag;
+    /** @var Datetime */
+    private $mournedAt;
 
     /** @var string */
     private $likesAndDislikes;
@@ -244,11 +244,11 @@ final class Customer extends DomainModel
     }
 
     /**
-     * @return Flag|null
+     * @return Datetime|null
      */
-    public function mourningFlag(): ?Flag
+    public function mournedAt(): ?Datetime
     {
-        return $this->mourningFlag;
+        return $this->mournedAt;
     }
 
     /**
@@ -399,6 +399,20 @@ final class Customer extends DomainModel
     }
 
     /**
+     * @param string $column
+     * @param bool $arg
+     * @return void
+     */
+    public function toggleTimestamp(string $column, bool $arg)
+    {
+        if ($arg === true && is_null($this->{$camel = camel_case($column)}())) {
+            $this->update([$column => now()]);
+        } elseif ($arg === false && !empty($this->{$camel = camel_case($column)}())) {
+            $this->update([$column => null]);
+        }
+    }
+
+    /**
      * @param  CustomerRepository $repo
      * @return  self
      */
@@ -492,8 +506,8 @@ final class Customer extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'mourning_flag')) {
-            $this->{$camel = camel_case($key)} = Flag::of((bool)$args->get($key));
+        if ($args->has($key = 'mourned_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
         if ($args->has($key = 'likes_and_dislikes')) {
