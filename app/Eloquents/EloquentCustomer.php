@@ -5,6 +5,7 @@ namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
 use App\Traits\Database\Eloquent\Scopable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -178,6 +179,30 @@ final class EloquentCustomer extends Model
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
                 $q2->office($value, 'like');
+            });
+        });
+    }
+
+    /**
+     * @param Builder $query
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     * @return Builder
+     */
+    public function scopeVisitedAt(Builder $query, Carbon $start = null, Carbon $end = null): Builder
+    {
+        if (is_null($start) && is_null($end)) {
+            return $query;
+        }
+
+        $field = 'visited_at';
+        return $query->whereHas('visitedHistories', function(Builder $q1) use ($field, $start, $end) {
+            $q1->when(! is_null($start), function (Builder $q2) use ($field, $start) {
+                $q2->where($field, '>=', $start->format('Y-m-d'));
+            });
+
+            $q1->when(! is_null($end), function (Builder $q2) use ($field, $end) {
+                $q2->where($field, '<=', $end->format('Y-m-d'));
             });
         });
     }

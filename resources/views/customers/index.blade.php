@@ -8,6 +8,7 @@
 
 @section('styles')
     <link href="{{ asset('vendor/DataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/jquery-ui/datepicker/datepicker.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -70,6 +71,7 @@
 
 @section ('scripts')
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/datepicker/datepicker.js') }}"></script>
     <script type="text/javascript">
         jQuery(function($){
             $.extend( $.fn.dataTable.defaults, {
@@ -95,6 +97,21 @@
                 stateSave: true
             });
         });
+
+        (function($){
+            $('#visited_date_s').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+            $('#visited_date_e').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+        })(jQuery);
 
         /**
          * @param string url

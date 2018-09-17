@@ -16,6 +16,7 @@ use Domain\Models\VisitedHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 final class CustomerRepository extends EloquentRepository implements DomainableContract
 {
@@ -150,6 +151,11 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
         $query->when($args->has($key = 'free_word'), function (Builder $q) use ($key, $args) {
             $q->freeWord($args->get($key));
         });
+
+        $query->visitedAt(
+            $args->has($start = 'visited_date_s') && ! is_null($args->get($start)) ? Carbon::parse($args->get($start)) : null,
+            $args->has($end = 'visited_date_e') && ! is_null($args->get($end)) ? Carbon::parse($args->get($end)) : null
+        );
 
         $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {
             $q1->when((int)$args->get($key) === 2, function (Builder $q2) {

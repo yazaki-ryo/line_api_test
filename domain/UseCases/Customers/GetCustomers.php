@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers;
 
 use App\Services\DomainCollection;
+use Carbon\Carbon;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
-use Illuminate\Support\Collection;
 
 final class GetCustomers
 {
@@ -42,6 +42,18 @@ final class GetCustomers
         if ($collection->has($key = 'free_word')) {
             if (is_null($collection->get($key))) {
                 $collection->forget($key);
+            }
+        }
+
+        if ($collection->has($key = 'visited_date_s')) {
+            if (! is_null($collection->get($key))) {
+                $collection->put($key, Carbon::parse($collection->get($key)));
+            }
+        }
+
+        if ($collection->has($key = 'visited_date_e')) {
+            if (! is_null($collection->get($key))) {
+                $collection->put($key, Carbon::parse($collection->get($key)));
             }
         }
 

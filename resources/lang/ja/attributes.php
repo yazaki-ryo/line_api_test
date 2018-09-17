@@ -68,8 +68,14 @@ return [
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
 
-        'free_word'             => 'フリーワード',
-        'tags'                  => 'タグ',
+        'search' => [
+            'free_word'      => 'フリーワード',
+            'trashed'        => '削除データ',
+            'visited_date_s' => '来店日（開始）',
+            'visited_date_e' => '来店日（終了）',
+        ],
+
+        'tags'      => 'タグ',
 
         'postcards' => [
             'mode'      => '出力モード',

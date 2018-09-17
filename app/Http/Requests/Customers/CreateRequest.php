@@ -119,7 +119,7 @@ class CreateRequest extends FormRequest
                 'string',
                 'max:10',
                 'date_format:Y-m-d',
-                'before_or_equal:' . now()->format('Y-m-d'),
+                sprintf('before_or_equal:%s', now()->format('Y-m-d')),
             ],
             'anniversary' => [
                 'nullable',

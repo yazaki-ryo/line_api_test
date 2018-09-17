@@ -42,6 +42,8 @@ return [
          * D
          */
         'data'           => 'データ',
+        'date'           => '日付',
+        'day'            => '日',
         'delete'         => '削除',
         'deleted'        => '削除',
 
@@ -50,6 +52,7 @@ return [
          */
         'edit'           => '編集',
         'edited'         => '編集',
+        'end'            => '終了',
         'export'         => 'エクスポート',
 
         /**
@@ -165,6 +168,7 @@ return [
         'set'            => '設置',
         'setting'        => '設定',
         'settings'       => '設定',
+        'start' => '開始',
         'state' => [
             'without' => '以外',
             'with'    => 'を含む',

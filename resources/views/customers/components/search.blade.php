@@ -1,7 +1,25 @@
+@set ($field1, 'visited_date_s')
+@set ($field2, 'visited_date_e')
+<div class="form-group{{ $errors->has($field1) || $errors->has($field2) ? ' has-error' : '' }}">
+    <label for="{{ $field1 }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.visited_histories.visited_date")
+    </label>
+
+    <div class="col-md-3 form-control-static">
+        {!! Form::tel($field1, old($field1, request($field1)), ['class' => 'form-control', 'id' => $field1, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.start'), __('elements.words.day'))]) !!}
+        {!! $errors->first($field1, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+
+    <div class="col-md-3 form-control-static">
+        {!! Form::tel($field2, old($field2, request($field2)), ['class' => 'form-control', 'id' => $field2, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.end'), __('elements.words.day'))]) !!}
+        {!! $errors->first($field2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
 @set ($field, 'free_word')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$field}")
+        @lang ("attributes.customers.search.{$field}")
     </label>
 
     <div class="col-md-6">
@@ -13,7 +31,7 @@
 @set ($field, 'trashed')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("elements.words.{$field}")
+        @lang ("attributes.customers.search.{$field}")
     </label>
 
     <div class="col-md-6 form-control-static">

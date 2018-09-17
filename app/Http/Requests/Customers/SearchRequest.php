@@ -30,6 +30,21 @@ class SearchRequest extends FormRequest
                 'nullable',
                 'numeric',
             ],
+            'visited_date_s' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                'before_or_equal:visited_date_e',
+                sprintf('before_or_equal:%s', now()->format('Y-m-d')),
+            ],
+            'visited_date_e' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                'after_or_equal:visited_date_s',
+            ],
         ];
     }
 
@@ -52,6 +67,6 @@ class SearchRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return \Lang::get('attributes.customers');
+        return \Lang::get('attributes.customers.search');
     }
 }
