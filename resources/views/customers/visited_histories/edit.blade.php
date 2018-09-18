@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.edit') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.edit')
                 </div>
             </div>
         </div>

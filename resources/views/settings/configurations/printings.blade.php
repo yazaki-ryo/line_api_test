@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.print')@lang ('elements.words.settings') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.print')@lang ('elements.words.settings')
                 </div>
             </div>
         </div>
