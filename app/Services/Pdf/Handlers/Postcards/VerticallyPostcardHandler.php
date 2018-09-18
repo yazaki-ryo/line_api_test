@@ -56,11 +56,11 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $this->processor->AddPage();
             $this->processor->useTemplate($this->tpl, 0, 0, null, null, true);
 
-            $this->postalCode($item->postalCode());
+            $this->postalCode($item->postalCode()->asString());
             $this->address($item->address(), $item->building());
             $this->name($item->lastName(), $item->firstName(), $item->office(), $item->department(), $item->position());
 
-            $this->fromPostalCode($this->from->postalCode());
+            $this->fromPostalCode($this->from->postalCode()->asString());
             $this->fromAddress($this->from->address(), $this->from->building());
             $this->fromName($this->from->name());
         }
@@ -90,11 +90,6 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     private function postalCode(string $value): void
     {
-        /**
-         * TODO XXX
-         */
-        $value = '1234567';
-
         $this->fonts($this->settings['pc_font']);
         $this->processor->SetFont($this->font, '', (float)$this->settings['pc_font_size'], '', true);
 
@@ -170,11 +165,6 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
     private function fromPostalCode(string $value): void
     {
         if (! $this->settings['from_flag']) return;
-
-        /**
-         * TODO XXX
-         */
-        $value = '1234567';
 
         $this->fonts($this->settings['from_pc_font']);
         $this->processor->SetFont($this->font, '', (float)$this->settings['from_pc_font_size'], '', true);
