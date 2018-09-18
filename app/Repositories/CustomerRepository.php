@@ -162,10 +162,10 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
         });
 
         $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {
-            $q1->when((int)$args->get($key) === 2, function (Builder $q2) {
+            $q1->when($args->get($key) === 'with', function (Builder $q2) {
                 $q2->withTrashed();
             });
-            $q1->when((int)$args->get($key) === 3, function (Builder $q2) {
+            $q1->when($args->get($key) === 'only', function (Builder $q2) {
                 $q2->onlyTrashed();
             });
         });

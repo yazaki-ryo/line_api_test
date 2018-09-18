@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Customers;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SearchRequest extends FormRequest
 {
@@ -28,7 +29,9 @@ class SearchRequest extends FormRequest
             ],
             'trashed' => [
                 'nullable',
-                'numeric',
+                'string',
+                'max:191',
+                Rule::in(array_keys(\Lang::get('attributes.trashed'))),
             ],
             'visited_date_s' => [
                 'nullable',
