@@ -47,13 +47,13 @@ final class GetCustomers
 
         if ($collection->has($key = 'visited_date_s')) {
             if (! is_null($collection->get($key))) {
-                $collection->put($key, Carbon::parse($collection->get($key)));
+                $collection->put($key, Carbon::parse($collection->get($key))->startOfDay());
             }
         }
 
         if ($collection->has($key = 'visited_date_e')) {
             if (! is_null($collection->get($key))) {
-                $collection->put($key, Carbon::parse($collection->get($key)));
+                $collection->put($key, Carbon::parse($collection->get($key))->endOfDay());
             }
         }
 

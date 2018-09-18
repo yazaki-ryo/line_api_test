@@ -191,18 +191,15 @@ final class EloquentCustomer extends Model
      */
     public function scopeVisitedAt(Builder $query, Carbon $start = null, Carbon $end = null): Builder
     {
-        if (is_null($start) && is_null($end)) {
-            return $query;
-        }
-
         $field = 'visited_at';
+
         return $query->whereHas('visitedHistories', function(Builder $q1) use ($field, $start, $end) {
             $q1->when(! is_null($start), function (Builder $q2) use ($field, $start) {
-                $q2->where($field, '>=', $start->format('Y-m-d'));
+                $q2->where($field, '>=', $start->format('Y-m-d H:i:s'));
             });
 
             $q1->when(! is_null($end), function (Builder $q2) use ($field, $end) {
-                $q2->where($field, '<=', $end->format('Y-m-d'));
+                $q2->where($field, '<=', $end->format('Y-m-d H:i:s'));
             });
         });
     }
