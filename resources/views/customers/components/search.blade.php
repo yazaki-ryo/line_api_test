@@ -1,3 +1,15 @@
+@set ($field, 'free_word')
+<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
+    <label for="{{ $field }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.search.{$field}")
+    </label>
+
+    <div class="col-md-6">
+        {!! Form::textarea($field, old($field, request($field)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 2, 'placeholder' => __('Name, office name, features, etc.')]) !!}
+        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+    </div>
+</div>
+
 @set ($field1, 'visited_date_s')
 @set ($field2, 'visited_date_e')
 <div class="form-group{{ $errors->has($field1) || $errors->has($field2) ? ' has-error' : '' }}">
@@ -16,14 +28,14 @@
     </div>
 </div>
 
-@set ($field, 'free_word')
+@set ($field, 'mourning_flag')
 <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
     <label for="{{ $field }}" class="col-md-4 control-label">
         @lang ("attributes.customers.search.{$field}")
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($field, old($field, request($field)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 2, 'placeholder' => __('Name, office name, features, etc.')]) !!}
+        {!! Form::select($field, array_reverse(\Lang::get('attributes.yes_or_no')), old($field, request($field)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>
@@ -35,12 +47,7 @@
     </label>
 
     <div class="col-md-6 form-control-static">
-        @foreach (\Lang::get('attributes.trashed') as $key => $item)
-            <label>
-                <input type="radio" name="{{ $field }}" value="{{ $key }}" required {{ old($field, request($field)) === $key ? 'checked' : ($key === 'without' ? 'checked' : '') }} /> {{ $item }}
-            </label>
-        @endforeach
-
+        {!! Form::select($field, \Lang::get('attributes.trashed'), old($field, request($field)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191]) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 </div>

@@ -33,11 +33,6 @@ trait Scopable
     public function scopeIds(Builder $query, array $ids = [], bool $not = false): Builder
     {
         $field = sprintf('%s.id', $this->getTable());
-
-        return $query->when($not, function (Builder $q) use ($field, $ids) {
-            return $q->whereNotIn($field, $ids);
-        }, function (Builder $q) use ($field, $ids) {
-            return $q->whereIn($field, $ids);
-        });
+        return $query->{$not === false ? 'whereIn' : 'whereNotIn'}($field, $ids);
     }
 }

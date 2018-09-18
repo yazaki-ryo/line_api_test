@@ -184,6 +184,17 @@ final class EloquentCustomer extends Model
     }
 
     /**
+     * @param  Builder $query
+     * @param  bool $isNull
+     * @return Builder
+     */
+    public function scopeMourningFlag(Builder $query, bool $isNull = true): Builder
+    {
+        $field = sprintf('%s.mourned_at', $this->getTable());
+        return $query->{$isNull === true ? 'whereNull' : 'whereNotNull'}($field);
+    }
+
+    /**
      * @param Builder $query
      * @param Carbon|null $start
      * @param Carbon|null $end

@@ -140,24 +140,28 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
     {
         $args = collect($args);
 
-        $query->when($args->has($key = 'company_id'), function (Builder $q) use ($key, $args) {
+        $query->when($args->has($key = 'company_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->companyId($args->get($key));
         });
 
-        $query->when($args->has($key = 'store_id'), function (Builder $q) use ($key, $args) {
+        $query->when($args->has($key = 'store_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->storeId($args->get($key));
         });
 
-        $query->when($args->has($key = 'free_word'), function (Builder $q) use ($key, $args) {
+        $query->when($args->has($key = 'free_word') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->freeWord($args->get($key));
+        });
+
+        $query->when($args->has($key = 'mourning_flag') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->mourningFlag(! ((bool)$args->get($key)));
         });
 
         $end = 'visited_date_e';
         $query->when(($args->has($start = 'visited_date_s') && ! is_null($args->get($start)))
             || ($args->has($end) && ! is_null($args->get($end))), function (Builder $q) use ($args, $start, $end) {
             $q->visitedAt(
-                $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start)) : null,
-                $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end)) : null
+                $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start))->startOfDay() : null,
+                $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end))->endOfDay() : null
             );
         });
 

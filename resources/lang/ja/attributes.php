@@ -70,6 +70,7 @@ return [
 
         'search' => [
             'free_word'      => 'フリーワード',
+            'mourning_flag'  => '喪中フラグ',
             'trashed'        => '削除データ',
             'visited_date_s' => '来店日（開始）',
             'visited_date_e' => '来店日（終了）',
@@ -178,6 +179,11 @@ return [
         'without' => '削除データ以外',
         'with'    => '削除データを含む',
         'only'    => '削除データのみ',
+    ],
+
+    'yes_or_no' => [
+        1 => 'はい',
+        0 => 'いいえ',
     ],
 
 ];

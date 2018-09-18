@@ -27,12 +27,6 @@ class SearchRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
-            'trashed' => [
-                'nullable',
-                'string',
-                'max:191',
-                Rule::in(array_keys(\Lang::get('attributes.trashed'))),
-            ],
             'visited_date_s' => [
                 'nullable',
                 'string',
@@ -47,6 +41,16 @@ class SearchRequest extends FormRequest
                 'max:10',
                 'date_format:Y-m-d',
                 'after_or_equal:visited_date_s',
+            ],
+            'mourning_flag' => [
+                'nullable',
+                'boolean',
+            ],
+            'trashed' => [
+                'nullable',
+                'string',
+                'max:191',
+                Rule::in(array_keys(\Lang::get('attributes.trashed'))),
             ],
         ];
     }
