@@ -42,6 +42,8 @@ return [
          * D
          */
         'data'           => 'データ',
+        'date'           => '日付',
+        'day'            => '日',
         'delete'         => '削除',
         'deleted'        => '削除',
 
@@ -50,6 +52,7 @@ return [
          */
         'edit'           => '編集',
         'edited'         => '編集',
+        'end'            => '終了',
         'export'         => 'エクスポート',
 
         /**
@@ -165,11 +168,9 @@ return [
         'set'            => '設置',
         'setting'        => '設定',
         'settings'       => '設定',
-        'state' => [
-            'without' => '以外',
-            'with'    => 'を含む',
-            'only'    => 'のみ',
-        ],
+        'start'          => '開始',
+        'state'          => '状態',
+        'status'         => 'ステータス',
         'store'          => '店舗',
         'stores'         => '店舗',
         'submit'         => '送信',
@@ -223,14 +224,13 @@ return [
         'customers' => [
             'last_name_kana'  => 'セイ',
             'first_name_kana' => 'メイ',
-            'age'             => '35',
             'office'          => '株式会社サンプル',
             'office_kana'     => 'カブシキガイシャサンプル',
             'department'      => '営業部',
             'position'        => '課長',
             'postal_code'     => '5420085',
             'address'         => '大阪市中央区心斎橋筋2-2-30',
-            'building_name'   => 'サンプルマンション801',
+            'building'        => 'サンプルマンション801',
             'tel'             => '0661112222',
             'fax'             => '0663334444',
             'email'           => 'sample@sample.jp',

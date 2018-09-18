@@ -49,11 +49,6 @@ class UpdateRequest extends FormRequest
                 'numeric',
                 Rule::exists('sexes', 'id'),
             ],
-            'age' => [
-                'nullable',
-                'numeric',
-                'max:150',
-            ],
             'office' => [
                 'nullable',
                 'string',
@@ -77,9 +72,7 @@ class UpdateRequest extends FormRequest
             ],
             'postal_code' => [
                 'nullable',
-                'string',
-                // TODO 数値とハイフンバリデート（郵便番号正規表現の方が良いか、又はハイフン無しで限定した方が良いか）
-                'max:191',
+                'postal_code',
             ],
             'prefecture_id' => [
                 'nullable',
@@ -91,7 +84,7 @@ class UpdateRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
-            'building_name' => [
+            'building' => [
                 'nullable',
                 'string',
                 'max:1000',
@@ -120,6 +113,19 @@ class UpdateRequest extends FormRequest
             'mourning_flag' => [
                 'required',
                 'boolean',
+            ],
+            'birthday' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                sprintf('before_or_equal:%s', now()->format('Y-m-d')),
+            ],
+            'anniversary' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
             ],
             'likes_and_dislikes' => [
                 'nullable',

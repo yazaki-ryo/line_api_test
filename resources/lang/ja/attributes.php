@@ -21,8 +21,8 @@ return [
         'name'                  => '名称',
         'kana'                  => 'フリガナ',
         'postal_code'           => '郵便番号',
-        'address'               => '住所',
-        'building_name'         => '建物名',
+        'address'               => '市区町村・番地',
+        'building'              => '建物名',
         'tel'                   => 'TEL',
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
@@ -43,24 +43,24 @@ return [
         'first_name'            => '名',
         'last_name_kana'        => '姓フリガナ',
         'first_name_kana'       => '名フリガナ',
-        'age'                   => '年齢',
         'office'                => '会社名',
         'office_kana'           => '会社名フリガナ',
         'department'            => '部署',
         'position'              => '役職',
 
         'postal_code'           => '郵便番号',
-        'address'               => '住所',
-        'building_name'         => '建物名',
+        'address'               => '市区町村・番地',
+        'building'              => '建物名',
         'tel'                   => 'TEL',
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
         'mobile_phone'          => '携帯電話番号',
 
-        'mourning_flag'         => '喪中フラグ',
+        'mourning_flag'         => '喪中設定',
+        'birthday'              => '誕生日',
+        'anniversary'           => '記念日',
         'likes_and_dislikes'    => '好き嫌い',
         'note'                  => 'メモ',
-        'visited_cnt'           => '来店回数',
         'cancel_cnt'            => 'キャンセル回数',
         'noshow_cnt'            => 'ノーショウ回数',
 
@@ -68,8 +68,15 @@ return [
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
 
-        'free_word'             => 'フリーワード',
-        'tags'                  => 'タグ',
+        'search' => [
+            'free_word'      => 'フリーワード',
+            'mourning_flag'  => '喪中フラグ',
+            'trashed'        => '削除データ',
+            'visited_date_s' => '来店日（開始）',
+            'visited_date_e' => '来店日（終了）',
+        ],
+
+        'tags'      => 'タグ',
 
         'postcards' => [
             'mode'      => '出力モード',
@@ -95,8 +102,8 @@ return [
         'name'                  => '名称',
         'kana'                  => 'フリガナ',
         'postal_code'           => '郵便番号',
-        'address'               => '住所',
-        'building_name'         => '建物名',
+        'address'               => '市区町村・番地',
+        'building'              => '建物名',
         'tel'                   => 'TEL',
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
@@ -166,6 +173,17 @@ return [
             'from_name_font'         => '（差出人）氏名書体',
             'from_name_font_size'    => '（差出人）氏名文字サイズ',
         ],
+    ],
+
+    'trashed' => [
+        'without' => '削除データ以外',
+        'with'    => '削除データを含む',
+        'only'    => '削除データのみ',
+    ],
+
+    'yes_or_no' => [
+        1 => 'はい',
+        0 => 'いいえ',
     ],
 
 ];

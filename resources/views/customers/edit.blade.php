@@ -6,8 +6,9 @@
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
 
-@section('css')
+@section('styles')
     <link href="{{ asset('vendor/DataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/jquery-ui/datepicker/datepicker.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -15,7 +16,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.edit') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.edit')
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
                             <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                             <div class="panel-body">
-                                {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
                                     @include ('customers.components.crud', ['mode' => 'edit'])
                                 {!! Form::close() !!}
                             </div>
@@ -73,6 +74,8 @@
 
 @section ('scripts')
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/datepicker/datepicker.js') }}"></script>
+    <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
         jQuery(function($){
             $.extend( $.fn.dataTable.defaults, {
@@ -82,9 +85,10 @@
             });
             $("#visited-histories-table").DataTable({
                 columnDefs: [
-//                     { targets: 0, visible: false },
-//                     { targets: 1, width: 150 },
-//                     { targets: [6, 7], orderable: false }
+                    {
+                        targets: [0, 5],
+                        orderable: false
+                    }
                 ],
                 displayLength: 25,
                 info: true,
@@ -92,13 +96,26 @@
                 lengthMenu: [10, 25, 50, 100],
                 ordering: true,
                 paging: true,
-//                 order: [0, "asc"],
-//                 scrollX: true,
-//                 scrollY: true,
+                // order: [0, "asc"],
                 searching: true,
                 stateSave: true
             });
         });
+
+        (function($){
+            $('#birthday').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+            $('#anniversary').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+        })(jQuery);
 
         /**
          * @param string url
@@ -111,43 +128,5 @@
                 form.submit();
             }
         }
-
-        /**
-         * @param string url
-         * @param string name
-         * @return void
-         */
-//         function submitPostcardsForm(url, name) {
-//             var element = document.createElement('input');
-//             element.setAttribute('type', 'hidden');
-//             element.setAttribute('name', name);
-
-//             var value = elementsByName(name);
-//             element.setAttribute('value', value);
-
-//             var form = document.getElementById('customers-postcards-form');
-//             form.action = url;
-//             form.appendChild(element);
-//             form.submit();
-//         }
-
-        /**
-         * @param string name
-         * @param bool onlyChecked
-         * @return array
-         */
-//         function elementsByName(name, onlyChecked = true) {
-//             var element = document.getElementsByName(name);
-//             var selected = [];
-
-//             for (var item of element) {
-//                 if (item.checked === false && onlyChecked) {
-//                     continue;
-//                 }
-//                 selected.push(parseInt(item.value));
-//             }
-
-//             return selected;
-//         }
     </script>
 @endsection

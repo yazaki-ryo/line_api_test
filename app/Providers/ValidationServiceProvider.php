@@ -6,6 +6,7 @@ namespace App\Providers;
 use App\Repositories\UserRepository;
 use Domain\Models\Customer;
 use Domain\Models\Email;
+use Domain\Models\PostalCode;
 use Domain\Models\Store;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +26,10 @@ final class ValidationServiceProvider extends ServiceProvider
         $validator->extend('email', function ($attribute, $value) {
             return Email::validate($value);
         }, null);// override
+
+        $validator->extend('postal_code', function ($attribute, $value) {
+            return PostalCode::validate($value);
+        }, null);
 
         $validator->extend('store_id', function ($attribute, $value) use ($auth) {
             return Store::validateStoreId(UserRepository::toModel($auth->user()), (int)$value);

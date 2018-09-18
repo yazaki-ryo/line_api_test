@@ -6,8 +6,9 @@
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
 
-@section('css')
+@section('styles')
     <link href="{{ asset('vendor/DataTables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/jquery-ui/datepicker/datepicker.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -15,7 +16,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.list') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.list')
                 </div>
             </div>
         </div>
@@ -70,6 +71,7 @@
 
 @section ('scripts')
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/datepicker/datepicker.js') }}"></script>
     <script type="text/javascript">
         jQuery(function($){
             $.extend( $.fn.dataTable.defaults, {
@@ -79,9 +81,10 @@
             });
             $("#customers-table").DataTable({
                 columnDefs: [
-//                     { targets: 0, visible: false },
-//                     { targets: 1, width: 150 },
-//                     { targets: [6, 7], orderable: false }
+                    {
+                        targets: [0, 6],
+                        orderable: false
+                    }
                 ],
                 displayLength: 25,
                 info: true,
@@ -89,13 +92,26 @@
                 lengthMenu: [10, 25, 50, 100],
                 ordering: true,
                 paging: true,
-//                 order: [0, "asc"],
-//                 scrollX: true,
-//                 scrollY: true,
+                // order: [0, "asc"],
                 searching: true,
                 stateSave: true
             });
         });
+
+        (function($){
+            $('#visited_date_s').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+            $('#visited_date_e').datepicker({
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                showOtherMonths: true,
+                showButtonPanel: true
+            });
+        })(jQuery);
 
         /**
          * @param string url

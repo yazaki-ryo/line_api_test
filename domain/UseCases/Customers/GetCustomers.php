@@ -7,7 +7,6 @@ use App\Services\DomainCollection;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
-use Illuminate\Support\Collection;
 
 final class GetCustomers
 {
@@ -38,12 +37,6 @@ final class GetCustomers
     {
         /** @var Collection $collection */
         $collection = collect($args);
-
-        if ($collection->has($key = 'free_word')) {
-            if (is_null($collection->get($key))) {
-                $collection->forget($key);
-            }
-        }
 
         /** @var Store $store */
         $store = $user->store();

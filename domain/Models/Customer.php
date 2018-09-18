@@ -26,9 +26,6 @@ final class Customer extends DomainModel
     /** @var string */
     private $firstNameKana;
 
-    /** @var int */
-    private $age;
-
     /** @var string */
     private $office;
 
@@ -41,14 +38,14 @@ final class Customer extends DomainModel
     /** @var string */
     private $position;
 
-    /** @var string */
+    /** @var PostalCode */
     private $postalCode;
 
     /** @var string */
     private $address;
 
     /** @var string */
-    private $buildingName;
+    private $building;
 
     /** @var string */
     private $tel;
@@ -62,17 +59,20 @@ final class Customer extends DomainModel
     /** @var string */
     private $mobilePhone;
 
-    /** @var Flag */
-    private $mourningFlag;
+    /** @var Datetime */
+    private $mournedAt;
+
+    /** @var Datetime */
+    private $birthday;
+
+    /** @var Datetime */
+    private $anniversary;
 
     /** @var string */
     private $likesAndDislikes;
 
     /** @var string */
     private $note;
-
-    /** @var Count */
-    private $visitedCnt;
 
     /** @var Count */
     private $cancelCnt;
@@ -148,14 +148,6 @@ final class Customer extends DomainModel
     }
 
     /**
-     * @return int|null
-     */
-    public function age(): ?int
-    {
-        return $this->age;
-    }
-
-    /**
      * @return string|null
      */
     public function office(): ?string
@@ -188,9 +180,9 @@ final class Customer extends DomainModel
     }
 
     /**
-     * @return string|null
+     * @return PostalCode|null
      */
-    public function postalCode(): ?string
+    public function postalCode(): ?PostalCode
     {
         return $this->postalCode;
     }
@@ -206,9 +198,9 @@ final class Customer extends DomainModel
     /**
      * @return string|null
      */
-    public function buildingName(): ?string
+    public function building(): ?string
     {
-        return $this->buildingName;
+        return $this->building;
     }
 
     /**
@@ -244,11 +236,27 @@ final class Customer extends DomainModel
     }
 
     /**
-     * @return Flag|null
+     * @return Datetime|null
      */
-    public function mourningFlag(): ?Flag
+    public function mournedAt(): ?Datetime
     {
-        return $this->mourningFlag;
+        return $this->mournedAt;
+    }
+
+    /**
+     * @return Datetime|null
+     */
+    public function birthday(): ?Datetime
+    {
+        return $this->birthday;
+    }
+
+    /**
+     * @return Datetime|null
+     */
+    public function anniversary(): ?Datetime
+    {
+        return $this->anniversary;
     }
 
     /**
@@ -265,14 +273,6 @@ final class Customer extends DomainModel
     public function note(): ?string
     {
         return $this->note;
-    }
-
-    /**
-     * @return Count|null
-     */
-    public function visitedCnt(): ?Count
-    {
-        return $this->visitedCnt;
     }
 
     /**
@@ -399,6 +399,20 @@ final class Customer extends DomainModel
     }
 
     /**
+     * @param string $column
+     * @param bool $arg
+     * @return void
+     */
+    public function toggleTimestamp(string $column, bool $arg)
+    {
+        if ($arg === true && is_null($this->{$camel = camel_case($column)}())) {
+            $this->update([$column => now()]);
+        } elseif ($arg === false && !empty($this->{$camel = camel_case($column)}())) {
+            $this->update([$column => null]);
+        }
+    }
+
+    /**
      * @param  CustomerRepository $repo
      * @return  self
      */
@@ -444,10 +458,6 @@ final class Customer extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'age')) {
-            $this->{$camel = camel_case($key)} = $args->get($key);
-        }
-
         if ($args->has($key = 'office')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
@@ -465,14 +475,14 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'postal_code')) {
-            $this->{$camel = camel_case($key)} = $args->get($key);
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : PostalCode::of($args->get($key));
         }
 
         if ($args->has($key = 'address')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'building_name')) {
+        if ($args->has($key = 'building')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
@@ -492,8 +502,16 @@ final class Customer extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'mourning_flag')) {
-            $this->{$camel = camel_case($key)} = Flag::of((bool)$args->get($key));
+        if ($args->has($key = 'mourned_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'birthday')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'anniversary')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
         if ($args->has($key = 'likes_and_dislikes')) {

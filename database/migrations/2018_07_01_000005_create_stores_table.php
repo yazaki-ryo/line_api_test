@@ -28,7 +28,7 @@ class CreateStoresTable extends Migration
                 $table->string('kana')->nullable()->comment('フリガナ');
                 $table->string('postal_code')->nullable()->comment('郵便番号');
                 $table->text('address')->nullable()->comment('住所');
-                $table->text('building_name')->nullable()->comment('建物名');
+                $table->text('building')->nullable()->comment('建物名');
                 $table->string('tel')->nullable()->comment('TEL');
                 $table->string('fax')->nullable()->comment('FAX');
                 $table->string('email')->nullable()->comment('E-Mail');

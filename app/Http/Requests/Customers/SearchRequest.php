@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Customers;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SearchRequest extends FormRequest
 {
@@ -26,9 +27,30 @@ class SearchRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
+            'visited_date_s' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                'before_or_equal:visited_date_e',
+                sprintf('before_or_equal:%s', now()->format('Y-m-d')),
+            ],
+            'visited_date_e' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                'after_or_equal:visited_date_s',
+            ],
+            'mourning_flag' => [
+                'nullable',
+                'boolean',
+            ],
             'trashed' => [
                 'nullable',
-                'numeric',
+                'string',
+                'max:191',
+                Rule::in(array_keys(\Lang::get('attributes.trashed'))),
             ],
         ];
     }
@@ -52,6 +74,6 @@ class SearchRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return \Lang::get('attributes.customers');
+        return \Lang::get('attributes.customers.search');
     }
 }

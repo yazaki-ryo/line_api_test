@@ -32,7 +32,6 @@ class CreateCustomersTable extends Migration
                 $table->string('first_name')->nullable()->comment('名');
                 $table->string('last_name_kana')->nullable()->comment('姓フリガナ');
                 $table->string('first_name_kana')->nullable()->comment('名フリガナ');
-                $table->unsignedTinyInteger('age')->nullable()->comment('年齢');
                 $table->string('office')->nullable()->comment('会社名');
                 $table->string('office_kana')->nullable()->comment('フリガナ');
                 $table->string('department')->nullable()->comment('部署');
@@ -40,13 +39,16 @@ class CreateCustomersTable extends Migration
 
                 $table->string('postal_code')->nullable()->comment('郵便番号');
                 $table->text('address')->nullable()->comment('住所');
-                $table->text('building_name')->nullable()->comment('建物名');
+                $table->text('building')->nullable()->comment('建物名');
                 $table->string('tel')->nullable()->comment('TEL');
                 $table->string('fax')->nullable()->comment('FAX');
                 $table->string('email')->nullable()->comment('E-Mail');
                 $table->string('mobile_phone')->nullable()->comment('携帯電話番号');
 
-                $table->boolean('mourning_flag')->default(false)->comment('喪中フラグ');
+                $table->date('birthday')->nullable()->comment('誕生日');
+                $table->date('anniversary')->nullable()->comment('記念日');
+                $table->timestamp('mourned_at')->nullable()->comment('喪中設定日');
+
                 $table->text('likes_and_dislikes')->nullable()->comment('好き嫌い');
                 $table->text('note')->nullable()->comment('メモ');
 

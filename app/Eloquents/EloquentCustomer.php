@@ -5,6 +5,7 @@ namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
 use App\Traits\Database\Eloquent\Scopable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,7 +34,6 @@ final class EloquentCustomer extends Model
         'first_name',
         'last_name_kana',
         'first_name_kana',
-        'age',
         'office',
         'office_kana',
         'department',
@@ -41,34 +41,34 @@ final class EloquentCustomer extends Model
 
         'postal_code',
         'address',
-        'building_name',
+        'building',
         'tel',
         'fax',
         'email',
         'mobile_phone',
 
-        'mourning_flag',
+        'mourned_at',
+        'birthday',
+        'anniversary',
         'likes_and_dislikes',
         'note',
-//         'cancel_cnt',
-//         'noshow_cnt',
     ];
 
     /**
      * @var array
      */
     protected $dates = [
-        // 'anniversary',
-        // 'birthday',
+        'mourned_at',
     ];
 
     /**
      * @var array
      */
     protected $casts = [
-        'mourning_flag' => 'bool',
-        'cancel_cnt'    => 'int',
-        'noshow_cnt'    => 'int',
+        'anniversary' => 'date',
+        'birthday'    => 'date',
+        'cancel_cnt'  => 'int',
+        'noshow_cnt'  => 'int',
     ];
 
     /**
@@ -179,6 +179,38 @@ final class EloquentCustomer extends Model
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
                 $q2->office($value, 'like');
+            });
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  bool $isNull
+     * @return Builder
+     */
+    public function scopeMourningFlag(Builder $query, bool $isNull = true): Builder
+    {
+        $field = sprintf('%s.mourned_at', $this->getTable());
+        return $query->{$isNull === true ? 'whereNull' : 'whereNotNull'}($field);
+    }
+
+    /**
+     * @param Builder $query
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     * @return Builder
+     */
+    public function scopeVisitedAt(Builder $query, Carbon $start = null, Carbon $end = null): Builder
+    {
+        $field = 'visited_at';
+
+        return $query->whereHas('visitedHistories', function(Builder $q1) use ($field, $start, $end) {
+            $q1->when(! is_null($start), function (Builder $q2) use ($field, $start) {
+                $q2->where($field, '>=', $start->format('Y-m-d H:i:s'));
+            });
+
+            $q1->when(! is_null($end), function (Builder $q2) use ($field, $end) {
+                $q2->where($field, '<=', $end->format('Y-m-d H:i:s'));
             });
         });
     }

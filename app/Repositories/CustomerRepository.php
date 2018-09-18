@@ -16,6 +16,7 @@ use Domain\Models\VisitedHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 final class CustomerRepository extends EloquentRepository implements DomainableContract
 {
@@ -139,23 +140,36 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
     {
         $args = collect($args);
 
-        $query->when($args->has($key = 'company_id'), function (Builder $q) use ($key, $args) {
+        $query->when($args->has($key = 'company_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->companyId($args->get($key));
         });
 
-        $query->when($args->has($key = 'store_id'), function (Builder $q) use ($key, $args) {
+        $query->when($args->has($key = 'store_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->storeId($args->get($key));
         });
 
-        $query->when($args->has($key = 'free_word'), function (Builder $q) use ($key, $args) {
+        $query->when($args->has($key = 'free_word') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->freeWord($args->get($key));
         });
 
+        $query->when($args->has($key = 'mourning_flag') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->mourningFlag(! ((bool)$args->get($key)));
+        });
+
+        $end = 'visited_date_e';
+        $query->when(($args->has($start = 'visited_date_s') && ! is_null($args->get($start)))
+            || ($args->has($end) && ! is_null($args->get($end))), function (Builder $q) use ($args, $start, $end) {
+            $q->visitedAt(
+                $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start))->startOfDay() : null,
+                $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end))->endOfDay() : null
+            );
+        });
+
         $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {
-            $q1->when((int)$args->get($key) === 2, function (Builder $q2) {
+            $q1->when($args->get($key) === 'with', function (Builder $q2) {
                 $q2->withTrashed();
             });
-            $q1->when((int)$args->get($key) === 3, function (Builder $q2) {
+            $q1->when($args->get($key) === 'only', function (Builder $q2) {
                 $q2->onlyTrashed();
             });
         });

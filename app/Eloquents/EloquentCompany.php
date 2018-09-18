@@ -28,7 +28,7 @@ final class EloquentCompany extends Model
         'kana',
         'postal_code',
         'address',
-        'building_name',
+        'building',
         'tel',
         'fax',
         'email',

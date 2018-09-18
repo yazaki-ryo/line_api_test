@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.company')@lang ('elements.words.information')@lang ('elements.words.edit') <small><code>@lang ('Sub text')</code></small></h1>
+                    	<h1 class="h2">@lang ('elements.words.company')@lang ('elements.words.information')@lang ('elements.words.edit')
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('settings.company'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('settings.company'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
                             @include ('companies.components.crud')
                         {!! Form::close() !!}
                     </div>
@@ -39,6 +39,7 @@
 @endsection
 
 @section ('scripts')
+    <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
         //
     </script>

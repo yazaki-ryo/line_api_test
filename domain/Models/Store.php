@@ -20,14 +20,14 @@ final class Store extends DomainModel
     /** @var string */
     private $kana;
 
-    /** @var string */
+    /** @var PostalCode */
     private $postalCode;
 
     /** @var string */
     private $address;
 
     /** @var string */
-    private $buildingName;
+    private $building;
 
     /** @var string */
     private $tel;
@@ -99,9 +99,9 @@ final class Store extends DomainModel
     }
 
     /**
-     * @return string|null
+     * @return PostalCode|null
      */
-    public function postalCode(): ?string
+    public function postalCode(): ?PostalCode
     {
         return $this->postalCode;
     }
@@ -117,9 +117,9 @@ final class Store extends DomainModel
     /**
      * @return string|null
      */
-    public function buildingName(): ?string
+    public function building(): ?string
     {
-        return $this->buildingName;
+        return $this->building;
     }
 
     /**
@@ -306,14 +306,14 @@ final class Store extends DomainModel
         }
 
         if ($args->has($key = 'postal_code')) {
-            $this->{$camel = camel_case($key)} = $args->get($key);
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : PostalCode::of($args->get($key));
         }
 
         if ($args->has($key = 'address')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'building_name')) {
+        if ($args->has($key = 'building')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
