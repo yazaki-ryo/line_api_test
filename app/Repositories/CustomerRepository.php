@@ -152,10 +152,14 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             $q->freeWord($args->get($key));
         });
 
-        $query->visitedAt(
-            $args->has($start = 'visited_date_s') && ! is_null($args->get($start)) ? Carbon::parse($args->get($start)) : null,
-            $args->has($end = 'visited_date_e') && ! is_null($args->get($end)) ? Carbon::parse($args->get($end)) : null
-        );
+        $end = 'visited_date_e';
+        $query->when(($args->has($start = 'visited_date_s') && ! is_null($args->get($start)))
+            || ($args->has($end) && ! is_null($args->get($end))), function (Builder $q) use ($args, $start, $end) {
+            $q->visitedAt(
+                $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start)) : null,
+                $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end)) : null
+            );
+        });
 
         $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {
             $q1->when((int)$args->get($key) === 2, function (Builder $q2) {
