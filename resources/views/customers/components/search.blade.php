@@ -5,12 +5,12 @@
         @lang ("attributes.customers.visited_histories.visited_date")
     </label>
 
-    <div class="col-md-3 form-control-static">
+    <div class="col-md-3">
         {!! Form::tel($field1, old($field1, request($field1)), ['class' => 'form-control', 'id' => $field1, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.start'), __('elements.words.day'))]) !!}
         {!! $errors->first($field1, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
 
-    <div class="col-md-3 form-control-static">
+    <div class="col-md-3">
         {!! Form::tel($field2, old($field2, request($field2)), ['class' => 'form-control', 'id' => $field2, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.end'), __('elements.words.day'))]) !!}
         {!! $errors->first($field2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>

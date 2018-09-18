@@ -206,7 +206,7 @@
         @lang ("attributes.customers.{$field}")
     </label>
 
-    <div class="col-md-3 form-control-static">
+    <div class="col-md-3">
         {!! Form::tel($field, old($field, request($field, empty($row->{$camel = camel_case($field)}()) ? null : $row->{$camel = camel_case($field)}()->format('Y-m-d'))), ['class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -218,7 +218,7 @@
         @lang ("attributes.customers.{$field}")
     </label>
 
-    <div class="col-md-3 form-control-static">
+    <div class="col-md-3">
         {!! Form::tel($field, old($field, request($field, empty($row->{$camel = camel_case($field)}()) ? null : $row->{$camel = camel_case($field)}()->format('Y-m-d'))), ['class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>

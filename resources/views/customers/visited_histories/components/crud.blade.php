@@ -5,7 +5,7 @@
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
-    <div class="col-md-3 form-control-static">
+    <div class="col-md-3">
         {!! Form::tel($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d'))), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -17,7 +17,7 @@
         @lang ("attributes.customers.visited_histories.{$field}")
     </label>
 
-    <div class="col-md-3 form-control-static">
+    <div class="col-md-3">
         {!! Form::time($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i'))), ['class' => 'form-control', 'id' => $field, 'maxlength' => 5, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -29,7 +29,7 @@
         @lang ("attributes.customers.visited_histories.{$field}")
     </label>
 
-    <div class="col-md-3 form-control-static">
+    <div class="col-md-3">
         {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
@@ -41,7 +41,7 @@
         @lang ("attributes.customers.visited_histories.{$field}")
     </label>
 
-    <div class="col-md-5 form-control-static">
+    <div class="col-md-5">
         {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
         {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
     </div>
