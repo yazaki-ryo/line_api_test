@@ -23,5 +23,8 @@
             @lang ('elements.words.preview')
             <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('Preview can be displayed with a postcard background.')"></span>
         </button>
+        <p>
+            <code>@lang ('Data that does not satisfy the output condition is automatically excluded.')</code>
+        </p>
     </div>
 </div>

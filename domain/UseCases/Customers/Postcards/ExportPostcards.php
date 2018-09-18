@@ -7,6 +7,7 @@ use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Contracts\Responses\ExportableContract;
 use Domain\Models\User;
+use Illuminate\Support\Collection;
 
 final class ExportPostcards
 {
@@ -35,6 +36,10 @@ final class ExportPostcards
     {
         $args = $this->domainize($user, $args);
 
+        if (empty($args['data'])) {
+            return false;
+        }
+
         return $this->exporter
             ->pushHandler(app(VerticallyPostcardHandler::class))
             ->export($args);
@@ -53,7 +58,10 @@ final class ExportPostcards
 
         if ($collection->has($key = 'selection')) {
             $ids = explode(',', $collection->get($key));
-            $collection->put('data', $this->finder->findMany($ids)->toArray());
+            $collection->put('data', $this->finder->findAll([
+                'mourning_flag' => true,
+                'ids'           => $ids,
+            ])->toArray());
         }
 
         return $collection->all();

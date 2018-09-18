@@ -38,6 +38,10 @@ final class GetCustomers
         /** @var Collection $collection */
         $collection = collect($args);
 
+        if ($collection->has($key = 'mourning_flag') && ! is_null($collection->get($key))) {
+            $collection->put($key, ! ((bool)$collection->get($key)));
+        }
+
         /** @var Store $store */
         $store = $user->store();
 
