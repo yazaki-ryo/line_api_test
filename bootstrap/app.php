@@ -53,7 +53,9 @@ $app->singleton(
 
 $app->configureMonologUsing(function(LoggerInterface $monolog) {
     /** @var FormatterInterface $formatter */
-    $formatter = getDefaultFormatter();
+    $formatter = tap(new LineFormatter(null, null, true, true), function (FormatterInterface $formatter) {
+        $formatter->includeStacktraces();
+    });
 
     /**
      * Daily log
@@ -125,13 +127,3 @@ $app->configureMonologUsing(function(LoggerInterface $monolog) {
 */
 
 return $app;
-
-/**
- * @return FormatterInterface
- */
-function getDefaultFormatter()
-{
-    return tap(new LineFormatter(null, null, true, true), function (FormatterInterface $formatter) {
-        $formatter->includeStacktraces();
-    });
-}
