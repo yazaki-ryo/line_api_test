@@ -81,7 +81,19 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     public function export(): void
     {
-        //
+        if ($this->processor->getPage()) {
+            $this->processor->Output($this->filename, 'D');
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function save(): void
+    {
+        if ($this->processor->getPage()) {
+            $this->processor->Output($this->filename, 'F');
+        }
     }
 
     /**
@@ -183,7 +195,6 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->processor->SetFont($this->font, '', (float)$this->settings['from_address_font_size'], '', true);
         $this->processor->setFontSpacing(0);
         $this->processor->MultiCell(50.0, 15.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, (float)$this->settings['from_address_x'], (float)$this->settings['from_address_y'], true, 0, false, true, 15.0, 'T', true);
-
     }
 
     /**
