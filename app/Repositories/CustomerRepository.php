@@ -153,7 +153,7 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
         });
 
         $query->when($args->has($key = 'mourning_flag') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->mourningFlag(! ((bool)$args->get($key)));
+            $q->mourningFlag((bool)$args->get($key));
         });
 
         $end = 'visited_date_e';
@@ -163,6 +163,10 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
                 $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start))->startOfDay() : null,
                 $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end))->endOfDay() : null
             );
+        });
+
+        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->ids($args->get($key));
         });
 
         $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {

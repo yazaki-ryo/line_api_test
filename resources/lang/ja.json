@@ -1,6 +1,7 @@
 {
     "An internal error occurred. Please contact the administrator.": "内部エラーが発生しました。管理者へお問い合わせください。",
     "By entering the postal code, the prefecture city, town, village address is automatically entered.": "郵便番号を入力する事で、都道府県市区町村番地までが自動で入力されます。",
+    "Data that does not satisfy the output condition is automatically excluded.": "※出力条件に満たないデータは、自動的に対象外となります。",
     "Dedicated development in progress.": "鋭意開発中",
     "Delete the current image.": "現在の画像を削除する",
     "Do you really want to delete this?": "本当に削除しますか？",
@@ -20,6 +21,7 @@
     "The :name information was :action.": ":name情報を:actionしました。",
     "The value sent is invalid.": "送信された値が不正です。",
     "There is an item of input error.": "入力エラーの項目があります。",
+    "There is no data that can be output.": "出力可能なデータがありません。",
     "There is no :name.": ":nameがありません。",
     "Search for": "検索する",
     "Sub text": "サブテキスト",

@@ -46,7 +46,12 @@ final class ExportController extends Controller
         $args = $request->validated();
         $args['settings'] = $this->printSettings($request);
 
-        return $this->useCase->excute($user, $args);
+        $result = $this->useCase->excute($user, $args);
+
+        if ($result === false) {
+            flash(__('There is no data that can be output.'), 'warning');
+            return back()->withInput();
+        }
     }
 
     /**
