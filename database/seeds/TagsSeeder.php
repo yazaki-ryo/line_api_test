@@ -1,47 +1,47 @@
 <?php
 declare(strict_types=1);
 
-use Illuminate\Database\Connection;
+use App\Eloquents\EloquentTag;
+use App\Traits\Database\Transactionable;
 use Illuminate\Database\Seeder;
 
 class TagsSeeder extends Seeder
 {
-    /** @var string */
-    private $table = 'tags';
+    use Transactionable;
 
     /** @var array */
     private static $items = [
         [
-            'name'  => 'タグ1',
+            'name'     => 'タグ1',
+            'store_id' => 1,
         ],
         [
-            'name'  => 'タグ2',
+            'name'     => 'タグ2',
+            'store_id' => 1,
         ],
         [
-            'name'  => 'タグ3',
+            'name'     => 'タグ3',
+            'store_id' => 1,
         ],
         [
-            'name'  => 'トマト嫌い',
+            'name'     => 'トマト嫌い',
+            'store_id' => 2,
         ],
         [
-            'name'  => 'お酒好き',
+            'name'     => 'お酒好き',
+            'store_id' => 2,
         ],
     ];
 
     /**
-     * @param Connection $connection
      * @return void
      */
-    public function run(Connection $connection)
+    public function run()
     {
         try {
-            $connection->transaction(function ($connection) {
-                $now = now();
-                collect(self::$items)->each(function ($item) use ($connection, $now) {
-                    $connection->table($this->table)->insert(collect($item)->merge([
-                        'created_at' => $now,
-                        'updated_at' => $now,
-                    ])->all());
+            $this->transaction(function () {
+                collect(self::$items)->each(function ($item) {
+                    EloquentTag::create($item);
                 });
             });
         } catch (\Exception $e) {

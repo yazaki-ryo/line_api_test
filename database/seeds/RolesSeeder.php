@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-use Illuminate\Database\Connection;
+use App\Eloquents\EloquentRole;
+use App\Traits\Database\Transactionable;
 use Illuminate\Database\Seeder;
 
 class RolesSeeder extends Seeder
 {
-    /** @var string */
-    private $table = 'roles';
+    use Transactionable;
 
     /** @var array */
     private static $items = [
@@ -24,19 +24,14 @@ class RolesSeeder extends Seeder
     ];
 
     /**
-     * @param Connection $connection
      * @return void
      */
-    public function run(Connection $connection)
+    public function run()
     {
         try {
-            $connection->transaction(function ($connection) {
-                $now = now();
-                collect(self::$items)->each(function ($item) use ($connection, $now) {
-                    $connection->table($this->table)->insert(collect($item)->merge([
-                        'created_at' => $now,
-                        'updated_at' => $now,
-                    ])->all());
+            $this->transaction(function () {
+                collect(self::$items)->each(function ($item) {
+                    EloquentRole::create($item);
                 });
             });
         } catch (\Exception $e) {

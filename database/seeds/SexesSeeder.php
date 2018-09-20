@@ -1,36 +1,35 @@
 <?php
 declare(strict_types=1);
 
-use Illuminate\Database\Connection;
+use App\Eloquents\EloquentSex;
+use App\Traits\Database\Transactionable;
 use Illuminate\Database\Seeder;
 
 class SexesSeeder extends Seeder
 {
-    /** @var string */
-    private $table = 'sexes';
+    use Transactionable;
 
     /** @var array */
     private static $items = [
-        1 => '男性',
-        2 => '女性',
+        [
+            'id'   => 1,
+            'name' => '男性',
+        ],
+        [
+            'id'   => 2,
+            'name' => '女性',
+        ],
     ];
 
     /**
-     * @param Connection $connection
      * @return void
      */
-    public function run(Connection $connection)
+    public function run()
     {
         try {
-            $connection->transaction(function ($connection) {
-                $now = now();
-                collect(self::$items)->each(function ($item, $key) use ($connection, $now) {
-                    $connection->table($this->table)->insert([
-                        'id' => $key,
-                        'name' => $item,
-                        'created_at' => $now,
-                        'updated_at' => $now,
-                    ]);
+            $this->transaction(function () {
+                collect(self::$items)->each(function ($item) {
+                    EloquentSex::create($item);
                 });
             });
         } catch (\Exception $e) {
