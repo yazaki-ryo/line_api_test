@@ -21,9 +21,20 @@ class CreateTagsTable extends Migration
         try {
             Schema::create($this->table, function (Blueprint $table) {
                 $table->increments('id');
+
+                $table->unsignedInteger('store_id')->nullable()->comment('店舗ID');
                 $table->string('name')->nullable()->comment('名称');
                 $table->timestamps();
                 $table->softDeletes();
+
+                $table->foreign('store_id')
+                    ->references('id')
+                    ->on('stores');
+
+                $table->unique([
+                    'store_id',
+                    'name',
+                ]);
             });
 
             DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));
