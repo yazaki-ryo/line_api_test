@@ -112,7 +112,7 @@ $router->group([
         ], function (Router $router) use ($prefix) {
             $router->get( 'edit', \App\Http\Controllers\Tags\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
             $router->post('edit', \App\Http\Controllers\Tags\UpdateController::class . '@update');
-//             $router->post('delete', \App\Http\Controllers\Tags\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+            $router->post('delete', \App\Http\Controllers\Tags\DeleteController::class)->name(sprintf('%s.delete', $prefix));
         });
     });
 

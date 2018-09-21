@@ -57,13 +57,11 @@
             @endcan
 
             @can ('authorize', ['tags.*', 'tags.delete'])
-{{--
                 @can ('delete', $row)
                     <a href="{{ route('tags.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('tags.delete', $row->id()) }}'); return false;">
                         <i class="fa fa-trash"></i>@lang ('elements.words.delete')
                     </a>
                 @endcan
---}}
             @endcan
         @endif
     </div>

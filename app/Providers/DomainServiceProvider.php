@@ -22,6 +22,7 @@ use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\Customers\VisitedHistories\CreateVisitedHistory;
 use Domain\UseCases\Customers\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
+use Domain\UseCases\Tags\DeleteTag;
 use Domain\UseCases\Tags\UpdateTag;
 use Illuminate\Support\ServiceProvider;
 
@@ -108,6 +109,12 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(UpdateVisitedHistory::class, function () {
             return new UpdateVisitedHistory(
                 app(CustomersService::class)
+            );
+        });
+
+        $this->app->bind(DeleteTag::class, function () {
+            return new DeleteTag(
+                app(TagsService::class)
             );
         });
 
