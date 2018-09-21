@@ -98,6 +98,26 @@ $router->group([
     });
 
     /**
+     * Tags
+     */
+    $router->group([
+        'prefix' => $prefix = 'tags',
+    ], function (Router $router) use ($prefix) {
+        $router->get( '/', \App\Http\Controllers\Tags\IndexController::class)->name($prefix);
+//         $router->get( 'add', \App\Http\Controllers\Tags\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
+//         $router->post('add', \App\Http\Controllers\Tags\CreateController::class . '@create');
+
+//         $router->group([
+//             'prefix' => '{tagId}',
+//         ], function (Router $router) use ($prefix) {
+//             $router->get( 'edit', \App\Http\Controllers\Tags\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+//             $router->post('edit', \App\Http\Controllers\Tags\UpdateController::class . '@update');
+//             $router->post('delete', \App\Http\Controllers\Tags\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+//             $router->post('restore', \App\Http\Controllers\Tags\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+//         });
+    });
+
+    /**
      * Users
      */
     $router->group([

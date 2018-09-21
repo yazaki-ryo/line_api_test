@@ -43,6 +43,7 @@ return [
          */
         'data'           => 'データ',
         'date'           => '日付',
+        'datetime'       => '日時',
         'day'            => '日',
         'delete'         => '削除',
         'deleted'        => '削除',
@@ -71,6 +72,7 @@ return [
         'history'        => '履歴',
         'histories'      => '履歴',
         'home'           => 'ホーム',
+        'human_name'     => '氏名',
 
         /**
          * I
@@ -110,7 +112,7 @@ return [
         /**
          * N
          */
-        'name'           => '氏名',
+        'name'           => '名称',
         'name_collation' => '名寄せ',
         'no'             => 'いいえ',
         'notice'         => 'お知らせ',

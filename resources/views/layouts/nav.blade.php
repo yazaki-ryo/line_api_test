@@ -71,59 +71,49 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.words.reservations')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
-{{--
-                        <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                        </ul>
---}}
                     </li>
 
-                    <!-- Tags menu -->
-                    <li class="dropdown disabled">
+                    <!-- Store menu -->
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.tags')@lang ('elements.words.management') <span class="caret"></span>
+                            @lang ('elements.words.store')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
-{{--
-                        <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                        </ul>
---}}
-                    </li>
 
-                    <!-- Menus menu -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
-                        </a>
-{{--
                         <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                        </ul>
---}}
-                    </li>
+                            <!-- Tags menu -->
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.tags')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
 
-                    <!-- Surveys menu -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.surveys')@lang ('elements.words.management') <span class="caret"></span>
-                        </a>
-{{--
-                        <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                        </ul>
---}}
-                    </li>
+                                <ul class="dropdown-menu">
+                                    @can ('authorize', ['tags.*', 'tags.select'])
+                                        <li class="{{ request()->route()->named('tags') ? 'active' : '' }}"><a href="{{ route('tags') }}">@lang ('elements.words.tags')@lang ('elements.words.list')</a></li>
+                                    @endcan
+                                </ul>
+                            </li>
 
-                    <!-- Coupons menu -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
-                        </a>
-{{--
-                        <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
+                            <!-- Menus menu -->
+                            <li class="dropdown disabled">
+                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
+                            </li>
+
+                            <!-- Surveys menu -->
+                            <li class="dropdown disabled">
+                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.surveys')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
+                            </li>
+
+                            <!-- Coupons menu -->
+                            <li class="dropdown disabled">
+                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
+                            </li>
                         </ul>
---}}
                     </li>
 
                     <!-- Settings menu -->

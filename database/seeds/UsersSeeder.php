@@ -53,6 +53,7 @@ class UsersSeeder extends Seeder
                     'customers.select',
                     'customers.create',
                     'customers.update',
+                    'tags.select',
                 ])->pluck('id');
                 EloquentUser::find(2)->permissions()->sync($ids->all());
             });

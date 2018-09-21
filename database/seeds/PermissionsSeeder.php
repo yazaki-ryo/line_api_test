@@ -130,6 +130,34 @@ class PermissionsSeeder extends Seeder
             'name'  => '各種設定',
             'slug'  => 'settings.*',
         ],
+
+        /**
+         * Tags
+         */
+        [
+            'name'  => 'タグ管理（全権）',
+            'slug'  => 'tags.*',
+        ],
+        [
+            'name'  => 'タグ閲覧',
+            'slug'  => 'tags.select',
+        ],
+        [
+            'name'  => 'タグ作成',
+            'slug'  => 'tags.create',
+        ],
+        [
+            'name'  => 'タグ更新',
+            'slug'  => 'tags.update',
+        ],
+        [
+            'name'  => 'タグ削除',
+            'slug'  => 'tags.delete',
+        ],
+        [
+            'name'  => 'タグ復旧',
+            'slug'  => 'tags.restore',
+        ],
     ];
 
     /**
