@@ -7,6 +7,7 @@ use App\Eloquents\EloquentTag;
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\DomainModel;
+use Domain\Models\Store;
 use Domain\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -54,6 +55,17 @@ final class TagRepository extends EloquentRepository implements DomainableContra
     {
         $collection = CustomerRepository::build($this->eloquent->customers(), $args)->get();
         return CustomerRepository::toModels($collection);
+    }
+
+    /**
+     * @return Store|null
+     */
+    public function store(): ?Store
+    {
+        if (is_null($resource = $this->eloquent->store)) {
+            return null;
+        }
+        return StoreRepository::toModel($resource);
     }
 
     /**

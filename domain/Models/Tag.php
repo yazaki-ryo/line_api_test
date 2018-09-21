@@ -26,6 +26,9 @@ final class Tag extends DomainModel
     /** @var Datetime */
     private $deletedAt;
 
+    /** @var int */
+    private $storeId;
+
     /**
      * @param TagRepository $repo
      * @return void
@@ -82,6 +85,22 @@ final class Tag extends DomainModel
     public function customers(array $args = []): DomainCollection
     {
         return $this->repo->customers($args);
+    }
+
+    /**
+     * @return int|null
+     */
+    public function storeId(): ?int
+    {
+        return $this->storeId;
+    }
+
+    /**
+     * @return Store|null
+     */
+    public function store(): ?Store
+    {
+        return $this->repo->store();
     }
 
     /**
@@ -143,6 +162,10 @@ final class Tag extends DomainModel
 
         if ($args->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         return $this;
