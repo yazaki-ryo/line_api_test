@@ -17,6 +17,9 @@ final class Tag extends DomainModel
     /** @var string */
     private $name;
 
+    /** @var string */
+    private $label;
+
     /** @var Datetime */
     private $createdAt;
 
@@ -52,6 +55,14 @@ final class Tag extends DomainModel
     public function name(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function label(): ?string
+    {
+        return $this->label;
     }
 
     /**
@@ -149,6 +160,10 @@ final class Tag extends DomainModel
         }
 
         if ($args->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'label')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

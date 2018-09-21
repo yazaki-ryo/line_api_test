@@ -111,7 +111,7 @@ class CustomersSeeder extends Seeder
                      * Tags
                      */
                     $ids = $customer->store->tags()->pluck('id');
-                    $customer->tags()->sync($ids->random(mt_rand(0, $ids->count())));
+                    $customer->tags()->sync($ids->random(mt_rand(0, (int)(($ids->count() + 1) / 3))));
 
                     /**
                      * Visited histories

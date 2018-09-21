@@ -21,7 +21,8 @@ final class EloquentTag extends Model
      * @var array
      */
     protected $fillable = [
-        //
+        'name',
+        'label',
     ];
 
     /**

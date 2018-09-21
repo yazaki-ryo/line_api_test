@@ -24,6 +24,7 @@ class CreateTagsTable extends Migration
 
                 $table->unsignedInteger('store_id')->nullable()->comment('店舗ID');
                 $table->string('name')->nullable()->comment('名称');
+                $table->string('label', 32)->nullable()->comment('ラベル');
                 $table->timestamps();
                 $table->softDeletes();
 

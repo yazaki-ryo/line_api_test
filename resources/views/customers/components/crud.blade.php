@@ -287,7 +287,7 @@
         </label>
 
         <div class="col-md-6 form-control-static">
-            {{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}
+            <span class="badge">{{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}</span>
             {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
         </div>
     </div>
@@ -301,7 +301,7 @@
         </label>
 
         <div class="col-md-6 form-control-static">
-            {{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}
+            <span class="badge">{{ optional($row->{$camel = camel_case($field)}())->asInt() ?? null }}</span>
             {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
         </div>
     </div>
