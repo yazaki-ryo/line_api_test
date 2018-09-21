@@ -10,6 +10,7 @@ use App\Services\SexesService;
 use App\Services\Pdf\PdfService;
 use App\Services\FilesService;
 use App\Services\PrefecturesService;
+use App\Services\TagsService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Domain\UseCases\Customers\Files\ImportFiles;
@@ -21,6 +22,7 @@ use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\Customers\VisitedHistories\CreateVisitedHistory;
 use Domain\UseCases\Customers\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
+use Domain\UseCases\Tags\UpdateTag;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
@@ -106,6 +108,12 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(UpdateVisitedHistory::class, function () {
             return new UpdateVisitedHistory(
                 app(CustomersService::class)
+            );
+        });
+
+        $this->app->bind(UpdateTag::class, function () {
+            return new UpdateTag(
+                app(TagsService::class)
             );
         });
 

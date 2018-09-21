@@ -118,6 +118,15 @@ return [
         'deleted_at'            => '削除日時',
     ],
 
+    'tags' => [
+        'name'                  => '名称',
+        'label'                 => 'ラベル',
+
+        'created_at'            => '登録日時',
+        'updated_at'            => '更新日時',
+        'deleted_at'            => '削除日時',
+    ],
+
     'users' => [
         'id'                    => 'ID',
         'name'                  => 'ログイン名',

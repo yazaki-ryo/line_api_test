@@ -31,19 +31,8 @@
                         <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <span class="glyphicon glyphicon-option-horizontal"></span>
                         </button>
-{{--
                         <ul class="dropdown-menu">
-                            @if ($row->{$camel = camel_case('deleted_at')}())
-                                @can ('authorize', ['tags.*', 'tags.restore'])
-                                    @can ('restore', $row)
-                                        <li>
-                                            <a href="{{ route('tags.restore', $row->id()) }}" onclick="restoreRecord('{{ route('tags.restore', $row->id()) }}'); return false;">
-                                                @lang ('elements.words.restore')
-                                            </a>
-                                        </li>
-                                    @endcan
-                                @endcan
-                            @else
+                            @if (! $row->{$camel = camel_case('deleted_at')}())
                                 @can ('authorize', ['tags.*', 'tags.update'])
                                     @can ('get', $row)
                                         <li>
@@ -53,15 +42,7 @@
                                         </li>
                                     @endcan
                                 @endcan
-
-                                @can ('authorize', ['tags.*', 'tags.visited_histories.create'])
-                                    <li>
-                                        <a href="{{ route('tags.visited_histories.add', $row->id()) }}">
-                                            @lang ('elements.words.visit')@lang ('elements.words.register')
-                                        </a>
-                                    </li>
-                                @endcan
-
+{{--
                                 @can ('authorize', ['tags.*', 'tags.delete'])
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>
@@ -73,10 +54,9 @@
                                         </li>
                                     @endcan
                                 @endcan
-
+--}}
                             @endif
                         </ul>
---}}
                     </td>
                 </tr>
             @endforeach
