@@ -254,6 +254,15 @@ final class Store extends DomainModel
 
     /**
      * @param  array $args
+     * @return Tag
+     */
+    public function addTag(array $args = []): Tag
+    {
+        return $this->repo->addTag($args);
+    }
+
+    /**
+     * @param  array $args
      * @return DomainCollection
      */
     public function users(array $args = []): DomainCollection

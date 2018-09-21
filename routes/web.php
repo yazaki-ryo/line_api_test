@@ -104,8 +104,8 @@ $router->group([
         'prefix' => $prefix = 'tags',
     ], function (Router $router) use ($prefix) {
         $router->get( '/', \App\Http\Controllers\Tags\IndexController::class)->name($prefix);
-//         $router->get( 'add', \App\Http\Controllers\Tags\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
-//         $router->post('add', \App\Http\Controllers\Tags\CreateController::class . '@create');
+        $router->get( 'add', \App\Http\Controllers\Tags\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
+        $router->post('add', \App\Http\Controllers\Tags\CreateController::class . '@create');
 
         $router->group([
             'prefix' => '{tagId}',
