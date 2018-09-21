@@ -1,17 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Settings\Configurations;
+namespace App\Http\Controllers\Settings\Printings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\PrintingsRequest;
-use App\Repositories\UserRepository;
-use Domain\Models\User;
-use Domain\UseCases\Settings\Configurations\UpdatePrintings;
+use Domain\UseCases\Settings\UpdatePrintings;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
-final class PrintingsController extends Controller
+final class UpdateController extends Controller
 {
     /** @var UpdatePrintings */
     private $useCase;
@@ -28,7 +26,7 @@ final class PrintingsController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'settings.*', 'settings.configurations.printings'),
+            sprintf('authorize:%s|%s', 'settings.*', 'settings.printings'),
         ]);
 
         $this->useCase = $useCase;
@@ -41,11 +39,11 @@ final class PrintingsController extends Controller
      */
     public function view(Request $request)
     {
-        $cookie1 = $request->cookie('settings_configurations_printings_1');
-        $cookie2 = $request->cookie('settings_configurations_printings_2');
-        $cookie3 = $request->cookie('settings_configurations_printings_3');
+        $cookie1 = $request->cookie('settings_printings_1');
+        $cookie2 = $request->cookie('settings_printings_2');
+        $cookie3 = $request->cookie('settings_printings_3');
 
-        return view('settings.configurations.printings', [
+        return view('settings.printings.edit', [
             'rows' => [
                 1 => is_null($cookie1) ? $cookie1 : json_decode($cookie1),
                 2 => is_null($cookie2) ? $cookie2 : json_decode($cookie2),
@@ -61,12 +59,12 @@ final class PrintingsController extends Controller
      */
     public function update(PrintingsRequest $request, int $settingId)
     {
-        $cookie = cookie()->forever(sprintf('settings_configurations_printings_%s', $settingId), json_encode($request->validated()));
+        $cookie = cookie()->forever(sprintf('settings_printings_%s', $settingId), json_encode($request->validated()));
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.set'), 'action' => __('elements.words.updated')]), 'success');
 
         return redirect()
-            ->route('settings.configurations.printings')
+            ->route('settings.printings')
             ->cookie($cookie);
     }
 

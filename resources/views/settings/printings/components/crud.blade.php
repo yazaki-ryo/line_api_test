@@ -11,27 +11,27 @@
     </div>
 </div>
 
-@include ('settings.configurations.components.printings.pc')
+@include ('settings.printings.components.pc')
 
 <hr>
 
-@include ('settings.configurations.components.printings.address')
+@include ('settings.printings.components.address')
 
 <hr>
 
-@include ('settings.configurations.components.printings.name')
+@include ('settings.printings.components.name')
 
 <hr>
 
-@include ('settings.configurations.components.printings.from_pc')
+@include ('settings.printings.components.from_pc')
 
 <hr>
 
-@include ('settings.configurations.components.printings.from_address')
+@include ('settings.printings.components.from_address')
 
 <hr>
 
-@include ('settings.configurations.components.printings.from_name')
+@include ('settings.printings.components.from_name')
 
 <hr>
 

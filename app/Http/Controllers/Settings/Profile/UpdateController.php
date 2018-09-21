@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Settings;
+namespace App\Http\Controllers\Settings\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
@@ -11,7 +11,7 @@ use Domain\UseCases\Settings\UpdateProfile;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\UploadedFile;
 
-final class ProfileController extends Controller
+final class UpdateController extends Controller
 {
     /** @var UpdateProfile */
     private $useCase;

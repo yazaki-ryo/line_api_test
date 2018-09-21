@@ -151,7 +151,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li class="{{ request()->route()->named('settings.configurations.printings') ? 'active' : '' }}"><a href="{{ route('settings.configurations.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
+                                    <li class="{{ request()->route()->named('settings.printings') ? 'active' : '' }}"><a href="{{ route('settings.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
                                 </ul>
                             </li>
 

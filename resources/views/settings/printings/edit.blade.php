@@ -66,22 +66,22 @@
                 <div class="tab-content">
                     <div class="tab-pane active fade in pt-10" id="setting1-tab">
                         <div class="well">
-                            {!! Form::open(['url' => route('settings.configurations.printings.update', 1), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[1], 'key' => 1, 'errorBag' => 'setting_1'])
+                            {!! Form::open(['url' => route('settings.printings.update', 1), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                @include ('settings.printings.components.crud', ['row' => $rows[1], 'key' => 1, 'errorBag' => 'setting_1'])
                             {!! Form::close() !!}
                         </div>
                     </div>
                     <div class="tab-pane fade pt-10" id="setting2-tab">
                         <div class="well">
-                            {!! Form::open(['url' => route('settings.configurations.printings.update', 2), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[2], 'key' => 2, 'errorBag' => 'setting_2'])
+                            {!! Form::open(['url' => route('settings.printings.update', 2), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                @include ('settings.printings.components.crud', ['row' => $rows[2], 'key' => 2, 'errorBag' => 'setting_2'])
                             {!! Form::close() !!}
                         </div>
                     </div>
                     <div class="tab-pane fade pt-10" id="setting3-tab">
                         <div class="well">
-                            {!! Form::open(['url' => route('settings.configurations.printings.update', 3), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('settings.configurations.components.printings.crud', ['row' => $rows[3], 'key' => 3, 'errorBag' => 'setting_3'])
+                            {!! Form::open(['url' => route('settings.printings.update', 3), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                @include ('settings.printings.components.crud', ['row' => $rows[3], 'key' => 3, 'errorBag' => 'setting_3'])
                             {!! Form::close() !!}
                         </div>
                     </div>

@@ -36,7 +36,7 @@ final class ViewServiceProvider extends ServiceProvider
         ], PrefecturesComposer::class);
 
         View::creator([
-            'settings.configurations.printings',
+            'settings.printings.edit',
         ], PrintSettingsComposer::class);
 
         View::creator([

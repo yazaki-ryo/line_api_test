@@ -1,33 +1,33 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Settings;
+namespace App\Http\Controllers\Settings\Store;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Companies\UpdateRequest;
+use App\Http\Requests\Stores\UpdateRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\User;
-use Domain\UseCases\Settings\UpdateCompany;
+use Domain\UseCases\Settings\UpdateStore;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
-final class CompanyController extends Controller
+final class UpdateController extends Controller
 {
-    /** @var UpdateCompany */
+    /** @var UpdateStore */
     private $useCase;
 
     /** @var Auth */
     private $auth;
 
     /**
-     * @param  UpdateCompany $useCase
+     * @param  UpdateStore $useCase
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateCompany $useCase, Auth $auth)
+    public function __construct(UpdateStore $useCase, Auth $auth)
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'companies.*', 'companies.update'),
+            sprintf('authorize:%s|%s', 'stores.*', 'stores.update'),
         ]);
 
         $this->useCase = $useCase;
@@ -42,8 +42,8 @@ final class CompanyController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        return view('settings.company', [
-            'row' => $this->useCase->getCompany($user),
+        return view('settings.store', [
+            'row' => $this->useCase->getStore($user),
         ]);
     }
 
@@ -66,8 +66,8 @@ final class CompanyController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.words.companies'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('settings.company');
+        flash(__('The :name information was :action.', ['name' => __('elements.words.stores'), 'action' => __('elements.words.updated')]), 'success');
+        return redirect()->route('settings.store');
     }
 
 }

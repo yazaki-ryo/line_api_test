@@ -112,22 +112,14 @@ $router->group([
     $router->group([
         'prefix' => $prefix = 'settings',
     ], function (Router $router) use ($prefix) {
-        $router->get( 'company', \App\Http\Controllers\Settings\CompanyController::class . '@view')->name(sprintf('%s.company', $prefix));
-        $router->post('company', \App\Http\Controllers\Settings\CompanyController::class . '@update');
-        $router->get( 'profile', \App\Http\Controllers\Settings\ProfileController::class . '@view')->name(sprintf('%s.profile', $prefix));
-        $router->post('profile', \App\Http\Controllers\Settings\ProfileController::class . '@update');
-        $router->get( 'store', \App\Http\Controllers\Settings\StoreController::class . '@view')->name(sprintf('%s.store', $prefix));
-        $router->post('store', \App\Http\Controllers\Settings\StoreController::class . '@update');
-
-        /**
-         * Settings
-         */
-        $router->group([
-            'prefix' => $prefix2 = 'configurations',
-        ], function (Router $router) use ($prefix, $prefix2) {
-            $router->get( 'printings', \App\Http\Controllers\Settings\Configurations\PrintingsController::class . '@view')->name(sprintf('%s.%s.printings', $prefix, $prefix2));
-            $router->post('printings/{settingId}', \App\Http\Controllers\Settings\Configurations\PrintingsController::class . '@update')->name(sprintf('%s.%s.printings.update', $prefix, $prefix2));
-        });
+        $router->get( 'company', \App\Http\Controllers\Settings\Company\UpdateController::class . '@view')->name(sprintf('%s.company', $prefix));
+        $router->post('company', \App\Http\Controllers\Settings\Company\UpdateController::class . '@update');
+        $router->get( 'profile', \App\Http\Controllers\Settings\Profile\UpdateController::class . '@view')->name(sprintf('%s.profile', $prefix));
+        $router->post('profile', \App\Http\Controllers\Settings\Profile\UpdateController::class . '@update');
+        $router->get( 'store', \App\Http\Controllers\Settings\Store\UpdateController::class . '@view')->name(sprintf('%s.store', $prefix));
+        $router->post('store', \App\Http\Controllers\Settings\Store\UpdateController::class . '@update');
+        $router->get( 'printings', \App\Http\Controllers\Settings\Printings\UpdateController::class . '@view')->name(sprintf('%s.printings', $prefix));
+        $router->post('printings/{settingId}', \App\Http\Controllers\Settings\Printings\UpdateController::class . '@update')->name(sprintf('%s.printings.update', $prefix));
     });
 
     /**

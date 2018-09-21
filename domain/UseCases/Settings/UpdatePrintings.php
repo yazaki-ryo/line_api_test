@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Settings\Configurations;
+namespace Domain\UseCases\Settings;
 
 final class UpdatePrintings
 {
