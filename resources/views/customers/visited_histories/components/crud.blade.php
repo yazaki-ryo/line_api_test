@@ -1,49 +1,49 @@
-@set ($field, 'visited_date')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.{$field}")
+@set ($attribute, 'visited_date')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.visited_histories.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d'))), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::tel($attribute, old($attribute, request($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d'))), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 10, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'visited_time')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.{$field}")
+@set ($attribute, 'visited_time')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.visited_histories.{$attribute}")
     </label>
 
     <div class="col-md-3">
-        {!! Form::time($field, old($field, request($field, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i'))), ['class' => 'form-control', 'id' => $field, 'maxlength' => 5, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::time($attribute, old($attribute, request($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i'))), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 5, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'amount')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.{$field}")
+@set ($attribute, 'amount')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.visited_histories.{$attribute}")
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 10, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 10, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'seat')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.{$field}")
+@set ($attribute, 'seat')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.customers.visited_histories.{$attribute}")
     </label>
 
     <div class="col-md-5">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 

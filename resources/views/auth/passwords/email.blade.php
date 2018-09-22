@@ -34,16 +34,16 @@
 
                         {!! Form::open(['url' => route('password.email'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
-                            @set ($field, 'email')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$field}")
+                            @set ($attribute, 'email')
+                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">
+                                    @lang ("attributes.users.{$attribute}")
                                     <span class="label label-danger">@lang ("elements.words.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::email($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                    {!! Form::email($attribute, old($attribute), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+                                    @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 

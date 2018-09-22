@@ -1,42 +1,42 @@
-@set ($field, 'name')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.tags.{$field}")
+@set ($attribute, 'name')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.tags.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'label')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.tags.{$field}")
+@set ($attribute, 'label')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.tags.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6 form-control-static">
         @foreach ($labels as $key => $item)
-            <div><label><input type="radio" name="{{ $field }}" value="{{ $key }}" {{ old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)) === $key ? 'checked' : ($key === 'default' ? 'checked' : '') }} /> <span class="label label-{{ $key }}">{{ $item }}</span></label></div>
+            <div><label><input type="radio" name="{{ $attribute }}" value="{{ $key }}" {{ old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)) === $key ? 'checked' : ($key === 'default' ? 'checked' : '') }} /> <span class="label label-{{ $key }}">{{ $item }}</span></label></div>
         @endforeach
 
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'updated_at')
+@set ($attribute, 'updated_at')
 @if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-        <label for="{{ $field }}" class="col-md-4 control-label">
-            @lang ("attributes.tags.{$field}")
+    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang ("attributes.tags.{$attribute}")
         </label>
 
         <div class="col-md-6 form-control-static">
-            {{ $row->{$camel = camel_case($field)}() ?? null }}
-            {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+            {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+            @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 @endif

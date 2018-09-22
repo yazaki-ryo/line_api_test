@@ -1,193 +1,193 @@
 {!! Form::hidden(null, 'Japan', ['class' => 'p-country-name']) !!}
 
-@set ($field, 'name')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'name')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'kana')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'kana')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 7, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 7, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'postal_code')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'postal_code')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('By entering the postal code, the prefecture city, town, village address is automatically entered.')"></span>
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control p-postal-code', 'id' => $field, 'maxlength' => 7, 'placeholder' => __('No hyphen, 7 numeric digits')]) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control p-postal-code', 'id' => $attribute, 'maxlength' => 7, 'placeholder' => __('No hyphen, 7 numeric digits')]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'prefecture_id')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'prefecture_id')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($field, $prefectures->pluckNamesByIds(), old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control p-region-id', 'id' => $field, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::select($attribute, $prefectures->pluckNamesByIds(), old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control p-region-id', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'address')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'address')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control p-locality p-street-address', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::textarea($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control p-locality p-street-address', 'id' => $attribute, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'building')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'building')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::textarea($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'tel')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'tel')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'fax')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'fax')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'email')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'email')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::email($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::email($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'company_id')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'company_id')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
         {{ $row->company()->name() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'payment_flag')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'payment_flag')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
-        <span class="text-{{ $row->{$camel = camel_case($field)}()->asBoolean() === true ? 'success' : 'danger' }}">
-            @set ($status, $row->{$camel = camel_case($field)}()->asBoolean() === true ? 'paid' : 'unpaid')
+        <span class="text-{{ $row->{$camel = camel_case($attribute)}()->asBoolean() === true ? 'success' : 'danger' }}">
+            @set ($status, $row->{$camel = camel_case($attribute)}()->asBoolean() === true ? 'paid' : 'unpaid')
             @lang ("elements.words.{$status}")
         </span>
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'user_limit')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'user_limit')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}()->asInt() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {{ $row->{$camel = camel_case($attribute)}()->asInt() ?? null }}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'starts_at')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'starts_at')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'ends_at')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'ends_at')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'updated_at')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$field}")
+@set ($attribute, 'updated_at')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
