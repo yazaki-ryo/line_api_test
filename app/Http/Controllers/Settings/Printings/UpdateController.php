@@ -61,7 +61,7 @@ final class UpdateController extends Controller
     {
         $cookie = cookie()->forever(sprintf('settings_printings_%s', $settingId), json_encode($request->validated()));
 
-        flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.set'), 'action' => __('elements.words.updated')]), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.setting'), 'action' => __('elements.words.updated')]), 'success');
 
         return redirect()
             ->route('settings.printings')

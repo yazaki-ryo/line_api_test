@@ -19,15 +19,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
-
-                @if ($errors->setting_1->any() || $errors->setting_2->any() || $errors->setting_3->any())
-                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <strong><span class="fa fa-exclamation-triangle"></span>&nbsp;@lang ('There is an item of input error.')</strong>
-                    </div>
-                @endif
+                @include ('components.parts.any_errors', ['errorBags' => ['setting_1', 'setting_2', 'setting_3']])
             </div>
         </div>
 
