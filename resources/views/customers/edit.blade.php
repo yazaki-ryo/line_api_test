@@ -60,7 +60,9 @@
                     </div>
                     <div class="tab-pane fade pt-10" id="tags-tab">
                         <div class="well">
-                            @include ('customers.components.tags')
+                            {!! Form::open(['url' => '', 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                @include ('customers.components.tags')
+                            {!! Form::close() !!}
                         </div>
                     </div>
                     <div class="tab-pane fade pt-10" id="histories-tab">

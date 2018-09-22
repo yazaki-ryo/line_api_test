@@ -36,22 +36,26 @@
                             <span class="badge">{{ $rows->count() }}</span>
                         </a>
                     </li>
+{{--
                     <li>
                         <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                     </li>
+--}}
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active fade in pt-10" id="result-tab">
+                    <div class="tab-pane active fade in pt-5" id="result-tab">
                         @include ('tags.components.list')
                     </div>
+{{--
                     <div class="tab-pane fade pt-10" id="search-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('tags'), 'id' => 'tags-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
-                                {{-- @include ('tags.components.search') --}}
+                                @include ('tags.components.search')
                             {!! Form::close() !!}
                         </div>
                     </div>
+--}}
                 </div>
             </div>
         </div>
