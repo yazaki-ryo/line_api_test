@@ -111,6 +111,24 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
 
     /**
      * @param  array $args
+     * @return void
+     */
+    public function syncTags(array $args = []): void
+    {
+        $this->eloquent->tags()->sync($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return void
+     */
+    public function toggleTags(array $args = []): void
+    {
+        $this->eloquent->tags()->toggle($args);
+    }
+
+    /**
+     * @param  array $args
      * @return DomainCollection
      */
     public function visitedHistories(array $args = []): DomainCollection

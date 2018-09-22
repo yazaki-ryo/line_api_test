@@ -60,7 +60,7 @@
                     </div>
                     <div class="tab-pane fade pt-10" id="tags-tab">
                         <div class="well">
-                            {!! Form::open(['url' => '', 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                            {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                 @include ('customers.components.tags')
                             {!! Form::close() !!}
                         </div>

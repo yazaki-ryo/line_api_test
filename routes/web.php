@@ -68,6 +68,12 @@ $router->group([
             $router->post('restore', \App\Http\Controllers\Customers\RestoreController::class)->name(sprintf('%s.restore', $prefix));
 
             $router->group([
+                'prefix' => $prefix2 = 'tags',
+            ], function (Router $router) use ($prefix, $prefix2) {
+                $router->post('/', \App\Http\Controllers\Customers\Tags\UpdateController::class)->name(sprintf('%s.%s', $prefix, $prefix2));
+            });
+
+            $router->group([
                 'prefix' => $prefix2 = 'visited_histories',
             ], function (Router $router) use ($prefix, $prefix2) {
                 $router->get( 'add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@view')->name(sprintf('%s.%s.add', $prefix, $prefix2));

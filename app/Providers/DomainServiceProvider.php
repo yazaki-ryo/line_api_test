@@ -14,11 +14,11 @@ use App\Services\TagsService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Domain\UseCases\Customers\Files\ImportFiles;
-use Domain\UseCases\Customers\GetCustomer;
 use Domain\UseCases\Customers\GetCustomers;
 use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
+use Domain\UseCases\Customers\Tags\UpdateTags;
 use Domain\UseCases\Customers\VisitedHistories\CreateVisitedHistory;
 use Domain\UseCases\Customers\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
@@ -56,12 +56,6 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->bind(GetCustomer::class, function () {
-            return new GetCustomer(
-                app(CustomersService::class)
-            );
-        });
-
         $this->app->bind(GetCustomers::class, function () {
             return new GetCustomers(
                 app(CustomersService::class)
@@ -90,6 +84,12 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(UpdateCustomer::class, function () {
             return new UpdateCustomer(
+                app(CustomersService::class)
+            );
+        });
+
+        $this->app->bind(UpdateTags::class, function () {
+            return new UpdateTags(
                 app(CustomersService::class)
             );
         });

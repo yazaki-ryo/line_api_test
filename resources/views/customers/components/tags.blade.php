@@ -8,7 +8,7 @@
         @forelse ($tags as $group)
             @foreach ($group as $tag)
                 <label>
-                    <input type="checkbox" name="{{ sprintf('%s[]', $field) }}" value="{{ $tag->id() }}" {{ (!empty(old($field)) && in_array($tag->id(), explode(',', old($field)))) || $tagIds->containsStrict(function ($item) use ($tag) { return $item->id() === $tag->id(); }) ? 'checked' : '' }} />
+                    <input type="checkbox" name="{{ sprintf('%s[]', $field) }}" value="{{ $tag->id() }}" {{ !empty(old($field)) ? (in_array($tag->id(), old($field)) ? 'checked' : '') : ($tagIds->containsStrict(function ($item) use ($tag) { return $item->id() === $tag->id(); }) ? 'checked' : '') }} />
                     <span class="label label-{{ $tag->label() }}">{{ $tag->name() }}</span>&nbsp;&nbsp;
                 </label>
 

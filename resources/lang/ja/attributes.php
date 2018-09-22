@@ -76,7 +76,7 @@ return [
             'visited_date_e' => '来店日（終了）',
         ],
 
-        'tags'      => 'タグ',
+        'tags' => 'タグ',
 
         'postcards' => [
             'mode'      => '出力モード',
