@@ -6,7 +6,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$attribute} ?? __('elements.words.settings') . $key)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? sprintf('%s%s', __('elements.words.settings'), $key) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>

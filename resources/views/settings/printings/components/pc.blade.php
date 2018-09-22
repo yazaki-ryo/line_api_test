@@ -6,7 +6,12 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::select($attribute, $positions, old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])), ['required', 'class' => 'form-control', 'id' => $attribute]) !!}
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
+            @foreach ($positions as $key => $item)
+                <option value="{{ $key }}" {{ ($errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -19,12 +24,12 @@
     </label>
 
     <div class="col-md-7 form-control-static">
-        <label>
-            <input type="radio" name="{{ $attribute }}" value="0" required checked /> @lang ("elements.words.no")
-        </label>
-        <label>
-            <input type="radio" name="{{ $attribute }}" value="1" required {{ (bool)old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])) === true ? 'checked' : '' }} /> @lang ("elements.words.yes")
-        </label>
+        @foreach (array_reverse(\Lang::get('attributes.yes_or_no')) as $key => $item)
+            <label>
+                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === false ?  'checked' : '') }} /> {{ $item }}
+            </label>
+        @endforeach
+
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -37,12 +42,12 @@
     </label>
 
     <div class="col-md-7 form-control-static">
-        <label>
-            <input type="radio" name="{{ $attribute }}" value="1" required checked /> @lang ("elements.words.yes")
-        </label>
-        <label>
-            <input type="radio" name="{{ $attribute }}" value="0" required {{ (bool)old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])) === false ? 'checked' : '' }} /> @lang ("elements.words.no")
-        </label>
+        @foreach (\Lang::get('attributes.yes_or_no') as $key => $item)
+            <label>
+                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === true ?  'checked' : '') }} /> {{ $item }}
+            </label>
+        @endforeach
+
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -55,7 +60,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 3, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -68,7 +73,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 3, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -81,7 +86,12 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::select($attribute, $fonttypes, old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])), ['required', 'class' => 'form-control', 'id' => $attribute]) !!}
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
+            @foreach ($fonttypes as $key => $item)
+                <option value="{{ $key }}" {{ ($errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -94,7 +104,12 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::select($attribute, $fontsizes, old($attribute, request($attribute, $row->{$attribute} ?? $defaults[$attribute])), ['required', 'class' => 'form-control', 'id' => $attribute]) !!}
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
+            @foreach ($fontsizes as $key => $item)
+                <option value="{{ $key }}" {{ (int)($errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === (int)$key ? 'selected' : '' }}>{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
