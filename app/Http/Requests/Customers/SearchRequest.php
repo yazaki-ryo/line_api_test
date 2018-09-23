@@ -3,11 +3,28 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Customers;
 
+use App\Repositories\UserRepository;
+use Domain\Models\User;
+use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class SearchRequest extends FormRequest
 {
+    /** @var User */
+    private $user;
+
+    /**
+     * @param  Auth $auth
+     * @return void
+     */
+    public function __construct(Auth $auth)
+    {
+        /** @var User $user */
+        $this->user = UserRepository::toModel($auth->user());
+    }
+
     /**
      * @return bool
      */
@@ -51,6 +68,14 @@ class SearchRequest extends FormRequest
                 'string',
                 'max:191',
                 Rule::in(array_keys(\Lang::get('attributes.trashed'))),
+            ],
+            'tags' => [
+                'nullable',
+                'array',
+                Rule::exists('tags', 'id')
+                    ->where(function (Builder $query) {
+                        return $query->where('store_id', $this->user->storeId());
+                    }),
             ],
         ];
     }

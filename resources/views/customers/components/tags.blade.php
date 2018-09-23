@@ -4,7 +4,7 @@
         @lang ("elements.words.{$attribute}")
     </label>
 
-    <div class="col-md-6">
+    <div class="col-md-6 form-control-static">
         @forelse ($tags as $group)
             @foreach ($group as $tag)
                 <label>
@@ -12,8 +12,8 @@
                     <span class="label label-{{ $tag->label() }}">{{ $tag->name() }}</span>&nbsp;&nbsp;
                 </label>
 
-                @if ($loop->last)
-                    <hr>
+                @if ($loop->last && ! $loop->parent->last)
+                    <br>
                 @endif
             @endforeach
         @empty
@@ -23,6 +23,8 @@
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
+
+<hr>
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">

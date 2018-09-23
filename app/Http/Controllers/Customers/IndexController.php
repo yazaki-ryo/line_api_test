@@ -47,6 +47,9 @@ final class IndexController extends Controller
 
         return view('customers.index', [
             'rows' => $this->useCase->excute($user, $args),
+            'tags' => $user->store()->tags()->groupBy(function ($item) {
+                return $item->label();
+            }),
             'printSettings' => $this->printSettings($request),
         ]);
     }

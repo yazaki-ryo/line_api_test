@@ -187,6 +187,10 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             $q->ids($args->get($key));
         });
 
+        $query->when($args->has($key = 'tags') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->tagIds($args->get($key));
+        });
+
         $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {
             $q1->when($args->get($key) === 'with', function (Builder $q2) {
                 $q2->withTrashed();

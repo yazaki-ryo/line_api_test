@@ -52,6 +52,32 @@
     </div>
 </div>
 
+@set ($attribute, 'tags')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("elements.words.{$attribute}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        @forelse ($tags as $group)
+            @foreach ($group as $tag)
+                <label>
+                    <input type="checkbox" name="{{ sprintf('%s[]', $attribute) }}" value="{{ $tag->id() }}" {{ !empty(old($attribute)) ? (in_array($tag->id(), old($attribute)) ? 'checked' : '') : (!empty(request($attribute)) && is_array(request($attribute)) && in_array($tag->id(), request($attribute)) ? 'checked' : '') }} />
+                    <span class="label label-{{ $tag->label() }}">{{ $tag->name() }}</span>&nbsp;&nbsp;
+                </label>
+
+                @if ($loop->last && ! $loop->parent->last)
+                    <br>
+                @endif
+            @endforeach
+        @empty
+            <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.tags'), __('elements.words.data'))])</p>
+        @endforelse
+
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+</div>
+
 <hr>
 
 <div class="form-group">
