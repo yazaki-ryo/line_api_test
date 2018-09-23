@@ -1,8 +1,8 @@
-@if ($rows->count())
-    <div class="form-group{{ $errors->has('selection') ? ' has-error' : '' }}">
-        {!! $errors->first('selection', '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-    </div>
+<div class="form-group{{ $errors->has('selection') ? ' has-error' : '' }}">
+    @include ('components.form.err_msg', ['attribute' => 'selection'])
+</div>
 
+@if ($rows->count())
     <table id="visited-histories-table" class="table table-striped table-hover table-condensed">
         <thead>
             <tr>
