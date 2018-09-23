@@ -19,12 +19,12 @@
 
     <div class="col-md-3">
         {!! Form::tel($attribute1, old($attribute1, request($attribute1)), ['class' => 'form-control', 'id' => $attribute1, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.start'), __('elements.words.day'))]) !!}
-        {!! $errors->first($attribute1, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
     <div class="col-md-3">
         {!! Form::tel($attribute2, old($attribute2, request($attribute2)), ['class' => 'form-control', 'id' => $attribute2, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.end'), __('elements.words.day'))]) !!}
-        {!! $errors->first($attribute2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
 </div>
 

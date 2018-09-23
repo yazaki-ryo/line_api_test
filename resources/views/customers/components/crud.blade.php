@@ -10,12 +10,12 @@
 
     <div class="col-md-3">
         {!! Form::text($attribute1, old($attribute1, request($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute1, 'maxlength' => 191, 'placeholder' => __("attributes.customers.{$attribute1}")]) !!}
-        {!! $errors->first($attribute1, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
     <div class="col-md-3">
         {!! Form::text($attribute2, old($attribute2, request($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute2, 'maxlength' => 191, 'placeholder' => __("attributes.customers.{$attribute2}")]) !!}
-        {!! $errors->first($attribute2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
 </div>
 
@@ -28,12 +28,12 @@
 
     <div class="col-md-3">
         {!! Form::text($attribute1, old($attribute1, request($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null)), ['class' => 'form-control', 'id' => $attribute1, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$attribute1}")]) !!}
-        {!! $errors->first($attribute1, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
     <div class="col-md-3">
         {!! Form::text($attribute2, old($attribute2, request($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null)), ['class' => 'form-control', 'id' => $attribute2, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$attribute2}")]) !!}
-        {!! $errors->first($attribute2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
 </div>
 

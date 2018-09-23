@@ -78,7 +78,7 @@
             @if ($row->avatars()->count())
                 <div class="checkbox">
                     <label>{!! Form::checkbox($attribute2, 1, old($attribute2), ['class' => '', 'id' => $attribute2]) !!} @lang ('Delete the current image.')</label>
-                    {!! $errors->first($attribute2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                    @include ('components.form.err_msg', ['attribute' => $attribute2])
                 </div>
             @endif
         </div>
