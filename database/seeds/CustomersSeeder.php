@@ -116,11 +116,13 @@ class CustomersSeeder extends Seeder
                     /**
                      * Visited histories
                      */
-                    $customer->visitedHistories()->create([
-                        'visited_at' => now()->subMonth($customer->id)->setTime($customer->id + 17, 30),
-                        'seat'       => sprintf('test%s席', $customer->id),
-                        'amount'     => $customer->id,
-                    ]);
+                    if ($customer->getKey() & 1) {// odd
+                        $customer->visitedHistories()->create([
+                            'visited_at' => now()->subMonth($customer->id)->setTime($customer->id + 17, 30),
+                            'seat'       => sprintf('test%s席', $customer->id),
+                            'amount'     => $customer->id,
+                        ]);
+                    }
                 });
             });
         } catch (\Exception $e) {

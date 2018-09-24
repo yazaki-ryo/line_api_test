@@ -65,6 +65,10 @@ return [
         'anniversary'           => '記念日',
         'likes_and_dislikes'    => '好き嫌い',
         'note'                  => 'メモ',
+
+        'last_visited_at'       => '前回来店日時',
+        'first_visited_at'      => '初回来店日時',
+
         'cancel_cnt'            => 'キャンセル回数',
         'noshow_cnt'            => 'ノーショウ回数',
 

@@ -279,6 +279,35 @@
     </div>
 </div>
 
+@set ($attribute, 'last_visited_at')
+@if ($mode === 'edit')
+    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang ("attributes.customers.{$attribute}")
+        </label>
+
+        <div class="col-md-6 form-control-static">
+            {{ $visitedHistories->count() ? $visitedHistories->last()->visitedAt()->format('Y-m-d H:i') : '-' }}
+            @include ('components.form.err_msg', ['attribute' => $attribute])
+        </div>
+    </div>
+@endif
+
+
+@set ($attribute, 'first_visited_at')
+@if ($mode === 'edit')
+    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang ("attributes.customers.{$attribute}")
+        </label>
+
+        <div class="col-md-6 form-control-static">
+            {{ $visitedHistories->count() ? $visitedHistories->first()->visitedAt()->format('Y-m-d H:i') : '-' }}
+            @include ('components.form.err_msg', ['attribute' => $attribute])
+        </div>
+    </div>
+@endif
+
 @set ($attribute, 'cancel_cnt')
 @if ($mode === 'edit')
     <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
