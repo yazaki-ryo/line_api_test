@@ -29,7 +29,7 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @can ('authorize', ['customers.*', 'customers.update'])
-            <button type="submit" class="btn btn-default">@lang ('elements.words.save')</button>
+            <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
         @endcan
     </div>
 </div>

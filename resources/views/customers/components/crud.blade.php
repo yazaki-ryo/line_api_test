@@ -344,5 +344,9 @@
                 @endcan
             @endcan
         @endif
+
+        <a href="javascript:history.back();" class="btn btn-default">
+            @lang ('elements.words.back')
+        </a>
     </div>
 </div>

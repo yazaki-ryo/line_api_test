@@ -45,6 +45,6 @@ class SearchRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return \Lang::get('attributes.tags.search');
+        return \Lang::get('attributes.tags');
     }
 }

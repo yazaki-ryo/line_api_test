@@ -88,6 +88,10 @@
                                     <button type="submit" class="btn btn-primary">
                                         @lang ('elements.words.register')
                                     </button>
+
+                                    <a href="javascript:history.back();" class="btn btn-default">
+                                        @lang ('elements.words.back')
+                                    </a>
                                 </div>
                             </div>
                         {!! Form::close() !!}
