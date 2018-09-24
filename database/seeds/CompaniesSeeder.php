@@ -42,8 +42,14 @@ class CompaniesSeeder extends Seeder
     {
         try {
             $this->transaction(function () {
-                collect(self::$items)->each(function ($item) {
-                    EloquentCompany::create($item);
+                $now = now();
+
+                collect(self::$items)->each(function ($item) use ($now) {
+                    EloquentCompany::create(array_merge($item, [
+                        'starts_at'        => $now->copy()->addDays(mt_rand(0, 100)),
+                        'ends_at'          => $now->copy()->addDays(mt_rand(100, 200)),
+                        'user_limit'       => mt_rand(1, 10),
+                    ]));
                 });
             });
         } catch (\Exception $e) {

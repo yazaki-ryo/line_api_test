@@ -27,6 +27,10 @@ return [
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
 
+        'user_limit'            => 'ユーザー上限数',
+        'starts_at'             => 'サービス開始日時',
+        'ends_at'               => 'サービス終了日時',
+
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
@@ -107,11 +111,6 @@ return [
         'tel'                   => 'TEL',
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
-
-        'payment_flag'          => '入金フラグ',
-        'user_limit'            => 'ユーザー上限数',
-        'starts_at'             => 'サービス開始日時',
-        'ends_at'               => 'サービス終了日時',
 
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',

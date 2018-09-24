@@ -128,57 +128,6 @@
     </div>
 </div>
 
-@set ($attribute, 'payment_flag')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$attribute}")
-    </label>
-
-    <div class="col-md-6 form-control-static">
-        <span class="text-{{ $row->{$camel = camel_case($attribute)}()->asBoolean() === true ? 'success' : 'danger' }}">
-            @set ($status, $row->{$camel = camel_case($attribute)}()->asBoolean() === true ? 'paid' : 'unpaid')
-            @lang ("elements.words.{$status}")
-        </span>
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
-
-@set ($attribute, 'user_limit')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$attribute}")
-    </label>
-
-    <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($attribute)}()->asInt() ?? null }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
-
-@set ($attribute, 'starts_at')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$attribute}")
-    </label>
-
-    <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
-
-@set ($attribute, 'ends_at')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.stores.{$attribute}")
-    </label>
-
-    <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
-
 @set ($attribute, 'updated_at')
 <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">

@@ -128,6 +128,42 @@
     </div>
 </div>
 
+@set ($attribute, 'user_limit')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.companies.{$attribute}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        <span class="badge">{{ $row->{$camel = camel_case($attribute)}()->asInt() ?? null }}</span>
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+</div>
+
+@set ($attribute, 'starts_at')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.companies.{$attribute}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+</div>
+
+@set ($attribute, 'ends_at')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.companies.{$attribute}")
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+</div>
+
 @set ($attribute, 'updated_at')
 <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">

@@ -32,6 +32,17 @@ final class EloquentCompany extends Model
         'tel',
         'fax',
         'email',
+
+//         'user_limit',
+//         'starts_at',
+//         'ends_at',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+//         'user_limit' => 'int',
     ];
 
     /**

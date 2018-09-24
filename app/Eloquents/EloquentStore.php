@@ -33,10 +33,6 @@ final class EloquentStore extends Model
         'tel',
         'fax',
         'email',
-//         'payment_flag',
-//         'user_limit',
-//         'starts_at',
-//         'ends_at',
     ];
 
     /**
@@ -45,14 +41,6 @@ final class EloquentStore extends Model
     protected $dates = [
         'starts_at',
         'ends_at',
-    ];
-
-    /**
-     * @var array
-     */
-    protected $casts = [
-        'payment_flag' => 'bool',
-        'user_limit'   => 'int',
     ];
 
     /**

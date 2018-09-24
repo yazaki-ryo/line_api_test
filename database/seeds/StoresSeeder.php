@@ -23,7 +23,6 @@ class StoresSeeder extends Seeder
             'tel'              => '0600000000',
             'fax'              => '0611111111',
             'email'            => 'osaka@test.co.jp',
-            'payment_flag'     => true,
         ],
         [
             'id'               => 2,
@@ -37,7 +36,6 @@ class StoresSeeder extends Seeder
             'tel'              => '0750000000',
             'fax'              => '0751111111',
             'email'            => 'kyoto@test.co.jp',
-            'payment_flag'     => false,
         ],
         [
             'id'               => 3,
@@ -51,7 +49,6 @@ class StoresSeeder extends Seeder
             'tel'              => '0633334444',
             'fax'              => '0655556666',
             'email'            => 'test-food-osaka@testfood.co.jp',
-            'payment_flag'     => true,
         ],
     ];
 
@@ -62,14 +59,8 @@ class StoresSeeder extends Seeder
     {
         try {
             $this->transaction(function () {
-                $now = now();
-
-                collect(self::$items)->each(function ($item) use ($now) {
-                    EloquentStore::create(array_merge($item, [
-                        'starts_at'        => $now->copy()->addDays(mt_rand(0, 100)),
-                        'ends_at'          => $now->copy()->addDays(mt_rand(100, 200)),
-                        'user_limit'       => mt_rand(1, 10),
-                    ]));
+                collect(self::$items)->each(function ($item) {
+                    EloquentStore::create($item);
                 });
             });
         } catch (\Exception $e) {

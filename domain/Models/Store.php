@@ -38,18 +38,6 @@ final class Store extends DomainModel
     /** @var Email */
     private $email;
 
-    /** @var Flag */
-    private $paymentFlag;
-
-    /** @var Count */
-    private $userLimit;
-
-    /** @var Datetime */
-    private $startsAt;
-
-    /** @var Datetime */
-    private $endsAt;
-
     /** @var Datetime */
     private $createdAt;
 
@@ -144,38 +132,6 @@ final class Store extends DomainModel
     public function email(): ?Email
     {
         return $this->email;
-    }
-
-    /**
-     * @return Flag|null
-     */
-    public function paymentFlag(): ?Flag
-    {
-        return $this->paymentFlag;
-    }
-
-    /**
-     * @return Count|null
-     */
-    public function userLimit(): ?Count
-    {
-        return $this->userLimit;
-    }
-
-    /**
-     * @return Datetime|null
-     */
-    public function startsAt(): ?Datetime
-    {
-        return $this->startsAt;
-    }
-
-    /**
-     * @return Datetime|null
-     */
-    public function endsAt(): ?Datetime
-    {
-        return $this->endsAt;
     }
 
     /**
@@ -345,22 +301,6 @@ final class Store extends DomainModel
 
         if ($args->has($key = 'email')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
-        }
-
-        if ($args->has($key = 'payment_flag')) {
-            $this->{$camel = camel_case($key)} = Flag::of((bool)$args->get($key));
-        }
-
-        if ($args->has($key = 'user_limit')) {
-            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
-        }
-
-        if ($args->has($key = 'starts_at')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
-        }
-
-        if ($args->has($key = 'ends_at')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
         if ($args->has($key = 'created_at')) {
