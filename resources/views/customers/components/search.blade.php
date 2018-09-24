@@ -85,5 +85,9 @@
         <button type="submit" class="btn btn-primary">
             @lang ('elements.words.search')
         </button>
+
+        <a href="{{ route('customers') }}" class="btn btn-default" onclick="if (! confirm('@lang ('Do you want to reset the search conditions?')')) return false;">
+            @lang ('elements.words.conditions')@lang ('elements.words.reset')
+        </a>
     </div>
 </div>
