@@ -75,14 +75,14 @@
 
                     <!-- Store menu -->
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.words.store')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
                             <!-- Tags menu -->
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.tags')@lang ('elements.words.management') <span class="caret"></span>
                                 </a>
 
@@ -98,21 +98,21 @@
                             </li>
 
                             <!-- Menus menu -->
-                            <li class="dropdown disabled">
+                            <li class="dropdown-submenu disabled">
                                 <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
                                 </a>
                             </li>
 
                             <!-- Surveys menu -->
-                            <li class="dropdown disabled">
+                            <li class="dropdown-submenu disabled">
                                 <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.surveys')@lang ('elements.words.management') <span class="caret"></span>
                                 </a>
                             </li>
 
                             <!-- Coupons menu -->
-                            <li class="dropdown disabled">
+                            <li class="dropdown-submenu disabled">
                                 <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
                                 </a>
