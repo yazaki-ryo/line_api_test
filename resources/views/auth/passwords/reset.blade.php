@@ -19,6 +19,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
+                @include ('components.parts.any_errors')
             </div>
         </div>
 
@@ -31,42 +32,42 @@
                         {!! Form::open(['url' => route('password.request'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                             {!! Form::hidden('token', $token, []) !!}
 
-                            @set ($field, 'email')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$field}")
+                            @set ($attribute, 'email')
+                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">
+                                    @lang ("attributes.users.{$attribute}")
                                     <span class="label label-danger">@lang ("elements.words.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::email($field, $email or old('email'), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                    {!! Form::email($attribute, $email or old('email'), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+                                    @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            @set ($field, 'password')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$field}")
+                            @set ($attribute, 'password')
+                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">
+                                    @lang ("attributes.users.{$attribute}")
                                     <span class="label label-danger">@lang ("elements.words.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                    <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" required />
+                                    @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            @set ($field, 'password_confirmation')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$field}")
+                            @set ($attribute, 'password_confirmation')
+                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">
+                                    @lang ("attributes.users.{$attribute}")
                                     <span class="label label-danger">@lang ("elements.words.required")</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                    <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" required />
+                                    @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 

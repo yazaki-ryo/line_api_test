@@ -17,6 +17,9 @@ final class Tag extends DomainModel
     /** @var string */
     private $name;
 
+    /** @var string */
+    private $label;
+
     /** @var Datetime */
     private $createdAt;
 
@@ -25,6 +28,9 @@ final class Tag extends DomainModel
 
     /** @var Datetime */
     private $deletedAt;
+
+    /** @var int */
+    private $storeId;
 
     /**
      * @param TagRepository $repo
@@ -49,6 +55,14 @@ final class Tag extends DomainModel
     public function name(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function label(): ?string
+    {
+        return $this->label;
     }
 
     /**
@@ -82,6 +96,22 @@ final class Tag extends DomainModel
     public function customers(array $args = []): DomainCollection
     {
         return $this->repo->customers($args);
+    }
+
+    /**
+     * @return int|null
+     */
+    public function storeId(): ?int
+    {
+        return $this->storeId;
+    }
+
+    /**
+     * @return Store|null
+     */
+    public function store(): ?Store
+    {
+        return $this->repo->store();
     }
 
     /**
@@ -133,6 +163,10 @@ final class Tag extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
+        if ($args->has($key = 'label')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
         if ($args->has($key = 'created_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
@@ -143,6 +177,10 @@ final class Tag extends DomainModel
 
         if ($args->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         return $this;

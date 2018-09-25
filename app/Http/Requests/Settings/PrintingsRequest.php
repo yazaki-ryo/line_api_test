@@ -240,6 +240,6 @@ class PrintingsRequest extends FormRequest
      */
     public function withValidator($validator): void
     {
-        $this->errorBag = sprintf('setting_%s', $this->segment(4));
+        $this->errorBag = sprintf('setting_%s', $this->segment(3));
     }
 }

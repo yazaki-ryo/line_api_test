@@ -27,6 +27,10 @@ return [
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
 
+        'user_limit'            => 'ユーザー上限数',
+        'starts_at'             => 'サービス開始日時',
+        'ends_at'               => 'サービス終了日時',
+
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
@@ -61,6 +65,10 @@ return [
         'anniversary'           => '記念日',
         'likes_and_dislikes'    => '好き嫌い',
         'note'                  => 'メモ',
+
+        'last_visited_at'       => '前回来店日時',
+        'first_visited_at'      => '初回来店日時',
+
         'cancel_cnt'            => 'キャンセル回数',
         'noshow_cnt'            => 'ノーショウ回数',
 
@@ -76,7 +84,7 @@ return [
             'visited_date_e' => '来店日（終了）',
         ],
 
-        'tags'      => 'タグ',
+        'tags' => 'タグ',
 
         'postcards' => [
             'mode'      => '出力モード',
@@ -108,14 +116,21 @@ return [
         'fax'                   => 'FAX',
         'email'                 => 'メールアドレス',
 
-        'payment_flag'          => '入金フラグ',
-        'user_limit'            => 'ユーザー上限数',
-        'starts_at'             => 'サービス開始日時',
-        'ends_at'               => 'サービス終了日時',
+        'created_at'            => '登録日時',
+        'updated_at'            => '更新日時',
+        'deleted_at'            => '削除日時',
+    ],
+
+    'tags' => [
+        'name'                  => '名称',
+        'label'                 => 'ラベル',
 
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
+
+//         'search' => [
+//         ],
     ],
 
     'users' => [

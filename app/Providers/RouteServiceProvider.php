@@ -20,6 +20,7 @@ final class RouteServiceProvider extends ServiceProvider
         'customerId',
         'settingId',
         'storeId',
+        'tagId',
         'userId',
         'visitedHistoryId',
     ];

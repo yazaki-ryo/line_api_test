@@ -1,13 +1,13 @@
-@if ($rows->count())
-    <div class="form-group{{ $errors->has('selection') ? ' has-error' : '' }}">
-        {!! $errors->first('selection', '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
-    </div>
+<div class="form-group{{ $errors->has('selection') ? ' has-error' : '' }}">
+    @include ('components.form.err_msg', ['attribute' => 'selection'])
+</div>
 
+@if ($rows->count())
     <table id="customers-table" class="table table-striped table-hover table-condensed">
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
-                <th class="text-center">@lang ('elements.words.name')</th>
+                <th class="text-center">@lang ('elements.words.human_name')</th>
                 <th class="text-center">@lang ('attributes.customers.office')</th>
                 <th class="text-center">@lang ('attributes.customers.tel')</th>
                 <th class="text-center">@lang ('attributes.customers.mobile_phone')</th>
@@ -20,15 +20,15 @@
                 <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
                     <td class="text-center">
                         <div class="checkbox">
-                            @set ($field, 'selection')
-                            <label><input type="checkbox" name="{{ $field }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($field)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($field))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
+                            @set ($attribute, 'selection')
+                            <label><input type="checkbox" name="{{ $attribute }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
                     </td>
                     <td class="text-center">{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('office')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('tel')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
-                    <td class="text-center">{{ $row->visitedHistories()->count() }}</td>
+                    <td class="text-center"><span class="badge">{{ $row->visitedHistories()->count() }}</span></td>
                     <td class="text-center dropdown">
                         <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             <span class="glyphicon glyphicon-option-horizontal"></span>

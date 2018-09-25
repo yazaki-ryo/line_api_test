@@ -71,59 +71,53 @@
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.words.reservations')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
-{{--
-                        <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                        </ul>
---}}
                     </li>
 
-                    <!-- Tags menu -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.tags')@lang ('elements.words.management') <span class="caret"></span>
+                    <!-- Store menu -->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                            @lang ('elements.words.store')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
-{{--
-                        <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                        </ul>
---}}
-                    </li>
 
-                    <!-- Menus menu -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
-                        </a>
-{{--
                         <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                        </ul>
---}}
-                    </li>
+                            <!-- Tags menu -->
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.tags')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
 
-                    <!-- Surveys menu -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.surveys')@lang ('elements.words.management') <span class="caret"></span>
-                        </a>
-{{--
-                        <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
-                        </ul>
---}}
-                    </li>
+                                <ul class="dropdown-menu">
+                                    @can ('authorize', ['tags.*', 'tags.select'])
+                                        <li class="{{ request()->route()->named('tags') ? 'active' : '' }}"><a href="{{ route('tags') }}">@lang ('elements.words.tags')@lang ('elements.words.list')</a></li>
+                                    @endcan
 
-                    <!-- Coupons menu -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
-                        </a>
-{{--
-                        <ul class="dropdown-menu">
-                            <li><a href="#">test</a></li>
+                                    @can ('authorize', ['tags.*', 'tags.create'])
+                                        <li class="{{ request()->route()->named('tags.add') ? 'active' : '' }}"><a href="{{ route('tags.add') }}">@lang ('elements.words.tags')@lang ('elements.words.register')</a></li>
+                                    @endcan
+                                </ul>
+                            </li>
+
+                            <!-- Menus menu -->
+                            <li class="dropdown-submenu disabled">
+                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
+                            </li>
+
+                            <!-- Surveys menu -->
+                            <li class="dropdown-submenu disabled">
+                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.surveys')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
+                            </li>
+
+                            <!-- Coupons menu -->
+                            <li class="dropdown-submenu disabled">
+                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
+                            </li>
                         </ul>
---}}
                     </li>
 
                     <!-- Settings menu -->
@@ -151,7 +145,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li class="{{ request()->route()->named('settings.configurations.printings') ? 'active' : '' }}"><a href="{{ route('settings.configurations.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
+                                    <li class="{{ request()->route()->named('settings.printings') ? 'active' : '' }}"><a href="{{ route('settings.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
                                 </ul>
                             </li>
 

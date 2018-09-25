@@ -1,119 +1,119 @@
-@set ($field, 'name')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.users.{$field}")
+@set ($attribute, 'name')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.users.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'email')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.users.{$field}")
+@set ($attribute, 'email')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.users.{$attribute}")
         <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::email($field, old($field, request($field, $row->{$camel = camel_case($field)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '']) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::email($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'company_id')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.users.{$field}")
+@set ($attribute, 'company_id')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.users.{$attribute}")
     </label>
 
     <div class="col-md-6">
-        {!! Form::text(null, $row->company()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text(null, $row->company()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $attribute]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'store_id')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.users.{$field}")
+@set ($attribute, 'store_id')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.users.{$attribute}")
     </label>
 
     <div class="col-md-6">
-        {!! Form::text(null, $row->store()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text(null, $row->store()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $attribute]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'role_id')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.users.{$field}")
+@set ($attribute, 'role_id')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.users.{$attribute}")
     </label>
 
     <div class="col-md-6">
-        {!! Form::text(null, $row->role()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $field]) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::text(null, $row->role()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $attribute]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
 @env ('local')
-    @set ($field, 'avatar')
-    @set ($field2, 'drop_avatar')
-    <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-        <label for="{{ $field }}" class="col-md-4 control-label">
-            @lang ("attributes.users.{$field}")
+    @set ($attribute, 'avatar')
+    @set ($attribute2, 'drop_avatar')
+    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang ("attributes.users.{$attribute}")
         </label>
 
         <div class="col-md-6 form-control-static">
             @include ('users.components.avatars')
 
-            {!! Form::file($field, null, ['class' => 'form-control', 'id' => $field, 'placeholder' => '']) !!}
+            {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
             {!! Form::hidden('MAX_FILE_SIZE', 2097152) !!}<!-- いずれ設定値から取得 -->
-            {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+            @include ('components.form.err_msg', ['attribute' => $attribute])
 
             @if ($row->avatars()->count())
                 <div class="checkbox">
-                    <label>{!! Form::checkbox($field2, 1, old($field2), ['class' => '', 'id' => $field2]) !!} @lang ('Delete the current image.')</label>
-                    {!! $errors->first($field2, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                    <label>{!! Form::checkbox($attribute2, 1, old($attribute2), ['class' => '', 'id' => $attribute2]) !!} @lang ('Delete the current image.')</label>
+                    @include ('components.form.err_msg', ['attribute' => $attribute2])
                 </div>
             @endif
         </div>
     </div>
 @endenv
 
-@set ($field, 'password')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
+@set ($attribute, 'password')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
 
     <div class="col-md-6">
-        <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" placeholder="@lang ('Please input only when changing.')" />
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="@lang ('Please input only when changing.')" />
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'password_confirmation')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
+@set ($attribute, 'password_confirmation')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
 
     <div class="col-md-6">
-        <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" placeholder="@lang ('Please re-enter for confirmation.')" />
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="@lang ('Please re-enter for confirmation.')" />
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($field, 'updated_at')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ("attributes.users.{$field}")
+@set ($attribute, 'updated_at')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.users.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($field)}() ?? null }}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
@@ -124,5 +124,9 @@
         <button type="submit" class="btn btn-primary">
             @lang ('elements.words.save')
         </button>
+
+        <a href="javascript:history.back();" class="btn btn-default">
+            @lang ('elements.words.back')
+        </a>
     </div>
 </div>

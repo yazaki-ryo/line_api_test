@@ -10,6 +10,7 @@ use Domain\Models\Company;
 use Domain\Models\DomainModel;
 use Domain\Models\Prefecture;
 use Domain\Models\Store;
+use Domain\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -80,6 +81,28 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
     {
         $collection = CustomerRepository::build($this->eloquent->customers(), $args)->get();
         return CustomerRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function tags(array $args = []): DomainCollection
+    {
+        $collection = TagRepository::build($this->eloquent->tags(), $args)->get();
+        return TagRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return Tag
+     */
+    public function addTag(array $args = []): Tag
+    {
+        if (is_null($resource = $this->eloquent->tags()->create($args))) {
+            return null;
+        }
+        return TagRepository::toModel($resource);
     }
 
     /**

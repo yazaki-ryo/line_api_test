@@ -19,6 +19,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
+                @include ('components.parts.any_errors')
             </div>
         </div>
 
@@ -29,40 +30,40 @@
                     <div class="panel-body">
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
-                            @set ($field, 'email')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
+                            @set ($attribute, 'email')
+                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
 
                                 <div class="col-md-6">
                                     <div class="input-group">
-                                        <span class="input-group-addon" id="basic-addon-{{ $field }}">@</span>
-                                        {!! Form::email($field, old($field), ['required', 'autofocus', 'class' => 'form-control', 'id' => $field, 'maxlength' => 191, 'placeholder' => '',  'aria-describedby' => "basic-addon-{$field}"]) !!}
+                                        <span class="input-group-addon" id="basic-addon-{{ $attribute }}">@</span>
+                                        {!! Form::email($attribute, old($attribute), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '',  'aria-describedby' => "basic-addon-{$attribute}"]) !!}
                                     </div>
 
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                    @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            @set ($field, 'password')
-                            <div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-                                <label for="{{ $field }}" class="col-md-4 control-label">@lang ("attributes.users.{$field}")</label>
+                            @set ($attribute, 'password')
+                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
 
                                 <div class="col-md-6">
                                     <div class="input-group">
-                                        <span class="input-group-addon" id="basic-addon-{{ $field }}"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input name="{{ $field }}" type="password" id="{{ $field }}" class="form-control" required />
+                                        <span class="input-group-addon" id="basic-addon-{{ $attribute }}"><span class="glyphicon glyphicon-lock"></span></span>
+                                        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" required />
                                     </div>
 
-                                    {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+                                    @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            @set ($field, 'remember')
+                            @set ($attribute, 'remember')
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            {!! Form::checkbox($field, 1, old($field), []) !!} @lang ("attributes.users.{$field}")
+                                            {!! Form::checkbox($attribute, 1, old($attribute), []) !!} @lang ("attributes.users.{$attribute}")
                                         </label>
                                     </div>
                                 </div>

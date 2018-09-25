@@ -47,6 +47,9 @@ final class IndexController extends Controller
 
         return view('customers.index', [
             'rows' => $this->useCase->excute($user, $args),
+            'tags' => $user->store()->tags()->groupBy(function ($item) {
+                return $item->label();
+            }),
             'printSettings' => $this->printSettings($request),
         ]);
     }
@@ -59,7 +62,7 @@ final class IndexController extends Controller
     {
         $cookies = [];
         for ($i = 1; $i < 4; $i++) {
-            if (! is_null($cookie = $request->cookie(sprintf('settings_configurations_printings_%s', $i)))) {
+            if (! is_null($cookie = $request->cookie(sprintf('settings_printings_%s', $i)))) {
                 $cookies[$i] = (json_decode($cookie))->name;
             }
         }

@@ -60,7 +60,7 @@ final class ExportController extends Controller
      */
     private function printSettings(Request $request): array
     {
-        $cookie = $request->cookie(sprintf('settings_configurations_printings_%s', $request->mode));
+        $cookie = $request->cookie(sprintf('settings_printings_%s', $request->mode));
 
         if (! is_null($cookie)) {
             $cookie = json_decode($cookie, true);

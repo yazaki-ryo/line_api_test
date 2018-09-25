@@ -7,6 +7,7 @@ use App\Traits\Collections\Domainable;
 use App\Traits\Database\Eloquent\Scopable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 final class EloquentTag extends Model
@@ -20,7 +21,8 @@ final class EloquentTag extends Model
      * @var array
      */
     protected $fillable = [
-        //
+        'name',
+        'label',
     ];
 
     /**
@@ -29,6 +31,14 @@ final class EloquentTag extends Model
     public function customers(): MorphToMany
     {
         return $this->morphedByMany(EloquentCustomer::class, 'taggable', 'taggables', 'tag_id', 'taggable_id', 'id', 'id')->withTimestamps();
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function store(): BelongsTo
+    {
+        return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
     }
 
 }

@@ -38,6 +38,15 @@ final class Company extends DomainModel
     /** @var Email */
     private $email;
 
+    /** @var Count */
+    private $userLimit;
+
+    /** @var Datetime */
+    private $startsAt;
+
+    /** @var Datetime */
+    private $endsAt;
+
     /** @var Datetime */
     private $createdAt;
 
@@ -132,6 +141,30 @@ final class Company extends DomainModel
     public function email(): ?Email
     {
         return $this->email;
+    }
+
+    /**
+     * @return Count|null
+     */
+    public function userLimit(): ?Count
+    {
+        return $this->userLimit;
+    }
+
+    /**
+     * @return Datetime|null
+     */
+    public function startsAt(): ?Datetime
+    {
+        return $this->startsAt;
+    }
+
+    /**
+     * @return Datetime|null
+     */
+    public function endsAt(): ?Datetime
+    {
+        return $this->endsAt;
     }
 
     /**
@@ -277,6 +310,18 @@ final class Company extends DomainModel
 
         if ($args->has($key = 'email')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
+        }
+
+        if ($args->has($key = 'user_limit')) {
+            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
+        }
+
+        if ($args->has($key = 'starts_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'ends_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
         if ($args->has($key = 'created_at')) {

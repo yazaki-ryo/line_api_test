@@ -33,6 +33,10 @@ class CreateCompaniesTable extends Migration
                 $table->string('fax')->nullable()->comment('FAX');
                 $table->string('email')->nullable()->comment('E-Mail');
 
+                $table->unsignedInteger('user_limit')->default(0)->comment('ユーザー上限数');
+                $table->timestamp('starts_at')->nullable()->comment('サービス開始日時');
+                $table->timestamp('ends_at')->nullable()->comment('サービス終了日時');
+
                 $table->timestamps();
                 $table->softDeletes();
 

@@ -111,6 +111,24 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
 
     /**
      * @param  array $args
+     * @return void
+     */
+    public function syncTags(array $args = []): void
+    {
+        $this->eloquent->tags()->sync($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return void
+     */
+    public function toggleTags(array $args = []): void
+    {
+        $this->eloquent->tags()->toggle($args);
+    }
+
+    /**
+     * @param  array $args
      * @return DomainCollection
      */
     public function visitedHistories(array $args = []): DomainCollection
@@ -167,6 +185,10 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
 
         $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->ids($args->get($key));
+        });
+
+        $query->when($args->has($key = 'tags') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->tagIds($args->get($key));
         });
 
         $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {

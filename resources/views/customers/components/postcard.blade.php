@@ -1,13 +1,13 @@
-@set ($field, 'mode')
-<div class="form-group{{ $errors->has($field) ? ' has-error' : '' }}">
-    <label for="{{ $field }}" class="col-md-4 control-label">
-        @lang ('elements.words.output')@lang ("elements.words.{$field}")
+@set ($attribute, 'mode')
+<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ('elements.words.output')@lang ("elements.words.{$attribute}")
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('Please select the setting registered by print setting.')"></span>
     </label>
 
     <div class="col-md-5">
-        {!! Form::select($field, $printSettings, old($field, request($field, null)), ['required', 'class' => 'form-control', 'id' => $field, 'placeholder' => __('Please select')]) !!}
-        {!! $errors->first($field, '<span class="glyphicon glyphicon-remove form-control-feedback"></span><span class="help-block"><strong>:message</strong></span>') !!}
+        {!! Form::select($attribute, $printSettings, old($attribute, request($attribute, null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'placeholder' => __('Please select')]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 

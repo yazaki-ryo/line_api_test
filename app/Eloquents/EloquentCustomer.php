@@ -239,4 +239,17 @@ final class EloquentCustomer extends Model
         });
     }
 
+    /**
+     * @param Builder $query
+     * @param array $ids
+     * @param  bool $not
+     * @return Builder
+     */
+    public function scopeTagIds(Builder $query, array $ids = [], bool $not = false): Builder
+    {
+        return $query->whereHas('tags', function(Builder $q) use ($ids, $not) {
+            $q->{$not === false ? 'whereIn' : 'whereNotIn'}('tag_id', $ids);
+        });
+    }
+
 }

@@ -48,7 +48,12 @@ final class UpdateController extends Controller
 
         return view('customers.edit', [
             'row' => $customer,
+            'tags' => $customer->store()->tags()->groupBy(function ($item) {
+                return $item->label();
+            }),
+            'tagIds' => $customer->tags(),
             'visitedHistories' => $customer->visitedHistories(),
+
         ]);
     }
 

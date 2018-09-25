@@ -24,6 +24,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
+                @include ('components.parts.any_errors', ['errorBags' => ['tags']])
             </div>
         </div>
 
@@ -60,7 +61,9 @@
                     </div>
                     <div class="tab-pane fade pt-10" id="tags-tab">
                         <div class="well">
-                            @include ('customers.components.tags')
+                            {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                @include ('customers.components.tags')
+                            {!! Form::close() !!}
                         </div>
                     </div>
                     <div class="tab-pane fade pt-10" id="histories-tab">
