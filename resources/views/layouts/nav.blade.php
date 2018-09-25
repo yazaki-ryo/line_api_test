@@ -45,7 +45,7 @@
                         @lang ('Welcome, :name.', ['name' => $user->name()])
                     </li>
 
-                    <!-- Customers menu -->
+                    <!-- Customers -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.words.customers')@lang ('elements.words.management') <span class="caret"></span>
@@ -66,21 +66,21 @@
                         </ul>
                     </li>
 
-                    <!-- Reservations menu -->
+                    <!-- Reservations -->
                     <li class="dropdown disabled">
                         <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.words.reservations')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
                     </li>
 
-                    <!-- Store menu -->
+                    <!-- Stores -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.words.store')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
-                            <!-- Tags menu -->
+                            <!-- Tags -->
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.tags')@lang ('elements.words.management') <span class="caret"></span>
@@ -97,55 +97,79 @@
                                 </ul>
                             </li>
 
-                            <!-- Menus menu -->
+                            <!-- Menus -->
                             <li class="dropdown-submenu disabled">
                                 <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
                                 </a>
                             </li>
 
-                            <!-- Surveys menu -->
+                            <!-- Surveys -->
                             <li class="dropdown-submenu disabled">
                                 <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.surveys')@lang ('elements.words.management') <span class="caret"></span>
                                 </a>
                             </li>
 
-                            <!-- Coupons menu -->
+                            <!-- Coupons -->
                             <li class="dropdown-submenu disabled">
                                 <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
                                 </a>
                             </li>
+
+                            <!-- Own store -->
+                            @can ('authorize', ['stores.*', 'stores.update'])
+                                <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
+                            @endcan
                         </ul>
                     </li>
 
-                    <!-- Settings menu -->
+                    <!-- Settings -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             @lang ('elements.words.various')@lang ('elements.words.settings') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
+                            <!-- Users -->
+                            <li class="dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    @lang ('elements.words.users')@lang ('elements.words.management') <span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    @can ('authorize', ['users.*', 'users.select'])
+                                        <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
+                                    @endcan
+{{--
+                                    @can ('authorize', ['users.*', 'users.create'])
+                                        <li class="{{ request()->route()->named('users.add') ? 'active' : '' }}"><a href="{{ route('users.add') }}">@lang ('elements.words.users')@lang ('elements.words.register')</a></li>
+                                    @endcan
+--}}
+                                </ul>
+                            </li>
+
+                            <!-- My profile -->
                             <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.words.user')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
 
-                            @can ('authorize', ['stores.*', 'stores.update'])
-                                <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
-                            @endcan
-
+                            <!-- Own company -->
                             @can ('authorize', ['companies.*', 'companies.update'])
                                 <li class="{{ request()->route()->named('settings.company') ? 'active' : '' }}"><a href="{{ route('settings.company') }}">@lang ('elements.words.company')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
                             @endcan
 
                             <li class="disabled"><a href="#">@lang ('elements.words.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>
 
+                            <!-- Various settings -->
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     @lang ('elements.words.settings') <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li class="{{ request()->route()->named('settings.printings') ? 'active' : '' }}"><a href="{{ route('settings.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
+                                    @can ('authorize', ['settings.*', 'settings.printings'])
+                                        <li class="{{ request()->route()->named('settings.printings') ? 'active' : '' }}"><a href="{{ route('settings.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
+                                    @endcan
                                 </ul>
                             </li>
 

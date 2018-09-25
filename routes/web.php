@@ -128,7 +128,18 @@ $router->group([
     $router->group([
         'prefix' => $prefix = 'users',
     ], function (Router $router) use ($prefix) {
+        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name($prefix);
+//         $router->get( 'add', \App\Http\Controllers\Users\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
+//         $router->post('add', \App\Http\Controllers\Users\CreateController::class . '@create');
 
+//         $router->group([
+//             'prefix' => '{userId}',
+//         ], function (Router $router) use ($prefix) {
+//             $router->get( 'edit', \App\Http\Controllers\Users\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+//             $router->post('edit', \App\Http\Controllers\Users\UpdateController::class . '@update');
+//             $router->post('delete', \App\Http\Controllers\Users\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+//             $router->post('restore', \App\Http\Controllers\Users\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+//         });
     });
 
     /**

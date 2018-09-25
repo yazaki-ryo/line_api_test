@@ -69,7 +69,7 @@ final class UpdateController extends Controller
             return back()->withInput();
         }
 
-        flash(__('The :name information was :action.', ['name' => __('elements.words.users'), 'action' => __('elements.words.updated')]), 'success');
+        flash(__('The :name information was :action.', ['name' => __('elements.words.user'), 'action' => __('elements.words.updated')]), 'success');
         return redirect()->route('settings.profile');
     }
 

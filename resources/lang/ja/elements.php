@@ -158,6 +158,7 @@ return [
         'restore'        => '復旧',
         'restored'       => '復旧',
         'result'         => '結果',
+        'role'           => 'ロール',
 
         /**
          * S
@@ -195,7 +196,7 @@ return [
         'unpaid'         => '未',
         'update'         => '更新',
         'updated'        => '更新',
-        'user'           => 'ユーザー',
+        'user'           => '利用者',
         'users'          => 'ユーザー',
 
         /**
