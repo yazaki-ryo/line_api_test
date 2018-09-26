@@ -61,6 +61,10 @@ final class UserPolicy
             && optional($user->store)->company_id === optional($targetUser->store())->companyId()
         ) {
             return true;
+        } elseif ($user->can('roles', 'store-user')
+            && $user->id === $targetUser->id()
+        ) {
+            return true;
         }
 
         return false;
@@ -75,6 +79,7 @@ final class UserPolicy
     {
         if ($user->can('roles', 'company-admin')
             && optional($user->store)->company_id === optional($targetUser->store())->companyId()
+            && $user->id !== $targetUser->id()
         ) {
             return true;
         }
