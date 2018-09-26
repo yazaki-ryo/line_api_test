@@ -97,9 +97,9 @@
                 info: true,
                 lengthChange: true,
                 lengthMenu: [10, 25, 50, 100],
+                order: [],
                 ordering: true,
                 paging: true,
-                // order: [0, "asc"],
                 searching: true,
                 stateSave: true
             });

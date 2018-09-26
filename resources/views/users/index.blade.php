@@ -74,7 +74,7 @@
             $("#users-table").DataTable({
                 columnDefs: [
                     {
-                        targets: [0, 6],
+                        targets: [0, 5],
                         orderable: false
                     }
                 ],
@@ -82,9 +82,9 @@
                 info: true,
                 lengthChange: true,
                 lengthMenu: [10, 25, 50, 100],
+                order: [],
                 ordering: true,
                 paging: true,
-                // order: [0, "asc"],
                 searching: true,
                 stateSave: true
             });
