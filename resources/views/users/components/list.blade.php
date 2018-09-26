@@ -33,7 +33,6 @@
                         </button>
                         <ul class="dropdown-menu">
                             @if ($row->{$camel = camel_case('deleted_at')}())
-{{--
                                 @can ('authorize', ['users.*', 'users.restore'])
                                     @can ('restore', $row)
                                         <li>
@@ -43,7 +42,6 @@
                                         </li>
                                     @endcan
                                 @endcan
---}}
                             @else
 {{--
                                 @can ('authorize', ['users.*', 'users.update'])

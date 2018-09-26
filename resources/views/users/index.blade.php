@@ -106,12 +106,12 @@
          * @param string url
          * @return void
          */
-//         function restoreRecord(url) {
-//             if( confirm('@lang ("Do you really want to restore this?")') ) {
-//                 var form = document.getElementById('basic-post-form');
-//                 form.action = url;
-//                 form.submit();
-//             }
-//         }
+        function restoreRecord(url) {
+            if( confirm('@lang ("Do you really want to restore this?")') ) {
+                var form = document.getElementById('basic-post-form');
+                form.action = url;
+                form.submit();
+            }
+        }
     </script>
 @endsection

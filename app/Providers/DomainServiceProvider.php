@@ -28,6 +28,7 @@ use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
 use Domain\UseCases\Tags\DeleteTag;
 use Domain\UseCases\Tags\UpdateTag;
 use Domain\UseCases\Users\DeleteUser;
+use Domain\UseCases\Users\RestoreUser;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
@@ -130,6 +131,12 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(DeleteUser::class, function () {
             return new DeleteUser(
+                app(UsersService::class)
+                );
+        });
+
+        $this->app->bind(RestoreUser::class, function () {
+            return new RestoreUser(
                 app(UsersService::class)
             );
         });
