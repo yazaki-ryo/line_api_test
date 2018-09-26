@@ -142,11 +142,10 @@
                                     @can ('authorize', ['users.*', 'users.select'])
                                         <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
                                     @endcan
-{{--
+
                                     @can ('authorize', ['users.*', 'users.create'])
                                         <li class="{{ request()->route()->named('users.add') ? 'active' : '' }}"><a href="{{ route('users.add') }}">@lang ('elements.words.users')@lang ('elements.words.register')</a></li>
                                     @endcan
---}}
                                 </ul>
                             </li>
 

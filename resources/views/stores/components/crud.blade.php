@@ -123,7 +123,7 @@
     </label>
 
     <div class="col-md-6 form-control-static">
-        {{ $row->company()->name() ?? null }}
+        {{ optional($row->company())->name() ?? null }}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

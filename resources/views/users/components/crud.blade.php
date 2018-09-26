@@ -30,8 +30,8 @@
         @lang ("attributes.users.{$attribute}")
     </label>
 
-    <div class="col-md-6">
-        {!! Form::text(null, $row->company()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $attribute]) !!}
+    <div class="col-md-6 form-control-static">
+        {{ optional($row->company())->name() ?? optional($user->company())->name() }}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -40,10 +40,11 @@
 <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.users.{$attribute}")
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text(null, $row->store()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $attribute]) !!}
+        {!! Form::select($attribute, $stores->pluckNamesByIds(), old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}())), [$user->cant('roles', 'company-admin') ? 'readonly' : null, 'required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -52,70 +53,83 @@
 <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.users.{$attribute}")
+        <span class="label label-danger">@lang ("elements.words.required")</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text(null, $row->role()->name() ?? null, ['readonly', 'class' => 'form-control', 'id' => $attribute]) !!}
+        {!! Form::select($attribute, $roles->pluckNamesByIds(), old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}())), [$user->cant('roles', 'company-admin') ? 'readonly' : null, 'required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
 @env ('local')
-    @set ($attribute, 'avatar')
-    @set ($attribute2, 'drop_avatar')
-    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
-            @lang ("attributes.users.{$attribute}")
-        </label>
+    @if ($mode === 'profile')
+        @set ($attribute, 'avatar')
+        @set ($attribute2, 'drop_avatar')
+        <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+            <label for="{{ $attribute }}" class="col-md-4 control-label">
+                @lang ("attributes.users.{$attribute}")
+            </label>
 
-        <div class="col-md-6 form-control-static">
-            @include ('users.components.avatars')
+            <div class="col-md-6 form-control-static">
+                @include ('users.components.avatars')
 
-            {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
-            {!! Form::hidden('MAX_FILE_SIZE', 2097152) !!}<!-- いずれ設定値から取得 -->
-            @include ('components.form.err_msg', ['attribute' => $attribute])
+                {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
+                {!! Form::hidden('MAX_FILE_SIZE', 2097152) !!}<!-- いずれ設定値から取得 -->
+                @include ('components.form.err_msg', ['attribute' => $attribute])
 
-            @if ($row->avatars()->count())
-                <div class="checkbox">
-                    <label>{!! Form::checkbox($attribute2, 1, old($attribute2), ['class' => '', 'id' => $attribute2]) !!} @lang ('Delete the current image.')</label>
-                    @include ('components.form.err_msg', ['attribute' => $attribute2])
-                </div>
-            @endif
+                @if ($row->avatars()->count())
+                    <div class="checkbox">
+                        <label>{!! Form::checkbox($attribute2, 1, old($attribute2), ['class' => '', 'id' => $attribute2]) !!} @lang ('Delete the current image.')</label>
+                        @include ('components.form.err_msg', ['attribute' => $attribute2])
+                    </div>
+                @endif
+            </div>
         </div>
-    </div>
+    @endif
 @endenv
 
 @set ($attribute, 'password')
 <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang ("attributes.users.{$attribute}")
+
+        @if ($mode === 'add') <span class="label label-danger">@lang ("elements.words.required")</span> @endif
+    </label>
 
     <div class="col-md-6">
-        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="@lang ('Please input only when changing.')" />
+        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please input only when changing.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
 @set ($attribute, 'password_confirmation')
 <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
-
-    <div class="col-md-6">
-        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="@lang ('Please re-enter for confirmation.')" />
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
-
-@set ($attribute, 'updated_at')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.users.{$attribute}")
+
+        @if ($mode === 'add') <span class="label label-danger">@lang ("elements.words.required")</span> @endif
     </label>
 
-    <div class="col-md-6 form-control-static">
-        {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+    <div class="col-md-6">
+        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please re-enter for confirmation.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
+
+@if ($mode === 'edit' || $mode === 'profile')
+    @set ($attribute, 'updated_at')
+    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang ("attributes.users.{$attribute}")
+        </label>
+
+        <div class="col-md-6 form-control-static">
+            {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+            @include ('components.form.err_msg', ['attribute' => $attribute])
+        </div>
+    </div>
+@endif
 
 <hr>
 
