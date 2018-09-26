@@ -6,7 +6,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', $mode === 'edit' ? 'disabled' : 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -19,7 +19,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::email($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        {!! Form::email($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', $mode === 'edit' ? 'disabled' : '', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -62,6 +62,8 @@
     </div>
 </div>
 
+{{-- // TODO permissions --}}
+
 @env ('local')
     @if ($mode === 'profile')
         @set ($attribute, 'avatar')
@@ -89,33 +91,35 @@
     @endif
 @endenv
 
-@set ($attribute, 'password')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.users.{$attribute}")
+@if ($mode === 'add' || $mode === 'profile')
+    @set ($attribute, 'password')
+    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang ("attributes.users.{$attribute}")
 
-        @if ($mode === 'add') <span class="label label-danger">@lang ("elements.words.required")</span> @endif
-    </label>
+            @if ($mode === 'add') <span class="label label-danger">@lang ("elements.words.required")</span> @endif
+        </label>
 
-    <div class="col-md-6">
-        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please input only when changing.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
-        @include ('components.form.err_msg', ['attribute' => $attribute])
+        <div class="col-md-6">
+            <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please input only when changing.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
+            @include ('components.form.err_msg', ['attribute' => $attribute])
+        </div>
     </div>
-</div>
 
-@set ($attribute, 'password_confirmation')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.users.{$attribute}")
+    @set ($attribute, 'password_confirmation')
+    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang ("attributes.users.{$attribute}")
 
-        @if ($mode === 'add') <span class="label label-danger">@lang ("elements.words.required")</span> @endif
-    </label>
+            @if ($mode === 'add') <span class="label label-danger">@lang ("elements.words.required")</span> @endif
+        </label>
 
-    <div class="col-md-6">
-        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please re-enter for confirmation.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
-        @include ('components.form.err_msg', ['attribute' => $attribute])
+        <div class="col-md-6">
+            <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please re-enter for confirmation.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
+            @include ('components.form.err_msg', ['attribute' => $attribute])
+        </div>
     </div>
-</div>
+@endif
 
 @if ($mode === 'edit' || $mode === 'profile')
     @set ($attribute, 'updated_at')

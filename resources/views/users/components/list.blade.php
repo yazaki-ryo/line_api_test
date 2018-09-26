@@ -43,7 +43,6 @@
                                     @endcan
                                 @endcan
                             @else
-{{--
                                 @can ('authorize', ['users.*', 'users.update'])
                                     @can ('get', $row)
                                         <li>
@@ -53,7 +52,6 @@
                                         </li>
                                     @endcan
                                 @endcan
---}}
 
                                 @can ('authorize', ['users.*', 'users.delete'])
                                     @can ('delete', $row)

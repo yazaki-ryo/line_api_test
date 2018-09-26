@@ -29,6 +29,7 @@ use Domain\UseCases\Tags\DeleteTag;
 use Domain\UseCases\Tags\UpdateTag;
 use Domain\UseCases\Users\DeleteUser;
 use Domain\UseCases\Users\RestoreUser;
+use Domain\UseCases\Users\UpdateUser;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
@@ -137,6 +138,12 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(RestoreUser::class, function () {
             return new RestoreUser(
+                app(UsersService::class)
+            );
+        });
+
+        $this->app->bind(UpdateUser::class, function () {
+            return new UpdateUser(
                 app(UsersService::class)
             );
         });

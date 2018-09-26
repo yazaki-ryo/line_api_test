@@ -6,7 +6,7 @@ namespace App\Http\Requests\Users;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SelfUpdateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -22,18 +22,6 @@ class SelfUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'max:191',
-            ],
-            'email' => [
-                'required',
-                'string',
-                'email',
-                'max:191',
-                Rule::unique('users')->ignore(auth()->user()->getAuthIdentifier()),
-            ],
             'store_id' => [
                 'required',
                 'numeric',
@@ -46,24 +34,12 @@ class SelfUpdateRequest extends FormRequest
                 'exists:roles,id',
                 // TODO by permissions
             ],
-            'password' => [
-                'nullable',
-                'string',
-                'min:8',
-                'max:16',
-                'confirmed',
-            ],
-            'avatar' => [
-                'nullable',
-                'file',
-                'image',
-                'mimes:jpg,jpeg,png,gif',
-                'max:2048',
-                // Rule::dimensions()->maxWidth(1000)->maxHeight(500)->ratio(3 / 2), // サイズ, 比率を指定する場合
-            ],
-            'drop_avatar' => [
-                'boolean',
-            ],
+            // TODO permissions
+//             'permissions' => [
+//                 'required',
+//                 'array',
+//                 'exists:permissions,id',
+//             ],
         ];
     }
 

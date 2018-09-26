@@ -37,6 +37,7 @@ class CreateRequest extends FormRequest
             'store_id' => [
                 'required',
                 'numeric',
+                'exists:stores,id',
                 'store_id',
             ],
             'role_id' => [
