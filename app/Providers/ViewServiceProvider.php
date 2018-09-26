@@ -10,6 +10,7 @@ use App\Http\Views\Composers\AuthComposer;
 use App\Http\Views\Composers\NotificationsComposer;
 use App\Http\Views\Composers\PrefecturesComposer;
 use App\Http\Views\Composers\PrintSettingsComposer;
+use App\Http\Views\Composers\RolesComposer;
 use App\Http\Views\Composers\SexesComposer;
 use App\Http\Views\Composers\StoresComposer;
 
@@ -40,12 +41,22 @@ final class ViewServiceProvider extends ServiceProvider
         ], PrintSettingsComposer::class);
 
         View::creator([
+            'settings.profile',
+            'users.add',
+            'users.edit',
+        ], RolesComposer::class);
+
+        View::creator([
             'customers.add',
             'customers.edit',
         ], SexesComposer::class);
 
         View::creator([
-            'customers.*',
+            'customers.add',
+            'customers.edit',
+            'settings.profile',
+            'users.add',
+            'users.edit',
         ], StoresComposer::class);
     }
 
