@@ -57,7 +57,6 @@
                                 @endcan
 --}}
 
-{{--
                                 @can ('authorize', ['users.*', 'users.delete'])
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>
@@ -69,7 +68,6 @@
                                         </li>
                                     @endcan
                                 @endcan
---}}
                             @endif
                         </ul>
                     </td>

@@ -13,6 +13,7 @@ use App\Services\FilesService;
 use App\Services\PrefecturesService;
 use App\Services\RolesService;
 use App\Services\TagsService;
+use App\Services\UsersService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Domain\UseCases\Customers\Files\ImportFiles;
@@ -26,6 +27,7 @@ use Domain\UseCases\Customers\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
 use Domain\UseCases\Tags\DeleteTag;
 use Domain\UseCases\Tags\UpdateTag;
+use Domain\UseCases\Users\DeleteUser;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
@@ -123,6 +125,12 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(UpdateTag::class, function () {
             return new UpdateTag(
                 app(TagsService::class)
+            );
+        });
+
+        $this->app->bind(DeleteUser::class, function () {
+            return new DeleteUser(
+                app(UsersService::class)
             );
         });
 
