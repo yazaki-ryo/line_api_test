@@ -44,17 +44,12 @@ class UsersSeeder extends Seeder
                 /**
                  * Permissions
                  */
-                $ids = EloquentPermission::slug('.*', 'like')->pluck('id');
+                $slugs = config('permissions.default.general.company-admin');
+                $ids = EloquentPermission::slugs($slugs)->pluck('id');
                 EloquentUser::find(1)->permissions()->sync($ids->all());
 
-                $ids = EloquentPermission::slugs([
-                    'stores.select',
-                    'stores.update',
-                    'customers.select',
-                    'customers.create',
-                    'customers.update',
-                    'tags.select',
-                ])->pluck('id');
+                $slugs = config('permissions.default.general.store-user');
+                $ids = EloquentPermission::slugs($slugs)->pluck('id');
                 EloquentUser::find(2)->permissions()->sync($ids->all());
             });
         } catch (\Exception $e) {
