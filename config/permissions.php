@@ -59,21 +59,39 @@ return [
                 'own-company-customers.delete',
                 'own-company-customers.restore',
 
+                'own-company-self-store-customers.select',
+                'own-company-self-store-customers.create',
+                'own-company-self-store-customers.update',
+                'own-company-self-store-customers.delete',
+                'own-company-self-store-customers.restore',
+
                 // Settings
                 'self-settings.printings.update',
 
                 // Stores
                 'own-company-stores.select',
-//                 'own-company-stores.create',
+                'own-company-stores.create',
                 'own-company-stores.update',
-//                 'own-company-stores.delete',
-//                 'own-company-stores.restore',
+                'own-company-stores.delete',
+                'own-company-stores.restore',
+
+                'own-company-self-store.select',
+                'own-company-self-store.update',
+                'own-company-self-store.delete',
+                'own-company-self-store.restore',
 
                 // Tags
                 'own-company-tags.select',
                 'own-company-tags.create',
                 'own-company-tags.update',
                 'own-company-tags.delete',
+                'own-company-tags.restore',
+
+                'own-company-self-store-tags.select',
+                'own-company-self-store-tags.create',
+                'own-company-self-store-tags.update',
+                'own-company-self-store-tags.delete',
+                'own-company-self-store-tags.restore',
 
                 // Users
                 'own-company-users.select',
@@ -81,6 +99,12 @@ return [
                 'own-company-users.update',
                 'own-company-users.delete',
                 'own-company-users.restore',
+
+                'own-company-self-store-users.select',
+                'own-company-self-store-users.create',
+                'own-company-self-store-users.update',
+                'own-company-self-store-users.delete',
+                'own-company-self-store-users.restore',
             ],
 
             /**
@@ -106,7 +130,6 @@ return [
                 'own-company-self-store-tags.select',
                 'own-company-self-store-tags.create',
                 'own-company-self-store-tags.update',
-                'own-company-self-store-tags.delete',
 
                 // Users
                 'own-company-self-store-users.select',
@@ -118,23 +141,23 @@ return [
         'companies' => [
             // all
             [
-                'name'  => '企業情報閲覧',
+                'name'  => '全企業情報閲覧',
                 'slug'  => 'companies.select',
             ],
             [
-                'name'  => '企業情報作成',
+                'name'  => '全企業情報作成',
                 'slug'  => 'companies.create',
             ],
             [
-                'name'  => '企業情報更新',
+                'name'  => '全企業情報更新',
                 'slug'  => 'companies.update',
             ],
             [
-                'name'  => '企業情報削除',
+                'name'  => '全企業情報削除',
                 'slug'  => 'companies.delete',
             ],
             [
-                'name'  => '企業情報復旧',
+                'name'  => '全企業情報復旧',
                 'slug'  => 'companies.restore',
             ],
 
@@ -160,23 +183,23 @@ return [
         'customers' => [
             // all
             [
-                'name'  => '顧客情報閲覧',
+                'name'  => '全顧客情報閲覧',
                 'slug'  => 'customers.select',
             ],
             [
-                'name'  => '顧客情報作成',
+                'name'  => '全顧客情報作成',
                 'slug'  => 'customers.create',
             ],
             [
-                'name'  => '顧客情報更新',
+                'name'  => '全顧客情報更新',
                 'slug'  => 'customers.update',
             ],
             [
-                'name'  => '顧客情報削除',
+                'name'  => '全顧客情報削除',
                 'slug'  => 'customers.delete',
             ],
             [
-                'name'  => '顧客情報復旧',
+                'name'  => '全顧客情報復旧',
                 'slug'  => 'customers.restore',
             ],
 
@@ -235,23 +258,23 @@ return [
         'stores' => [
             // all
             [
-                'name'  => '店舗情報閲覧',
+                'name'  => '全店舗情報閲覧',
                 'slug'  => 'stores.select',
             ],
             [
-                'name'  => '店舗情報作成',
+                'name'  => '全店舗情報作成',
                 'slug'  => 'stores.create',
             ],
             [
-                'name'  => '店舗情報更新',
+                'name'  => '全店舗情報更新',
                 'slug'  => 'stores.update',
             ],
             [
-                'name'  => '店舗情報削除',
+                'name'  => '全店舗情報削除',
                 'slug'  => 'stores.delete',
             ],
             [
-                'name'  => '店舗情報復旧',
+                'name'  => '全店舗情報復旧',
                 'slug'  => 'stores.restore',
             ],
 
@@ -299,23 +322,23 @@ return [
         'tags' => [
             // all
             [
-                'name'  => 'タグ閲覧',
+                'name'  => '全タグ閲覧',
                 'slug'  => 'tags.select',
             ],
             [
-                'name'  => 'タグ作成',
+                'name'  => '全タグ作成',
                 'slug'  => 'tags.create',
             ],
             [
-                'name'  => 'タグ更新',
+                'name'  => '全タグ更新',
                 'slug'  => 'tags.update',
             ],
             [
-                'name'  => 'タグ削除',
+                'name'  => '全タグ削除',
                 'slug'  => 'tags.delete',
             ],
             [
-                'name'  => 'タグ復旧',
+                'name'  => '全タグ復旧',
                 'slug'  => 'tags.restore',
             ],
 
@@ -367,23 +390,23 @@ return [
         'users' => [
             // all
             [
-                'name'  => 'ユーザー情報閲覧',
+                'name'  => '全ユーザー情報閲覧',
                 'slug'  => 'users.select',
             ],
             [
-                'name'  => 'ユーザー情報作成',
+                'name'  => '全ユーザー情報作成',
                 'slug'  => 'users.create',
             ],
             [
-                'name'  => 'ユーザー情報更新',
+                'name'  => '全ユーザー情報更新',
                 'slug'  => 'users.update',
             ],
             [
-                'name'  => 'ユーザー情報削除',
+                'name'  => '全ユーザー情報削除',
                 'slug'  => 'users.delete',
             ],
             [
-                'name'  => 'ユーザー情報復旧',
+                'name'  => '全ユーザー情報復旧',
                 'slug'  => 'users.restore',
             ],
 

@@ -12,12 +12,14 @@ class RolesSeeder extends Seeder
     /** @var array */
     private static $items = [
         [
-            'id'    => 1,
-            'name'  => '管理者',
+            'name'  => 'システム管理者',
+            'slug'  => 'system-admin',
+        ],
+        [
+            'name'  => '企業管理者',
             'slug'  => 'company-admin',
         ],
         [
-            'id'    => 2,
             'name'  => '店舗担当者',
             'slug'  => 'store-user',
         ],

@@ -167,4 +167,13 @@ $router->group([
         $router->get( 'test', \App\Http\Controllers\Notifications\TestController::class)->name(sprintf('%s.test', $prefix));
     });
 
+    /**
+     * Docs
+     */
+    $router->group([
+        'prefix' => $prefix = 'docs',
+    ], function (Router $router) use ($prefix) {
+        $router->get( 'permissions', \App\Http\Controllers\Docs\Permissions\IndexController::class)->name(sprintf('%s.permissions', $prefix));
+    });
+
 });

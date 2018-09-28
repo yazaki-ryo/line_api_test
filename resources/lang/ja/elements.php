@@ -16,6 +16,8 @@ return [
          */
         'action'         => '操作',
         'actions'        => '操作',
+        'authentication' => '認証',
+        'authorization'  => '認可',
 
         /**
          * B
