@@ -29,7 +29,7 @@ final class CreateController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'customers.*', 'customers.visited_histories.create'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.customers.visited_histories.create'))),
         ]);
 
         $this->useCase = $useCase;

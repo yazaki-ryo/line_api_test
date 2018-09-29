@@ -137,6 +137,179 @@ return [
         ],
     ],
 
+    'groups' => [
+        'companies' => [
+            'select' => [
+                'companies.select',
+                'own-company.select',
+            ],
+            'create' => [
+                'companies.create',
+            ],
+            'update' => [
+                'companies.update',
+                'own-company.update',
+            ],
+            'delete' => [
+                'companies.delete',
+                'own-company.delete',
+            ],
+            'restore' => [
+                'companies.restore',
+                'own-company.restore',
+            ],
+        ],
+
+        'customers' => [
+            'select' => [
+                'customers.select',
+                'own-company-customers.select',
+                'own-company-self-store-customers.select',
+            ],
+            'create' => [
+                'customers.create',
+                'own-company-customers.create',
+                'own-company-self-store-customers.create',
+            ],
+            'update' => [
+                'customers.update',
+                'own-company-customers.update',
+                'own-company-self-store-customers.update',
+            ],
+            'delete' => [
+                'customers.delete',
+                'own-company-customers.delete',
+                'own-company-self-store-customers.delete',
+            ],
+            'restore' => [
+                'customers.restore',
+                'own-company-customers.restore',
+                'own-company-self-store-customers.restore',
+            ],
+            'postcards' => [
+                'export' => [
+                    'customers.postcards.export',
+                    'own-company-customers.postcards.export',
+                    'own-company-self-store-customers.postcards.export',
+                ],
+            ],
+            'visited_histories' => [
+                'select' => [
+                    'customers-visited_histories.select',
+                    'own-company-customers-visited_histories.select',
+                    'own-company-self-store-customers-visited_histories.select',
+                ],
+                'create' => [
+                    'customers-visited_histories.create',
+                    'own-company-customers-visited_histories.create',
+                    'own-company-self-store-customers-visited_histories.create',
+                ],
+                'update' => [
+                    'customers-visited_histories.update',
+                    'own-company-customers-visited_histories.update',
+                    'own-company-self-store-customers-visited_histories.update',
+                ],
+                'delete' => [
+                    'customers-visited_histories.delete',
+                    'own-company-customers-visited_histories.delete',
+                    'own-company-self-store-customers-visited_histories.delete',
+                ],
+                'restore' => [
+                    'customers-visited_histories.restore',
+                    'own-company-customers-visited_histories.restore',
+                    'own-company-self-store-customers-visited_histories.restore',
+                ],
+            ],
+        ],
+
+        'settings' => [
+            //
+        ],
+
+        'stores' => [
+            'select' => [
+                'stores.select',
+                'own-company-stores.select',
+                'own-company-self-store.select',
+            ],
+            'create' => [
+                'stores.create',
+                'own-company-stores.create',
+            ],
+            'update' => [
+                'stores.update',
+                'own-company-stores.update',
+                'own-company-self-store.update',
+            ],
+            'delete' => [
+                'stores.delete',
+                'own-company-stores.delete',
+                'own-company-self-store.delete',
+            ],
+            'restore' => [
+                'stores.restore',
+                'own-company-stores.restore',
+                'own-company-self-store.restore',
+            ],
+        ],
+
+        'tags' => [
+            'select' => [
+                'tags.select',
+                'own-company-tags.select',
+                'own-company-self-store-tags.select',
+            ],
+            'create' => [
+                'tags.create',
+                'own-company-tags.create',
+                'own-company-self-store-tags.create',
+            ],
+            'update' => [
+                'tags.update',
+                'own-company-tags.update',
+                'own-company-self-store-tags.update',
+            ],
+            'delete' => [
+                'tags.delete',
+                'own-company-tags.delete',
+                'own-company-self-store-tags.delete',
+            ],
+            'restore' => [
+                'tags.restore',
+                'own-company-tags.restore',
+                'own-company-self-store-tags.restore',
+            ],
+        ],
+
+        'users' => [
+            'select' => [
+                'users.select',
+                'own-company-users.select',
+                'own-company-self-store-users.select',
+            ],
+            'create' => [
+                'users.create',
+                'own-company-users.create',
+                'own-company-self-store-users.create',
+            ],
+            'update' => [
+                'users.update',
+                'own-company-users.update',
+                'own-company-self-store-users.update',
+            ],
+            'delete' => [
+                'users.delete',
+                'own-company-users.delete',
+                'own-company-self-store-users.delete',
+            ],
+            'restore' => [
+                'users.restore',
+                'own-company-users.restore',
+                'own-company-self-store-users.restore',
+            ],
+        ],
+    ],
+
     'seeds' => [
         'companies' => [
             // all

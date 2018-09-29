@@ -52,15 +52,15 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            @can ('authorize', ['customers.*', 'customers.select'])
+                            @can ('authorize', config('permissions.groups.customers.select'))
                                 <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers') }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
                             @endcan
 
-                            @can ('authorize', ['customers.*', 'customers.create'])
+                            @can ('authorize', config('permissions.groups.customers.create'))
                                 <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.words.customers')@lang ('elements.words.register')</a></li>
                             @endcan
 
-                            @can ('authorize', ['customers.*', 'customers.files.import'])
+                            @can ('authorize', config('permissions.groups.customers.create'))
                                 <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.words.import')</a></li>
                             @endcan
                         </ul>
@@ -87,11 +87,11 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    @can ('authorize', ['tags.*', 'tags.select'])
+                                    @can ('authorize', config('permissions.groups.tags.select'))
                                         <li class="{{ request()->route()->named('tags') ? 'active' : '' }}"><a href="{{ route('tags') }}">@lang ('elements.words.tags')@lang ('elements.words.list')</a></li>
                                     @endcan
 
-                                    @can ('authorize', ['tags.*', 'tags.create'])
+                                    @can ('authorize', config('permissions.groups.tags.create'))
                                         <li class="{{ request()->route()->named('tags.add') ? 'active' : '' }}"><a href="{{ route('tags.add') }}">@lang ('elements.words.tags')@lang ('elements.words.register')</a></li>
                                     @endcan
                                 </ul>
@@ -119,7 +119,7 @@
                             </li>
 
                             <!-- Own store -->
-                            @can ('authorize', ['stores.*', 'stores.update'])
+                            @can ('authorize', config('permissions.groups.stores.update'))
                                 <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
                             @endcan
                         </ul>
@@ -139,11 +139,11 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    @can ('authorize', ['users.*', 'users.select'])
+                                    @can ('authorize', config('permissions.groups.users.select'))
                                         <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
                                     @endcan
 
-                                    @can ('authorize', ['users.*', 'users.create'])
+                                    @can ('authorize', config('permissions.groups.users.create'))
                                         <li class="{{ request()->route()->named('users.add') ? 'active' : '' }}"><a href="{{ route('users.add') }}">@lang ('elements.words.users')@lang ('elements.words.register')</a></li>
                                     @endcan
                                 </ul>
@@ -153,7 +153,7 @@
                             <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.words.user')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
 
                             <!-- Own company -->
-                            @can ('authorize', ['companies.*', 'companies.update'])
+                            @can ('authorize', config('permissions.groups.companies.update'))
                                 <li class="{{ request()->route()->named('settings.company') ? 'active' : '' }}"><a href="{{ route('settings.company') }}">@lang ('elements.words.company')@lang ('elements.words.information')@lang ('elements.words.edit')</a></li>
                             @endcan
 
@@ -166,7 +166,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    @can ('authorize', ['settings.*', 'settings.printings'])
+                                    @can ('authorize', ['self-settings.printings.update'])
                                         <li class="{{ request()->route()->named('settings.printings') ? 'active' : '' }}"><a href="{{ route('settings.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
                                     @endcan
                                 </ul>

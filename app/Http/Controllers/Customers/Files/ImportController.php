@@ -27,7 +27,7 @@ final class ImportController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'customers.*', 'customers.files.import'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.customers.files.import'))),
         ]);
 
         $this->useCase = $useCase;

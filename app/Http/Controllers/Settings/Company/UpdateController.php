@@ -27,7 +27,7 @@ final class UpdateController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'companies.*', 'companies.update'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.companies.update'))),
         ]);
 
         $this->useCase = $useCase;

@@ -26,7 +26,7 @@ final class RestoreController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'customers.*', 'customers.restore'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.customers.restore'))),
         ]);
 
         $this->useCase = $useCase;

@@ -28,7 +28,7 @@ final class IndexController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'users.*', 'users.select'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.users.select'))),
         ]);
 
         $this->useCase = $useCase;

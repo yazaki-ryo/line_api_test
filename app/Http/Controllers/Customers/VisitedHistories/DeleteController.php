@@ -27,7 +27,7 @@ final class DeleteController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'customers.*', 'customers.visited_histories.delete'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.customers.visited_histories.delete'))),
         ]);
 
         $this->useCase = $useCase;
