@@ -50,6 +50,7 @@ return [
         'day'            => '日',
         'delete'         => '削除',
         'deleted'        => '削除',
+        'detail'         => '詳細',
 
         /**
          * E

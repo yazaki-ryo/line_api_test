@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.words.customers')@lang ('elements.words.edit') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.customers')@lang ('elements.words.detail') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.edit')
+                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.detail')
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#edit-tab" data-toggle="tab">
-                            @lang ('elements.words.edit')
+                            @lang ('elements.words.detail')
                         </a>
                     </li>
 

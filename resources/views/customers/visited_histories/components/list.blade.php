@@ -36,7 +36,7 @@
                                 @can ('select', $row)
                                     <li>
                                         <a href="{{ route('customers.visited_histories.edit', [$row->customerId(), $row->id()]) }}">
-                                            @lang ('elements.words.edit')
+                                            @lang ('elements.words.detail')
                                         </a>
                                     </li>
                                 @endcan

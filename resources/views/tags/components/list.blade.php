@@ -37,7 +37,7 @@
                                     @can ('select', $row)
                                         <li>
                                             <a href="{{ route('tags.edit', $row->id()) }}">
-                                                @lang ('elements.words.edit')
+                                                @lang ('elements.words.detail')
                                             </a>
                                         </li>
                                     @endcan
