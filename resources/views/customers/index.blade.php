@@ -64,7 +64,7 @@
                                 {!! Form::close() !!}
                             </div>
                         </div>
-                    @encan
+                    @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
                         <div class="tab-pane fade pt-10" id="print-tab">

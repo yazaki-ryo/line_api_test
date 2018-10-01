@@ -26,7 +26,7 @@ final class CustomerPolicy
      * @param  Customer  $customer
      * @return bool
      */
-    public function get(EloquentUser $user, Customer $customer): bool
+    public function select(EloquentUser $user, Customer $customer): bool
     {
         if ($user->can('roles', 'company-admin')
             && optional($user->store)->company_id === optional($customer->store())->companyId()

@@ -44,7 +44,7 @@
                                 @endcan
                             @else
                                 @can ('authorize', config('permissions.groups.users.select'))
-                                    @can ('get', $row)
+                                    @can ('select', $row)
                                         <li>
                                             <a href="{{ route('users.edit', $row->id()) }}">
                                                 @lang ('elements.words.edit')

@@ -33,7 +33,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                                @can ('get', $row)
+                                @can ('select', $row)
                                     <li>
                                         <a href="{{ route('customers.visited_histories.edit', [$row->customerId(), $row->id()]) }}">
                                             @lang ('elements.words.edit')

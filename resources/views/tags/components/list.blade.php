@@ -34,7 +34,7 @@
                         <ul class="dropdown-menu">
                             @if (! $row->{$camel = camel_case('deleted_at')}())
                                 @can ('authorize', config('permissions.groups.tags.select'))
-                                    @can ('get', $row)
+                                    @can ('select', $row)
                                         <li>
                                             <a href="{{ route('tags.edit', $row->id()) }}">
                                                 @lang ('elements.words.edit')

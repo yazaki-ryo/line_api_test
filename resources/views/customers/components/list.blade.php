@@ -46,7 +46,7 @@
                                 @endcan
                             @else
                                 @can ('authorize', config('permissions.groups.customers.update'))
-                                    @can ('get', $row)
+                                    @can ('select', $row)
                                         <li>
                                             <a href="{{ route('customers.edit', $row->id()) }}">
                                                 @lang ('elements.words.edit')

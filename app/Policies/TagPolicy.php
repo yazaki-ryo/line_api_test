@@ -26,7 +26,7 @@ final class TagPolicy
      * @param  Tag  $tag
      * @return bool
      */
-    public function get(EloquentUser $user, Tag $tag): bool
+    public function select(EloquentUser $user, Tag $tag): bool
     {
         if ($user->can('roles', [
             'company-admin',

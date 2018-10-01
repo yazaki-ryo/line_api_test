@@ -54,7 +54,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    @can ('get', $row)
+                    @can ('select', $row)
                         <div class="tab-pane active fade in pt-10" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>

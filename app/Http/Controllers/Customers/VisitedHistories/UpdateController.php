@@ -49,7 +49,7 @@ final class UpdateController extends Controller
         /** @var VisitedHistory $visitedHistory */
         $visitedHistory = $this->useCase->getVisitedHistory($customer, $visitedHistory);
 
-        $this->authorize('get', $visitedHistory);
+        $this->authorize('select', $visitedHistory);
 
         return view('customers.visited_histories.edit', [
             'row' => $visitedHistory,

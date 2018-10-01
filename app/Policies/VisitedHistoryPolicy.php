@@ -27,7 +27,7 @@ final class VisitedHistoryPolicy
      * @param  VisitedHistory  $visitedHistory
      * @return bool
      */
-    public function get(EloquentUser $user, VisitedHistory $visitedHistory): bool
+    public function select(EloquentUser $user, VisitedHistory $visitedHistory): bool
     {
         if ($user->can('roles', 'company-admin')
             && optional($user->store)->company_id === optional(optional($visitedHistory->customer())->store())->companyId()

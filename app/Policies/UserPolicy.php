@@ -26,7 +26,7 @@ final class UserPolicy
      * @param  User  $targetUser
      * @return bool
      */
-    public function get(EloquentUser $user, User $targetUser): bool
+    public function select(EloquentUser $user, User $targetUser): bool
     {
         if ($user->can('roles', 'company-admin')
             && optional($user->store)->company_id === optional($targetUser->store())->companyId()
