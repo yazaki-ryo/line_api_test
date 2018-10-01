@@ -30,6 +30,16 @@ return [
                 'customers.delete',
                 'customers.restore',
 
+                // Visited Histories
+                'customers-visited_histories.select',
+                'customers-visited_histories.create',
+                'customers-visited_histories.update',
+                'customers-visited_histories.delete',
+                'customers-visited_histories.restore',
+
+                // Postcards
+                'customers-postcards.export',
+
                 // Stores
                 'stores.select',
                 'stores.create',
@@ -64,6 +74,16 @@ return [
                 'own-company-self-store-customers.update',
                 'own-company-self-store-customers.delete',
                 'own-company-self-store-customers.restore',
+
+                // Visited Histories
+                'own-company-customers-visited_histories.select',
+                'own-company-customers-visited_histories.create',
+                'own-company-customers-visited_histories.update',
+                'own-company-customers-visited_histories.delete',
+                'own-company-customers-visited_histories.restore',
+
+                // Postcards
+                'own-company-customers-postcards.export',
 
                 // Settings
                 'self-settings.printings.update',
@@ -118,6 +138,16 @@ return [
                 'own-company-self-store-customers.select',
                 'own-company-self-store-customers.create',
                 'own-company-self-store-customers.update',
+
+                // Visited Histories
+                'own-company-self-store-customers-visited_histories.select',
+                'own-company-self-store-customers-visited_histories.create',
+                'own-company-self-store-customers-visited_histories.update',
+                'own-company-self-store-customers-visited_histories.delete',
+                'own-company-self-store-customers-visited_histories.restore',
+
+                // Postcards
+                'own-company-self-store-customers-postcards.export',
 
                 // Settings
                 'self-settings.printings.update',
@@ -188,9 +218,9 @@ return [
             ],
             'postcards' => [
                 'export' => [
-                    'customers.postcards.export',
-                    'own-company-customers.postcards.export',
-                    'own-company-self-store-customers.postcards.export',
+                    'customers-postcards.export',
+                    'own-company-customers-postcards.export',
+                    'own-company-self-store-customers-postcards.export',
                 ],
             ],
             'visited_histories' => [
@@ -418,6 +448,92 @@ return [
             [
                 'name'  => '自店舗顧客情報復旧',
                 'slug'  => 'own-company-self-store-customers.restore',
+            ],
+
+            // visited_histories
+            // all
+            [
+                'name'  => '全顧客来店履歴閲覧',
+                'slug'  => 'customers-visited_histories.select',
+            ],
+            [
+                'name'  => '全顧客来店履歴作成',
+                'slug'  => 'customers-visited_histories.create',
+            ],
+            [
+                'name'  => '全顧客来店履歴更新',
+                'slug'  => 'customers-visited_histories.update',
+            ],
+            [
+                'name'  => '全顧客来店履歴削除',
+                'slug'  => 'customers-visited_histories.delete',
+            ],
+            [
+                'name'  => '全顧客来店履歴復旧',
+                'slug'  => 'customers-visited_histories.restore',
+            ],
+
+            // 自社店舗
+            [
+                'name'  => '自社顧客来店履歴閲覧',
+                'slug'  => 'own-company-customers-visited_histories.select',
+            ],
+            [
+                'name'  => '自社顧客来店履歴作成',
+                'slug'  => 'own-company-customers-visited_histories.create',
+            ],
+            [
+                'name'  => '自社顧客来店履歴更新',
+                'slug'  => 'own-company-customers-visited_histories.update',
+            ],
+            [
+                'name'  => '自社顧客来店履歴削除',
+                'slug'  => 'own-company-customers-visited_histories.delete',
+            ],
+            [
+                'name'  => '自社顧客来店履歴復旧',
+                'slug'  => 'own-company-customers-visited_histories.restore',
+            ],
+
+            // 自店舗
+            [
+                'name'  => '自店舗顧客来店履歴閲覧',
+                'slug'  => 'own-company-self-store-customers-visited_histories.select',
+            ],
+            [
+                'name'  => '自店舗顧客来店履歴作成',
+                'slug'  => 'own-company-self-store-customers-visited_histories.create',
+            ],
+            [
+                'name'  => '自店舗顧客来店履歴更新',
+                'slug'  => 'own-company-self-store-customers-visited_histories.update',
+            ],
+            [
+                'name'  => '自店舗顧客来店履歴削除',
+                'slug'  => 'own-company-self-store-customers-visited_histories.delete',
+            ],
+            [
+                'name'  => '自店舗顧客来店履歴復旧',
+                'slug'  => 'own-company-self-store-customers-visited_histories.restore',
+            ],
+
+            // postcards
+            // all
+            [
+                'name'  => '全顧客ハガキ印刷',
+                'slug'  => 'customers-postcards.export',
+            ],
+
+            // 自社店舗
+            [
+                'name'  => '自社顧客ハガキ印刷',
+                'slug'  => 'own-company-customers-postcards.export',
+            ],
+
+            // 自店舗
+            [
+                'name'  => '自店舗顧客ハガキ印刷',
+                'slug'  => 'own-company-self-store-customers-postcards.export',
             ],
         ],
 

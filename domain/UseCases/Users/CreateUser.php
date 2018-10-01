@@ -57,12 +57,14 @@ final class CreateUser
         /** @var Company $company */
         $company = $store->company();
 
-        if (! is_null($company) && $user->can('roles', 'company-admin')) {
+        if ($user->can('authorize', 'customers.create')) {
+            // TODO
+        } elseif ($user->can('authorize', 'own-company-customers.create') && ! is_null($company)) {
             $store = $company->stores([
                 'id' => $args->get('store_id'),
             ])->first();
-        } elseif (! is_null($store) && $user->can('roles', 'store-user')) {
-            //
+        } elseif ($user->can('authorize', 'own-company-self-store-customers.create') && ! is_null($store)) {
+            // none
         } else {
             throw new DomainRuleException('The store is not properly selected.');
         }

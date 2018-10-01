@@ -61,9 +61,11 @@ final class StoresComposer
         /** @var DomainCollection $stores */
         $collection = new DomainCollection;
 
-        if ($user->can('roles', 'company-admin') && ! is_null($company)) {
+        if ($user->can('authorize', 'customers.select') && ! is_null($company)) {
+            // TODO
+        } elseif ($user->can('authorize', 'own-company-customers.select') && ! is_null($company)) {
             $collection = $company->stores();
-        } elseif ($user->can('roles', 'store-user') && ! is_null($store)) {
+        } elseif ($user->can('authorize', 'own-company-self-store-customers.select') && ! is_null($store)) {
             $collection = $collection->push($store);
         }
 

@@ -37,7 +37,7 @@
 
 <div class="form-group">
     <div class="col-md-7 col-md-offset-5">
-        @can ('authorize', ['self-settings.printings.update'])
+        @can ('authorize', 'self-settings.printings.update')
             <button type="submit" class="btn btn-primary">
                 @lang ('elements.words.save')
             </button>

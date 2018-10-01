@@ -588,13 +588,15 @@ final class Customer extends DomainModel
             return false;
         }
 
-        if ($user->can('roles', 'company-admin')) {
+        if ($user->can('authorize', 'customers.select')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers.select')) {
             if ($company->customers()->containsStrict(function ($item) use ($value) {
                 return $item->id() === $value;
             })) {
                 return true;
             }
-        } else {
+        } elseif ($user->can('authorize', 'own-company-self-store-customers.select')) {
             if ($store->customers()->containsStrict(function ($item) use ($value) {
                 return $item->id() === $value;
             })) {
@@ -619,7 +621,7 @@ final class Customer extends DomainModel
         }
 
         foreach (collect(explode(',', $value)) as $id) {
-            if ($user->can('roles', 'company-admin')) {
+            if ($user->can('authorize', 'company-admin')) {
                 if (! $company->customers()->containsStrict(function ($item) use ($id) {
                     return $item->id() === (int)$id;
                 })) {

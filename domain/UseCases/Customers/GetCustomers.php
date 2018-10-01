@@ -48,9 +48,11 @@ final class GetCustomers
         /** @var Company $company */
         $company = $store->company();
 
-        if (! is_null($company) && $user->can('roles', 'company-admin')) {
+        if ($user->can('authorize', 'customers.select')) {
+            // TODO
+        } elseif ($user->can('authorize', 'own-company-customers.select') && ! is_null($company)) {
             return $company->customers($collection->all());
-        } elseif (! is_null($store) && $user->can('roles', 'store-user')) {
+        } elseif ($user->can('authorize', 'own-company-self-store-customers.select') && ! is_null($store)) {
             return $store->customers($collection->all());
         } else {
             return new DomainCollection;

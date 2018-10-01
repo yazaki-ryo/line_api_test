@@ -28,11 +28,13 @@ final class CustomerPolicy
      */
     public function select(EloquentUser $user, Customer $customer): bool
     {
-        if ($user->can('roles', 'company-admin')
+        if ($user->can('authorize', 'customers.select')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers.select')
             && optional($user->store)->company_id === optional($customer->store())->companyId()
         ) {
             return true;
-        } elseif ($user->can('roles', 'store-user')
+        } elseif ($user->can('authorize', 'own-company-self-store-customers.select')
             && $user->store_id === $customer->storeId()
         ) {
             return true;
@@ -57,11 +59,13 @@ final class CustomerPolicy
      */
     public function update(EloquentUser $user, Customer $customer): bool
     {
-        if ($user->can('roles', 'company-admin')
+        if ($user->can('authorize', 'customers.update')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers.update')
             && optional($user->store)->company_id === optional($customer->store())->companyId()
         ) {
             return true;
-        } elseif ($user->can('roles', 'store-user')
+        } elseif ($user->can('authorize', 'own-company-self-store-customers.update')
             && $user->store_id === $customer->storeId()
         ) {
             return true;
@@ -77,8 +81,14 @@ final class CustomerPolicy
      */
     public function delete(EloquentUser $user, Customer $customer): bool
     {
-        if ($user->can('roles', 'company-admin')
+        if ($user->can('authorize', 'customers.delete')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers.delete')
             && optional($user->store)->company_id === optional($customer->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-self-store-customers.delete')
+            && $user->store_id === $customer->storeId()
         ) {
             return true;
         }
@@ -93,8 +103,14 @@ final class CustomerPolicy
      */
     public function restore(EloquentUser $user, Customer $customer): bool
     {
-        if ($user->can('roles', 'company-admin')
+        if ($user->can('authorize', 'customers.restore')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers.restore')
             && optional($user->store)->company_id === optional($customer->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-self-store-customers.restore')
+            && $user->store_id === $customer->storeId()
         ) {
             return true;
         }

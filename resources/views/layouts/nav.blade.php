@@ -166,7 +166,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    @can ('authorize', ['self-settings.printings.update'])
+                                    @can ('authorize', 'self-settings.printings.update')
                                         <li class="{{ request()->route()->named('settings.printings') ? 'active' : '' }}"><a href="{{ route('settings.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
                                     @endcan
                                 </ul>

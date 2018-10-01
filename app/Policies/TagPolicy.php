@@ -28,10 +28,15 @@ final class TagPolicy
      */
     public function select(EloquentUser $user, Tag $tag): bool
     {
-        if ($user->can('roles', [
-            'company-admin',
-            'store-user',
-        ]) && $user->store_id === $tag->storeId()) {
+        if ($user->can('authorize', 'tags.select')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-tags.select')
+            && optional($user->store)->company_id === optional($tag->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-self-store-tags.select')
+            && $user->store_id === $tag->storeId()
+        ) {
             return true;
         }
 
@@ -54,10 +59,15 @@ final class TagPolicy
      */
     public function update(EloquentUser $user, Tag $tag): bool
     {
-        if ($user->can('roles', [
-            'company-admin',
-            'store-user',
-        ]) && $user->store_id === $tag->storeId()) {
+        if ($user->can('authorize', 'tags.update')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-tags.update')
+            && optional($user->store)->company_id === optional($tag->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-self-store-tags.update')
+            && $user->store_id === $tag->storeId()
+        ) {
             return true;
         }
 
@@ -71,8 +81,15 @@ final class TagPolicy
      */
     public function delete(EloquentUser $user, Tag $tag): bool
     {
-        if ($user->can('roles', 'company-admin')
-            && $user->store_id === $tag->storeId()) {
+        if ($user->can('authorize', 'tags.delete')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-tags.delete')
+            && optional($user->store)->company_id === optional($tag->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-self-store-tags.delete')
+            && $user->store_id === $tag->storeId()
+        ) {
             return true;
         }
 
@@ -86,6 +103,18 @@ final class TagPolicy
      */
     public function restore(EloquentUser $user, Tag $tag): bool
     {
+        if ($user->can('authorize', 'tags.restore')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-tags.restore')
+            && optional($user->store)->company_id === optional($tag->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-self-store-tags.restore')
+            && $user->store_id === $tag->storeId()
+        ) {
+            return true;
+        }
+
         return false;
     }
 
