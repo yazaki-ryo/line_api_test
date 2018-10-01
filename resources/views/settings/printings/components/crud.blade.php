@@ -37,9 +37,11 @@
 
 <div class="form-group">
     <div class="col-md-7 col-md-offset-5">
-        <button type="submit" class="btn btn-primary">
-            @lang ('elements.words.save')
-        </button>
+        @can ('authorize', ['self-settings.printings.update'])
+            <button type="submit" class="btn btn-primary">
+                @lang ('elements.words.save')
+            </button>
+        @endcan
 
         <a href="javascript:history.back();" class="btn btn-default">
             @lang ('elements.words.back')

@@ -33,7 +33,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             @if ($row->{$camel = camel_case('deleted_at')}())
-                                @can ('authorize', ['users.*', 'users.restore'])
+                                @can ('authorize', config('permissions.groups.users.restore'))
                                     @can ('restore', $row)
                                         <li>
                                             <a href="{{ route('users.restore', $row->id()) }}" onclick="restoreRecord('{{ route('users.restore', $row->id()) }}'); return false;">
@@ -43,7 +43,7 @@
                                     @endcan
                                 @endcan
                             @else
-                                @can ('authorize', ['users.*', 'users.update'])
+                                @can ('authorize', config('permissions.groups.users.select'))
                                     @can ('get', $row)
                                         <li>
                                             <a href="{{ route('users.edit', $row->id()) }}">
@@ -53,7 +53,7 @@
                                     @endcan
                                 @endcan
 
-                                @can ('authorize', ['users.*', 'users.delete'])
+                                @can ('authorize', config('permissions.groups.users.delete'))
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>
 

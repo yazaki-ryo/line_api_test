@@ -52,17 +52,17 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
-            @can ('authorize', ['customers.*', 'customers.visited_histories.create'])
+            @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                 <button type="submit" class="btn btn-primary">@lang ('elements.words.register')</button>
             @endcan
         @elseif ($mode === 'edit')
-            @can ('authorize', ['customers.*', 'customers.visited_histories.update'])
+            @can ('authorize', config('permissions.groups.customers.visited_histories.update'))
                 @can ('update', $row)
                     <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
                 @endcan
             @endcan
 
-            @can ('authorize', ['customers.*', 'customers.visited_histories.delete'])
+            @can ('authorize', config('permissions.groups.customers.visited_histories.delete'))
                 @can ('delete', $row)
                     <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
                         @lang ('elements.words.delete')

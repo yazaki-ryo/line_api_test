@@ -35,7 +35,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             @if ($row->{$camel = camel_case('deleted_at')}())
-                                @can ('authorize', ['customers.*', 'customers.restore'])
+                                @can ('authorize', config('permissions.groups.customers.restore'))
                                     @can ('restore', $row)
                                         <li>
                                             <a href="{{ route('customers.restore', $row->id()) }}" onclick="restoreRecord('{{ route('customers.restore', $row->id()) }}'); return false;">
@@ -45,7 +45,7 @@
                                     @endcan
                                 @endcan
                             @else
-                                @can ('authorize', ['customers.*', 'customers.update'])
+                                @can ('authorize', config('permissions.groups.customers.update'))
                                     @can ('get', $row)
                                         <li>
                                             <a href="{{ route('customers.edit', $row->id()) }}">
@@ -55,7 +55,7 @@
                                     @endcan
                                 @endcan
 
-                                @can ('authorize', ['customers.*', 'customers.visited_histories.create'])
+                                @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                                     <li>
                                         <a href="{{ route('customers.visited_histories.add', $row->id()) }}">
                                             @lang ('elements.words.visit')@lang ('elements.words.register')
@@ -63,7 +63,7 @@
                                     </li>
                                 @endcan
 
-                                @can ('authorize', ['customers.*', 'customers.delete'])
+                                @can ('authorize', config('permissions.groups.customers.delete'))
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>
 

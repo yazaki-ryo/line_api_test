@@ -180,9 +180,11 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">
-            @lang ('elements.words.save')
-        </button>
+        @can ('authorize', config('permissions.groups.companies.update'))
+            <button type="submit" class="btn btn-primary">
+                @lang ('elements.words.save')
+            </button>
+        @endcan
 
         <a href="javascript:history.back();" class="btn btn-default">
             @lang ('elements.words.back')

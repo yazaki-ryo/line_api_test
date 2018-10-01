@@ -36,39 +36,53 @@
                             @lang ('elements.words.edit')
                         </a>
                     </li>
-                    <li>
-                        <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
-                    </li>
-                    <li>
-                        <a href="#histories-tab" data-toggle="tab">
-                            @lang ('elements.words.visit')@lang ('elements.words.history')
-                            <span class="badge">{{ $visitedHistories->count() }}</span>
-                        </a>
-                    </li>
+
+                    @can ('authorize', config('permissions.groups.tags.select'))
+                        <li>
+                            <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
+                        </li>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                        <li>
+                            <a href="#histories-tab" data-toggle="tab">
+                                @lang ('elements.words.visit')@lang ('elements.words.history')
+                                <span class="badge">{{ $visitedHistories->count() }}</span>
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active fade in pt-10" id="edit-tab">
-                        <div class="panel panel-default">
-                            <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+                    @can ('get', $row)
+                        <div class="tab-pane active fade in pt-10" id="edit-tab">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
-                            <div class="panel-body">
-                                {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                                    @include ('customers.components.crud', ['mode' => 'edit'])
+                                <div class="panel-body">
+                                    {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
+                                        @include ('customers.components.crud', ['mode' => 'edit'])
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.tags.select'))
+                        <div class="tab-pane fade pt-10" id="tags-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                    @include ('customers.components.tags')
                                 {!! Form::close() !!}
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade pt-10" id="tags-tab">
-                        <div class="well">
-                            {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('customers.components.tags')
-                            {!! Form::close() !!}
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                        <div class="tab-pane fade pt-10" id="histories-tab">
+                            @include ('customers.visited_histories.components.list', ['rows' => $visitedHistories])
                         </div>
-                    </div>
-                    <div class="tab-pane fade pt-10" id="histories-tab">
-                        @include ('customers.visited_histories.components.list', ['rows' => $visitedHistories])
-                    </div>
+                    @endcan
                 </div>
             </div>
         </div>

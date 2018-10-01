@@ -26,9 +26,11 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">
-            @lang ('elements.words.search')
-        </button>
+        @can ('authorize', config('permissions.groups.users.select'))
+            <button type="submit" class="btn btn-primary">
+                @lang ('elements.words.search')
+            </button>
+        @endcan
 
         <a href="{{ route('users') }}" class="btn btn-default" onclick="if (! confirm('@lang ('Do you want to reset the search conditions?')')) return false;">
             @lang ('elements.words.conditions')@lang ('elements.words.reset')

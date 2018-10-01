@@ -32,7 +32,7 @@
                             <span class="glyphicon glyphicon-option-horizontal"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            @can ('authorize', ['customers.*', 'customers.visited_histories.update'])
+                            @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
                                 @can ('get', $row)
                                     <li>
                                         <a href="{{ route('customers.visited_histories.edit', [$row->customerId(), $row->id()]) }}">
@@ -42,7 +42,7 @@
                                 @endcan
                             @endcan
 
-                            @can ('authorize', ['customers.*', 'customers.visited_histories.delete'])
+                            @can ('authorize', config('permissions.groups.customers.visited_histories.delete'))
                                 @can ('delete', $row)
                                     <li role="separator" class="divider"></li>
 

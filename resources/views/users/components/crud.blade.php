@@ -140,18 +140,18 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
-            @can ('authorize', ['users.*', 'users.create'])
+            @can ('authorize', config('permissions.groups.users.create'))
                 <button type="submit" class="btn btn-primary">@lang ('elements.words.register')</button>
             @endcan
         @elseif ($mode === 'edit' || $mode === 'profile')
-            @can ('authorize', ['users.*', 'users.update'])
+            @can ('authorize', config('permissions.groups.users.update'))
                 @can ('update', $row)
                     <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
                 @endcan
             @endcan
 
             @if ($mode === 'edit')
-                @can ('authorize', ['users.*', 'users.delete'])
+                @can ('authorize', config('permissions.groups.users.delete'))
                     @can ('delete', $row)
                         <a href="{{ route('users.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('users.delete', $row->id()) }}'); return false;">
                             <i class="fa fa-trash"></i>@lang ('elements.words.delete')

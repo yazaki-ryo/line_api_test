@@ -33,7 +33,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             @if (! $row->{$camel = camel_case('deleted_at')}())
-                                @can ('authorize', ['tags.*', 'tags.update'])
+                                @can ('authorize', config('permissions.groups.tags.select'))
                                     @can ('get', $row)
                                         <li>
                                             <a href="{{ route('tags.edit', $row->id()) }}">
@@ -43,7 +43,7 @@
                                     @endcan
                                 @endcan
 
-                                @can ('authorize', ['tags.*', 'tags.delete'])
+                                @can ('authorize', config('permissions.groups.tags.delete'))
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>
 

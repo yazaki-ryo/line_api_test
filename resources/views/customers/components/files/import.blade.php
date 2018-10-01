@@ -15,8 +15,10 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">
-            @lang ('elements.words.csv')@lang ('elements.words.import')
-        </button>
+        @can ('authorize', config('permissions.groups.customers.test')){{-- TODO --}}
+            <button type="submit" class="btn btn-primary">
+                @lang ('elements.words.csv')@lang ('elements.words.import')
+            </button>
+        @endcan
     </div>
 </div>

@@ -46,17 +46,17 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
-            @can ('authorize', ['tags.*', 'tags.create'])
+            @can ('authorize', config('permissions.groups.tags.create'))
                 <button type="submit" class="btn btn-primary">@lang ('elements.words.register')</button>
             @endcan
         @elseif ($mode === 'edit')
-            @can ('authorize', ['tags.*', 'tags.update'])
+            @can ('authorize', config('permissions.groups.tags.update'))
                 @can ('update', $row)
                     <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
                 @endcan
             @endcan
 
-            @can ('authorize', ['tags.*', 'tags.delete'])
+            @can ('authorize', config('permissions.groups.tags.delete'))
                 @can ('delete', $row)
                     <a href="{{ route('tags.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('tags.delete', $row->id()) }}'); return false;">
                         <i class="fa fa-trash"></i>@lang ('elements.words.delete')

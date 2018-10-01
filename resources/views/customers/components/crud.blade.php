@@ -355,17 +355,17 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
-            @can ('authorize', ['customers.*', 'customers.create'])
+            @can ('authorize', config('permissions.groups.customers.create'))
                 <button type="submit" class="btn btn-primary">@lang ('elements.words.register')</button>
             @endcan
         @elseif ($mode === 'edit')
-            @can ('authorize', ['customers.*', 'customers.update'])
+            @can ('authorize', config('permissions.groups.customers.update'))
                 @can ('update', $row)
                     <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
                 @endcan
             @endcan
 
-            @can ('authorize', ['customers.*', 'customers.delete'])
+            @can ('authorize', config('permissions.groups.customers.delete'))
                 @can ('delete', $row)
                     <a href="{{ route('customers.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
                         <i class="fa fa-trash"></i>@lang ('elements.words.delete')

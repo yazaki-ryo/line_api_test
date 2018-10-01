@@ -56,8 +56,10 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        <button type="submit" class="btn btn-info">
-            @lang ('elements.words.search')
-        </button>
+        @can ('authorize', config('permissions.groups.tags.select'))
+            <button type="submit" class="btn btn-info">
+                @lang ('elements.words.search')
+            </button>
+        @endcan
     </div>
 </div>

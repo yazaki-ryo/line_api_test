@@ -28,7 +28,7 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        @can ('authorize', ['customers.*', 'customers.update'])
+        @can ('authorize', config('permissions.groups.tags.update'))
             <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
         @endcan
     </div>
