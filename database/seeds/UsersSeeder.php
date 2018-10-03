@@ -15,14 +15,12 @@ class UsersSeeder extends Seeder
         [
             'id'       => 1,
             'store_id' => 1,
-            'role_id'  => 1,
-            'name'     => '管理者',
+            'name'     => '企業管理者',
             'email'    => 'company-admin@test.jp',
         ],
         [
             'id'       => 2,
             'store_id' => 1,
-            'role_id'  => 2,
             'name'     => '店舗担当者',
             'email'    => 'store-user@test.jp',
         ],

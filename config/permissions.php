@@ -10,52 +10,17 @@ return [
     |
     */
 
-    'default' => [
-        /**
-         * system
-         */
+    'roles' => [
         'system' => [
-            'system-admin' => [
-                // Companies
-                'companies.select',
-                'companies.create',
-                'companies.update',
-                'companies.delete',
-                'companies.restore',
-
-                // Customers
-                'customers.select',
-                'customers.create',
-                'customers.update',
-                'customers.delete',
-                'customers.restore',
-
-                // Visited Histories
-                'customers-visited_histories.select',
-                'customers-visited_histories.create',
-                'customers-visited_histories.update',
-                'customers-visited_histories.delete',
-                'customers-visited_histories.restore',
-
-                // Postcards
-                'customers-postcards.export',
-
-                // Stores
-                'stores.select',
-                'stores.create',
-                'stores.update',
-                'stores.delete',
-                'stores.restore',
-
-                // Users
-                'users.select',
-                'users.create',
-                'users.update',
-                'users.delete',
-                'users.restore',
-            ],
+            'system-admin' => 'システム管理者',
         ],
+        'general' => [
+            'company-admin' => '企業管理者',
+            'store-user' => '店舗担当者',
+        ],
+    ],
 
+    'default' => [
         'general' => [
             'company-admin' => [
                 // Company
@@ -127,9 +92,6 @@ return [
                 'own-company-self-store-users.restore',
             ],
 
-            /**
-             * 店舗担当者
-             */
             'store-user' => [
                 // Company
                 'own-company.select',
@@ -163,6 +125,48 @@ return [
 
                 // Users
                 'own-company-self-store-users.select',
+            ],
+        ],
+
+        'system' => [
+            'system-admin' => [
+                // Companies
+                'companies.select',
+                'companies.create',
+                'companies.update',
+                'companies.delete',
+                'companies.restore',
+
+                // Customers
+                'customers.select',
+                'customers.create',
+                'customers.update',
+                'customers.delete',
+                'customers.restore',
+
+                // Visited Histories
+                'customers-visited_histories.select',
+                'customers-visited_histories.create',
+                'customers-visited_histories.update',
+                'customers-visited_histories.delete',
+                'customers-visited_histories.restore',
+
+                // Postcards
+                'customers-postcards.export',
+
+                // Stores
+                'stores.select',
+                'stores.create',
+                'stores.update',
+                'stores.delete',
+                'stores.restore',
+
+                // Users
+                'users.select',
+                'users.create',
+                'users.update',
+                'users.delete',
+                'users.restore',
             ],
         ],
     ],

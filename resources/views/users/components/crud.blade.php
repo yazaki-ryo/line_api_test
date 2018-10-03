@@ -36,6 +36,7 @@
     </div>
 </div>
 
+{{--
 @set ($attribute, 'store_id')
 <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
@@ -48,16 +49,17 @@
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
+--}}
 
 @set ($attribute, 'role_id')
 <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.users.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        @if ($mode === 'add' || $mode === 'edit') <span class="label label-danger">@lang ("elements.words.required")</span> @endif
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($attribute, $roles->pluckNamesByIds(), old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}())), [$user->cant('authorize', ['stores.select', 'own-company-stores.select']) ? 'readonly' : null, 'required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
+        {!! Form::select($attribute, config('permissions.roles.general'), empty($row->role()) ? $user->role() : $row->role(), [($mode === 'profile') || ($user->id() === $row->id()) || $user->cant('authorize', config('permissions.groups.users.create')) ? 'disabled' : 'required', 'required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

@@ -7,9 +7,9 @@
         <thead>
             <tr>
                 <th class="text-left">#</th>
-                {{--<th class="text-center">{{ $roles['system-admin'] }}</th>--}}
-                <th class="text-center">{{ $roles['company-admin'] }}</th>
-                <th class="text-center">{{ $roles['store-user'] }}</th>
+                {{--<th class="text-center">{{ config('permissions.roles.system.system-admin') }}</th>--}}
+                <th class="text-center">{{ config('permissions.roles.general.company-admin') }}</th>
+                <th class="text-center">{{ config('permissions.roles.general.store-user') }}</th>
                 <th class="text-left">slug</th>
             </tr>
         </thead>

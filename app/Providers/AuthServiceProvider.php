@@ -44,17 +44,6 @@ final class AuthServiceProvider extends ServiceProvider
             }
             return false;
         });
-
-        Gate::define('roles', function (Model $user, ...$args): bool {
-            $args = is_array($args) ? $args : [$args];
-
-            foreach ($args as $arg) {
-                if (optional($user->role)->slug === $arg) {
-                    return true;
-                }
-            }
-            return false;
-        });
     }
 
     /**

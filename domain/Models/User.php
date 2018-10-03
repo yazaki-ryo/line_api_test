@@ -34,9 +34,6 @@ final class User extends DomainModel
     private $deletedAt;
 
     /** @var int */
-    private $roleId;
-
-    /** @var int */
     private $storeId;
 
     /**
@@ -117,22 +114,6 @@ final class User extends DomainModel
     /**
      * @return int|null
      */
-    public function roleId(): ?int
-    {
-        return $this->roleId;
-    }
-
-    /**
-     * @return Role|null
-     */
-    public function role(): ?Role
-    {
-        return $this->repo->role();
-    }
-
-    /**
-     * @return int|null
-     */
     public function storeId(): ?int
     {
         return $this->storeId;
@@ -161,6 +142,30 @@ final class User extends DomainModel
     public function permissions(array $args = []): DomainCollection
     {
         return $this->repo->permissions($args);
+    }
+
+    /**
+     * @param string $side
+     * @return string
+     */
+    public function role($side = 'general'): string
+    {
+        $permissions = $this->permissions();
+
+        foreach (config(sprintf('permissions.default.%s', $side)) as $role => $defaults) {
+            $i = count($defaults);
+            foreach ($defaults as $permission) {
+                if (! $permissions->containsStrict(function (Permission $item) use ($permission) {
+                    return $item->slug() === $permission;
+                })) {
+                    break;
+                } elseif (--$i === 0) {
+                    return $role;
+                }
+            }
+        }
+
+        return '';
     }
 
     /**
@@ -211,10 +216,6 @@ final class User extends DomainModel
 
         if ($args->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
-        }
-
-        if ($args->has($key = 'role_id')) {
-            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         if ($args->has($key = 'store_id')) {
