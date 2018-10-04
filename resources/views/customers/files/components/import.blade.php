@@ -5,8 +5,8 @@
     </label>
 
     <div class="col-md-6 form-control-static">
+        <input type="hidden" name="MAX_FILE_SIZE" value="2097152" /><!-- TODO from config file. -->
         {!! Form::file($attribute, null, ['required', 'class' => 'form-control', 'id' => $attribute]) !!}
-        {!! Form::hidden('MAX_FILE_SIZE', 2097152) !!}<!-- TODO from config file. -->
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has($attribute = '') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'free_word') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
@@ -31,7 +31,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($attribute, array_reverse(\Lang::get('attributes.yes_or_no')), old($attribute, request($attribute)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
+        {!! Form::select($attribute, array_reverse(\Lang::get('attributes.yes_or_no')), null, ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -42,7 +42,7 @@
     </label>
 
     <div class="col-md-6 form-control-static">
-        {!! Form::select($attribute, \Lang::get('attributes.trashed'), old($attribute, request($attribute)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
+        {!! Form::select($attribute, \Lang::get('attributes.trashed'), null, ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

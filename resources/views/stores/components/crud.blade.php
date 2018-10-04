@@ -44,7 +44,13 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($attribute, $prefectures->pluckNamesByIds(), old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control p-region-id', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
+        <select name="{{ $attribute }}" class="form-control p-region-id" id="{{ $attribute }}" required>
+            <option value>@lang ('Please select')</option>
+            @foreach ($prefectures->pluckNamesByIds() as $key => $item)
+                <option value="{{ $key }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) === $key ? 'selected' : '' }} >{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

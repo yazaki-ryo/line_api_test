@@ -30,7 +30,7 @@
 
                     <div class="panel-body">
                         {!! Form::open(['url' => route('password.request'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                            {!! Form::hidden('token', $token, []) !!}
+                            <input type="hidden" name="token" value="{{ $token }}" />
 
                             <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">

@@ -41,7 +41,13 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($attribute, $stores->pluckNamesByIds(), old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}())), [$user->cant('authorize', ['stores.select', 'own-company-stores.select']) ? 'readonly' : null, 'required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ $user->cant('authorize', ['stores.select', 'own-company-stores.select']) ? 'disabled' : 'required' }}>
+            <option value>@lang ('Please select')</option>
+            @foreach ($stores->pluckNamesByIds() as $key => $item)
+                <option value="{{ $key }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}()) === $key ? 'selected' : '' }}>{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -54,7 +60,13 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($attribute, config('permissions.roles.general'), empty($row->role()) ? $user->role() : $row->role(), [($mode === 'profile') || ($user->id() === $row->id()) || $user->cant('authorize', config('permissions.groups.users.create')) ? 'disabled' : 'required', 'required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ ($mode === 'profile') || ($user->id() === $row->id()) || $user->cant('authorize', config('permissions.groups.users.create')) ? 'disabled' : 'required' }}>
+            <option value>@lang ('Please select')</option>
+            @foreach (config('permissions.roles.general') as $key => $item)
+                <option value="{{ $key }}" {{ old($attribute, empty($row->role()) ? $user->role() : $row->role()) === $key ? 'selected' : '' }}>{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -71,8 +83,8 @@
             <div class="col-md-6 form-control-static">
                 @include ('users.components.avatars')
 
+                <input type="hidden" name="MAX_FILE_SIZE" value="2097152" /><!-- TODO from config file. -->
                 {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
-                {!! Form::hidden('MAX_FILE_SIZE', 2097152) !!}<!-- TODO from config file. -->
                 @include ('components.form.err_msg', ['attribute' => $attribute])
 
                 @if ($row->avatars()->count())

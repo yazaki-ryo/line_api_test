@@ -5,7 +5,13 @@
     </label>
 
     <div class="col-md-5">
-        {!! Form::select($attribute, $printSettings, old($attribute, request($attribute, null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'placeholder' => __('Please select')]) !!}
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
+            <option value>@lang ('Please select')</option>
+            @foreach ($printSettings as $key => $item)
+                <option value="{{ $key }}" {{ (int)old($attribute) === $key ? 'selected' : '' }} >{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

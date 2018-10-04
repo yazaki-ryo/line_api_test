@@ -112,7 +112,13 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($attribute, $prefectures->pluckNamesByIds(), old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control p-region-id', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __('Please select')]) !!}
+        <select name="{{ $attribute }}" class="form-control p-region-id" id="{{ $attribute }}">
+            <option value>@lang ('Please select')</option>
+            @foreach ($prefectures->pluckNamesByIds() as $key => $item)
+                <option value="{{ $key }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) === $key ? 'selected' : '' }} >{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -252,7 +258,13 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::select($attribute, $stores->pluckNamesByIds(), old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}())), [$user->cant('authorize', ['stores.select', 'own-company-stores.select']) ? 'readonly' : null, 'required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ $user->cant('authorize', ['stores.select', 'own-company-stores.select']) ? 'disabled' : 'required' }}>
+            <option value>@lang ('Please select')</option>
+            @foreach ($stores->pluckNamesByIds() as $key => $item)
+                <option value="{{ $key }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}()) === $key ? 'selected' : '' }}>{{ $item }}</option>
+            @endforeach
+        </select>
+
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
