@@ -24,12 +24,12 @@
     </label>
 
     <div class="col-md-3">
-        <input type="text" name="{{ $attribute1 }}" value="{{ old($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null) }}" class="form-control" id="{{ $attribute1 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute1))" />
+        <input type="text" name="{{ $attribute1 }}" value="{{ old($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null) }}" class="form-control" id="{{ $attribute1 }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute1))" />
         @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
     <div class="col-md-3">
-        <input type="text" name="{{ $attribute2 }}" value="{{ old($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null) }}" class="form-control" id="{{ $attribute2 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute2))" />
+        <input type="text" name="{{ $attribute2 }}" value="{{ old($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null) }}" class="form-control" id="{{ $attribute2 }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute2))" />
         @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
 </div>
@@ -168,7 +168,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::email($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$attribute}")]) !!}
+        <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

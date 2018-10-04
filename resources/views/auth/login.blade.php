@@ -36,7 +36,7 @@
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon-{{ $attribute }}">@</span>
-                                        {!! Form::email($attribute, old($attribute), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '',  'aria-describedby' => "basic-addon-{$attribute}"]) !!}
+                                        <input type="email" name="{{ $attribute }}" value="{{ old($attribute) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" aria-describedby="basic-addon-{{ $attribute }}" required autofocus />
                                     </div>
 
                                     @include ('components.form.err_msg', ['attribute' => $attribute])

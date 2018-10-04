@@ -17,7 +17,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::email($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', $mode === 'edit' ? 'disabled' : '', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : '' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

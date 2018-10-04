@@ -39,7 +39,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::email($attribute, $email or old('email'), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+                                    <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $email) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
