@@ -7,7 +7,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -19,7 +19,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 7, 'placeholder' => '']) !!}
+        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

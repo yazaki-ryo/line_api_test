@@ -5,7 +5,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', $mode === 'edit' ? 'disabled' : 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : 'autofocus' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -72,12 +72,15 @@
                 @include ('users.components.avatars')
 
                 {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
-                {!! Form::hidden('MAX_FILE_SIZE', 2097152) !!}<!-- いずれ設定値から取得 -->
+                {!! Form::hidden('MAX_FILE_SIZE', 2097152) !!}<!-- TODO from config file. -->
                 @include ('components.form.err_msg', ['attribute' => $attribute])
 
                 @if ($row->avatars()->count())
                     <div class="checkbox">
-                        <label>{!! Form::checkbox($attribute2 = 'drop_avatar', 1, old($attribute2), ['class' => '', 'id' => $attribute2]) !!} @lang ('Delete the current image.')</label>
+                        <label>
+                            {!! Form::checkbox($attribute2 = 'drop_avatar', 1, old($attribute2), ['class' => '', 'id' => $attribute2]) !!} @lang ('Delete the current image.')
+                        </label>
+
                         @include ('components.form.err_msg', ['attribute' => $attribute2])
                     </div>
                 @endif
