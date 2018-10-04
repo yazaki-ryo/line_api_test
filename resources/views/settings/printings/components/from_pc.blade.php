@@ -1,5 +1,4 @@
-@set ($attribute, 'from_flag')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can choose whether to output information of sender such as zip code, address, name etc.')"></span>
@@ -16,8 +15,7 @@
     </div>
 </div>
 
-@set ($attribute, 'from_pc_symbol')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_pc_symbol') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
     </label>
@@ -33,11 +31,10 @@
     </div>
 </div>
 
-@set ($attribute, 'from_pc_x')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_pc_x') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
@@ -46,11 +43,10 @@
     </div>
 </div>
 
-@set ($attribute, 'from_pc_y')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_pc_y') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
@@ -59,11 +55,10 @@
     </div>
 </div>
 
-@set ($attribute, 'from_pc_font')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_pc_font') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
@@ -77,11 +72,10 @@
     </div>
 </div>
 
-@set ($attribute, 'from_pc_font_size')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_pc_font_size') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">

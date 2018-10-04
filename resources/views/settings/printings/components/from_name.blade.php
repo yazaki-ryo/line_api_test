@@ -1,8 +1,7 @@
-@set ($attribute, 'from_name_x')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_name_x') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
@@ -11,11 +10,10 @@
     </div>
 </div>
 
-@set ($attribute, 'from_name_y')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_name_y') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
@@ -24,11 +22,10 @@
     </div>
 </div>
 
-@set ($attribute, 'from_name_font')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_name_font') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
@@ -42,11 +39,10 @@
     </div>
 </div>
 
-@set ($attribute, 'from_name_font_size')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'from_name_font_size') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">

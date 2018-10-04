@@ -35,11 +35,10 @@
 
                         {!! Form::open(['url' => route('password.email'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
-                            @set ($attribute, 'email')
-                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
                                     @lang ("attributes.users.{$attribute}")
-                                    <span class="label label-danger">@lang ("elements.words.required")</span>
+                                    <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
                                 <div class="col-md-6">

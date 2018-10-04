@@ -1,5 +1,4 @@
-@set ($attribute, 'tags')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'tags') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("elements.words.{$attribute}")
     </label>

@@ -1,8 +1,7 @@
-@set ($attribute, 'visited_date')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'visited_date') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.visited_histories.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
@@ -11,8 +10,7 @@
     </div>
 </div>
 
-@set ($attribute, 'visited_time')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'visited_time') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.visited_histories.{$attribute}")
     </label>
@@ -23,8 +21,7 @@
     </div>
 </div>
 
-@set ($attribute, 'amount')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'amount') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.visited_histories.{$attribute}")
     </label>
@@ -35,8 +32,7 @@
     </div>
 </div>
 
-@set ($attribute, 'seat')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'seat') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.visited_histories.{$attribute}")
     </label>

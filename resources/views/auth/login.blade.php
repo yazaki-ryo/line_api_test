@@ -30,8 +30,7 @@
                     <div class="panel-body">
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
-                            @set ($attribute, 'email')
-                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
 
                                 <div class="col-md-6">
@@ -44,8 +43,7 @@
                                 </div>
                             </div>
 
-                            @set ($attribute, 'password')
-                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
 
                                 <div class="col-md-6">
@@ -58,12 +56,11 @@
                                 </div>
                             </div>
 
-                            @set ($attribute, 'remember')
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            {!! Form::checkbox($attribute, 1, old($attribute), []) !!} @lang ("attributes.users.{$attribute}")
+                                            {!! Form::checkbox($attribute = 'remember', 1, old($attribute), []) !!} @lang ("attributes.users.{$attribute}")
                                         </label>
                                     </div>
                                 </div>

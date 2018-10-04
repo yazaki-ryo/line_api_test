@@ -1,5 +1,4 @@
-@set ($attribute, 'free_word')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'free_word') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.tags.search.{$attribute}")
     </label>
@@ -10,9 +9,7 @@
     </div>
 </div>
 
-@set ($attribute1, 'visited_date_s')
-@set ($attribute2, 'visited_date_e')
-<div class="form-group{{ $errors->has($attribute1) || $errors->has($attribute2) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute1 = 'visited_date_s') || $errors->has($attribute2 = 'visited_date_e') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang ("attributes.tags.visited_histories.visited_date")
     </label>
@@ -28,8 +25,7 @@
     </div>
 </div>
 
-@set ($attribute, 'mourning_flag')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.tags.search.{$attribute}")
     </label>
@@ -40,8 +36,7 @@
     </div>
 </div>
 
-@set ($attribute, 'trashed')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'trashed') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.tags.search.{$attribute}")
     </label>

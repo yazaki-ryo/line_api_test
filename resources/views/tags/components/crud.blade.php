@@ -1,8 +1,7 @@
-@set ($attribute, 'name')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.tags.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -11,11 +10,10 @@
     </div>
 </div>
 
-@set ($attribute, 'label')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'label') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.tags.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -27,16 +25,14 @@
     </div>
 </div>
 
-@set ($attribute, 'updated_at')
 @if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
+    <div class="form-group">
+        <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
             @lang ("attributes.tags.{$attribute}")
         </label>
 
         <div class="col-md-6 form-control-static">
             {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-            @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 @endif

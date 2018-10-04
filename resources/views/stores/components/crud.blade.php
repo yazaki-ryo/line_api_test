@@ -1,10 +1,9 @@
-{!! Form::hidden(null, 'Japan', ['class' => 'p-country-name']) !!}
+<input type="hidden" value="Japan" class="p-country-name" />
 
-@set ($attribute, 'name')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -13,11 +12,10 @@
     </div>
 </div>
 
-@set ($attribute, 'kana')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'kana') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -26,12 +24,11 @@
     </div>
 </div>
 
-@set ($attribute, 'postal_code')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'postal_code') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('By entering the postal code, the prefecture city, town, village address is automatically entered.')"></span>
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -40,11 +37,10 @@
     </div>
 </div>
 
-@set ($attribute, 'prefecture_id')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'prefecture_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -53,11 +49,10 @@
     </div>
 </div>
 
-@set ($attribute, 'address')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'address') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -66,8 +61,7 @@
     </div>
 </div>
 
-@set ($attribute, 'building')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'building') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
     </label>
@@ -78,11 +72,10 @@
     </div>
 </div>
 
-@set ($attribute, 'tel')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'tel') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -91,8 +84,7 @@
     </div>
 </div>
 
-@set ($attribute, 'fax')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'fax') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
     </label>
@@ -103,11 +95,10 @@
     </div>
 </div>
 
-@set ($attribute, 'email')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -116,27 +107,23 @@
     </div>
 </div>
 
-@set ($attribute, 'company_id')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
+<div class="form-group">
+    <label for="{{ $attribute = 'company_id' }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
         {{ optional($row->company())->name() ?? null }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($attribute, 'updated_at')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
+<div class="form-group">
+    <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
         @lang ("attributes.stores.{$attribute}")
     </label>
 
     <div class="col-md-6 form-control-static">
         {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 

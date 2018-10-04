@@ -1,52 +1,48 @@
-{!! Form::hidden(null, 'Japan', ['class' => 'p-country-name']) !!}
+<input type="hidden" value="Japan" class="p-country-name" />
 
-@set ($attribute1, 'last_name')
-@set ($attribute2, 'first_name')
-<div class="form-group{{ $errors->has($attribute1) || $errors->has($attribute2) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute1 = 'last_name') || $errors->has($attribute2 = 'first_name') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$attribute1}")@lang ("attributes.customers.{$attribute2}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        @lang (sprintf('attributes.customers.%s', $attribute1))@lang (sprintf('attributes.customers.%s', $attribute2))
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
-        {!! Form::text($attribute1, old($attribute1, request($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute1, 'maxlength' => 191, 'placeholder' => __("attributes.customers.{$attribute1}")]) !!}
+        <input type="text" name="{{ $attribute1 }}" value="{{ old($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null) }}" class="form-control" id="{{ $attribute1 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute1))" required autofocus />
         @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
     <div class="col-md-3">
-        {!! Form::text($attribute2, old($attribute2, request($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute2, 'maxlength' => 191, 'placeholder' => __("attributes.customers.{$attribute2}")]) !!}
+        <input type="text" name="{{ $attribute2 }}" value="{{ old($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null) }}" class="form-control" id="{{ $attribute2 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute2))" required />
         @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
 </div>
 
-@set ($attribute1, 'last_name_kana')
-@set ($attribute2, 'first_name_kana')
-<div class="form-group{{ $errors->has($attribute1) || $errors->has($attribute2) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute1 = 'last_name_kana') || $errors->has($attribute2 = 'first_name_kana') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.last_name")@lang ("attributes.customers.{$attribute2}")
+        @lang ('attributes.customers.last_name')@lang (sprintf('attributes.customers.%s', $attribute2))
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
-        {!! Form::text($attribute1, old($attribute1, request($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null)), ['class' => 'form-control', 'id' => $attribute1, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$attribute1}")]) !!}
+        <input type="text" name="{{ $attribute1 }}" value="{{ old($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null) }}" class="form-control" id="{{ $attribute1 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute1))" />
         @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
     <div class="col-md-3">
-        {!! Form::text($attribute2, old($attribute2, request($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null)), ['class' => 'form-control', 'id' => $attribute2, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$attribute2}")]) !!}
+        <input type="text" name="{{ $attribute2 }}" value="{{ old($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null) }}" class="form-control" id="{{ $attribute2 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute2))" />
         @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
 </div>
 
-@set ($attribute, 'sex_id')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'sex_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.{$attribute}")
+        @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">
         @foreach ($sexes as $item)
             <label>
-                <input type="radio" name="{{ $attribute }}" value="{{ $item->id() }}" {{ (int)old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? 1)) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
+                <input type="radio" name="{{ $attribute }}" value="{{ $item->id() }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? 1) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
             </label>
         @endforeach
 
@@ -54,8 +50,7 @@
     </div>
 </div>
 
-@set ($attribute, 'office')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'office') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -66,8 +61,7 @@
     </div>
 </div>
 
-@set ($attribute, 'office_kana')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'office_kana') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -78,8 +72,7 @@
     </div>
 </div>
 
-@set ($attribute, 'department')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'department') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -90,8 +83,7 @@
     </div>
 </div>
 
-@set ($attribute, 'position')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'position') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -102,8 +94,7 @@
     </div>
 </div>
 
-@set ($attribute, 'postal_code')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'postal_code') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('By entering the postal code, the prefecture city, town, village address is automatically entered.')"></span>
@@ -115,8 +106,7 @@
     </div>
 </div>
 
-@set ($attribute, 'prefecture_id')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'prefecture_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -127,8 +117,7 @@
     </div>
 </div>
 
-@set ($attribute, 'address')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'address') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -139,8 +128,7 @@
     </div>
 </div>
 
-@set ($attribute, 'building')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'building') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -151,11 +139,10 @@
     </div>
 </div>
 
-@set ($attribute, 'tel')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'tel') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -164,8 +151,7 @@
     </div>
 </div>
 
-@set ($attribute, 'fax')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'fax') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -176,8 +162,7 @@
     </div>
 </div>
 
-@set ($attribute, 'email')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -188,8 +173,7 @@
     </div>
 </div>
 
-@set ($attribute, 'mobile_phone')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'mobile_phone') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -200,8 +184,7 @@
     </div>
 </div>
 
-@set ($attribute, 'birthday')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'birthday') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -212,8 +195,7 @@
     </div>
 </div>
 
-@set ($attribute, 'anniversary')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'anniversary') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -224,11 +206,10 @@
     </div>
 </div>
 
-@set ($attribute, 'mourning_flag')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -242,8 +223,7 @@
     </div>
 </div>
 
-@set ($attribute, 'likes_and_dislikes')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'likes_and_dislikes') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -254,8 +234,7 @@
     </div>
 </div>
 
-@set ($attribute, 'note')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'note') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
     </label>
@@ -266,11 +245,10 @@
     </div>
 </div>
 
-@set ($attribute, 'store_id')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'store_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang ("attributes.customers.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -279,73 +257,63 @@
     </div>
 </div>
 
-@set ($attribute, 'last_visited_at')
 @if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
+    <div class="form-group">
+        <label for="{{ $attribute = 'last_visited_at' }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$attribute}")
         </label>
 
         <div class="col-md-6 form-control-static">
             {{ $visitedHistories->count() ? $visitedHistories->last()->visitedAt()->format('Y-m-d H:i') : '-' }}
-            @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 @endif
 
 
-@set ($attribute, 'first_visited_at')
 @if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
+    <div class="form-group">
+        <label for="{{ $attribute = 'first_visited_at' }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$attribute}")
         </label>
 
         <div class="col-md-6 form-control-static">
             {{ $visitedHistories->count() ? $visitedHistories->first()->visitedAt()->format('Y-m-d H:i') : '-' }}
-            @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 @endif
 
-@set ($attribute, 'cancel_cnt')
 @if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
+    <div class="form-group">
+        <label for="{{ $attribute = 'cancel_cnt' }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$attribute}")
         </label>
 
         <div class="col-md-6 form-control-static">
             <span class="badge">{{ optional($row->{$camel = camel_case($attribute)}())->asInt() ?? null }}</span>
-            @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 @endif
 
-@set ($attribute, 'noshow_cnt')
 @if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
+    <div class="form-group">
+        <label for="{{ $attribute = 'noshow_cnt' }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$attribute}")
         </label>
 
         <div class="col-md-6 form-control-static">
             <span class="badge">{{ optional($row->{$camel = camel_case($attribute)}())->asInt() ?? null }}</span>
-            @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 @endif
 
-@set ($attribute, 'updated_at')
 @if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
+    <div class="form-group">
+        <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
             @lang ("attributes.customers.{$attribute}")
         </label>
 
         <div class="col-md-6 form-control-static">
             {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-            @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 @endif
