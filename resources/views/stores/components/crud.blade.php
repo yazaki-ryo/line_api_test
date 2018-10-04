@@ -56,7 +56,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control p-locality p-street-address', 'id' => $attribute, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
+        <textarea name="{{ $attribute }}" class="form-control p-locality p-street-address" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="" required>{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -67,7 +67,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 1000, 'rows' => 3, 'placeholder' => '']) !!}
+        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

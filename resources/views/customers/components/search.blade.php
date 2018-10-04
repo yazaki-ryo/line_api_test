@@ -4,7 +4,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($attribute, old($attribute, request($attribute)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 1000, 'rows' => 2, 'placeholder' => __('Name, office name, features, etc.')]) !!}
+        {!! Form::textarea($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 1000, 'rows' => 2, 'placeholder' => __('Name, office name, features, etc.')]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
