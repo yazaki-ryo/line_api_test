@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->has($attribute = 'csv_file') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.files.{$attribute}")
+        @lang (sprintf('attributes.customers.files.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 

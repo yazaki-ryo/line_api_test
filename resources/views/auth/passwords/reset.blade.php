@@ -34,7 +34,7 @@
 
                             <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$attribute}")
+                                    @lang (sprintf('attributes.users.%s', $attribute))
                                     <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
@@ -46,7 +46,7 @@
 
                             <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$attribute}")
+                                    @lang (sprintf('attributes.users.%s', $attribute))
                                     <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
@@ -58,7 +58,7 @@
 
                             <div class="form-group{{ $errors->has($attribute = 'password_confirmation') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$attribute}")
+                                    @lang (sprintf('attributes.users.%s', $attribute))
                                     <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 

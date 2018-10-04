@@ -2,7 +2,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -14,7 +14,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'kana') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -26,7 +26,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'postal_code') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('By entering the postal code, the prefecture city, town, village address is automatically entered.')"></span>
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
@@ -39,7 +39,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'prefecture_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -51,7 +51,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'address') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -63,7 +63,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'building') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
     </label>
 
     <div class="col-md-6">
@@ -74,7 +74,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'tel') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -86,7 +86,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'fax') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
     </label>
 
     <div class="col-md-6">
@@ -97,7 +97,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -109,7 +109,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'plan_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -120,7 +120,7 @@
 
 <div class="form-group">
     <label for="{{ $attribute = 'user_limit' }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -131,7 +131,7 @@
 
 <div class="form-group">
     <label for="{{ $attribute = 'starts_at' }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -142,7 +142,7 @@
 
 <div class="form-group">
     <label for="{{ $attribute = 'ends_at' }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -153,7 +153,7 @@
 
 <div class="form-group">
     <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
-        @lang ("attributes.companies.{$attribute}")
+        @lang (sprintf('attributes.companies.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">

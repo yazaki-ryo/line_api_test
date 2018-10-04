@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->has($attribute = '') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.search.{$attribute}")
+        @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
 
     <div class="col-md-6">
@@ -11,7 +11,7 @@
 
 <div class="form-group{{ $errors->has($attribute1 = 'visited_date_s') || $errors->has($attribute2 = 'visited_date_e') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.visited_date")
+        @lang ('attributes.customers.visited_histories.visited_date')
     </label>
 
     <div class="col-md-3">
@@ -27,7 +27,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.search.{$attribute}")
+        @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
 
     <div class="col-md-6">
@@ -38,7 +38,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'trashed') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.search.{$attribute}")
+        @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -49,7 +49,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'tags') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("elements.words.{$attribute}")
+        @lang (sprintf('elements.words.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">

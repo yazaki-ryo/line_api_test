@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->{$errorBag}->has($attribute = 'pc_position') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can choose whether to output the postal code to the prescribed position or to the arbitrary position.')"></span>
     </label>
 
@@ -17,7 +17,7 @@
 
 <div class="form-group{{ $errors->{$errorBag}->has($attribute = 'pc_frame') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('When outputting the postal code to the prescribed position on the upper right, it is possible to select whether or not to output the frame.')"></span>
     </label>
 
@@ -34,7 +34,7 @@
 
 <div class="form-group{{ $errors->{$errorBag}->has($attribute = 'pc_symbol') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can choose whether to output the 〒 mark when you want to output the postal code to an arbitrary position.')"></span>
     </label>
 
@@ -51,7 +51,7 @@
 
 <div class="form-group{{ $errors->{$errorBag}->has($attribute = 'pc_x') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -63,7 +63,7 @@
 
 <div class="form-group{{ $errors->{$errorBag}->has($attribute = 'pc_y') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -75,7 +75,7 @@
 
 <div class="form-group{{ $errors->{$errorBag}->has($attribute = 'pc_font') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -92,7 +92,7 @@
 
 <div class="form-group{{ $errors->{$errorBag}->has($attribute = 'pc_font_size') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 

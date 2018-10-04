@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->{$errorBag}->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 

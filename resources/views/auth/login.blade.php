@@ -31,7 +31,7 @@
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
                             <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
-                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang (sprintf('attributes.users.%s', $attribute))</label>
 
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
-                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang (sprintf('attributes.users.%s', $attribute))</label>
 
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -60,7 +60,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            {!! Form::checkbox($attribute = 'remember', 1, old($attribute), []) !!} @lang ("attributes.users.{$attribute}")
+                                            {!! Form::checkbox($attribute = 'remember', 1, old($attribute), []) !!} @lang (sprintf('attributes.users.%s', $attribute))
                                         </label>
                                     </div>
                                 </div>

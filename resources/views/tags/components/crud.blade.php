@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.tags.{$attribute}")
+        @lang (sprintf('attributes.tags.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -12,7 +12,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'label') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.tags.{$attribute}")
+        @lang (sprintf('attributes.tags.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
@@ -28,7 +28,7 @@
 @if ($mode === 'edit')
     <div class="form-group">
         <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
-            @lang ("attributes.tags.{$attribute}")
+            @lang (sprintf('attributes.tags.%s', $attribute))
         </label>
 
         <div class="col-md-6 form-control-static">
