@@ -32,7 +32,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control p-postal-code', 'id' => $attribute, 'maxlength' => 7, 'placeholder' => __('No hyphen, 7 numeric digits')]) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control p-postal-code" id="{{ $attribute }}" maxlength="7" placeholder="@lang ('No hyphen, 7 numeric digits')" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -79,7 +79,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -90,7 +90,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

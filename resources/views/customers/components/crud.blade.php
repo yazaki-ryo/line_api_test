@@ -101,7 +101,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control p-postal-code', 'id' => $attribute, 'maxlength' => 7, 'placeholder' => __('No hyphen, 7 numeric digits')]) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control p-postal-code" id="{{ $attribute }}" maxlength="7" placeholder="@lang ('No hyphen, 7 numeric digits')" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -146,7 +146,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$attribute}")]) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -157,7 +157,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$attribute}")]) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -179,7 +179,7 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => __("elements.placeholders.customers.{$attribute}")]) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -190,7 +190,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($attribute, old($attribute, request($attribute, empty($row->{$camel = camel_case($attribute)}()) ? null : $row->{$camel = camel_case($attribute)}()->format('Y-m-d'))), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 10, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, empty($row->{$camel = camel_case($attribute)}()) ? null : $row->{$camel = camel_case($attribute)}()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -201,7 +201,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($attribute, old($attribute, request($attribute, empty($row->{$camel = camel_case($attribute)}()) ? null : $row->{$camel = camel_case($attribute)}()->format('Y-m-d'))), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 10, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, empty($row->{$camel = camel_case($attribute)}()) ? null : $row->{$camel = camel_case($attribute)}()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

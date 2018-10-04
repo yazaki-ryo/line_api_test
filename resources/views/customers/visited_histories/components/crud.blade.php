@@ -5,7 +5,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($attribute, old($attribute, request($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d'))), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 10, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -27,7 +27,7 @@
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 10, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
