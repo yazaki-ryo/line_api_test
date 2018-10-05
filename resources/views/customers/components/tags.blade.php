@@ -1,7 +1,6 @@
-@set ($attribute, 'tags')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'tags') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("elements.words.{$attribute}")
+        @lang (sprintf('elements.words.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -28,7 +27,7 @@
 
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
-        @can ('authorize', ['customers.*', 'customers.update'])
+        @can ('authorize', config('permissions.groups.tags.update'))
             <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
         @endcan
     </div>

@@ -34,6 +34,18 @@ class SelfUpdateRequest extends FormRequest
                 'max:191',
                 Rule::unique('users')->ignore(auth()->user()->getAuthIdentifier()),
             ],
+            'store_id' => [
+                'required',
+                'numeric',
+                'exists:stores,id',
+                'store_id',
+            ],
+            'role_id' => [
+                'required',
+                'numeric',
+                'exists:roles,id',
+                // TODO by permissions
+            ],
             'password' => [
                 'nullable',
                 'string',

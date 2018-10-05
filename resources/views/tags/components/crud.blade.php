@@ -1,21 +1,19 @@
-@set ($attribute, 'name')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.tags.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        @lang (sprintf('attributes.tags.%s', $attribute))
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
-        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($attribute, 'label')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'label') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.tags.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        @lang (sprintf('attributes.tags.%s', $attribute))
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6 form-control-static">
@@ -27,16 +25,14 @@
     </div>
 </div>
 
-@set ($attribute, 'updated_at')
 @if ($mode === 'edit')
-    <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
-            @lang ("attributes.tags.{$attribute}")
+    <div class="form-group">
+        <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
+            @lang (sprintf('attributes.tags.%s', $attribute))
         </label>
 
         <div class="col-md-6 form-control-static">
             {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-            @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 @endif
@@ -46,17 +42,17 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
-            @can ('authorize', ['tags.*', 'tags.create'])
+            @can ('authorize', config('permissions.groups.tags.create'))
                 <button type="submit" class="btn btn-primary">@lang ('elements.words.register')</button>
             @endcan
         @elseif ($mode === 'edit')
-            @can ('authorize', ['tags.*', 'tags.update'])
+            @can ('authorize', config('permissions.groups.tags.update'))
                 @can ('update', $row)
                     <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
                 @endcan
             @endcan
 
-            @can ('authorize', ['tags.*', 'tags.delete'])
+            @can ('authorize', config('permissions.groups.tags.delete'))
                 @can ('delete', $row)
                     <a href="{{ route('tags.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('tags.delete', $row->id()) }}'); return false;">
                         <i class="fa fa-trash"></i>@lang ('elements.words.delete')

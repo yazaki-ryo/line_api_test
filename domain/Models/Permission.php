@@ -20,6 +20,9 @@ final class Permission extends DomainModel
     /** @var string */
     private $slug;
 
+    /** @var string */
+    private $label;
+
     /** @var Datetime */
     private $createdAt;
 
@@ -60,6 +63,14 @@ final class Permission extends DomainModel
     public function slug(): ?string
     {
         return $this->slug;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function label(): ?string
+    {
+        return $this->label;
     }
 
     /**
@@ -145,6 +156,10 @@ final class Permission extends DomainModel
         }
 
         if ($args->has($key = 'slug')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'label')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

@@ -34,10 +34,6 @@ class CreateUsersTable extends Migration
                 $table->foreign('store_id')
                     ->references('id')
                     ->on('stores');
-
-                $table->foreign('role_id')
-                    ->references('id')
-                    ->on('roles');
             });
 
             DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));

@@ -11,6 +11,7 @@ use Domain\Models\DomainModel;
 use Domain\Models\Prefecture;
 use Domain\Models\Store;
 use Domain\Models\Tag;
+use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -103,6 +104,18 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
             return null;
         }
         return TagRepository::toModel($resource);
+    }
+
+   /**
+    * @param  array $args
+    * @return User
+    */
+    public function addUser(array $args = []): User
+    {
+        if (is_null($resource = $this->eloquent->users()->create($args))) {
+            return null;
+        }
+        return UserRepository::toModel($resource);
     }
 
     /**

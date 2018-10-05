@@ -128,7 +128,18 @@ $router->group([
     $router->group([
         'prefix' => $prefix = 'users',
     ], function (Router $router) use ($prefix) {
+        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name($prefix);
+        $router->get( 'add', \App\Http\Controllers\Users\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
+        $router->post('add', \App\Http\Controllers\Users\CreateController::class . '@create');
 
+        $router->group([
+            'prefix' => '{userId}',
+        ], function (Router $router) use ($prefix) {
+            $router->get( 'edit', \App\Http\Controllers\Users\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+            $router->post('edit', \App\Http\Controllers\Users\UpdateController::class . '@update');
+            $router->post('delete', \App\Http\Controllers\Users\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+            $router->post('restore', \App\Http\Controllers\Users\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+        });
     });
 
     /**
@@ -154,6 +165,15 @@ $router->group([
         'prefix' => $prefix = 'notifications',
     ], function (Router $router) use ($prefix) {
         $router->get( 'test', \App\Http\Controllers\Notifications\TestController::class)->name(sprintf('%s.test', $prefix));
+    });
+
+    /**
+     * Docs
+     */
+    $router->group([
+        'prefix' => $prefix = 'docs',
+    ], function (Router $router) use ($prefix) {
+        $router->get( 'permissions', \App\Http\Controllers\Docs\Permissions\IndexController::class)->name(sprintf('%s.permissions', $prefix));
     });
 
 });

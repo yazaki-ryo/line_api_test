@@ -30,23 +30,21 @@
                     <div class="panel-body">
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
-                            @set ($attribute, 'email')
-                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
+                            <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang (sprintf('attributes.users.%s', $attribute))</label>
 
                                 <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon-{{ $attribute }}">@</span>
-                                        {!! Form::email($attribute, old($attribute), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '',  'aria-describedby' => "basic-addon-{$attribute}"]) !!}
+                                        <input type="email" name="{{ $attribute }}" value="{{ old($attribute) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" aria-describedby="basic-addon-{{ $attribute }}" required autofocus />
                                     </div>
 
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            @set ($attribute, 'password')
-                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
-                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang ("attributes.users.{$attribute}")</label>
+                            <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
+                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang (sprintf('attributes.users.%s', $attribute))</label>
 
                                 <div class="col-md-6">
                                     <div class="input-group">
@@ -58,12 +56,11 @@
                                 </div>
                             </div>
 
-                            @set ($attribute, 'remember')
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            {!! Form::checkbox($attribute, 1, old($attribute), []) !!} @lang ("attributes.users.{$attribute}")
+                                            {!! Form::checkbox($attribute = 'remember', 1, old($attribute), []) !!} @lang (sprintf('attributes.users.%s', $attribute))
                                         </label>
                                     </div>
                                 </div>

@@ -37,9 +37,11 @@
                         </a>
                     </li>
 {{--
-                    <li>
-                        <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
-                    </li>
+                    @can ('authorize', config('permissions.groups.tags.select'))
+                        <li>
+                            <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
+                        </li>
+                    @endcan
 --}}
                 </ul>
 
@@ -48,13 +50,15 @@
                         @include ('tags.components.list')
                     </div>
 {{--
-                    <div class="tab-pane fade pt-10" id="search-tab">
-                        <div class="well">
-                            {!! Form::open(['url' => route('tags'), 'id' => 'tags-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
-                                @include ('tags.components.search')
-                            {!! Form::close() !!}
+                    @can ('authorize', config('permissions.groups.tags.select'))
+                        <div class="tab-pane fade pt-10" id="search-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('tags'), 'id' => 'tags-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                                    @include ('tags.components.search')
+                                {!! Form::close() !!}
+                            </div>
                         </div>
-                    </div>
+                    @endcan
 --}}
                 </div>
             </div>

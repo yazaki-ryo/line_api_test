@@ -19,8 +19,7 @@
                 <tr>
                     <td class="text-center">
                         <div class="checkbox">
-                            @set ($attribute, 'selection')
-                            <label><input type="checkbox" name="{{ $attribute }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} /></label>
+                            <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} /></label>
                         </div>
                     </td>
                     <td class="text-center">{{ empty($row->{$camel = camel_case('visited_at')}()) ? '' : $row->{$camel}()->format('Y-m-d') }}</td>
@@ -32,17 +31,17 @@
                             <span class="glyphicon glyphicon-option-horizontal"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            @can ('authorize', ['customers.*', 'customers.visited_histories.update'])
-                                @can ('get', $row)
+                            @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                                @can ('select', $row)
                                     <li>
                                         <a href="{{ route('customers.visited_histories.edit', [$row->customerId(), $row->id()]) }}">
-                                            @lang ('elements.words.edit')
+                                            @lang ('elements.words.detail')
                                         </a>
                                     </li>
                                 @endcan
                             @endcan
 
-                            @can ('authorize', ['customers.*', 'customers.visited_histories.delete'])
+                            @can ('authorize', config('permissions.groups.customers.visited_histories.delete'))
                                 @can ('delete', $row)
                                     <li role="separator" class="divider"></li>
 

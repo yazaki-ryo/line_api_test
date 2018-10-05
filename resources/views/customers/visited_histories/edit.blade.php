@@ -1,13 +1,9 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.edit') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.detail') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
-@endsection
-
-@section('styles')
-    <link href="{{ asset('vendor/jquery-ui/datepicker/datepicker.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -15,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.edit')
+                    	<h1 class="h2">@lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.detail')
                 </div>
             </div>
         </div>
@@ -44,17 +40,7 @@
 @endsection
 
 @section ('scripts')
-    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/datepicker/datepicker.js') }}"></script>
     <script type="text/javascript">
-        (function($){
-        	    $('#visited_date').datepicker({
-                dateFormat: 'yy-mm-dd',
-                numberOfMonths: 2,
-                showOtherMonths: true,
-                showButtonPanel: true
-            });
-        })(jQuery);
-
         /**
          * @param string url
          * @return void

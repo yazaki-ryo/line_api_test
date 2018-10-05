@@ -27,13 +27,15 @@ final class VisitedHistoryPolicy
      * @param  VisitedHistory  $visitedHistory
      * @return bool
      */
-    public function get(EloquentUser $user, VisitedHistory $visitedHistory): bool
+    public function select(EloquentUser $user, VisitedHistory $visitedHistory): bool
     {
-        if ($user->can('roles', 'company-admin')
+        if ($user->can('authorize', 'customers-visited_histories.select')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers-visited_histories.select')
             && optional($user->store)->company_id === optional(optional($visitedHistory->customer())->store())->companyId()
         ) {
             return true;
-        } elseif ($user->can('roles', 'store-user')
+        } elseif ($user->can('authorize', 'own-company-self-store-customers-visited_histories.select')
             && $user->store_id === optional($visitedHistory->customer())->storeId()
         ) {
             return true;
@@ -43,17 +45,21 @@ final class VisitedHistoryPolicy
     }
 
     /**
-     * @param  EloquentUser  $user
-     * @param  VisitedHistory  $visitedHistory
+     *
+     * @param EloquentUser $user
+     * @param VisitedHistory $visitedHistory
+     * @param Customer $customer
      * @return bool
      */
     public function create(EloquentUser $user, VisitedHistory $visitedHistory, Customer $customer): bool
     {
-        if ($user->can('roles', 'company-admin')
+        if ($user->can('authorize', 'customers-visited_histories.create')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers-visited_histories.create')
             && optional($user->store)->company_id === optional($customer->store())->companyId()
         ) {
             return true;
-        } elseif ($user->can('roles', 'store-user')
+        } elseif ($user->can('authorize', 'own-company-self-store-customers-visited_histories.create')
             && $user->store_id === $customer->storeId()
         ) {
             return true;
@@ -69,11 +75,13 @@ final class VisitedHistoryPolicy
      */
     public function update(EloquentUser $user, VisitedHistory $visitedHistory): bool
     {
-        if ($user->can('roles', 'company-admin')
+        if ($user->can('authorize', 'customers-visited_histories.update')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers-visited_histories.update')
             && optional($user->store)->company_id === optional(optional($visitedHistory->customer())->store())->companyId()
         ) {
             return true;
-        } elseif ($user->can('roles', 'store-user')
+        } elseif ($user->can('authorize', 'own-company-self-store-customers-visited_histories.update')
             && $user->store_id === optional($visitedHistory->customer())->storeId()
         ) {
             return true;
@@ -89,11 +97,13 @@ final class VisitedHistoryPolicy
      */
     public function delete(EloquentUser $user, VisitedHistory $visitedHistory): bool
     {
-        if ($user->can('roles', 'company-admin')
+        if ($user->can('authorize', 'customers-visited_histories.delete')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers-visited_histories.delete')
             && optional($user->store)->company_id === optional(optional($visitedHistory->customer())->store())->companyId()
         ) {
             return true;
-        } elseif ($user->can('roles', 'store-user')
+        } elseif ($user->can('authorize', 'own-company-self-store-customers-visited_histories.delete')
             && $user->store_id === optional($visitedHistory->customer())->storeId()
         ) {
             return true;
@@ -109,11 +119,17 @@ final class VisitedHistoryPolicy
      */
     public function restore(EloquentUser $user, VisitedHistory $visitedHistory): bool
     {
-//         if ($user->can('roles', 'company-admin')
-//             && optional($user->store)->company_id === optional($visitedHistory->store())->companyId()
-//         ) {
-//             return true;
-//         }
+        if ($user->can('authorize', 'customers-visited_histories.restore')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-customers-visited_histories.restore')
+            && optional($user->store)->company_id === optional(optional($visitedHistory->customer())->store())->companyId()
+        ) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-self-store-customers-visited_histories.restore')
+            && $user->store_id === optional($visitedHistory->customer())->storeId()
+        ) {
+            return true;
+        }
 
         return false;
     }

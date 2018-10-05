@@ -23,9 +23,7 @@ class CreatePermissionsTable extends Migration
                 $table->increments('id');
                 $table->string('name')->nullable()->comment('名称');
                 $table->string('slug')->unique()->comment('スラッグ');
-//                 $table->boolean('auth_company_admin')->default(false)->comment('企業管理者デフォルト');
-//                 $table->boolean('auth_store_master')->default(false)->comment('店舗担当者デフォルト');
-//                 $table->boolean('auth_general_user')->default(false)->comment('一般ユーザーデフォルト');
+                $table->string('label')->comment('ラベル');
                 $table->timestamps();
                 $table->softDeletes();
             });

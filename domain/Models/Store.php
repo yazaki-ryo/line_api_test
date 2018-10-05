@@ -219,6 +219,15 @@ final class Store extends DomainModel
 
     /**
      * @param  array $args
+     * @return User
+     */
+    public function addUser(array $args = []): User
+    {
+        return $this->repo->addUser($args);
+    }
+
+    /**
+     * @param  array $args
      * @return DomainCollection
      */
     public function users(array $args = []): DomainCollection
@@ -339,13 +348,15 @@ final class Store extends DomainModel
             return false;
         }
 
-        if ($user->can('roles', 'company-admin')) {
+        if ($user->can('authorize', 'stores.select')) {
+            return true;
+        } elseif ($user->can('authorize', 'own-company-stores.select')) {
             if ($company->stores()->containsStrict(function ($item) use ($value) {
                 return $item->id() === $value;
             })) {
                 return true;
             }
-        } else {
+        } elseif ($user->can('authorize', 'own-company-self-store.select')) {
             if ($store->id() === $value) {
                 return true;
             }

@@ -26,7 +26,7 @@ final class UpdateController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'settings.*', 'settings.printings'),
+            'authorize:self-settings.printings.update',
         ]);
 
         $this->useCase = $useCase;

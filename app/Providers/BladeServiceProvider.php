@@ -12,11 +12,6 @@ final class BladeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \Blade::directive('set', function(string $arg){
-            list($key, $value) = explode(',', $arg);
-            return sprintf('<?php %s = %s; ?>', $key, $value);
-        });
-
         \Blade::if('env', function ($env) {
             return app()->environment($env);
         });

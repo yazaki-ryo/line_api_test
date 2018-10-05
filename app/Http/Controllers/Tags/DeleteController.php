@@ -26,7 +26,7 @@ final class DeleteController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'tags.*', 'tags.delete'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.tags.delete'))),
         ]);
 
         $this->useCase = $useCase;

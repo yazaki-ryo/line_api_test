@@ -8,7 +8,6 @@
 
 @section('styles')
     <link href="{{ asset('vendor/DataTables/datatables.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/jquery-ui/datepicker/datepicker.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -37,32 +36,44 @@
                             <span class="badge">{{ $rows->count() }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
-                    </li>
-                    <li>
-                        <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
-                    </li>
+
+                    @can ('authorize', config('permissions.groups.customers.select'))
+                        <li>
+                            <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
+                        </li>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                        <li>
+                            <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
+                        </li>
+                    @endcan
                 </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane active fade in pt-5" id="result-tab">
                         @include ('customers.components.list')
                     </div>
-                    <div class="tab-pane fade pt-10" id="search-tab">
-                        <div class="well">
-                            {!! Form::open(['url' => route('customers'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
-                                @include ('customers.components.search')
-                            {!! Form::close() !!}
+
+                    @can ('authorize', config('permissions.groups.customers.select'))
+                        <div class="tab-pane fade pt-10" id="search-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('customers'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                                    @include ('customers.components.search')
+                                {!! Form::close() !!}
+                            </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade pt-10" id="print-tab">
-                        <div class="well">
-                            {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('customers.components.postcard')
-                            {!! Form::close() !!}
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                        <div class="tab-pane fade pt-10" id="print-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                    @include ('customers.components.postcard')
+                                {!! Form::close() !!}
+                            </div>
                         </div>
-                    </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -71,7 +82,6 @@
 
 @section ('scripts')
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/datepicker/datepicker.js') }}"></script>
     <script type="text/javascript">
         jQuery(function($){
             $.extend( $.fn.dataTable.defaults, {
@@ -90,28 +100,13 @@
                 info: true,
                 lengthChange: true,
                 lengthMenu: [10, 25, 50, 100],
+                order: [],
                 ordering: true,
                 paging: true,
-                // order: [0, "asc"],
                 searching: true,
                 stateSave: true
             });
         });
-
-        (function($){
-            $('#visited_date_s').datepicker({
-                dateFormat: 'yy-mm-dd',
-                numberOfMonths: 2,
-                showOtherMonths: true,
-                showButtonPanel: true
-            });
-            $('#visited_date_e').datepicker({
-                dateFormat: 'yy-mm-dd',
-                numberOfMonths: 2,
-                showOtherMonths: true,
-                showButtonPanel: true
-            });
-        })(jQuery);
 
         /**
          * @param string url

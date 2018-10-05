@@ -1,48 +1,44 @@
-@set ($attribute, 'visited_date')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'visited_date') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($attribute, old($attribute, request($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d'))), ['required', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 10, 'placeholder' => '']) !!}
+        <input type="date" name="{{ $attribute }}" value="{{ old($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($attribute, 'visited_time')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'visited_time') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.{$attribute}")
+        @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
 
     <div class="col-md-3">
-        {!! Form::time($attribute, old($attribute, request($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i'))), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 5, 'placeholder' => '']) !!}
+        <input type="time" name="{{ $attribute }}" value="{{ old($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i')) }}" class="form-control" id="{{ $attribute }}" maxlength="5" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($attribute, 'amount')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'amount') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.{$attribute}")
+        @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
 
     <div class="col-md-3">
-        {!! Form::tel($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 10, 'placeholder' => '']) !!}
+        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@set ($attribute, 'seat')
-<div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'seat') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang ("attributes.customers.visited_histories.{$attribute}")
+        @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
 
     <div class="col-md-5">
-        {!! Form::text($attribute, old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -52,17 +48,17 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
-            @can ('authorize', ['customers.*', 'customers.visited_histories.create'])
+            @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                 <button type="submit" class="btn btn-primary">@lang ('elements.words.register')</button>
             @endcan
         @elseif ($mode === 'edit')
-            @can ('authorize', ['customers.*', 'customers.visited_histories.update'])
+            @can ('authorize', config('permissions.groups.customers.visited_histories.update'))
                 @can ('update', $row)
                     <button type="submit" class="btn btn-primary">@lang ('elements.words.save')</button>
                 @endcan
             @endcan
 
-            @can ('authorize', ['customers.*', 'customers.visited_histories.delete'])
+            @can ('authorize', config('permissions.groups.customers.visited_histories.delete'))
                 @can ('delete', $row)
                     <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
                         @lang ('elements.words.delete')

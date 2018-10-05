@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.words.customers')@lang ('elements.words.edit') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.customers')@lang ('elements.words.detail') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
 
 @section('styles')
     <link href="{{ asset('vendor/DataTables/datatables.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/jquery-ui/datepicker/datepicker.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -16,7 +15,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.edit')
+                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.detail')
                 </div>
             </div>
         </div>
@@ -33,42 +32,56 @@
                 <ul class="nav nav-tabs">
                     <li class="active">
                         <a href="#edit-tab" data-toggle="tab">
-                            @lang ('elements.words.edit')
+                            @lang ('elements.words.detail')
                         </a>
                     </li>
-                    <li>
-                        <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
-                    </li>
-                    <li>
-                        <a href="#histories-tab" data-toggle="tab">
-                            @lang ('elements.words.visit')@lang ('elements.words.history')
-                            <span class="badge">{{ $visitedHistories->count() }}</span>
-                        </a>
-                    </li>
+
+                    @can ('authorize', config('permissions.groups.tags.select'))
+                        <li>
+                            <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
+                        </li>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                        <li>
+                            <a href="#histories-tab" data-toggle="tab">
+                                @lang ('elements.words.visit')@lang ('elements.words.history')
+                                <span class="badge">{{ $visitedHistories->count() }}</span>
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active fade in pt-10" id="edit-tab">
-                        <div class="panel panel-default">
-                            <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+                    @can ('select', $row)
+                        <div class="tab-pane active fade in pt-10" id="edit-tab">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
-                            <div class="panel-body">
-                                {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                                    @include ('customers.components.crud', ['mode' => 'edit'])
+                                <div class="panel-body">
+                                    {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
+                                        @include ('customers.components.crud', ['mode' => 'edit'])
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.tags.select'))
+                        <div class="tab-pane fade pt-10" id="tags-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                    @include ('customers.components.tags')
                                 {!! Form::close() !!}
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade pt-10" id="tags-tab">
-                        <div class="well">
-                            {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('customers.components.tags')
-                            {!! Form::close() !!}
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                        <div class="tab-pane fade pt-10" id="histories-tab">
+                            @include ('customers.visited_histories.components.list', ['rows' => $visitedHistories])
                         </div>
-                    </div>
-                    <div class="tab-pane fade pt-10" id="histories-tab">
-                        @include ('customers.visited_histories.components.list', ['rows' => $visitedHistories])
-                    </div>
+                    @endcan
                 </div>
             </div>
         </div>
@@ -77,7 +90,6 @@
 
 @section ('scripts')
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('vendor/jquery-ui/datepicker/datepicker.js') }}"></script>
     <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
         jQuery(function($){
@@ -97,28 +109,13 @@
                 info: true,
                 lengthChange: true,
                 lengthMenu: [10, 25, 50, 100],
+                order: [],
                 ordering: true,
                 paging: true,
-                // order: [0, "asc"],
                 searching: true,
                 stateSave: true
             });
         });
-
-        (function($){
-            $('#birthday').datepicker({
-                dateFormat: 'yy-mm-dd',
-                numberOfMonths: 2,
-                showOtherMonths: true,
-                showButtonPanel: true
-            });
-            $('#anniversary').datepicker({
-                dateFormat: 'yy-mm-dd',
-                numberOfMonths: 2,
-                showOtherMonths: true,
-                showButtonPanel: true
-            });
-        })(jQuery);
 
         /**
          * @param string url

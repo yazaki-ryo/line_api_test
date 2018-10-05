@@ -1,8 +1,7 @@
-@set ($attribute, 'name')
-<div class="form-group{{ $errors->{$errorBag}->has($attribute) ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
-        @lang ("attributes.settings.printings.{$attribute}")
-        <span class="label label-danger">@lang ("elements.words.required")</span>
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
@@ -37,9 +36,11 @@
 
 <div class="form-group">
     <div class="col-md-7 col-md-offset-5">
-        <button type="submit" class="btn btn-primary">
-            @lang ('elements.words.save')
-        </button>
+        @can ('authorize', 'self-settings.printings.update')
+            <button type="submit" class="btn btn-primary">
+                @lang ('elements.words.save')
+            </button>
+        @endcan
 
         <a href="javascript:history.back();" class="btn btn-default">
             @lang ('elements.words.back')

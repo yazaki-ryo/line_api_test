@@ -45,7 +45,11 @@ final class ViewServiceProvider extends ServiceProvider
         ], SexesComposer::class);
 
         View::creator([
-            'customers.*',
+            'customers.add',
+            'customers.edit',
+            'settings.profile',
+            'users.add',
+            'users.edit',
         ], StoresComposer::class);
     }
 

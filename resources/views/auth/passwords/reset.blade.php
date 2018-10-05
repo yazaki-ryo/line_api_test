@@ -30,26 +30,24 @@
 
                     <div class="panel-body">
                         {!! Form::open(['url' => route('password.request'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                            {!! Form::hidden('token', $token, []) !!}
+                            <input type="hidden" name="token" value="{{ $token }}" />
 
-                            @set ($attribute, 'email')
-                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$attribute}")
-                                    <span class="label label-danger">@lang ("elements.words.required")</span>
+                                    @lang (sprintf('attributes.users.%s', $attribute))
+                                    <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    {!! Form::email($attribute, $email or old('email'), ['required', 'autofocus', 'class' => 'form-control', 'id' => $attribute, 'maxlength' => 191, 'placeholder' => '']) !!}
+                                    <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $email) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            @set ($attribute, 'password')
-                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$attribute}")
-                                    <span class="label label-danger">@lang ("elements.words.required")</span>
+                                    @lang (sprintf('attributes.users.%s', $attribute))
+                                    <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
                                 <div class="col-md-6">
@@ -58,11 +56,10 @@
                                 </div>
                             </div>
 
-                            @set ($attribute, 'password_confirmation')
-                            <div class="form-group{{ $errors->has($attribute) ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->has($attribute = 'password_confirmation') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
-                                    @lang ("attributes.users.{$attribute}")
-                                    <span class="label label-danger">@lang ("elements.words.required")</span>
+                                    @lang (sprintf('attributes.users.%s', $attribute))
+                                    <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
                                 <div class="col-md-6">

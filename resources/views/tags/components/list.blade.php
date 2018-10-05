@@ -19,8 +19,7 @@
                 <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
                     <td class="text-center">
                         <div class="checkbox">
-                            @set ($attribute, 'selection')
-                            <label><input type="checkbox" name="{{ $attribute }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
+                            <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
                     </td>
                     <td class="text-left"><span class="label label-{{ $row->{$camel = camel_case('label')}() }}">{{ $row->{$camel = camel_case('name')}() }}</span></td>
@@ -33,17 +32,17 @@
                         </button>
                         <ul class="dropdown-menu">
                             @if (! $row->{$camel = camel_case('deleted_at')}())
-                                @can ('authorize', ['tags.*', 'tags.update'])
-                                    @can ('get', $row)
+                                @can ('authorize', config('permissions.groups.tags.select'))
+                                    @can ('select', $row)
                                         <li>
                                             <a href="{{ route('tags.edit', $row->id()) }}">
-                                                @lang ('elements.words.edit')
+                                                @lang ('elements.words.detail')
                                             </a>
                                         </li>
                                     @endcan
                                 @endcan
 
-                                @can ('authorize', ['tags.*', 'tags.delete'])
+                                @can ('authorize', config('permissions.groups.tags.delete'))
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>
 

@@ -28,7 +28,7 @@ final class ExportController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'customers.*', 'customers.postcards.export'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.customers.postcards.export'))),
         ]);
 
         $this->useCase = $useCase;

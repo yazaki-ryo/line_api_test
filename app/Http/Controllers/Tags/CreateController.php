@@ -29,7 +29,7 @@ final class CreateController extends Controller
     {
         $this->middleware([
             'authenticate:user',
-            sprintf('authorize:%s|%s', 'tags.*', 'tags.create'),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.tags.create'))),
         ]);
 
         $this->useCase = $useCase;
