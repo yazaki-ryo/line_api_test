@@ -26,11 +26,11 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
-                @auth
+                @auth ('administrator')
                     <li class="dropdown-header">
                         @lang ('Welcome, :name.', ['name' => $user->name()])
                     </li>
-
+@if (false)
                     <!-- Customers -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -51,73 +51,16 @@
                             @endcan
                         </ul>
                     </li>
-
-                    <!-- Reservations -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.reservations')@lang ('elements.words.management') <span class="caret"></span>
-                        </a>
-                    </li>
-
-                    <!-- Stores -->
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.store')@lang ('elements.words.management') <span class="caret"></span>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <!-- Tags -->
-                            <li class="dropdown-submenu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    @lang ('elements.words.tags')@lang ('elements.words.management') <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    @can ('authorize', config('permissions.groups.tags.select'))
-                                        <li class="{{ request()->route()->named('tags') ? 'active' : '' }}"><a href="{{ route('tags') }}">@lang ('elements.words.tags')@lang ('elements.words.list')</a></li>
-                                    @endcan
-
-                                    @can ('authorize', config('permissions.groups.tags.create'))
-                                        <li class="{{ request()->route()->named('tags.add') ? 'active' : '' }}"><a href="{{ route('tags.add') }}">@lang ('elements.words.tags')@lang ('elements.words.register')</a></li>
-                                    @endcan
-                                </ul>
-                            </li>
-
-                            <!-- Menus -->
-                            <li class="dropdown-submenu disabled">
-                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
-                                </a>
-                            </li>
-
-                            <!-- Surveys -->
-                            <li class="dropdown-submenu disabled">
-                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    @lang ('elements.words.surveys')@lang ('elements.words.management') <span class="caret"></span>
-                                </a>
-                            </li>
-
-                            <!-- Coupons -->
-                            <li class="dropdown-submenu disabled">
-                                <a href="#" class="dropdown-toggle disabled" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
-                                </a>
-                            </li>
-
-                            <!-- Own store -->
-                            @can ('authorize', config('permissions.groups.stores.update'))
-                                <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')</a></li>
-                            @endcan
-                        </ul>
-                    </li>
+@endif
 
                     <!-- Settings -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                            @lang ('elements.words.various')@lang ('elements.words.settings') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif <span class="caret"></span>
+                            @lang ('elements.words.various')@lang ('elements.words.settings') <span class="badge bg-danger">0</span><span class="caret"></span>
                         </a>
 
                         <ul class="dropdown-menu">
+@if (false)
                             <!-- Users -->
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -143,7 +86,7 @@
                                 <li class="{{ request()->route()->named('settings.company') ? 'active' : '' }}"><a href="{{ route('settings.company') }}">@lang ('elements.words.company')@lang ('elements.words.information')</a></li>
                             @endcan
 
-                            <li class="disabled"><a href="#">@lang ('elements.words.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>
+                            <li class="disabled"><a href="#">@lang ('elements.words.notification')</a></li>
 
                             <!-- Various settings -->
                             <li class="dropdown-submenu">
@@ -159,13 +102,13 @@
                             </li>
 
                             <li role="separator" class="divider"></li>
-
+@endif
                             <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('@lang ('Do you want to log out?')')) document.getElementById('logout-form').submit(); return false;">
+                                <a href="{{ route('systems.logout') }}" onclick="event.preventDefault(); if (confirm('@lang ('Do you want to log out?')')) document.getElementById('logout-form').submit(); return false;">
                                     <i class="fa fa-sign-out pull-right"></i>@lang ('elements.words.logout')
                                 </a>
 
-                                {{ Form::open(['id' => 'logout-form', 'url' => route('logout'), 'method' => 'post', 'style' => 'display: none;']) }}{{ Form::close() }}
+                                {{ Form::open(['id' => 'logout-form', 'url' => route('systems.logout'), 'method' => 'post', 'style' => 'display: none;']) }}{{ Form::close() }}
                             </li>
                         </ul>
                     </li>

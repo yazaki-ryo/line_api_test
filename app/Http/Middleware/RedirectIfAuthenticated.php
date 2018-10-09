@@ -19,7 +19,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect()->route('home');
+            $name = 'home';
+
+            if ($guard === 'administrator') {
+                $name = sprintf('systems.%s', $name);
+            }
+
+            return redirect()->route($name);
         }
 
         return $next($request);
