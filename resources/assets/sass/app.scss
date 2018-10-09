@@ -5,6 +5,9 @@
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "bootstrap/theme";
 
+// Fontawesome
+@import "~font-awesome-scss/scss/font-awesome";
+
 // Variables
 @import "variables";
 
@@ -13,3 +16,4 @@
 
 // Custom
 @import "custom";
+@import "style";

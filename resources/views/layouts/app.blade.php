@@ -27,7 +27,11 @@
 
     @include('components.google.analytics')
 </head>
+@auth
 <body>
+@else
+<body class="login-page">
+@endauth
     <div id="app">
         @include ('layouts.nav')
 

@@ -1,3 +1,4 @@
+@auth
 <nav class="navbar navbar-inverse navbar-fixed-left">
     <div class="container">
         <div class="navbar-header">
@@ -188,3 +189,4 @@
         </div>
     </div>
 </nav>
+@endauth

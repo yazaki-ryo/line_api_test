@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.login')
+                    	<h1 class="h2">{{ config('app.name', 'Laravel') }}</h1>
                 </div>
             </div>
         </div>
@@ -24,19 +24,18 @@
         </div>
 
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+                    <div class="panel-heading"> @lang ('elements.words.login') </div>
                     <div class="panel-body">
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
                             <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
-                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang (sprintf('attributes.users.%s', $attribute))</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon-{{ $attribute }}">@</span>
-                                        <input type="email" name="{{ $attribute }}" value="{{ old($attribute) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" aria-describedby="basic-addon-{{ $attribute }}" required autofocus />
+                                        <input type="email" name="{{ $attribute }}" value="{{ old($attribute) }}" class="none-radius form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang('attributes.users.email')" aria-describedby="basic-addon-{{ $attribute }}" required autofocus />
                                     </div>
 
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
@@ -44,12 +43,11 @@
                             </div>
 
                             <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
-                                <label for="{{ $attribute }}" class="col-md-4 control-label">@lang (sprintf('attributes.users.%s', $attribute))</label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon-{{ $attribute }}"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" required />
+                                        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="none-radius form-control" placeholder="@lang('attributes.users.password')" required />
                                     </div>
 
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
@@ -57,7 +55,7 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="col-md-12">
                                     <div class="checkbox">
                                         <label>
                                             {!! Form::checkbox($attribute = 'remember', 1, old($attribute), []) !!} @lang (sprintf('attributes.users.%s', $attribute))
@@ -67,8 +65,8 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn">
                                         @lang ('elements.words.login')
                                     </button>
 
@@ -78,6 +76,13 @@
                                 </div>
                             </div>
                         {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <P>SNSを表示させる</P>
                     </div>
                 </div>
             </div>
