@@ -28,7 +28,7 @@ final class CreateController extends Controller
     public function __construct(CreateTag $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.tags.create'))),
         ]);
 

@@ -27,7 +27,7 @@ final class IndexController extends Controller
     public function __construct(GetCustomers $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:administrator',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.select'))),
         ]);
 

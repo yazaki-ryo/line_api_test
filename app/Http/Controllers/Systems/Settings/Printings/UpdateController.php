@@ -25,7 +25,7 @@ final class UpdateController extends Controller
     public function __construct(UpdatePrintings $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:administrator',
+            sprintf('authenticate:%s', $this->guard),
             'authorize:self-settings.printings.update',
         ]);
 

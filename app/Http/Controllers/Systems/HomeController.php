@@ -10,7 +10,7 @@ final class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('authenticate:administrator');
+        $this->middleware(sprintf('authenticate:%s', $this->guard));
     }
 
     /**

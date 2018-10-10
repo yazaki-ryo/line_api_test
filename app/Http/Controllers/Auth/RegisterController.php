@@ -73,7 +73,7 @@ final class RegisterController extends Controller
      * @param  mixed  $user
      * @return mixed
      */
-    private function registered(Request $request, $user)
+    protected function registered(Request $request, $user)
     {
         // ここでユーザ登録メール送信が良いか
 

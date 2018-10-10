@@ -7,6 +7,7 @@ use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\Auth\ResetRequest;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
 final class ResetController extends Controller
@@ -29,14 +30,10 @@ final class ResetController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:administrator');
+        $this->middleware(sprintf('guest:%s', $this->guard));
     }
 
     /**
-     * Display the password reset view for the given token.
-     *
-     * If no token is present, display the link request form.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  string|null  $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -77,7 +74,7 @@ final class ResetController extends Controller
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    private  function sendResetResponse($response)
+    protected function sendResetResponse($response)
     {
         return redirect($this->redirectPath())->with('alerts.success', [__($response)]);
     }
@@ -90,4 +87,23 @@ final class ResetController extends Controller
         return route(sprintf('%s.home', $this->prefix));
     }
 
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker();
+    }
+
+    /**
+     * Get the guard to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard();
+    }
 }

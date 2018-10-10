@@ -36,7 +36,7 @@ final class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:administrator')->except('logout');
+        $this->middleware(sprintf('guest:%s', $this->guard))->except('logout');
     }
 
     /**
@@ -91,9 +91,9 @@ final class LoginController extends Controller
     /**
      * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    private function guard()
+    protected function guard()
     {
-        return Auth::guard('administrator');
+        return Auth::guard($this->guard);
     }
 
     /**
@@ -101,7 +101,7 @@ final class LoginController extends Controller
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      */
-    private function sendLockoutResponse(Request $request)
+    protected function sendLockoutResponse(Request $request)
     {
         $seconds = $this->limiter()->availableIn(
             $this->throttleKey($request)

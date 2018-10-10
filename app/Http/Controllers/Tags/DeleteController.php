@@ -25,7 +25,7 @@ final class DeleteController extends Controller
     public function __construct(DeleteTag $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.tags.delete'))),
         ]);
 

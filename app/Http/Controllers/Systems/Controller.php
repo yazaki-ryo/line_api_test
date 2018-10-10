@@ -13,5 +13,8 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /** @var string */
+    protected $guard = 'administrator';
+
+    /** @var string */
     protected $prefix = 'systems';
 }

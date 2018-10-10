@@ -26,7 +26,7 @@ final class DeleteController extends Controller
     public function __construct(DeleteVisitedHistory $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:administrator',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.visited_histories.delete'))),
         ]);
 

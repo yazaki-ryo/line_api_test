@@ -25,7 +25,7 @@ final class RestoreController extends Controller
     public function __construct(RestoreCustomer $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:administrator',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.restore'))),
         ]);
 

@@ -27,7 +27,7 @@ final class CreateController extends Controller
     public function __construct(CreateCustomer $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.create'))),
         ]);
 

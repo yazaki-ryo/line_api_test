@@ -26,7 +26,7 @@ final class UpdateController extends Controller
     public function __construct(UpdateCompany $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.companies.update'))),
         ]);
 

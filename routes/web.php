@@ -175,39 +175,39 @@ $router->group([
     ], function (Router $router) use ($prefix) {
         $router->get( 'permissions', \App\Http\Controllers\Docs\Permissions\IndexController::class)->name(sprintf('%s.permissions', $prefix));
     });
+});
+
+/**
+ * @prefix systems
+ * @middleware web
+ */
+$router->group([
+    'prefix' => $prefix = 'systems',
+], function (Router $router) use ($prefix) {
+    $router->get('/', \App\Http\Controllers\Systems\HomeController::class)->name(sprintf('%s.home', $prefix));
 
     /**
-     * Systems
+     * Authentication
+     */
+    $router->get( 'login',  \App\Http\Controllers\Systems\Auth\LoginController::class . '@showLoginForm')->name(sprintf('%s.login', $prefix));
+    $router->post('login',  \App\Http\Controllers\Systems\Auth\LoginController::class . '@login');
+    $router->post('logout', \App\Http\Controllers\Systems\Auth\LoginController::class . '@logout')->name(sprintf('%s.logout', $prefix));
+
+    /**
+     * Registration
+     */
+    $router->get( 'register', \App\Http\Controllers\Systems\Auth\RegisterController::class . '@showRegistrationForm')->name(sprintf('%s.register', $prefix));
+    $router->post('register', \App\Http\Controllers\Systems\Auth\RegisterController::class . '@register');
+
+    /**
+     * Password Reset
      */
     $router->group([
-        'prefix' => $prefix = 'systems',
-    ], function (Router $router) use ($prefix) {
-        $router->get('/', \App\Http\Controllers\Systems\HomeController::class)->name(sprintf('%s.home', $prefix));
-
-        /**
-         * Authentication
-         */
-        $router->get( 'login',  \App\Http\Controllers\Systems\Auth\LoginController::class . '@showLoginForm')->name(sprintf('%s.login', $prefix));
-        $router->post('login',  \App\Http\Controllers\Systems\Auth\LoginController::class . '@login');
-        $router->post('logout', \App\Http\Controllers\Systems\Auth\LoginController::class . '@logout')->name(sprintf('%s.logout', $prefix));
-
-        /**
-         * Registration
-         */
-        $router->get( 'register', \App\Http\Controllers\Systems\Auth\RegisterController::class . '@showRegistrationForm')->name(sprintf('%s.register', $prefix));
-        $router->post('register', \App\Http\Controllers\Systems\Auth\RegisterController::class . '@register');
-
-        /**
-         * Password Reset
-         */
-        $router->group([
-            'prefix' => $prefix2 = 'password',
-        ], function (Router $router) use ($prefix, $prefix2) {
-            $router->get( 'reset',         \App\Http\Controllers\Systems\Auth\Password\ForgotController::class . '@showLinkRequestForm')->name(sprintf('%s.%s.request', $prefix, $prefix2));
-            $router->post('email',         \App\Http\Controllers\Systems\Auth\Password\ForgotController::class . '@sendResetLinkEmail')->name(sprintf('%s.%s.email', $prefix, $prefix2));
-            $router->get( 'reset/{token}', \App\Http\Controllers\Systems\Auth\Password\ResetController::class . '@showResetForm')->name(sprintf('%s.%s.reset', $prefix, $prefix2));
-            $router->post('reset',         \App\Http\Controllers\Systems\Auth\Password\ResetController::class . '@reset');
-        });
+        'prefix' => $prefix2 = 'password',
+    ], function (Router $router) use ($prefix, $prefix2) {
+        $router->get( 'reset',         \App\Http\Controllers\Systems\Auth\Password\ForgotController::class . '@showLinkRequestForm')->name(sprintf('%s.%s.request', $prefix, $prefix2));
+        $router->post('email',         \App\Http\Controllers\Systems\Auth\Password\ForgotController::class . '@sendResetLinkEmail')->name(sprintf('%s.%s.email', $prefix, $prefix2));
+        $router->get( 'reset/{token}', \App\Http\Controllers\Systems\Auth\Password\ResetController::class . '@showResetForm')->name(sprintf('%s.%s.reset', $prefix, $prefix2));
+        $router->post('reset',         \App\Http\Controllers\Systems\Auth\Password\ResetController::class . '@reset');
     });
-
 });

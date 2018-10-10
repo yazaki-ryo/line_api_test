@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
                 $name = sprintf('systems.%s', $name);
             }
 
-            return redirect()->route($name);
+            return redirect()->guest(route($name));
         }
 
         return $next($request);

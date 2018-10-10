@@ -25,7 +25,7 @@ final class TestController extends Controller
     public function __construct(CreateNotification $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
         ]);
 
         $this->useCase = $useCase;

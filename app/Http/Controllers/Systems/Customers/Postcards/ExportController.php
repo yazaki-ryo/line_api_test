@@ -27,7 +27,7 @@ final class ExportController extends Controller
     public function __construct(ExportPostcards $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:administrator',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.postcards.export'))),
         ]);
 

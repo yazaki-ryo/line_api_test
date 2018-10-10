@@ -29,7 +29,7 @@ final class ForgotController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:administrator');
+        $this->middleware(sprintf('guest:%s', $this->guard));
     }
 
     /**
@@ -66,9 +66,16 @@ final class ForgotController extends Controller
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    private function sendResetLinkResponse($response)
+    protected function sendResetLinkResponse($response)
     {
         return back()->with('alerts.success', [__($response)]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker($this->guard);
+    }
 }
