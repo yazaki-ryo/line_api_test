@@ -59,7 +59,7 @@ final class UpdateController extends Controller
      */
     public function update(PrintingsRequest $request, int $settingId)
     {
-        $cookie = cookie()->forever(sprintf('settings_printings_%s', $settingId), json_encode($request->validated()));
+        $cookie = cookie()->forever(sprintf('%s_%s', config('cookie.name.printings'), $settingId), json_encode($request->validated()));
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.setting'), 'action' => __('elements.words.updated')]), 'success');
 

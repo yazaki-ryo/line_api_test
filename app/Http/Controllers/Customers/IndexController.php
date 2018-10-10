@@ -62,7 +62,7 @@ final class IndexController extends Controller
     {
         $cookies = [];
         for ($i = 1; $i < 4; $i++) {
-            if (! is_null($cookie = $request->cookie(sprintf('settings_printings_%s', $i)))) {
+            if (! is_null($cookie = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), $i)))) {
                 $cookies[$i] = (json_decode($cookie))->name;
             }
         }
