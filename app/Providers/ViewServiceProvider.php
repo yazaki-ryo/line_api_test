@@ -25,7 +25,7 @@ final class ViewServiceProvider extends ServiceProvider
         ], AuthComposer::class);
 
         View::creator([
-            '*',
+            'layouts.app',
         ], StoresComposer::class);
 
         View::creator([
