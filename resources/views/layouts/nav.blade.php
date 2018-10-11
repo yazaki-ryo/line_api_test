@@ -70,6 +70,25 @@
                         </a>
 
                         <ul class="dropdown-menu">
+                            <!-- Users -->
+                            @can ('authorize', ['stores.select', 'own-company-stores.select'])
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                        @lang ('elements.words.users')@lang ('elements.words.management') <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        @can ('authorize', config('permissions.groups.users.select'))
+                                            <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
+                                        @endcan
+
+                                        @can ('authorize', config('permissions.groups.users.create'))
+                                            <li class="{{ request()->route()->named('users.add') ? 'active' : '' }}"><a href="{{ route('users.add') }}">@lang ('elements.words.users')@lang ('elements.words.register')</a></li>
+                                        @endcan
+                                    </ul>
+                                </li>
+                            @endcan
+
                             <!-- Tags -->
                             <li class="dropdown-submenu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -113,8 +132,8 @@
                                 <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')</a></li>
                             @endcan
 
+                            <!-- Own company stores -->
                             @can ('authorize', ['stores.select', 'own-company-stores.select'])
-                                <!-- Own company stores -->
                                 <li class="dropdown-submenu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                         @lang ('elements.words.stores')@lang ('elements.words.toggle') <span class="caret"></span>
@@ -137,23 +156,6 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <!-- Users -->
-                            <li class="dropdown-submenu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                    @lang ('elements.words.users')@lang ('elements.words.management') <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
-                                    @can ('authorize', config('permissions.groups.users.select'))
-                                        <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
-                                    @endcan
-
-                                    @can ('authorize', config('permissions.groups.users.create'))
-                                        <li class="{{ request()->route()->named('users.add') ? 'active' : '' }}"><a href="{{ route('users.add') }}">@lang ('elements.words.users')@lang ('elements.words.register')</a></li>
-                                    @endcan
-                                </ul>
-                            </li>
-
                             <!-- My profile -->
                             <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.words.user')@lang ('elements.words.information')</a></li>
 

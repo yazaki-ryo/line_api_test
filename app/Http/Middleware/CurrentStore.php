@@ -42,9 +42,7 @@ final class CurrentStore
 
                 if (is_numeric($value = request('store_id'))) {
                     $this->validate($user, (int)$value);
-
                     session()->put($this->sessionKeyName, (int)$value);
-                    return redirect()->route('home');
 
                 } elseif (session()->has($this->sessionKeyName)) {
                     $this->validate($user, (int)session($this->sessionKeyName));

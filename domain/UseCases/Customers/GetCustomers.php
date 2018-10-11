@@ -5,7 +5,6 @@ namespace Domain\UseCases\Customers;
 
 use App\Services\DomainCollection;
 use Domain\Models\Company;
-use Domain\Models\Store;
 use Domain\Models\User;
 
 final class GetCustomers

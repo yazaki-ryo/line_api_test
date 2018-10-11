@@ -128,6 +128,10 @@ final class UserRepository extends EloquentRepository implements DomainableContr
     {
         $args = collect($args);
 
+        $query->when($args->has($key = 'store_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->storeId($args->get($key));
+        });
+
         return $query;
     }
 
