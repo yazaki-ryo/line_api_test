@@ -81,6 +81,10 @@ final class TagRepository extends EloquentRepository implements DomainableContra
             $q->id($args->get($key));
         });
 
+        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->ids($args->get($key));
+        });
+
         return $query;
     }
 
