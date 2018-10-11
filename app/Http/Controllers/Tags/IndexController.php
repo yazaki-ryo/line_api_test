@@ -45,7 +45,9 @@ final class IndexController extends Controller
         $args = $request->validated();
 
         return view('tags.index', [
-            'rows' => $this->useCase->excute($user, $args),
+            'rows' => $this->useCase->excute($user, array_merge($args, [
+                'store_id' => session(config('session.name.current_store')),
+            ])),
         ]);
     }
 

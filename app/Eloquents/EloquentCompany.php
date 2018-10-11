@@ -56,6 +56,14 @@ final class EloquentCompany extends Model
     /**
      * @return HasManyThrough
      */
+    public function tags(): HasManyThrough
+    {
+        return $this->hasManyThrough(EloquentTag::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');
+    }
+
+    /**
+     * @return HasManyThrough
+     */
     public function users(): HasManyThrough
     {
         return $this->hasManyThrough(EloquentUser::class, EloquentStore::class, 'company_id', 'store_id', 'id', 'id');

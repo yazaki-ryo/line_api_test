@@ -72,6 +72,16 @@ final class CompanyRepository extends EloquentRepository implements DomainableCo
      * @param  array $args
      * @return DomainCollection
      */
+    public function tags(array $args = []): DomainCollection
+    {
+        $collection = TagRepository::build($this->eloquent->tags(), $args)->get();
+        return TagRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
     public function users(array $args = []): DomainCollection
     {
         $collection = UserRepository::build($this->eloquent->users(), $args)->get();
