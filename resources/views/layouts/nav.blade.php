@@ -31,6 +31,10 @@
                         @lang ('Welcome, :name.', ['name' => $user->name()])
                     </li>
 
+                    <li class="dropdown-header">
+                        {{ $currentStore->name() ?? null }}
+                    </li>
+
                     <!-- Customers -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -107,6 +111,21 @@
                             <!-- Own store -->
                             @can ('authorize', config('permissions.groups.stores.update'))
                                 <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')</a></li>
+                            @endcan
+
+                            @can ('authorize', ['stores.select', 'own-company-stores.select'])
+                                <!-- Own company stores -->
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                        @lang ('elements.words.stores')@lang ('elements.words.toggle') <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        @foreach ($stores as $store)
+                                            <li><a href="{{ route('home', ['store_id' => $store->id()]) }}">{{ $store->name() }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
                             @endcan
                         </ul>
                     </li>

@@ -25,6 +25,10 @@ final class ViewServiceProvider extends ServiceProvider
         ], AuthComposer::class);
 
         View::creator([
+            '*',
+        ], StoresComposer::class);
+
+        View::creator([
             'layouts.app',
         ], NotificationsComposer::class);
 
@@ -43,14 +47,6 @@ final class ViewServiceProvider extends ServiceProvider
             'customers.add',
             'customers.edit',
         ], SexesComposer::class);
-
-        View::creator([
-            'customers.add',
-            'customers.edit',
-            'settings.profile',
-            'users.add',
-            'users.edit',
-        ], StoresComposer::class);
     }
 
     /**
