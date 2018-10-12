@@ -1,7 +1,27 @@
+@import "components/header";
 @import "components/login";
+@import "components/btn";
 @import "components/panel";
 @import "components/input";
+@import "components/footer";
 
+body {
+  padding-top: 0;
+}
+a {
+  color: #000;
+  &:hover {
+    color: #000;
+  }
+}
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 .none-radius {
   border-radius: 0;
+}
+.write {
+  color: #fff;
 }

@@ -1,9 +1,16 @@
+.panel {
+  border-radius: 0;
+}
 .panel-default {
-  border-color: #2670b1;
+  border-color: #ccc;
+  background-color: #f8f8f8;
   &> .panel-heading {
-    color: #fff;
+    margin-top: 10px;
+    padding-bottom: 0;
+    color: #555;
     border-bottom: 0;
-    background: #2670b1; 
+    border-radius: 0;
+    background: none; 
   }
 }
 .panel-body {

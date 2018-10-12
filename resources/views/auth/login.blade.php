@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading"> @lang ('elements.words.login') </div>
+                    <div class="panel-heading"><i class="fas fa-sign-in-alt fa-lg"></i> @lang ('elements.words.login')</div>
                     <div class="panel-body">
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
@@ -66,7 +66,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn">
+                                    <button type="submit" class="btn btn-submit-1 none-radius write">
                                         @lang ('elements.words.login')
                                     </button>
 
