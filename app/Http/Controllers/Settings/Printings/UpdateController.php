@@ -39,9 +39,9 @@ final class UpdateController extends Controller
      */
     public function view(Request $request)
     {
-        $cookie1 = $request->cookie('settings_printings_1');
-        $cookie2 = $request->cookie('settings_printings_2');
-        $cookie3 = $request->cookie('settings_printings_3');
+        $cookie1 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 1));
+        $cookie2 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 2));
+        $cookie3 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 3));
 
         return view('settings.printings.edit', [
             'rows' => [
