@@ -49,7 +49,9 @@ final class IndexController extends Controller
             'rows' => $this->useCase->excute($user, array_merge($args, [
                 'store_id' => session(config('session.name.current_store')),
             ])),
-            'tags' => $user->store()->tags()->groupBy(function ($item) {
+            'tags' => $user->company()->tags([
+                'store_id' => session(config('session.name.current_store')),
+            ])->groupBy(function ($item) {
                 return $item->label();
             }),
             'printSettings' => $this->printSettings($request),
