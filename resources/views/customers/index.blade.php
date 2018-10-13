@@ -43,6 +43,12 @@
                         </li>
                     @endcan
 
+                    @can ('authorize', config('permissions.groups.customers.create'))
+                        <li>
+                            <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
+                        </li>
+                    @endcan
+
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
                         <li>
                             <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
@@ -65,6 +71,20 @@
                         </div>
                     @endcan
 
+                    @can ('authorize', config('permissions.groups.customers.create'))
+                        <div class="tab-pane fade pt-10" id="create-tab">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+
+                                <div class="panel-body">
+                                    {!! Form::open(['url' => route('customers.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
+                                        @include ('customers.components.crud', ['mode' => 'add'])
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
+
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
                         <div class="tab-pane fade pt-10" id="print-tab">
                             <div class="well">
@@ -82,6 +102,7 @@
 
 @section ('scripts')
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
+    <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
         jQuery(function($){
             $.extend( $.fn.dataTable.defaults, {

@@ -47,10 +47,6 @@
                             @endcan
 
                             @can ('authorize', config('permissions.groups.customers.create'))
-                                <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.words.customers')@lang ('elements.words.register')</a></li>
-                            @endcan
-
-                            @can ('authorize', config('permissions.groups.customers.create'))
                                 <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.words.import')</a></li>
                             @endcan
                         </ul>

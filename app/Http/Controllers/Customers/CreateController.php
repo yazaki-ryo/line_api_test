@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\CreateRequest;
 use App\Repositories\UserRepository;
-use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\CreateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -36,21 +35,10 @@ final class CreateController extends Controller
     }
 
     /**
-     * @param Customer $customer
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view(Customer $customer)
-    {
-        return view('customers.add', [
-            'row' => $customer,
-        ]);
-    }
-
-    /**
      * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(CreateRequest $request)
+    public function __invoke(CreateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
