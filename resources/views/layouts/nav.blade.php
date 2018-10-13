@@ -95,10 +95,6 @@
                                     @can ('authorize', config('permissions.groups.tags.select'))
                                         <li class="{{ request()->route()->named('tags') ? 'active' : '' }}"><a href="{{ route('tags') }}">@lang ('elements.words.tags')@lang ('elements.words.list')</a></li>
                                     @endcan
-
-                                    @can ('authorize', config('permissions.groups.tags.create'))
-                                        <li class="{{ request()->route()->named('tags.add') ? 'active' : '' }}"><a href="{{ route('tags.add') }}">@lang ('elements.words.tags')@lang ('elements.words.register')</a></li>
-                                    @endcan
                                 </ul>
                             </li>
 
