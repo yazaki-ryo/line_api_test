@@ -26,16 +26,13 @@
                     <td class="text-center">{{ empty($row->{$camel = camel_case('visited_at')}()) ? '' : $row->{$camel}()->format('H:i') }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('amount')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('seat')}() }}</td>
-                    <td class="text-center dropdown">
-                        <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="glyphicon glyphicon-option-horizontal"></span>
-                        </button>
-                        <ul class="dropdown-menu">
+                    <td class="text-center">
+                        <ul class="side-by-side around wrap">
                             @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
                                 @can ('select', $row)
                                     <li>
                                         <a href="{{ route('customers.visited_histories.edit', [$row->customerId(), $row->id()]) }}">
-                                            @lang ('elements.words.detail')
+                                            <i class="fas fa-pencil-alt icon-edit" title="@lang('elements.words.detail')"></i>
                                         </a>
                                     </li>
                                 @endcan
@@ -47,7 +44,7 @@
 
                                     <li>
                                         <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" onclick="deleteRecord('{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
-                                            @lang ('elements.words.delete')
+                                            <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
                                         </a>
                                     </li>
                                 @endcan

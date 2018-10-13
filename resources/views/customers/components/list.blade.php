@@ -3,7 +3,8 @@
 </div>
 
 @if ($rows->count())
-    <table id="customers-table" class="table table-striped table-hover table-condensed">
+<div class="table-responsive">
+    <table id="customers-table" class="table table-striped table-condensed dt-responsive nowrap dataTable dtr-inline collapsed">
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
@@ -28,11 +29,8 @@
                     <td class="text-center">{{ $row->{$camel = camel_case('tel')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                     <td class="text-center"><span class="badge">{{ $row->visitedHistories()->count() }}</span></td>
-                    <td class="text-center dropdown">
-                        <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="glyphicon glyphicon-option-horizontal"></span>
-                        </button>
-                        <ul class="dropdown-menu">
+                    <td class="text-center">
+                        <ul class="side-by-side around wrap">
                             @if ($row->{$camel = camel_case('deleted_at')}())
                                 @can ('authorize', config('permissions.groups.customers.restore'))
                                     @can ('restore', $row)
@@ -48,7 +46,7 @@
                                     @can ('select', $row)
                                         <li>
                                             <a href="{{ route('customers.edit', $row->id()) }}">
-                                                @lang ('elements.words.detail')
+                                                <i class="fas fa-pencil-alt icon-edit" title="@lang('elements.words.detail')"></i>
                                             </a>
                                         </li>
                                     @endcan
@@ -57,7 +55,7 @@
                                 @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                                     <li>
                                         <a href="{{ route('customers.visited_histories.add', $row->id()) }}">
-                                            @lang ('elements.words.visit')@lang ('elements.words.register')
+                                            <i class="far fa-calendar-plus" title="@lang('elements.words.visit')@lang ('elements.words.register')"></i>
                                         </a>
                                     </li>
                                 @endcan
@@ -68,7 +66,7 @@
 
                                         <li>
                                             <a href="{{ route('customers.delete', $row->id()) }}" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
-                                                @lang ('elements.words.delete')
+                                                <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
                                             </a>
                                         </li>
                                     @endcan
@@ -81,6 +79,7 @@
             @endforeach
         </tbody>
     </table>
+</div>    
 @else
     <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.customers'), __('elements.words.data'))])</p>
 @endif
