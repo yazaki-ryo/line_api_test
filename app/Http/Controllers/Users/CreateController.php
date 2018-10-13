@@ -35,21 +35,10 @@ final class CreateController extends Controller
     }
 
     /**
-     * @param User $user
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view(User $user)
-    {
-        return view('users.add', [
-            'row' => $user,
-        ]);
-    }
-
-    /**
      * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(CreateRequest $request)
+    public function __invoke(CreateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());

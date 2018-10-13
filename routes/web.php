@@ -127,8 +127,7 @@ $router->group([
         'prefix' => $prefix = 'users',
     ], function (Router $router) use ($prefix) {
         $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name($prefix);
-        $router->get( 'add', \App\Http\Controllers\Users\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
-        $router->post('add', \App\Http\Controllers\Users\CreateController::class . '@create');
+        $router->post('add', \App\Http\Controllers\Users\CreateController::class)->name(sprintf('%s.add', $prefix));
 
         $router->group([
             'prefix' => '{userId}',
