@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Customers\VisitedHistories;
+namespace Domain\UseCases\VisitedHistories;
 
 use App\Traits\Database\Transactionable;
 use Carbon\Carbon;

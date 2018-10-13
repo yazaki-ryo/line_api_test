@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.words.visit')@lang ('elements.words.register') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.detail') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.visit')@lang ('elements.words.register')
+                    	<h1 class="h2">@lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.detail')
                 </div>
             </div>
         </div>
@@ -29,8 +29,8 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('customers.visited_histories.add', $customerId), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                            @include ('customers.visited_histories.components.crud', ['mode' => 'add'])
+                        {!! Form::open(['url' => route('visited_histories.edit', [$row->customerId(), $row->id()]), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                            @include ('visited_histories.components.crud', ['mode' => 'edit'])
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -41,6 +41,16 @@
 
 @section ('scripts')
     <script type="text/javascript">
-        //
+        /**
+         * @param string url
+         * @return void
+         */
+        function deleteRecord(url) {
+            if( confirm('@lang ("Do you really want to delete this?")') ) {
+                var form = document.getElementById('basic-post-form');
+                form.action = url;
+                form.submit();
+            }
+        }
     </script>
 @endsection

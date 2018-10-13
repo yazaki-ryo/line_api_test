@@ -1,17 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Customers\VisitedHistories;
+namespace Domain\UseCases\VisitedHistories;
 
 use App\Traits\Database\Transactionable;
-use Carbon\Carbon;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 
-final class UpdateVisitedHistory
+final class DeleteVisitedHistory
 {
     use Transactionable;
 
@@ -28,7 +27,7 @@ final class UpdateVisitedHistory
     }
 
     /**
-     * @param  int $id
+     * @param int $id
      * @return Customer
      * @throws NotFoundException
      */
@@ -59,38 +58,13 @@ final class UpdateVisitedHistory
     /**
      * @param User $user
      * @param VisitedHistory $visitedHistory
-     * @param array $args
-     * @return bool
+     * @return void
      */
-    public function excute(User $user, VisitedHistory $visitedHistory, array $args = []): bool
+    public function excute(User $user, VisitedHistory $visitedHistory): void
     {
-        $args = $this->domainize($user, $args);
-
-        return $this->transaction(function () use ($visitedHistory, $args) {
-            return $visitedHistory->update($args);
+        $this->transaction(function () use ($visitedHistory) {
+            $visitedHistory->delete();
         });
-    }
-
-    /**
-     * @param User $user
-     * @param array $args
-     * @return array
-     */
-    private function domainize(User $user, array $args = []): array
-    {
-        $args = collect($args);
-
-        if ($args->has($key1 = 'visited_date')) {
-            $date = $args->get($key1);
-
-            if ($args->has($key2 = 'visited_time') && !is_null($args->get($key2))) {
-                $date = sprintf('%s %s', $date, $args->get($key2));
-            }
-
-            $args->put('visited_at', Carbon::parse($date));
-        }
-
-        return $args->all();
     }
 
 }

@@ -60,7 +60,7 @@
 
             @can ('authorize', config('permissions.groups.customers.visited_histories.delete'))
                 @can ('delete', $row)
-                    <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
+                    <a href="{{ route('visited_histories.delete', [$row->customerId(), $row->id()]) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
                         @lang ('elements.words.delete')
                     </a>
                 @endcan

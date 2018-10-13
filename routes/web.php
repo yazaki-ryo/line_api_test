@@ -71,21 +71,6 @@ $router->group([
             ], function (Router $router) use ($prefix, $prefix2) {
                 $router->post('/', \App\Http\Controllers\Customers\Tags\UpdateController::class)->name(sprintf('%s.%s', $prefix, $prefix2));
             });
-
-            $router->group([
-                'prefix' => $prefix2 = 'visited_histories',
-            ], function (Router $router) use ($prefix, $prefix2) {
-                $router->get( 'add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@view')->name(sprintf('%s.%s.add', $prefix, $prefix2));
-                $router->post('add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@create');
-
-                $router->group([
-                    'prefix' => '{visitedHistoryId}',
-                ], function (Router $router) use ($prefix, $prefix2) {
-                    $router->get( 'edit', \App\Http\Controllers\Customers\VisitedHistories\UpdateController::class . '@view')->name(sprintf('%s.%s.edit', $prefix, $prefix2));
-                    $router->post('edit', \App\Http\Controllers\Customers\VisitedHistories\UpdateController::class . '@update');
-                    $router->post('delete', \App\Http\Controllers\Customers\VisitedHistories\DeleteController::class)->name(sprintf('%s.%s.delete', $prefix, $prefix2));
-                });
-            });
         });
 
         $router->group([
@@ -99,6 +84,23 @@ $router->group([
         ], function (Router $router) use ($prefix, $prefix2) {
             $router->get( 'import', \App\Http\Controllers\Customers\Files\ImportController::class . '@view')->name(sprintf('%s.%s.import', $prefix, $prefix2));
             $router->post('import', \App\Http\Controllers\Customers\Files\ImportController::class . '@import');
+        });
+    });
+
+    /**
+     * Visited histories
+     */
+    $router->group([
+        'prefix' => $prefix = 'visited_histories',
+    ], function (Router $router) use ($prefix) {
+        $router->post('add', \App\Http\Controllers\VisitedHistories\CreateController::class)->name(sprintf('%s.add', $prefix));
+
+        $router->group([
+            'prefix' => '{visitedHistoryId}',
+        ], function (Router $router) use ($prefix) {
+            $router->get( 'edit', \App\Http\Controllers\VisitedHistories\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+            $router->post('edit', \App\Http\Controllers\VisitedHistories\UpdateController::class . '@update');
+            $router->post('delete', \App\Http\Controllers\VisitedHistories\DeleteController::class)->name(sprintf('%s.delete', $prefix));
         });
     });
 

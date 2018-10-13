@@ -50,6 +50,14 @@
                             </a>
                         </li>
                     @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
+                        <li>
+                            <a href="#create-history-tab">
+                                @lang ('elements.words.visit')@lang ('elements.words.register')
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
 
                 <div class="tab-content">
@@ -79,7 +87,15 @@
 
                     @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
                         <div class="tab-pane fade pt-10" id="histories-tab">
-                            @include ('customers.visited_histories.components.list', ['rows' => $visitedHistories])
+                            @include ('visited_histories.components.list', ['rows' => $visitedHistories])
+                        </div>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
+                        <div class="tab-pane fade pt-10" id="create-history-tab">
+                            {!! Form::open(['url' => route('visited_histories.add', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                @include ('visited_histories.components.crud', ['mode' => 'add', 'row' => $brankHistory])
+                            {!! Form::close() !!}
                         </div>
                     @endcan
                 </div>

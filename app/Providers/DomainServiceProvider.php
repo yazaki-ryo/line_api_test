@@ -4,14 +4,12 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Http\Views\Composers\PrefecturesComposer;
-use App\Http\Views\Composers\RolesComposer;
 use App\Http\Views\Composers\SexesComposer;
 use App\Services\CustomersService;
 use App\Services\SexesService;
 use App\Services\Pdf\PdfService;
 use App\Services\FilesService;
 use App\Services\PrefecturesService;
-use App\Services\RolesService;
 use App\Services\TagsService;
 use App\Services\UsersService;
 use Domain\UseCases\Customers\CreateCustomer;
@@ -22,9 +20,9 @@ use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\Customers\Tags\UpdateTags;
-use Domain\UseCases\Customers\VisitedHistories\CreateVisitedHistory;
-use Domain\UseCases\Customers\VisitedHistories\DeleteVisitedHistory;
-use Domain\UseCases\Customers\VisitedHistories\UpdateVisitedHistory;
+use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
+use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
+use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Domain\UseCases\Tags\DeleteTag;
 use Domain\UseCases\Tags\UpdateTag;
 use Domain\UseCases\Users\DeleteUser;
@@ -155,12 +153,6 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(PrefecturesComposer::class, function () {
             return new PrefecturesComposer(
                 app(PrefecturesService::class)
-            );
-        });
-
-        $this->app->bind(RolesComposer::class, function () {
-            return new RolesComposer(
-                app(RolesService::class)
             );
         });
 

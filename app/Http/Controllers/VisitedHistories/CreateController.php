@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Customers\VisitedHistories;
+namespace App\Http\Controllers\VisitedHistories;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Customers\VisitedHistories\CreateRequest;
+use App\Http\Requests\VisitedHistories\CreateRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
-use Domain\UseCases\Customers\VisitedHistories\CreateVisitedHistory;
+use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class CreateController extends Controller
@@ -37,33 +37,12 @@ final class CreateController extends Controller
     }
 
     /**
-     * @param VisitedHistory $visitedHistory
-     * @param int $customerId
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view(VisitedHistory $visitedHistory, int $customerId)
-    {
-        /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
-
-        $this->authorize('create', [
-            $visitedHistory,
-            $customer,
-        ]);
-
-        return view('customers.visited_histories.add', [
-            'row'        => $visitedHistory,
-            'customerId' => $customer->id(),
-        ]);
-    }
-
-    /**
      * @param CreateRequest $request
      * @param VisitedHistory $visitedHistory
      * @param int $customerId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(CreateRequest $request, VisitedHistory $visitedHistory, int $customerId)
+    public function __invoke(CreateRequest $request, VisitedHistory $visitedHistory, int $customerId)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());

@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Systems\Customers\VisitedHistories;
+namespace App\Http\Controllers\Systems\VisitedHistories;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Repositories\UserRepository;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
-use Domain\UseCases\Customers\VisitedHistories\DeleteVisitedHistory;
+use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class DeleteController extends Controller

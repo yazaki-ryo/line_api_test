@@ -34,7 +34,7 @@
                             @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
                                 @can ('select', $row)
                                     <li>
-                                        <a href="{{ route('customers.visited_histories.edit', [$row->customerId(), $row->id()]) }}">
+                                        <a href="{{ route('visited_histories.edit', [$row->customerId(), $row->id()]) }}">
                                             @lang ('elements.words.detail')
                                         </a>
                                     </li>
@@ -46,7 +46,7 @@
                                     <li role="separator" class="divider"></li>
 
                                     <li>
-                                        <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" onclick="deleteRecord('{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
+                                        <a href="{{ route('visited_histories.delete', [$row->customerId(), $row->id()]) }}" onclick="deleteRecord('{{ route('visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
                                             @lang ('elements.words.delete')
                                         </a>
                                     </li>
