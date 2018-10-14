@@ -107,7 +107,7 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(DeleteVisitedHistory::class, function () {
             return new DeleteVisitedHistory(
-                app(CustomersService::class)
+                app(VisitedHistoriesService::class)
             );
         });
 

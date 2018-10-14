@@ -35,20 +35,16 @@ final class DeleteController extends Controller
     }
 
     /**
-     * @param int $customerId
-     * @param int $visitedHistory
+     * @param int $visitedHistoryId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(int $customerId, int $visitedHistory)
+    public function __invoke(int $visitedHistoryId)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
-
         /** @var VisitedHistory $visitedHistory */
-        $visitedHistory = $this->useCase->getVisitedHistory($customer, $visitedHistory);
+        $visitedHistory = $this->useCase->getVisitedHistory($visitedHistoryId);
 
         $this->authorize('delete', $visitedHistory);
 
@@ -62,7 +58,7 @@ final class DeleteController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.visit'), 'action' => __('elements.words.deleted')]), 'info');
-        return redirect()->route('customers.edit', $customer->id());
+        return redirect()->route('customers.edit', $visitedHistory->customerId());
     }
 
 }
