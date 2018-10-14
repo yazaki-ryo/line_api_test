@@ -98,7 +98,7 @@
 
                                 <div class="panel-body">
                                     {!! Form::open(['url' => route('visited_histories.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                        @include ('visited_histories.components.crud', ['mode' => 'add', 'row' => $brankHistory])
+                                        @include ('visited_histories.components.crud', ['mode' => 'add', 'row' => $brankHistory, 'customer' => $row])
                                     {!! Form::close() !!}
                                 </div>
                             </div>

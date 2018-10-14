@@ -39,16 +39,15 @@ final class CreateController extends Controller
     /**
      * @param CreateRequest $request
      * @param VisitedHistory $visitedHistory
-     * @param int $customerId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(CreateRequest $request, VisitedHistory $visitedHistory, int $customerId)
+    public function __invoke(CreateRequest $request, VisitedHistory $visitedHistory)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
         /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
+        $customer = $this->useCase->getCustomer((int)$request->get('customer_id'));
 
         $this->authorize('create', [
             $visitedHistory,

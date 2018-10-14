@@ -45,6 +45,11 @@ class CreateRequest extends FormRequest
                 'string',
                 'max:191',
             ],
+            'customer_id' => [
+                'required',
+                'numeric',
+                Rule::exists('customers', 'id'),
+            ],
         ];
     }
 

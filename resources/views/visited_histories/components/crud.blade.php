@@ -1,3 +1,7 @@
+@if ($mode === 'add')
+    <input type="hidden" name="customer_id" value="{{ $customer->id() }}" />
+@endif
+
 <div class="form-group{{ $errors->has($attribute = 'visited_date') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
