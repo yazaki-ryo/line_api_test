@@ -7,7 +7,6 @@ use App\Traits\Database\Transactionable;
 use Carbon\Carbon;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
-use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 
@@ -29,30 +28,14 @@ final class UpdateVisitedHistory
 
     /**
      * @param  int $id
-     * @return Customer
+     * @return VisitedHistory
      * @throws NotFoundException
      */
-    public function getCustomer(int $id): Customer
+    public function getVisitedHistory(int $id): VisitedHistory
     {
         if (is_null($resource = $this->finder->find($id))) {
             throw new NotFoundException('Resource not found.');
         }
-
-        return $resource;
-    }
-
-    /**
-     * @param  int $id
-     * @param Customer $customer
-     * @return VisitedHistory
-     * @throws NotFoundException
-     */
-    public function getVisitedHistory(Customer $customer, int $id): VisitedHistory
-    {
-        if (is_null($resource = $customer->visitedHistories(['id' => $id])->first())) {
-            throw new NotFoundException('Resource not found.');
-        }
-
         return $resource;
     }
 

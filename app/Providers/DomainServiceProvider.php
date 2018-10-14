@@ -12,6 +12,7 @@ use App\Services\FilesService;
 use App\Services\PrefecturesService;
 use App\Services\TagsService;
 use App\Services\UsersService;
+use App\Services\VisitedHistoriesService;
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Domain\UseCases\Customers\Files\ImportFiles;
@@ -112,7 +113,7 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(UpdateVisitedHistory::class, function () {
             return new UpdateVisitedHistory(
-                app(CustomersService::class)
+                app(VisitedHistoriesService::class)
             );
         });
 

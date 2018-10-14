@@ -37,41 +37,33 @@ final class UpdateController extends Controller
     }
 
     /**
-     * @param int $customerId
-     * @param int $visitedHistory
+     * @param int $visitedHistoryId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $customerId, int $visitedHistory)
+    public function view(int $visitedHistoryId)
     {
-        /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
-
-        /** @var VisitedHistory $visitedHistory */
-        $visitedHistory = $this->useCase->getVisitedHistory($customer, $visitedHistory);
+        /** @var VisitedHistory $visitedHistoryId */
+        $visitedHistory = $this->useCase->getVisitedHistory($visitedHistoryId);
 
         $this->authorize('select', $visitedHistory);
 
-        return view('customers.visited_histories.edit', [
+        return view('visited_histories.edit', [
             'row' => $visitedHistory,
         ]);
     }
 
     /**
      * @param UpdateRequest $request
-     * @param int $customerId
-     * @param int $visitedHistory
+     * @param int $visitedHistoryId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request, int $customerId, int $visitedHistory)
+    public function update(UpdateRequest $request, int $visitedHistoryId)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
-
         /** @var VisitedHistory $visitedHistory */
-        $visitedHistory = $this->useCase->getVisitedHistory($customer, $visitedHistory);
+        $visitedHistory = $this->useCase->getVisitedHistory($visitedHistoryId);
 
         $this->authorize('update', $visitedHistory);
 
@@ -87,7 +79,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.visit'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('customers.edit', $customer->id());
+        return redirect()->route('customers.edit', $visitedHistory->customerId());
     }
 
 }
