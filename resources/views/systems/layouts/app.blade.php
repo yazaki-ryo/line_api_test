@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     @if (file_exists(public_path('mix-manifest.json')))
-        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/systems.css') }}" rel="stylesheet">
     @else
         <link href="{{ asset('css/default.css') }}" rel="stylesheet">
     @endif
@@ -40,7 +40,7 @@
     @if (file_exists(public_path('mix-manifest.json')))
         <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
         <script type="text/javascript" src="{{ mix('js/vendor.js') }}"></script>
-        <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+        <script type="text/javascript" src="{{ mix('js/systems.js') }}"></script>
     @else
         <script type="text/javascript" src="{{ asset('js/default.js') }}"></script>
     @endif

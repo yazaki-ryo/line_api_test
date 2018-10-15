@@ -15,9 +15,11 @@ _ide_helper.php
 mix-manifest.json
 
 /public/css/app.css
+/public/css/systems.css
 /public/fonts/vendor
 /public/hot
 /public/js/app.js
+/public/js/systems.js
 /public/js/manifest.js
 /public/js/vendor.js
 /public/storage

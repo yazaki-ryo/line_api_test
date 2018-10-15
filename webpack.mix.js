@@ -13,10 +13,12 @@ let mix = require('laravel-mix');
 
 // Js
 mix.js('resources/assets/js/app.js', 'public/js')
+    .js('resources/assets/js/systems.js', 'public/js')
     .extract(['vue']);
 
-//Sass
-mix.sass('resources/assets/sass/app.scss', 'public/css');
+// Sass
+mix.sass('resources/assets/sass/app.scss', 'public/css')
+    .sass('resources/assets/sass/systems.scss', 'public/css');
 
 // Versioning
 if (mix.inProduction()) {
