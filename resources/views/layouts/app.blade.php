@@ -33,6 +33,8 @@
 <body class="login-page">
 @endauth
     <div id="app">
+        @include ('layouts.header')
+
         @include ('layouts.nav')
 
         @yield('content')

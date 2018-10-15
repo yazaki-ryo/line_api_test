@@ -1,8 +1,5 @@
 a {
   color: #000;
-  &:hover {
-    color: #000;
-  }
 }
 ul {
   list-style: none;
@@ -12,7 +9,7 @@ ul {
   flex-direction: column;
   min-height: 100vh;
 }
-.container {
+.tab-container {
   width: 100%;
   padding: 0;
 }

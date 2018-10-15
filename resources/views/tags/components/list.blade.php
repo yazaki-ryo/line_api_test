@@ -3,7 +3,7 @@
 </div>
 
 @if ($rows->count())
-    <table id="tags-table" class="table table-striped table-hover table-condensed">
+    <table id="tags-table" class="table table-striped table-hover table-condensed table-bordered dt-responsive nowrap dataTable dtr-inline">
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
@@ -26,17 +26,14 @@
                     <td class="text-center"><span class="badge">{{ $row->customers()->count() }}</span></td>
                     <td class="text-center">{{ $row->{$camel = camel_case('created_at')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('updated_at')}() }}</td>
-                    <td class="text-center dropdown">
-                        <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="glyphicon glyphicon-option-horizontal"></span>
-                        </button>
-                        <ul class="dropdown-menu">
+                    <td class="text-center">
+                        <ul class="side-by-side around wrap">
                             @if (! $row->{$camel = camel_case('deleted_at')}())
                                 @can ('authorize', config('permissions.groups.tags.select'))
                                     @can ('select', $row)
                                         <li>
                                             <a href="{{ route('tags.edit', $row->id()) }}">
-                                                @lang ('elements.words.detail')
+                                                <i class="fas fa-pencil-alt icon-edit" title="@lang('elements.words.detail')"></i>
                                             </a>
                                         </li>
                                     @endcan
@@ -48,7 +45,7 @@
 
                                         <li>
                                             <a href="{{ route('tags.delete', $row->id()) }}" onclick="deleteRecord('{{ route('tags.delete', $row->id()) }}'); return false;">
-                                                @lang ('elements.words.delete')
+                                                <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
                                             </a>
                                         </li>
                                     @endcan

@@ -8,13 +8,6 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">{{ config('app.name', 'Laravel') }}</h1>
-                </div>
-            </div>
-        </div>
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">

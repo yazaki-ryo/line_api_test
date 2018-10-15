@@ -4,7 +4,7 @@
 
 @if ($rows->count())
 <div class="table-responsive">
-    <table id="customers-table" class="table table-striped table-condensed dt-responsive nowrap dataTable dtr-inline collapsed">
+    <table id="customers-table" class="table table-striped table-condensed table-bordered dt-responsive nowrap dataTable dtr-inline">
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>

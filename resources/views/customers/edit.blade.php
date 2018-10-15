@@ -99,14 +99,15 @@
                 language: {
                     url: "{{ asset('vendor/DataTables/ja.json') }}"
                 }
-            });
-            $("#visited-histories-table").DataTable({
+            });            
+            var visited = $("#visited-histories-table").DataTable({
                 columnDefs: [
                     {
                         targets: [0, 5],
                         orderable: false
                     }
                 ],
+                responsive: true,
                 displayLength: 25,
                 info: true,
                 lengthChange: true,
@@ -114,9 +115,18 @@
                 order: [],
                 ordering: true,
                 paging: true,
+                scrollX: false,
                 searching: true,
                 stateSave: true
             });
+            // タブ切り替え時にテーブル幅を調整
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                if (e.target.hash == '#histories-tab') {
+                    var tables = $.fn.dataTable.tables( {visible: true, api: true} );
+                    tables.table().node().style.width = '100%';
+                    tables.columns.adjust();
+                }
+            } );
         });
 
         /**
