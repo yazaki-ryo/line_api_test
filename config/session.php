@@ -125,7 +125,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        str_slug(env('APP_NAME', 'laravel'), '_').'_session'
+        str_slug(env('SYS_NAME', 'laravel'), '_').'_session'
     ),
 
     /*
@@ -194,5 +194,16 @@ return [
     */
 
     'same_site' => null,
+
+    /*
+     |--------------------------------------------------------------------------
+     | Keys
+     |--------------------------------------------------------------------------
+     |
+     */
+
+    'name' => [
+        $key = 'current_store' => sprintf('_%s', $key),
+    ],
 
 ];

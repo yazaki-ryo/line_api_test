@@ -28,7 +28,7 @@ final class CreateController extends Controller
     public function __construct(CreateTag $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.tags.create'))),
         ]);
 
@@ -37,32 +37,10 @@ final class CreateController extends Controller
     }
 
     /**
-     * @param Tag $tag
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view(Tag $tag)
-    {
-        return view('tags.add', [
-            'row' => $tag,
-            /**
-             * TODO XXX configから取得
-             */
-            'labels' => [
-                'default' => 'デフォルト',
-                'primary' => 'プライマリ',
-                'info'    => 'インフォメーション',
-                'success' => 'サクセス',
-                'warning' => 'ワーニング',
-                'danger'  => 'デンジャー',
-            ],
-        ]);
-    }
-
-    /**
      * @param CreateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create(CreateRequest $request)
+    public function __invoke(CreateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());

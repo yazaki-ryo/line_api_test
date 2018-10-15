@@ -9,7 +9,6 @@ use App\Repositories\UserRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\GetUsers;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\Http\Request;
 
 final class IndexController extends Controller
 {
@@ -27,7 +26,7 @@ final class IndexController extends Controller
     public function __construct(GetUsers $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.users.select'))),
         ]);
 
@@ -37,16 +36,20 @@ final class IndexController extends Controller
 
     /**
      * @param SearchRequest $request
+     * @param User $brankUser
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function __invoke(SearchRequest $request)
+    public function __invoke(SearchRequest $request, User $brankUser)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
         return view('users.index', [
-            'rows' => $this->useCase->excute($user, $args),
+            'row'  => $brankUser,
+            'rows' => $this->useCase->excute($user, array_merge($args, [
+                'store_id' => session(config('session.name.current_store')),
+            ])),
         ]);
     }
 

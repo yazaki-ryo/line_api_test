@@ -27,7 +27,7 @@ final class UpdateController extends Controller
     public function __construct(UpdateProfile $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
         ]);
 
         $this->useCase = $useCase;

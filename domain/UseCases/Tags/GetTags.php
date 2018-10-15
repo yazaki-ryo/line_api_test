@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Domain\UseCases\Tags;
 
 use App\Services\DomainCollection;
+use Domain\Models\Company;
 use Domain\Models\User;
 
 final class GetTags
@@ -36,11 +37,10 @@ final class GetTags
         /** @var Collection $collection */
         $collection = collect($args);
 
-//         if ($collection->has($key = 'mourning_flag') && ! is_null($collection->get($key))) {
-//             $collection->put($key, ! ((bool)$collection->get($key)));
-//         }
+        /** @var Company $company */
+        $company = $user->company();
 
-        return $user->store()->tags($collection->all());
+        return is_null($company) ? new DomainCollection : $company->tags($collection->all());
     }
 
 }

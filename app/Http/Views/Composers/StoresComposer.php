@@ -61,15 +61,25 @@ final class StoresComposer
         /** @var DomainCollection $stores */
         $collection = new DomainCollection;
 
-        if ($user->can('authorize', 'customers.select') && ! is_null($company)) {
+        if ($user->can('authorize', 'stores.select') && ! is_null($company)) {
             // TODO
-        } elseif ($user->can('authorize', 'own-company-customers.select') && ! is_null($company)) {
+        } elseif ($user->can('authorize', 'own-company-stores.select') && ! is_null($company)) {
             $collection = $company->stores();
-        } elseif ($user->can('authorize', 'own-company-self-store-customers.select') && ! is_null($store)) {
+        } elseif ($user->can('authorize', 'own-company-self-store.select') && ! is_null($store)) {
             $collection = $collection->push($store);
         }
 
         $view->with('stores', $collection);
+
+        if (session()->has(config('session.name.current_store'))) {
+            $id = session(config('session.name.current_store'));
+            $view->with(
+                'currentStore',
+                $collection->filter(function (Store $item) use ($id){
+                    return $item->id() === (int)$id;
+                })->first()
+            );
+        }
     }
 
 }

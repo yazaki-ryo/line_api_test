@@ -84,7 +84,7 @@ final class LoginController extends Controller
      * @return void
      * @throws \Illuminate\Validation\ValidationException
      */
-    private function sendLockoutResponse(Request $request)
+    protected function sendLockoutResponse(Request $request)
     {
         $seconds = $this->limiter()->availableIn(
             $this->throttleKey($request)

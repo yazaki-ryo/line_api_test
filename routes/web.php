@@ -56,8 +56,7 @@ $router->group([
         'prefix' => $prefix = 'customers',
     ], function (Router $router) use ($prefix) {
         $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name($prefix);
-        $router->get( 'add', \App\Http\Controllers\Customers\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
-        $router->post('add', \App\Http\Controllers\Customers\CreateController::class . '@create');
+        $router->post('add', \App\Http\Controllers\Customers\CreateController::class)->name(sprintf('%s.add', $prefix));
 
         $router->group([
             'prefix' => '{customerId}',
@@ -71,21 +70,6 @@ $router->group([
                 'prefix' => $prefix2 = 'tags',
             ], function (Router $router) use ($prefix, $prefix2) {
                 $router->post('/', \App\Http\Controllers\Customers\Tags\UpdateController::class)->name(sprintf('%s.%s', $prefix, $prefix2));
-            });
-
-            $router->group([
-                'prefix' => $prefix2 = 'visited_histories',
-            ], function (Router $router) use ($prefix, $prefix2) {
-                $router->get( 'add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@view')->name(sprintf('%s.%s.add', $prefix, $prefix2));
-                $router->post('add', \App\Http\Controllers\Customers\VisitedHistories\CreateController::class . '@create');
-
-                $router->group([
-                    'prefix' => '{visitedHistoryId}',
-                ], function (Router $router) use ($prefix, $prefix2) {
-                    $router->get( 'edit', \App\Http\Controllers\Customers\VisitedHistories\UpdateController::class . '@view')->name(sprintf('%s.%s.edit', $prefix, $prefix2));
-                    $router->post('edit', \App\Http\Controllers\Customers\VisitedHistories\UpdateController::class . '@update');
-                    $router->post('delete', \App\Http\Controllers\Customers\VisitedHistories\DeleteController::class)->name(sprintf('%s.%s.delete', $prefix, $prefix2));
-                });
             });
         });
 
@@ -104,14 +88,30 @@ $router->group([
     });
 
     /**
+     * Visited histories
+     */
+    $router->group([
+        'prefix' => $prefix = 'visited_histories',
+    ], function (Router $router) use ($prefix) {
+        $router->post('add', \App\Http\Controllers\VisitedHistories\CreateController::class)->name(sprintf('%s.add', $prefix));
+
+        $router->group([
+            'prefix' => '{visitedHistoryId}',
+        ], function (Router $router) use ($prefix) {
+            $router->get( 'edit', \App\Http\Controllers\VisitedHistories\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+            $router->post('edit', \App\Http\Controllers\VisitedHistories\UpdateController::class . '@update');
+            $router->post('delete', \App\Http\Controllers\VisitedHistories\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+        });
+    });
+
+    /**
      * Tags
      */
     $router->group([
         'prefix' => $prefix = 'tags',
     ], function (Router $router) use ($prefix) {
         $router->get( '/', \App\Http\Controllers\Tags\IndexController::class)->name($prefix);
-        $router->get( 'add', \App\Http\Controllers\Tags\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
-        $router->post('add', \App\Http\Controllers\Tags\CreateController::class . '@create');
+        $router->post('add', \App\Http\Controllers\Tags\CreateController::class)->name(sprintf('%s.add', $prefix));
 
         $router->group([
             'prefix' => '{tagId}',
@@ -129,8 +129,7 @@ $router->group([
         'prefix' => $prefix = 'users',
     ], function (Router $router) use ($prefix) {
         $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name($prefix);
-        $router->get( 'add', \App\Http\Controllers\Users\CreateController::class . '@view')->name(sprintf('%s.add', $prefix));
-        $router->post('add', \App\Http\Controllers\Users\CreateController::class . '@create');
+        $router->post('add', \App\Http\Controllers\Users\CreateController::class)->name(sprintf('%s.add', $prefix));
 
         $router->group([
             'prefix' => '{userId}',
@@ -175,5 +174,39 @@ $router->group([
     ], function (Router $router) use ($prefix) {
         $router->get( 'permissions', \App\Http\Controllers\Docs\Permissions\IndexController::class)->name(sprintf('%s.permissions', $prefix));
     });
+});
 
+/**
+ * @prefix systems
+ * @middleware web
+ */
+$router->group([
+    'prefix' => $prefix = 'systems',
+], function (Router $router) use ($prefix) {
+    $router->get('/', \App\Http\Controllers\Systems\HomeController::class)->name(sprintf('%s.home', $prefix));
+
+    /**
+     * Authentication
+     */
+    $router->get( 'login',  \App\Http\Controllers\Systems\Auth\LoginController::class . '@showLoginForm')->name(sprintf('%s.login', $prefix));
+    $router->post('login',  \App\Http\Controllers\Systems\Auth\LoginController::class . '@login');
+    $router->post('logout', \App\Http\Controllers\Systems\Auth\LoginController::class . '@logout')->name(sprintf('%s.logout', $prefix));
+
+    /**
+     * Registration
+     */
+    $router->get( 'register', \App\Http\Controllers\Systems\Auth\RegisterController::class . '@showRegistrationForm')->name(sprintf('%s.register', $prefix));
+    $router->post('register', \App\Http\Controllers\Systems\Auth\RegisterController::class . '@register');
+
+    /**
+     * Password Reset
+     */
+    $router->group([
+        'prefix' => $prefix2 = 'password',
+    ], function (Router $router) use ($prefix, $prefix2) {
+        $router->get( 'reset',         \App\Http\Controllers\Systems\Auth\Password\ForgotController::class . '@showLinkRequestForm')->name(sprintf('%s.%s.request', $prefix, $prefix2));
+        $router->post('email',         \App\Http\Controllers\Systems\Auth\Password\ForgotController::class . '@sendResetLinkEmail')->name(sprintf('%s.%s.email', $prefix, $prefix2));
+        $router->get( 'reset/{token}', \App\Http\Controllers\Systems\Auth\Password\ResetController::class . '@showResetForm')->name(sprintf('%s.%s.reset', $prefix, $prefix2));
+        $router->post('reset',         \App\Http\Controllers\Systems\Auth\Password\ResetController::class . '@reset');
+    });
 });

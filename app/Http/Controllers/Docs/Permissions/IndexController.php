@@ -14,7 +14,7 @@ final class IndexController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('authenticate:user');
+        $this->middleware(sprintf('authenticate:%s', $this->guard));
     }
 
     /**

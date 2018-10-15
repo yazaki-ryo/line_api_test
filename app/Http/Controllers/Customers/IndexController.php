@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\SearchRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\GetCustomers;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -27,7 +28,7 @@ final class IndexController extends Controller
     public function __construct(GetCustomers $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.select'))),
         ]);
 
@@ -37,20 +38,28 @@ final class IndexController extends Controller
 
     /**
      * @param SearchRequest $request
+     * @param Customer $customer
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function __invoke(SearchRequest $request)
+    public function __invoke(SearchRequest $request, Customer $customer)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
+        $storeId = session(config('session.name.current_store'));
 
         return view('customers.index', [
-            'rows' => $this->useCase->excute($user, $args),
-            'tags' => $user->store()->tags()->groupBy(function ($item) {
+            'row' => $customer,
+            'rows' => $this->useCase->excute($user, array_merge($args, [
+                'store_id' => $storeId,
+            ])),
+            'tags' => $user->company()->tags([
+                'store_id' => $storeId,
+            ])->groupBy(function ($item) {
                 return $item->label();
             }),
             'printSettings' => $this->printSettings($request),
+            'storeId' => $storeId,
         ]);
     }
 
@@ -62,7 +71,7 @@ final class IndexController extends Controller
     {
         $cookies = [];
         for ($i = 1; $i < 4; $i++) {
-            if (! is_null($cookie = $request->cookie(sprintf('settings_printings_%s', $i)))) {
+            if (! is_null($cookie = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), $i)))) {
                 $cookies[$i] = (json_decode($cookie))->name;
             }
         }

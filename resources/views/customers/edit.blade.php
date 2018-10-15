@@ -36,6 +36,16 @@
                                 @lang ('elements.words.detail')
                             </a>
                         </li>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
+                        <li>
+                            <a href="#create-history-tab" data-toggle="tab">
+                                @lang ('elements.words.visit')@lang ('elements.words.register')
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
 
                         @can ('authorize', config('permissions.groups.tags.select'))
                             <li>
@@ -78,12 +88,25 @@
                             </div>
                         @endcan
 
-                        @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                            <div class="tab-pane fade pt-10" id="histories-tab">
-                                @include ('customers.visited_histories.components.list', ['rows' => $visitedHistories])
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                        <div class="tab-pane fade pt-10" id="histories-tab">
+                            @include ('visited_histories.components.list', ['rows' => $visitedHistories])
+                        </div>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
+                        <div class="tab-pane fade pt-10" id="create-history-tab">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+
+                                <div class="panel-body">
+                                    {!! Form::open(['url' => route('visited_histories.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                        @include ('visited_histories.components.crud', ['mode' => 'add', 'row' => $brankHistory, 'customer' => $row])
+                                    {!! Form::close() !!}
+                                </div>
                             </div>
-                        @endcan
-                    </div>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>

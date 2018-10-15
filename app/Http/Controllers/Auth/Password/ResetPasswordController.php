@@ -60,7 +60,7 @@ final class ResetController extends Controller
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    private  function sendResetResponse($response)
+    protected function sendResetResponse($response)
     {
         return redirect($this->redirectPath())->with('alerts.success', [__($response)]);
     }

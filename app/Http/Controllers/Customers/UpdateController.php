@@ -8,6 +8,7 @@ use App\Http\Requests\Customers\UpdateRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
+use Domain\Models\VisitedHistory;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
@@ -27,7 +28,7 @@ final class UpdateController extends Controller
     public function __construct(UpdateCustomer $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.update'))),
         ]);
 
@@ -36,13 +37,19 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param VisitedHistory $visitedHistory
      * @param int $customerId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $customerId)
+    public function view(VisitedHistory $visitedHistory, int $customerId)
     {
+        $storeId = session(config('session.name.current_store'));
+
         /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
+        $customer = $this->useCase->getCustomer([
+            'id' => $customerId,
+            'store_id' => $storeId,
+        ]);
 
         $this->authorize('update', $customer);
 
@@ -53,7 +60,8 @@ final class UpdateController extends Controller
             }),
             'tagIds' => $customer->tags(),
             'visitedHistories' => $customer->visitedHistories(),
-
+            'brankHistory' => $visitedHistory,
+            'storeId' => $storeId,
         ]);
     }
 
@@ -68,7 +76,10 @@ final class UpdateController extends Controller
         $user = UserRepository::toModel($this->auth->user());
 
         /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
+        $customer = $this->useCase->getCustomer([
+            'id' => $customerId,
+            'store_id' => $request->get('store_id'),
+        ]);
         $args = $request->validated();
 
         $this->authorize('update', $customer);

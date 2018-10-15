@@ -43,6 +43,11 @@
                         </li>
                     @endcan
 --}}
+                    @can ('authorize', config('permissions.groups.tags.create'))
+                        <li>
+                            <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
+                        </li>
+                    @endcan
                 </ul>
 
                 <div class="tab-content">
@@ -60,6 +65,19 @@
                         </div>
                     @endcan
 --}}
+                    @can ('authorize', config('permissions.groups.tags.create'))
+                        <div class="tab-pane fade pt-10" id="create-tab">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+
+                                <div class="panel-body">
+                                    {!! Form::open(['url' => route('tags.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                        @include ('tags.components.crud', ['mode' => 'add'])
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>

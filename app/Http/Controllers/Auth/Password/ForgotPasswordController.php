@@ -58,7 +58,7 @@ final class ForgotController extends Controller
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    private function sendResetLinkResponse($response)
+    protected function sendResetLinkResponse($response)
     {
         return back()->with('alerts.success', [__($response)]);
     }

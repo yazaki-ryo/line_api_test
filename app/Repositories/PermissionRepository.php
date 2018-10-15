@@ -65,6 +65,14 @@ final class PermissionRepository extends EloquentRepository implements Domainabl
     {
         $args = collect($args);
 
+        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
+            $q->id($args->get($key));
+        });
+
+        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->ids($args->get($key));
+        });
+
         return $query;
     }
 
