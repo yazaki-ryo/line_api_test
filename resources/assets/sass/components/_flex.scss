@@ -1,0 +1,12 @@
+.side-by-side {
+  display: flex;
+}
+.around {
+  justify-content: space-around;
+}
+.between {
+  justify-content: space-between;
+}
+.wrap {
+  flex-wrap: wrap;
+}

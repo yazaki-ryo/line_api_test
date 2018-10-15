@@ -1,0 +1,15 @@
+.panel-default {
+  border-color: #ccc;
+  background-color: #f8f8f8;
+  &> .panel-heading {
+    margin-top: 10px;
+    padding-bottom: 0;
+    color: #555;
+    border-bottom: 0;
+    border-radius: 0;
+    background: none; 
+  }
+}
+.panel-body {
+  padding: 25px;
+}

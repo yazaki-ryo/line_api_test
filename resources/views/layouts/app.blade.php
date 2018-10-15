@@ -27,12 +27,18 @@
 
     @include('components.google.analytics')
 </head>
+@auth
 <body>
+@else
+<body class="login-page">
+@endauth
     <div id="app">
+        @include ('layouts.header')
+
         @include ('layouts.nav')
 
         @yield('content')
-
+        
         @include ('layouts.footer')
     </div>
 

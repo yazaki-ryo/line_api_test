@@ -12,76 +12,78 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.detail')
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-0">
+                    <div class="page-header">
+                            <h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.detail')
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                @include ('components.parts.alerts')
-                @include ('components.parts.any_errors', ['errorBags' => ['tags']])
+            <div class="row">
+                <div class="col-md-12 col-md-offset-0">
+                    @include ('components.parts.alerts')
+                    @include ('components.parts.any_errors', ['errorBags' => ['tags']])
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#edit-tab" data-toggle="tab">
-                            @lang ('elements.words.detail')
-                        </a>
-                    </li>
-
-                    @can ('authorize', config('permissions.groups.tags.select'))
-                        <li>
-                            <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
-                        </li>
-                    @endcan
-
-                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                        <li>
-                            <a href="#histories-tab" data-toggle="tab">
-                                @lang ('elements.words.visit')@lang ('elements.words.history')
-                                <span class="badge">{{ $visitedHistories->count() }}</span>
+            <div class="row">
+                <div class="col-md-12 col-md-offset-0">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#edit-tab" data-toggle="tab">
+                                @lang ('elements.words.detail')
                             </a>
                         </li>
-                    @endcan
-                </ul>
 
-                <div class="tab-content">
-                    @can ('select', $row)
-                        <div class="tab-pane active fade in pt-10" id="edit-tab">
-                            <div class="panel panel-default">
-                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+                        @can ('authorize', config('permissions.groups.tags.select'))
+                            <li>
+                                <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
+                            </li>
+                        @endcan
 
-                                <div class="panel-body">
-                                    {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                                        @include ('customers.components.crud', ['mode' => 'edit'])
+                        @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                            <li>
+                                <a href="#histories-tab" data-toggle="tab">
+                                    @lang ('elements.words.visit')@lang ('elements.words.history')
+                                    <span class="badge">{{ $visitedHistories->count() }}</span>
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+
+                    <div class="tab-content">
+                        @can ('select', $row)
+                            <div class="tab-pane active fade in pt-10" id="edit-tab">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+
+                                    <div class="panel-body">
+                                        {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
+                                            @include ('customers.components.crud', ['mode' => 'edit'])
+                                        {!! Form::close() !!}
+                                    </div>
+                                </div>
+                            </div>
+                        @endcan
+
+                        @can ('authorize', config('permissions.groups.tags.select'))
+                            <div class="tab-pane fade pt-10" id="tags-tab">
+                                <div class="well">
+                                    {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                        @include ('customers.components.tags')
                                     {!! Form::close() !!}
                                 </div>
                             </div>
-                        </div>
-                    @endcan
+                        @endcan
 
-                    @can ('authorize', config('permissions.groups.tags.select'))
-                        <div class="tab-pane fade pt-10" id="tags-tab">
-                            <div class="well">
-                                {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                    @include ('customers.components.tags')
-                                {!! Form::close() !!}
+                        @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                            <div class="tab-pane fade pt-10" id="histories-tab">
+                                @include ('customers.visited_histories.components.list', ['rows' => $visitedHistories])
                             </div>
-                        </div>
-                    @endcan
-
-                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                        <div class="tab-pane fade pt-10" id="histories-tab">
-                            @include ('customers.visited_histories.components.list', ['rows' => $visitedHistories])
-                        </div>
-                    @endcan
+                        @endcan
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,14 +99,15 @@
                 language: {
                     url: "{{ asset('vendor/DataTables/ja.json') }}"
                 }
-            });
-            $("#visited-histories-table").DataTable({
+            });            
+            var visited = $("#visited-histories-table").DataTable({
                 columnDefs: [
                     {
                         targets: [0, 5],
                         orderable: false
                     }
                 ],
+                responsive: true,
                 displayLength: 25,
                 info: true,
                 lengthChange: true,
@@ -112,9 +115,18 @@
                 order: [],
                 ordering: true,
                 paging: true,
+                scrollX: false,
                 searching: true,
                 stateSave: true
             });
+            // タブ切り替え時にテーブル幅を調整
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                if (e.target.hash == '#histories-tab') {
+                    var tables = $.fn.dataTable.tables( {visible: true, api: true} );
+                    tables.table().node().style.width = '100%';
+                    tables.columns.adjust();
+                }
+            } );
         });
 
         /**
