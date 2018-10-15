@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
-class Authorize
+final class Authorize
 {
     /** @var Auth */
     private $auth;

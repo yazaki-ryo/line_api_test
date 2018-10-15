@@ -29,23 +29,13 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
-                @guest
-                    <li>
-                        <a href="{{ route('login') }}">
-                            <i class="fa fa-sign-in"></i>@lang ('elements.words.login')
-                        </a>
+                @auth
+                    <li class="dropdown-header">
+                        @lang ('Welcome, :name.', ['name' => $user->name()])
                     </li>
 
-                    @if (\Route::has('register'))
-                        <li>
-                            <a href="{{ route('register') }}">
-                                <i class="fa fa-sign-in"></i>@lang ('elements.words.user')@lang ('elements.words.register')
-                            </a>
-                        </li>
-                    @endif
-                @else
-                    <li class="dropdown-header nav-top">
-                        @lang ('Welcome, :name.', ['name' => $user->name()])
+                    <li class="dropdown-header">
+                        {{ $currentStore->name() ?? null }}
                     </li>
 
                     <!-- Customers -->
@@ -58,10 +48,6 @@
                             <ul class="nav nav-child">
                                 @can ('authorize', config('permissions.groups.customers.select'))
                                     <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers') }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
-                                @endcan
-
-                                @can ('authorize', config('permissions.groups.customers.create'))
-                                    <li class="{{ request()->route()->named('customers.add') ? 'active' : '' }}"><a href="{{ route('customers.add') }}">@lang ('elements.words.customers')@lang ('elements.words.register')</a></li>
                                 @endcan
 
                                 @can ('authorize', config('permissions.groups.customers.create'))
@@ -87,6 +73,21 @@
                         </a>
                         <div id="side-nav2" class="panel-collapse collapse">
                             <ul class="nav nav-child">
+                                <!-- Users -->
+                                @can ('authorize', ['stores.select', 'own-company-stores.select'])
+                                    <li class="dropdown-submenu">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                            @lang ('elements.words.users')@lang ('elements.words.management') <span class="caret"></span>
+                                        </a>
+
+                                        <ul class="dropdown-menu">
+                                            @can ('authorize', config('permissions.groups.users.select'))
+                                                <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
+                                            @endcan
+                                        </ul>
+                                    </li>
+                                @endcan
+
                                 <!-- Tags -->
                                 <li>
                                     <a href="#side-nav2-child1" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -97,10 +98,6 @@
                                         <ul class="nav nav-child">
                                             @can ('authorize', config('permissions.groups.tags.select'))
                                                 <li class="{{ request()->route()->named('tags') ? 'active' : '' }}"><a href="{{ route('tags') }}">@lang ('elements.words.tags')@lang ('elements.words.list')</a></li>
-                                            @endcan
-
-                                            @can ('authorize', config('permissions.groups.tags.create'))
-                                                <li class="{{ request()->route()->named('tags.add') ? 'active' : '' }}"><a href="{{ route('tags.add') }}">@lang ('elements.words.tags')@lang ('elements.words.register')</a></li>
                                             @endcan
                                         </ul>
                                     </div>
@@ -131,6 +128,21 @@
                                 @can ('authorize', config('permissions.groups.stores.update'))
                                     <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')</a></li>
                                 @endcan
+
+                                <!-- Own company stores -->
+                                @can ('authorize', ['stores.select', 'own-company-stores.select'])
+                                    <li class="dropdown-submenu">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                            @lang ('elements.words.stores')@lang ('elements.words.toggle') <span class="caret"></span>
+                                        </a>
+
+                                        <ul class="dropdown-menu">
+                                            @foreach ($stores as $store)
+                                                <li><a href="{{ route('home', ['store_id' => $store->id()]) }}">{{ $store->name() }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
+                                @endcan
                             </ul>
                         </div>
                     </li>
@@ -144,25 +156,6 @@
 
                         <div id="side-nav3" class="panel-collapse collapse">
                             <ul class="nav nav-child">
-                                <!-- Users -->
-                                <li>
-                                    <a href="#side-nav3-child1" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                        @lang ('elements.words.users')@lang ('elements.words.management') <span class="caret"></span>
-                                    </a>
-                                    
-                                    <div id="side-nav3-child1" class="panel-collapse collapse">
-                                        <ul class="nav nav-child">
-                                            @can ('authorize', config('permissions.groups.users.select'))
-                                                <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
-                                            @endcan
-
-                                            @can ('authorize', config('permissions.groups.users.create'))
-                                                <li class="{{ request()->route()->named('users.add') ? 'active' : '' }}"><a href="{{ route('users.add') }}">@lang ('elements.words.users')@lang ('elements.words.register')</a></li>
-                                            @endcan
-                                        </ul>
-                                    </div>
-                                </li>
-
                                 <!-- My profile -->
                                 <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.words.user')@lang ('elements.words.information')</a></li>
 
@@ -200,7 +193,21 @@
                             </ul>
                         </div>
                     </li>
-                @endguest
+                @else
+                    <li>
+                        <a href="{{ route('login') }}">
+                            <i class="fa fa-sign-in"></i>@lang ('elements.words.login')
+                        </a>
+                    </li>
+
+                    @if (\Route::has('register'))
+                        <li>
+                            <a href="{{ route('register') }}">
+                                <i class="fa fa-sign-in"></i>@lang ('elements.words.user')@lang ('elements.words.register')
+                            </a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
         </div>
     </div>

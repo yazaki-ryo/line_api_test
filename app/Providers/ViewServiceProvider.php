@@ -26,12 +26,20 @@ final class ViewServiceProvider extends ServiceProvider
 
         View::creator([
             'layouts.app',
+            'tags.add',
+            'tags.edit',
+            'users.add',
+            'users.edit',
+        ], StoresComposer::class);
+
+        View::creator([
+            'layouts.app',
         ], NotificationsComposer::class);
 
         View::creator([
             'settings.company',
             'settings.store',
-            'customers.add',
+            'customers.index',
             'customers.edit',
         ], PrefecturesComposer::class);
 
@@ -40,17 +48,9 @@ final class ViewServiceProvider extends ServiceProvider
         ], PrintSettingsComposer::class);
 
         View::creator([
-            'customers.add',
+            'customers.index',
             'customers.edit',
         ], SexesComposer::class);
-
-        View::creator([
-            'customers.add',
-            'customers.edit',
-            'settings.profile',
-            'users.add',
-            'users.edit',
-        ], StoresComposer::class);
     }
 
     /**

@@ -25,7 +25,7 @@ final class UpdateController extends Controller
     public function __construct(UpdatePrintings $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             'authorize:self-settings.printings.update',
         ]);
 
@@ -39,9 +39,9 @@ final class UpdateController extends Controller
      */
     public function view(Request $request)
     {
-        $cookie1 = $request->cookie('settings_printings_1');
-        $cookie2 = $request->cookie('settings_printings_2');
-        $cookie3 = $request->cookie('settings_printings_3');
+        $cookie1 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 1));
+        $cookie2 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 2));
+        $cookie3 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 3));
 
         return view('settings.printings.edit', [
             'rows' => [
@@ -59,7 +59,7 @@ final class UpdateController extends Controller
      */
     public function update(PrintingsRequest $request, int $settingId)
     {
-        $cookie = cookie()->forever(sprintf('settings_printings_%s', $settingId), json_encode($request->validated()));
+        $cookie = cookie()->forever(sprintf('%s_%s', config('cookie.name.printings'), $settingId), json_encode($request->validated()));
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.setting'), 'action' => __('elements.words.updated')]), 'success');
 

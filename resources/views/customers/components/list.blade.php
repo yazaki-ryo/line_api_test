@@ -52,14 +52,6 @@
                                     @endcan
                                 @endcan
 
-                                @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
-                                    <li>
-                                        <a href="{{ route('customers.visited_histories.add', $row->id()) }}">
-                                            <i class="far fa-calendar-plus" title="@lang('elements.words.visit')@lang ('elements.words.register')"></i>
-                                        </a>
-                                    </li>
-                                @endcan
-
                                 @can ('authorize', config('permissions.groups.customers.delete'))
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>

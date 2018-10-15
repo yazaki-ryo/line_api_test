@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
+use Illuminate\Database\Eloquent\Builder;
 use App\Traits\Database\Eloquent\Scopable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -69,6 +70,18 @@ final class EloquentUser extends Authenticatable
     public function permissions(): MorphToMany
     {
         return $this->morphToMany(EloquentPermission::class, 'permissible', 'permissibles', 'permissible_id', 'permission_id', 'id', 'id')->withTimestamps();
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  int $value
+     * @return Builder
+     */
+    public function scopeStoreId(Builder $query, int $value): Builder
+    {
+        $field = sprintf('%s.store_id', $this->getTable());
+
+        return $query->where($field, '=', $value);
     }
 
 }

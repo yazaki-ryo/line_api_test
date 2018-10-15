@@ -183,6 +183,10 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             );
         });
 
+        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
+            $q->id($args->get($key));
+        });
+
         $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->ids($args->get($key));
         });

@@ -5,7 +5,6 @@ namespace Domain\UseCases\Customers;
 
 use App\Services\DomainCollection;
 use Domain\Models\Company;
-use Domain\Models\Store;
 use Domain\Models\User;
 
 final class GetCustomers
@@ -42,21 +41,10 @@ final class GetCustomers
             $collection->put($key, ! ((bool)$collection->get($key)));
         }
 
-        /** @var Store $store */
-        $store = $user->store();
-
         /** @var Company $company */
-        $company = $store->company();
+        $company = $user->company();
 
-        if ($user->can('authorize', 'customers.select')) {
-            // TODO
-        } elseif ($user->can('authorize', 'own-company-customers.select') && ! is_null($company)) {
-            return $company->customers($collection->all());
-        } elseif ($user->can('authorize', 'own-company-self-store-customers.select') && ! is_null($store)) {
-            return $store->customers($collection->all());
-        } else {
-            return new DomainCollection;
-        }
+        return is_null($company) ? new DomainCollection : $company->customers($collection->all());
     }
 
 }

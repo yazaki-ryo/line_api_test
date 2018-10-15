@@ -141,6 +141,10 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
             $q->id($args->get($key));
         });
 
+        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->ids($args->get($key));
+        });
+
         $query->when($args->has($key = 'company_id'), function (Builder $q) use ($key, $args) {
             $q->companyId($args->get($key));
         });

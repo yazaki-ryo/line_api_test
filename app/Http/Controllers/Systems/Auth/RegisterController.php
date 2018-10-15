@@ -1,0 +1,99 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Systems\Auth;
+
+use App\Eloquents\EloquentUser;
+use App\Http\Controllers\Systems\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\RegistersUsers;
+
+final class RegisterController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Register Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users as well as their
+    | validation and creation. By default this controller uses a trait to
+    | provide this functionality without requiring any additional code.
+    |
+    */
+
+    use RegistersUsers;
+
+    /**
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(sprintf('guest:%s', $this->guard));
+    }
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view(sprintf('%s.auth.register', $this->prefix));
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  RegisterRequest $validator
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request, RegisterRequest $validator)
+    {
+        $user = $this->create($request->all());
+
+        event(new Registered($user));
+
+        /**
+         * TODO 仮登録フロー構築
+         */
+//         $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\Eloquents\EloquentUser
+     */
+    private function create(array $data)
+    {
+        return EloquentUser::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        // ここでユーザ登録メール送信が良いか
+
+        return redirect($this->redirectPath())->with('alerts.success', [__('User temporary registration is completed.')]);
+    }
+
+    /**
+     * @return string
+     */
+    private function redirectTo()
+    {
+        return route(sprintf('%s.login', $this->prefix));
+    }
+
+}

@@ -245,6 +245,15 @@ final class Company extends DomainModel
      * @param  array $args
      * @return DomainCollection
      */
+    public function tags(array $args = []): DomainCollection
+    {
+        return $this->repo->tags($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
     public function users(array $args = []): DomainCollection
     {
         return $this->repo->users($args);

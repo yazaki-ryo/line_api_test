@@ -43,10 +43,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-//         'admin' => [
-//             'driver' => 'session',
-//             'provider' => 'administrators',
-//         ],
+        'administrator' => [
+            'driver' => 'session',
+            'provider' => 'administrators',
+        ],
 //         'api' => [
 //             'driver' => 'token',
 //             'provider' => 'users',
@@ -75,10 +75,11 @@ return [
             'driver' => 'eloquent',
             'model' => EloquentUser::class,
         ],
-//         'administrators' => [
-//             'driver' => 'eloquent',
-//             'model' => EloquentAdministrator::class,
-//         ],
+        'administrators' => [
+            'driver' => 'eloquent',
+//             'model' => EloquentAdministrator::class,// TODO XXX
+            'model' => EloquentUser::class,
+        ],
 
     ],
 
@@ -103,11 +104,13 @@ return [
             'table' => 'user_passwd_resets',
             'expire' => 60,
         ],
-//         'administrators' => [
-//             'provider' => 'administrators',
-//             'table' => 'admin_passwd_resets',
-//             'expire' => 60,
-//         ],
+        'administrators' => [
+            'provider' => 'users',
+            'table' => 'user_passwd_resets',
+//             'provider' => 'administrators',// TODO XXX
+//             'table' => 'admin_passwd_resets',// TODO XXX
+            'expire' => 60,
+        ],
     ],
 
 ];

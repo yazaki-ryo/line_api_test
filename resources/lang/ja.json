@@ -24,6 +24,7 @@
     "There is an item of input error.": "入力エラーの項目があります。",
     "There is no data that can be output.": "出力可能なデータがありません。",
     "There is no :name.": ":nameがありません。",
+    "The store does not exist or you do not have access.": "店舗が存在しないか、アクセス権がありません。",
     "Search for": "検索する",
     "Sub text": "サブテキスト",
     "User temporary registration is completed.": "ユーザー仮登録が完了しました。",

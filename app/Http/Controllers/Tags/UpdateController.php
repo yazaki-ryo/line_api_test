@@ -27,7 +27,7 @@ final class UpdateController extends Controller
     public function __construct(UpdateTag $useCase, Auth $auth)
     {
         $this->middleware([
-            'authenticate:user',
+            sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.tags.update'))),
         ]);
 

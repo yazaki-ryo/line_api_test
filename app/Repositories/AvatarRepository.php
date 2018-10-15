@@ -9,6 +9,7 @@ use Domain\Contracts\Model\DomainableContract;
 use Domain\Exceptions\DomainRuleException;
 use Domain\Models\DomainModel;
 use Domain\Models\Avatar;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -69,6 +70,14 @@ final class AvatarRepository extends EloquentRepository implements DomainableCon
     public static function build($query, array $args = [])
     {
         $args = collect($args);
+
+        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
+            $q->id($args->get($key));
+        });
+
+        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->ids($args->get($key));
+        });
 
         return $query;
     }

@@ -6,11 +6,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+final class RedirectIfAuthenticated
 {
     /**
-     * Handle an incoming request.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @param  string|null  $guard
@@ -19,7 +17,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect()->route('home');
+            $name = 'home';
+
+            if ($guard === 'administrator') {
+                $name = sprintf('systems.%s', $name);
+            }
+
+            return redirect()->guest(route($name));
         }
 
         return $next($request);
