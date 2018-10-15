@@ -46,18 +46,20 @@ final class IndexController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
+        $storeId = session(config('session.name.current_store'));
 
         return view('customers.index', [
             'row' => $customer,
             'rows' => $this->useCase->excute($user, array_merge($args, [
-                'store_id' => session(config('session.name.current_store')),
+                'store_id' => $storeId,
             ])),
             'tags' => $user->company()->tags([
-                'store_id' => session(config('session.name.current_store')),
+                'store_id' => $storeId,
             ])->groupBy(function ($item) {
                 return $item->label();
             }),
             'printSettings' => $this->printSettings($request),
+            'storeId' => $storeId,
         ]);
     }
 

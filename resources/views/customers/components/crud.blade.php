@@ -1,5 +1,9 @@
 <input type="hidden" value="Japan" class="p-country-name" />
 
+@if ($mode === 'add')
+    <input type="hidden" name="store_id" value="{{ $storeId }}" />
+@endif
+
 <div class="form-group{{ $errors->has($attribute1 = 'last_name') || $errors->has($attribute2 = 'first_name') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute1))@lang (sprintf('attributes.customers.%s', $attribute2))
@@ -251,23 +255,24 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'store_id') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang (sprintf('attributes.customers.%s', $attribute))
-        <span class="label label-danger">@lang ('elements.words.required')</span>
-    </label>
+@if (false)
+    <div class="form-group{{ $errors->has($attribute = 'store_id') ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang (sprintf('attributes.customers.%s', $attribute))
+        </label>
 
-    <div class="col-md-6">
-        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ $user->cant('authorize', ['stores.select', 'own-company-stores.select']) ? 'disabled' : 'required' }}>
-            <option value>@lang ('Please select')</option>
-            @foreach ($stores->pluckNamesByIds() as $key => $item)
-                <option value="{{ $key }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}()) === $key ? 'selected' : '' }}>{{ $item }}</option>
-            @endforeach
-        </select>
+        <div class="col-md-6">
+            <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" disabled>
+                <option value>@lang ('Please select')</option>
+                @foreach ($stores as $item)
+                    <option value="{{ $item->id() }}" {{ $item->id() === (int)$storeId ? 'selected' : '' }}>{{ $item->name() }}</option>
+                @endforeach
+            </select>
 
-        @include ('components.form.err_msg', ['attribute' => $attribute])
+            @include ('components.form.err_msg', ['attribute' => $attribute])
+        </div>
     </div>
-</div>
+@endif
 
 @if ($mode === 'edit')
     <div class="form-group">

@@ -43,8 +43,13 @@ final class UpdateController extends Controller
      */
     public function view(VisitedHistory $visitedHistory, int $customerId)
     {
+        $storeId = session(config('session.name.current_store'));
+
         /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
+        $customer = $this->useCase->getCustomer([
+            'id' => $customerId,
+            'store_id' => $storeId,
+        ]);
 
         $this->authorize('update', $customer);
 
@@ -56,6 +61,7 @@ final class UpdateController extends Controller
             'tagIds' => $customer->tags(),
             'visitedHistories' => $customer->visitedHistories(),
             'brankHistory' => $visitedHistory,
+            'storeId' => $storeId,
         ]);
     }
 
@@ -70,7 +76,10 @@ final class UpdateController extends Controller
         $user = UserRepository::toModel($this->auth->user());
 
         /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer($customerId);
+        $customer = $this->useCase->getCustomer([
+            'id' => $customerId,
+            'store_id' => $request->get('store_id'),
+        ]);
         $args = $request->validated();
 
         $this->authorize('update', $customer);
