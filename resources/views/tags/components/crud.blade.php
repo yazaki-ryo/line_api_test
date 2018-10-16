@@ -1,3 +1,7 @@
+@if ($mode === 'add')
+    <input type="hidden" name="store_id" value="{{ $storeId }}" />
+@endif
+
 <div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.tags.%s', $attribute))
