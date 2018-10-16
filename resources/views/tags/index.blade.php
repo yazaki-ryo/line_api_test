@@ -56,7 +56,7 @@
                     </div>
 {{--
                     @can ('authorize', config('permissions.groups.tags.select'))
-                        <div class="tab-pane fade pt-10" id="search-tab">
+                        <div class="tab-pane fade in pt-10" id="search-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('tags'), 'id' => 'tags-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('tags.components.search')
@@ -66,7 +66,7 @@
                     @endcan
 --}}
                     @can ('authorize', config('permissions.groups.tags.create'))
-                        <div class="tab-pane fade pt-10" id="create-tab">
+                        <div class="tab-pane fade in pt-10" id="create-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 

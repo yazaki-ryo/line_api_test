@@ -12,31 +12,29 @@
 
 @section('content')
     <div class="container">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="row">
-                <div class="col-md-12 col-md-offset-0">
-                    <div class="page-header">
-                            <h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.detail')
-                    </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="page-header">
+                        <h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.detail')
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12 col-md-offset-0">
-                    @include ('components.parts.alerts')
-                    @include ('components.parts.any_errors', ['errorBags' => ['tags']])
-                </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                @include ('components.parts.alerts')
+                @include ('components.parts.any_errors', ['errorBags' => ['tags']])
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12 col-md-offset-0">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#edit-tab" data-toggle="tab">
-                                @lang ('elements.words.detail')
-                            </a>
-                        </li>
-                    @endcan
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#edit-tab" data-toggle="tab">
+                            @lang ('elements.words.detail')
+                        </a>
+                    </li>
 
                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                         <li>
@@ -45,69 +43,67 @@
                             </a>
                         </li>
                     @endcan
-                </ul>
 
-                        @can ('authorize', config('permissions.groups.tags.select'))
-                            <li>
-                                <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
-                            </li>
-                        @endcan
-
-                        @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                            <li>
-                                <a href="#histories-tab" data-toggle="tab">
-                                    @lang ('elements.words.visit')@lang ('elements.words.history')
-                                    <span class="badge">{{ $visitedHistories->count() }}</span>
-                                </a>
-                            </li>
-                        @endcan
-                    </ul>
-
-                    <div class="tab-content">
-                        @can ('select', $row)
-                            <div class="tab-pane active fade in pt-10" id="edit-tab">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
-
-                                    <div class="panel-body">
-                                        {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                                            @include ('customers.components.crud', ['mode' => 'edit'])
-                                        {!! Form::close() !!}
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-
-                        @can ('authorize', config('permissions.groups.tags.select'))
-                            <div class="tab-pane fade pt-10" id="tags-tab">
-                                <div class="well">
-                                    {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                        @include ('customers.components.tags')
-                                    {!! Form::close() !!}
-                                </div>
-                            </div>
-                        @endcan
-
-                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                        <div class="tab-pane fade pt-10" id="histories-tab">
-                            @include ('visited_histories.components.list', ['rows' => $visitedHistories])
-                        </div>
+                    @can ('authorize', config('permissions.groups.tags.select'))
+                        <li>
+                            <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
+                        </li>
                     @endcan
 
-                    @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
-                        <div class="tab-pane fade pt-10" id="create-history-tab">
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                        <li>
+                            <a href="#histories-tab" data-toggle="tab">
+                                @lang ('elements.words.visit')@lang ('elements.words.history')
+                                <span class="badge">{{ $visitedHistories->count() }}</span>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+
+                <div class="tab-content">
+                    @can ('select', $row)
+                        <div class="tab-pane active fade in pt-10" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
-                                    {!! Form::open(['url' => route('visited_histories.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                        @include ('visited_histories.components.crud', ['mode' => 'add', 'row' => $brankHistory, 'customer' => $row])
+                                    {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
+                                        @include ('customers.components.crud', ['mode' => 'edit'])
                                     {!! Form::close() !!}
                                 </div>
                             </div>
                         </div>
                     @endcan
-                </div>
+
+                    @can ('authorize', config('permissions.groups.tags.select'))
+                        <div class="tab-pane fade in pt-10" id="tags-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                    @include ('customers.components.tags')
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    @endcan
+
+                @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                    <div class="tab-pane fade in pt-10" id="histories-tab">
+                        @include ('visited_histories.components.list', ['rows' => $visitedHistories])
+                    </div>
+                @endcan
+
+                @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
+                    <div class="tab-pane fade in pt-10" id="create-history-tab">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+
+                            <div class="panel-body">
+                                {!! Form::open(['url' => route('visited_histories.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                    @include ('visited_histories.components.crud', ['mode' => 'add', 'row' => $brankHistory, 'customer' => $row])
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                @endcan
             </div>
         </div>
     </div>
@@ -122,7 +118,7 @@
                 language: {
                     url: "{{ asset('vendor/DataTables/ja.json') }}"
                 }
-            });            
+            });
             var visited = $("#visited-histories-table").DataTable({
                 columnDefs: [
                     {
