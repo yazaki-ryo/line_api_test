@@ -14,6 +14,9 @@ final class CreateTag
 {
     use Transactionable;
 
+    /** @var FindableContract */
+    private $finder;
+
     /**
      * @param FindableContract $finder
      * @return void
@@ -23,20 +26,18 @@ final class CreateTag
         $this->finder = $finder;
     }
 
-
     /**
-     * @param  int $id
+     * @param  array $args
      * @return Store
      * @throws NotFoundException
      */
-    public function getStore(int $id): Store
+    public function getStore(array $args): Store
     {
-        if (is_null($resource = $this->finder->find($id))) {
+        if (is_null($resource = $this->finder->findAll($args)->first())) {
             throw new NotFoundException('Resource not found.');
         }
         return $resource;
     }
-
 
     /**
      * @param User $user
