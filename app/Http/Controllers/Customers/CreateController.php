@@ -40,12 +40,20 @@ final class CreateController extends Controller
      */
     public function __invoke(CreateRequest $request)
     {
+        $storeId = $request->get('store_id');
+
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+
+        /** @var Store $store */
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+
         $args = $request->validated();
 
-        $callback = function () use ($user, $args) {
-            return $this->useCase->excute($user, $args);
+        $callback = function () use ($user, $store, $args) {
+            return $this->useCase->excute($user, $store, $args);
         };
 
         if (($result = rescue($callback, false)) === false) {

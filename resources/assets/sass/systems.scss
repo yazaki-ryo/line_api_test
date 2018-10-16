@@ -1,5 +1,6 @@
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap/theme";
 
 // Fontawesome
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
@@ -15,5 +16,4 @@
 @import "mixins";
 
 // Custom
-@import "style";
-@import "custom";// こちらの中で必要な部分を、どこかへ退避してください！
+@import "custom";

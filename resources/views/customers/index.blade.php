@@ -12,90 +12,88 @@
 
 @section('content')
     <div class="container tab-container">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="row">
-                <div class="col-md-12 col-xs-10 col-md-offset-0">
-                    <div class="page-header">
-                            <h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.list')
-                    </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="page-header">
+                    <h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.list')
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12 col-xs-10 col-md-offset-0">
-                    @include ('components.parts.alerts')
-                    @include ('components.parts.any_errors')
-                </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                @include ('components.parts.alerts')
+                @include ('components.parts.any_errors')
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12 col-md-offset-0">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a href="#result-tab" data-toggle="tab">
-                                @lang ('elements.words.list')
-                                <span class="badge">{{ $rows->count() }}</span>
-                            </a>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#result-tab" data-toggle="tab">
+                            @lang ('elements.words.list')
+                            <span class="badge">{{ $rows->count() }}</span>
+                        </a>
+                    </li>
+
+                    @can ('authorize', config('permissions.groups.customers.create'))
+                        <li>
+                            <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                         </li>
+                    @endcan
 
-                        @can ('authorize', config('permissions.groups.customers.create'))
-                            <li>
-                                <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
-                            </li>
-                        @endcan
+                    @can ('authorize', config('permissions.groups.customers.select'))
+                        <li>
+                            <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
+                        </li>
+                    @endcan
 
-                        @can ('authorize', config('permissions.groups.customers.select'))
-                            <li>
-                                <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
-                            </li>
-                        @endcan
+                    @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                        <li>
+                            <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
+                        </li>
+                    @endcan
+                </ul>
 
-                        @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                            <li>
-                                <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
-                            </li>
-                        @endcan
-                    </ul>
-
-                    <div class="tab-content">
-                        <div class="tab-pane active fade in pt-5" id="result-tab">
-                            @include ('customers.components.list')
-                        </div>
-
-                        @can ('authorize', config('permissions.groups.customers.select'))
-                            <div class="tab-pane fade pt-10" id="search-tab">
-                                <div class="well">
-                                    {!! Form::open(['url' => route('customers'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
-                                        @include ('customers.components.search')
-                                    {!! Form::close() !!}
-                                </div>
-                            </div>
-                        @endcan
-
-                        @can ('authorize', config('permissions.groups.customers.create'))
-                            <div class="tab-pane fade pt-10" id="create-tab">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
-
-                                    <div class="panel-body">
-                                        {!! Form::open(['url' => route('customers.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                                            @include ('customers.components.crud', ['mode' => 'add', 'storeId' => $storeId])
-                                        {!! Form::close() !!}
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-
-                        @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                            <div class="tab-pane fade pt-10" id="print-tab">
-                                <div class="well">
-                                    {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                        @include ('customers.components.postcard')
-                                    {!! Form::close() !!}
-                                </div>
-                            </div>
-                        @endcan
+                <div class="tab-content">
+                    <div class="tab-pane active fade in pt-5" id="result-tab">
+                        @include ('customers.components.list')
                     </div>
+
+                    @can ('authorize', config('permissions.groups.customers.select'))
+                        <div class="tab-pane fade in pt-10" id="search-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('customers'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                                    @include ('customers.components.search')
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.create'))
+                        <div class="tab-pane fade in pt-10" id="create-tab">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+
+                                <div class="panel-body">
+                                    {!! Form::open(['url' => route('customers.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
+                                        @include ('customers.components.crud', ['mode' => 'add', 'storeId' => $storeId])
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                        <div class="tab-pane fade in pt-10" id="print-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                    @include ('customers.components.postcard')
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>

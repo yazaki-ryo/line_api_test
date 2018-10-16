@@ -42,11 +42,15 @@ final class CreateController extends Controller
      */
     public function __invoke(CreateRequest $request)
     {
+        $storeId = $request->get('store_id');
+
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
         /** @var Store $store */
-        $store = $user->store();
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
 
         $args = $request->validated();
 
@@ -60,7 +64,7 @@ final class CreateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.tags'), 'action' => __('elements.words.created')]), 'success');
-        return redirect()->route('tags.edit', $result->id());
+        return redirect()->route('tags');
     }
 
 }

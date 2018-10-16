@@ -7,6 +7,7 @@ use App\Eloquents\EloquentStore;
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Company;
+use Domain\Models\Customer;
 use Domain\Models\DomainModel;
 use Domain\Models\Prefecture;
 use Domain\Models\Store;
@@ -92,6 +93,18 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
     {
         $collection = TagRepository::build($this->eloquent->tags(), $args)->get();
         return TagRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return Customer
+     */
+    public function addCustomer(array $args = []): Customer
+    {
+        if (is_null($resource = $this->eloquent->customers()->create($args))) {
+            return null;
+        }
+        return CustomerRepository::toModel($resource);
     }
 
     /**

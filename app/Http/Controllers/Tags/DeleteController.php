@@ -39,11 +39,16 @@ final class DeleteController extends Controller
      */
     public function __invoke(int $tagId)
     {
+        $storeId = session(config('session.name.current_store'));
+
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
         /** @var Tag $tag */
-        $tag = $this->useCase->getTag($tagId);
+        $tag = $this->useCase->getTag([
+            'id' => $tagId,
+            'store_id' => $storeId,
+        ]);
 
         $this->authorize('delete', $tag);
 

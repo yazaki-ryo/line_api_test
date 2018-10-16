@@ -52,7 +52,7 @@ final class CreateVisitedHistory
         $args = $this->domainize($user, $customer, $args);
 
         return $this->transaction(function () use ($customer, $args) {
-            return $customer->createVisitedHistory($args);
+            return $customer->addVisitedHistory($args);
         });
     }
 

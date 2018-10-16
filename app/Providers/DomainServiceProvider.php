@@ -24,12 +24,14 @@ use Domain\UseCases\Customers\Tags\UpdateTags;
 use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
+use Domain\UseCases\Tags\CreateTag;
 use Domain\UseCases\Tags\DeleteTag;
 use Domain\UseCases\Tags\UpdateTag;
 use Domain\UseCases\Users\DeleteUser;
 use Domain\UseCases\Users\RestoreUser;
 use Domain\UseCases\Users\UpdateUser;
 use Illuminate\Support\ServiceProvider;
+use App\Services\StoresService;
 
 final class DomainServiceProvider extends ServiceProvider
 {
@@ -51,7 +53,7 @@ final class DomainServiceProvider extends ServiceProvider
          */
         $this->app->bind(CreateCustomer::class, function () {
             return new CreateCustomer(
-                app(CustomersService::class)
+                app(StoresService::class)
             );
         });
 
@@ -114,6 +116,12 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(UpdateVisitedHistory::class, function () {
             return new UpdateVisitedHistory(
                 app(VisitedHistoriesService::class)
+            );
+        });
+
+        $this->app->bind(CreateTag::class, function () {
+            return new CreateTag(
+                app(StoresService::class)
             );
         });
 
