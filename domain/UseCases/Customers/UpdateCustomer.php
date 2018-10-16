@@ -35,7 +35,6 @@ final class UpdateCustomer
         if (is_null($resource = $this->finder->findAll($args)->first())) {
             throw new NotFoundException('Resource not found.');
         }
-
         return $resource;
     }
 

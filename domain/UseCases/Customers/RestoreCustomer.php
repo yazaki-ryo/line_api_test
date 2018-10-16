@@ -26,16 +26,15 @@ final class RestoreCustomer
     }
 
     /**
-     * @param  int $id
+     * @param  array $args
      * @return Customer
      * @throws NotFoundException
      */
-    public function getCustomer(int $id): Customer
+    public function getCustomer(array $args): Customer
     {
-        if (is_null($resource = $this->finder->find($id, true))) {
+        if (is_null($resource = $this->finder->findAll($args)->first())) {
             throw new NotFoundException('Resource not found.');
         }
-
         return $resource;
     }
 

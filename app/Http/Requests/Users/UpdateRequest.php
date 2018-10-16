@@ -22,12 +22,6 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'store_id' => [
-                'required',
-                'numeric',
-                'exists:stores,id',
-                'store_id',
-            ],
             'role_id' => [
                 'required',
                 'numeric',

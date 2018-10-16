@@ -34,12 +34,12 @@ class CreateRequest extends FormRequest
                 'max:191',
                 'unique:users,email',
             ],
-            'store_id' => [
-                'required',
-                'numeric',
-                'exists:stores,id',
-                'store_id',
-            ],
+//             'store_id' => [
+//                 'required',
+//                 'numeric',
+//                 'exists:stores,id',
+//                 'store_id',
+//             ],
             'role_id' => [
                 'required',
                 'numeric',

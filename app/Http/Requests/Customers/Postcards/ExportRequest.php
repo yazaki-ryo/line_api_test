@@ -32,7 +32,7 @@ class ExportRequest extends FormRequest
                 'required',
                 'string',
                 'max:20000',
-                'customer_ids_from_csv_string_for_output_postcards',
+                'customer_ids_from_csv_string_for_output_postcards',// TODO XXX only current store's customers
                 // TODO Validate mourned_at.
             ],
         ];

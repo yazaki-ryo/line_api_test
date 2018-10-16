@@ -42,10 +42,18 @@ final class CreateController extends Controller
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+
+        $storeId = session(config('session.name.current_store'));
+
+        /** @var Store $store */
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+
         $args = $request->validated();
 
         $callback = function () use ($user, $args) {
-            return $this->useCase->excute($user, $args);
+            return $this->useCase->excute($user, $store, $args);
         };
 
         if (($result = rescue($callback, false)) === false) {

@@ -137,12 +137,6 @@ class CreateRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
-            'store_id' => [
-                'required',
-                'numeric',
-                'exists:stores,id',
-                'store_id',
-            ],
         ];
     }
 

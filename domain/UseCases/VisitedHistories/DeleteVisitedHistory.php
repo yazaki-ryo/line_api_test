@@ -26,13 +26,13 @@ final class DeleteVisitedHistory
     }
 
     /**
-     * @param  int $id
+     * @param  array $args
      * @return VisitedHistory
      * @throws NotFoundException
      */
-    public function getVisitedHistory(int $id): VisitedHistory
+    public function getVisitedHistory(array $args): VisitedHistory
     {
-        if (is_null($resource = $this->finder->find($id))) {
+        if (is_null($resource = $this->finder->findAll($args)->first())) {
             throw new NotFoundException('Resource not found.');
         }
         return $resource;

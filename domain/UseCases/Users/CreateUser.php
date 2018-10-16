@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Domain\UseCases\Users;
 
 use App\Traits\Database\Transactionable;
+use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\DomainRuleException;
+use Domain\Exceptions\NotFoundException;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
@@ -14,32 +16,52 @@ final class CreateUser
 {
     use Transactionable;
 
+    /** @var FindableContract */
+    private $finder;
+
     /**
+     * @param FindableContract $finder
      * @return void
      */
-    public function __construct()
+    public function __construct(FindableContract $finder)
     {
-        //
+        $this->finder = $finder;
+    }
+
+    /**
+     * @param  array $args
+     * @return Store
+     * @throws NotFoundException
+     */
+    public function getStore(array $args): Store
+    {
+        if (is_null($resource = $this->finder->findAll($args)->first())) {
+            throw new NotFoundException('Resource not found.');
+        }
+        return $resource;
     }
 
     /**
      * @param User $user
+     * @param Store $store
      * @param array $args
      * @return User
      */
-    public function excute(User $user, array $args = []): User
+    public function excute(User $user, Store $store, array $args = []): User
     {
-        return $this->transaction(function () use ($user, $args) {
-            return $this->domainize($user, $args);
+        $args = $this->domainize($user, $args);
+
+        return $this->transaction(function () use ($store, $args) {
+            return $store->addUser($args);
         });
     }
 
     /**
      * @param User $user
      * @param array $args
-     * @return User
+     * @return array
      */
-    private function domainize(User $user, array $args = []): User
+    private function domainize(User $user, array $args = []): array
     {
         $args = collect($args);
 
@@ -51,25 +73,7 @@ final class CreateUser
             });
         }
 
-        /** @var Store $store */
-        $store = $user->store();
-
-        /** @var Company $company */
-        $company = $store->company();
-
-        if ($user->can('authorize', 'customers.create')) {
-            // TODO
-        } elseif ($user->can('authorize', 'own-company-customers.create') && ! is_null($company)) {
-            $store = $company->stores([
-                'id' => $args->get('store_id'),
-            ])->first();
-        } elseif ($user->can('authorize', 'own-company-self-store-customers.create') && ! is_null($store)) {
-            // none
-        } else {
-            throw new DomainRuleException('The store is not properly selected.');
-        }
-
-        return $store->addUser($args->all());
+        return $args->all();
     }
 
 }

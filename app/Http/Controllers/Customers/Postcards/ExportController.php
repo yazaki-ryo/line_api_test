@@ -43,10 +43,19 @@ final class ExportController extends Controller
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
-        $args = $request->validated();
-        $args['settings'] = $this->printSettings($request);
 
-        $result = $this->useCase->excute($user, $args);
+        $storeId = session(config('session.name.current_store'));
+
+        /** @var Store $store */
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+
+        $args = $request->validated();
+
+        $result = $this->useCase->excute($user, $store, array_merge($args, [
+            'settings' => $this->printSettings($request),
+        ]));
 
         if ($result === false) {
             flash(__('There is no data that can be output.'), 'warning');

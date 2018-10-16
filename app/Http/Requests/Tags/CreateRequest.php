@@ -54,12 +54,6 @@ class CreateRequest extends FormRequest
                 'max:32',
                 // TODO in array rule.
             ],
-            'store_id' => [
-                'required',
-                'numeric',
-                'exists:stores,id',
-                'store_id',
-            ],
         ];
     }
 

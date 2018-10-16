@@ -40,8 +40,13 @@ final class UpdateController extends Controller
      */
     public function view(int $userId)
     {
+        $storeId = session(config('session.name.current_store'));
+
         /** @var User $targetUser */
-        $targetUser = $this->useCase->getUser($userId);
+        $targetUser = $this->useCase->getUser([
+            'id' => $userId,
+            'store_id' => $storeId,
+        ]);
 
         $this->authorize('update', $targetUser);
 
@@ -60,8 +65,13 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
+        $storeId = session(config('session.name.current_store'));
+
         /** @var User $targetUser */
-        $targetUser = $this->useCase->getUser($userId);
+        $targetUser = $this->useCase->getUser([
+            'id' => $userId,
+            'store_id' => $storeId,
+        ]);
         $args = $request->validated();
 
         $this->authorize('update', $targetUser);

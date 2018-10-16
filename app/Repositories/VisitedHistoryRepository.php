@@ -77,6 +77,10 @@ final class VisitedHistoryRepository extends EloquentRepository implements Domai
             $q->ids($args->get($key));
         });
 
+        $query->when($args->has($key = 'store_id'), function (Builder $q) use ($key, $args) {
+            $q->storeId((int)$args->get($key));
+        });
+
         return $query;
     }
 
