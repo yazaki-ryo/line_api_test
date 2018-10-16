@@ -41,13 +41,19 @@ final class UpdateController extends Controller
      */
     public function view(int $tagId)
     {
+        $storeId = session(config('session.name.current_store'));
+
         /** @var Tag $tag */
-        $tag = $this->useCase->getTag($tagId);
+        $tag = $this->useCase->getTag([
+            'id' => $tagId,
+            'store_id' => $storeId,
+        ]);
 
         $this->authorize('update', $tag);
 
         return view('tags.edit', [
             'row' => $tag,
+
             /**
              * TODO XXX configから取得
              */
@@ -69,11 +75,16 @@ final class UpdateController extends Controller
      */
     public function update(UpdateRequest $request, int $tagId)
     {
+        $storeId = session(config('session.name.current_store'));
+
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
         /** @var Tag $tag */
-        $tag = $this->useCase->getTag($tagId);
+        $tag = $this->useCase->getTag([
+            'id' => $tagId,
+            'store_id' => $storeId,
+        ]);
         $args = $request->validated();
 
         $this->authorize('update', $tag);

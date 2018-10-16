@@ -26,16 +26,15 @@ final class UpdateTag
     }
 
     /**
-     * @param  int $id
+     * @param  array $args
      * @return Tag
      * @throws NotFoundException
      */
-    public function getTag(int $id): Tag
+    public function getTag(array $args): Tag
     {
-        if (is_null($resource = $this->finder->find($id))) {
+        if (is_null($resource = $this->finder->findAll($args)->first())) {
             throw new NotFoundException('Resource not found.');
         }
-
         return $resource;
     }
 
