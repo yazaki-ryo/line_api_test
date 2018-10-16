@@ -53,7 +53,7 @@ final class DomainServiceProvider extends ServiceProvider
          */
         $this->app->bind(CreateCustomer::class, function () {
             return new CreateCustomer(
-                app(CustomersService::class)
+                app(StoresService::class)
             );
         });
 
