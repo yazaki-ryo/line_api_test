@@ -33,26 +33,6 @@
     </div>
 </div>
 
-@if (false)
-<div class="form-group{{ $errors->has($attribute = 'store_id') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang (sprintf('attributes.users.%s', $attribute))
-        <span class="label label-danger">@lang ('elements.words.required')</span>
-    </label>
-
-    <div class="col-md-6">
-        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ $user->cant('authorize', ['stores.select', 'own-company-stores.select']) ? 'disabled' : 'required' }}>
-            <option value>@lang ('Please select')</option>
-            @foreach ($stores->pluckNamesByIds() as $key => $item)
-                <option value="{{ $key }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? $user->{$camel}()) === $key ? 'selected' : '' }}>{{ $item }}</option>
-            @endforeach
-        </select>
-
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
-@endif
-
 <div class="form-group{{ $errors->has($attribute = 'role_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.users.%s', $attribute))
