@@ -26,7 +26,7 @@ final class UpdateVisitedHistory
         $this->finder = $finder;
     }
 
-        /**
+    /**
      * @param  array $args
      * @return VisitedHistory
      * @throws NotFoundException

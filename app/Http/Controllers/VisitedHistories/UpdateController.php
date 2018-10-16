@@ -6,7 +6,6 @@ namespace App\Http\Controllers\VisitedHistories;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VisitedHistories\UpdateRequest;
 use App\Repositories\UserRepository;
-use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
@@ -42,15 +41,12 @@ final class UpdateController extends Controller
      */
     public function view(int $visitedHistoryId)
     {
-        /** @var VisitedHistory $visitedHistoryId */
-        $visitedHistory = $this->useCase->getVisitedHistory($visitedHistoryId);
-
         $storeId = session(config('session.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory([
             'id' => $visitedHistoryId,
-//             'customer.store_id' => $storeId,TODO XXX only current store
+            'store_id' => $storeId,
         ]);
 
         $this->authorize('select', $visitedHistory);
@@ -70,8 +66,13 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        /** @var VisitedHistory $visitedHistory */
-        $visitedHistory = $this->useCase->getVisitedHistory($visitedHistoryId);
+        $storeId = session(config('session.name.current_store'));
+
+        /** @var VisitedHistory $visitedHistoryId */
+        $visitedHistory = $this->useCase->getVisitedHistory([
+            'id' => $visitedHistoryId,
+            'store_id' => $storeId,
+        ]);
 
         $this->authorize('update', $visitedHistory);
 

@@ -48,7 +48,7 @@ final class DeleteController extends Controller
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory([
             'id' => $visitedHistoryId,
-//             'customer.store_id' => $storeId,TODO XXX only current store
+            'store_id' => $storeId,
         ]);
 
         $this->authorize('delete', $visitedHistory);
