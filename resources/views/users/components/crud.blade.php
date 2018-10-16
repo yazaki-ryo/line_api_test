@@ -33,7 +33,7 @@
     </div>
 </div>
 
-{{--
+@if (false)
 <div class="form-group{{ $errors->has($attribute = 'store_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.users.%s', $attribute))
@@ -51,7 +51,7 @@
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
---}}
+@endif
 
 <div class="form-group{{ $errors->has($attribute = 'role_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">

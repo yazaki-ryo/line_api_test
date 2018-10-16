@@ -52,7 +52,6 @@ final class IndexController extends Controller
                 'store_id' => $storeId,
             ])),
             'row' => $tag,
-            'storeId' => $storeId,
 
             /**
              * TODO XXX from config file.

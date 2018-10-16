@@ -61,7 +61,6 @@ final class UpdateController extends Controller
             'tagIds' => $customer->tags(),
             'visitedHistories' => $customer->visitedHistories(),
             'brankHistory' => $visitedHistory,
-            'storeId' => $storeId,
         ]);
     }
 
@@ -75,10 +74,12 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
+        $storeId = session(config('session.name.current_store'));
+
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer([
             'id' => $customerId,
-            'store_id' => $request->get('store_id'),
+            'store_id' => $storeId,
         ]);
         $args = $request->validated();
 

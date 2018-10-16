@@ -45,6 +45,14 @@ final class UpdateController extends Controller
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory($visitedHistoryId);
 
+        $storeId = session(config('session.name.current_store'));
+
+        /** @var VisitedHistory $visitedHistoryId */
+        $visitedHistory = $this->useCase->getVisitedHistory([
+            'id' => $visitedHistoryId,
+//             'customer.store_id' => $storeId,TODO XXX only current store
+        ]);
+
         $this->authorize('select', $visitedHistory);
 
         return view('visited_histories.edit', [

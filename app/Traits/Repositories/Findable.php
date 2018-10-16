@@ -5,23 +5,16 @@ namespace App\Traits\Repositories;
 
 use App\Services\DomainCollection;
 use Domain\Models\DomainModel;
-use Illuminate\Database\Eloquent\Builder;
 
 trait Findable
 {
     /**
      * @param int $id
-     * @param bool $trashed
      * @return DomainModel|null
      */
-    public function find(int $id, bool $trashed = false): ?DomainModel
+    public function find(int $id): ?DomainModel
     {
-        $resource = $this->eloquent->newQuery()
-            ->when($trashed, function (Builder $query) {
-                $query->onlyTrashed();
-            })->find($id);
-
-        if (is_null($resource)) {
+        if (is_null($resource = $this->eloquent->find($id))) {
             return null;
         }
         return static::toModel($resource);

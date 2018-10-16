@@ -10,12 +10,11 @@ trait Findable
 {
     /**
      * @param int $id
-     * @param bool $trashed
      * @return DomainModel|null
      */
-    public function find(int $id, bool $trashed = false): ?DomainModel
+    public function find(int $id): ?DomainModel
     {
-        return $this->repo->find($id, $trashed);
+        return $this->repo->find($id);
     }
 
     /**

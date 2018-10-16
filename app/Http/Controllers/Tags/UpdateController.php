@@ -75,10 +75,10 @@ final class UpdateController extends Controller
      */
     public function update(UpdateRequest $request, int $tagId)
     {
-        $storeId = session(config('session.name.current_store'));
-
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
+
+        $storeId = session(config('session.name.current_store'));
 
         /** @var Tag $tag */
         $tag = $this->useCase->getTag([

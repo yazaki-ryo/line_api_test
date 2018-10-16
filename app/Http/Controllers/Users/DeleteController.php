@@ -42,8 +42,13 @@ final class DeleteController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
+        $storeId = session(config('session.name.current_store'));
+
         /** @var User $targetUser */
-        $targetUser = $this->useCase->getUser($userId);
+        $targetUser = $this->useCase->getUser([
+            'id' => $userId,
+            'store_id' => $storeId,
+        ]);
 
         $this->authorize('delete', $targetUser);
 

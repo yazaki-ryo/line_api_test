@@ -42,8 +42,14 @@ final class RestoreController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        /** @var User $user */
-        $targetUser = $this->useCase->getUser($userId);
+        $storeId = session(config('session.name.current_store'));
+
+        /** @var User $targetUser */
+        $targetUser = $this->useCase->getUser([
+            'id' => $userId,
+            'store_id' => $storeId,
+            'trashed' => 'only',
+        ]);
 
         $this->authorize('restore', $targetUser);
 

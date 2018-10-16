@@ -79,7 +79,7 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(ExportPostcards::class, function () {
             return new ExportPostcards(
                 app(PdfService::class),
-                app(CustomersService::class)
+                app(StoresService::class)
             );
         });
 
@@ -139,8 +139,8 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(DeleteUser::class, function () {
             return new DeleteUser(
-                app(UsersService::class)
-                );
+                app(StoresService::class)
+            );
         });
 
         $this->app->bind(RestoreUser::class, function () {

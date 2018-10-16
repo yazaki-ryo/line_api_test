@@ -46,8 +46,13 @@ final class CreateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
+        $storeId = session(config('session.name.current_store'));
+
         /** @var Customer $customer */
-        $customer = $this->useCase->getCustomer((int)$request->get('customer_id'));
+        $customer = $this->useCase->getCustomer([
+            'id' => $request->get('customer_id'),
+            'store_id' => $storeId,
+        ]);
 
         $this->authorize('create', [
             $visitedHistory,

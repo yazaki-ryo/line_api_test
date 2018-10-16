@@ -25,16 +25,15 @@ final class UpdateUser
     }
 
     /**
-     * @param  int $id
+     * @param  array $args
      * @return User
      * @throws NotFoundException
      */
-    public function getUser(int $id): User
+    public function getUser(array $args): User
     {
-        if (is_null($resource = $this->finder->find($id))) {
+        if (is_null($resource = $this->finder->findAll($args)->first())) {
             throw new NotFoundException('Resource not found.');
         }
-
         return $resource;
     }
 
