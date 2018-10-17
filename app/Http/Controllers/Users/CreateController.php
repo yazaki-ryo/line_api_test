@@ -52,7 +52,7 @@ final class CreateController extends Controller
 
         $args = $request->validated();
 
-        $callback = function () use ($user, $args) {
+        $callback = function () use ($user, $store, $args) {
             return $this->useCase->excute($user, $store, $args);
         };
 

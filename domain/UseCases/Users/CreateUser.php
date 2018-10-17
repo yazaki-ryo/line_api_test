@@ -5,9 +5,7 @@ namespace Domain\UseCases\Users;
 
 use App\Traits\Database\Transactionable;
 use Domain\Contracts\Model\FindableContract;
-use Domain\Exceptions\DomainRuleException;
 use Domain\Exceptions\NotFoundException;
-use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Support\Collection;
