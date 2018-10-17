@@ -14,7 +14,10 @@ final class Reservation extends DomainModel
     private $id;
 
     /** @var Datetime */
-    private $visitedAt;
+    private $reservedAt;
+
+    /** @var string */
+    private $name;
 
     /** @var string */
     private $seat;
@@ -22,11 +25,26 @@ final class Reservation extends DomainModel
     /** @var int */
     private $amount;
 
+    /** @var string */
+    private $reservationCode;
+
+    /** @var int */
+    private $floor;
+
+    /** @var int */
+    private $status;
+
+    /** @var string */
+    private $note;
+
     /** @var Datetime */
     private $createdAt;
 
     /** @var Datetime */
     private $updatedAt;
+
+    /** @var int */
+    private $storeId;
 
     /** @var int */
     private $customerId;
@@ -51,9 +69,17 @@ final class Reservation extends DomainModel
     /**
      * @return Datetime|null
      */
-    public function visitedAt(): ?Datetime
+    public function reservedAt(): ?Datetime
     {
-        return $this->visitedAt;
+        return $this->reservedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function name(): ?string
+    {
+        return $this->name;
     }
 
     /**
@@ -73,6 +99,38 @@ final class Reservation extends DomainModel
     }
 
     /**
+     * @return string|null
+     */
+    public function reservationCode(): ?string
+    {
+        return $this->reservationCode;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function floor(): ?int
+    {
+        return $this->floor;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function status(): ?int
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function note(): ?string
+    {
+        return $this->note;
+    }
+
+    /**
      * @return Datetime|null
      */
     public function createdAt(): ?Datetime
@@ -86,6 +144,22 @@ final class Reservation extends DomainModel
     public function updatedAt(): ?Datetime
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Store|null
+     */
+    public function store(): ?Store
+    {
+        return $this->repo->store();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function storeId(): ?int
+    {
+        return $this->storeId;
     }
 
     /**
@@ -134,8 +208,12 @@ final class Reservation extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'visited_at')) {
+        if ($args->has($key = 'reserved_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         if ($args->has($key = 'seat')) {
@@ -146,12 +224,32 @@ final class Reservation extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
+        if ($args->has($key = 'reservation_code')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'floor')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'status')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'note')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
         if ($args->has($key = 'created_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
         if ($args->has($key = 'updated_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         if ($args->has($key = 'customer_id')) {
