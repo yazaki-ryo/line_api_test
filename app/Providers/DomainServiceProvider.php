@@ -28,6 +28,7 @@ use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Domain\UseCases\Tags\CreateTag;
 use Domain\UseCases\Tags\DeleteTag;
+use Domain\UseCases\Tags\GetTags;
 use Domain\UseCases\Tags\UpdateTag;
 use Domain\UseCases\Users\DeleteUser;
 use Domain\UseCases\Users\RestoreUser;
@@ -157,6 +158,12 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(DeleteTag::class, function () {
             return new DeleteTag(
                 app(TagsService::class)
+            );
+        });
+
+        $this->app->bind(GetTags::class, function () {
+            return new GetTags(
+                app(StoresService::class)
             );
         });
 
