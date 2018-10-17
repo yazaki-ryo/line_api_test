@@ -7,6 +7,7 @@ use App\Eloquents\EloquentReservation;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Exceptions\DomainRuleException;
 use Domain\Models\Customer;
+use Domain\Models\Store;
 use Domain\Models\DomainModel;
 use Domain\Models\Reservation;
 use Illuminate\Database\Eloquent\Builder;
@@ -58,6 +59,18 @@ final class ReservationRepository extends EloquentRepository implements Domainab
         }
 
         return CustomerRepository::toModel($resource);
+    }
+
+    /**
+     * @return Store|null
+     */
+    public function store(): ?Store
+    {
+        if (is_null($resource = $this->eloquent->store)) {
+            return null;
+        }
+
+        return StoreRepository::toModel($resource);
     }
 
     /**

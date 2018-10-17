@@ -103,6 +103,16 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
      * @param  array $args
      * @return DomainCollection
      */
+    public function reservations(array $args = []): DomainCollection
+    {
+        $collection = ReservationRepository::build($this->eloquent->reservations(), $args)->get();
+        return ReservationRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
     public function tags(array $args = []): DomainCollection
     {
         $collection = TagRepository::build($this->eloquent->tags(), $args)->get();
