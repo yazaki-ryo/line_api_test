@@ -27,6 +27,7 @@ return [
         /**
          * C
          */
+        'calender'       => 'カレンダー',
         'cancel'         => 'キャンセル',
         'company'        => '企業',
         'companies'      => '企業',

@@ -10,6 +10,7 @@ use App\Services\SexesService;
 use App\Services\Pdf\PdfService;
 use App\Services\FilesService;
 use App\Services\PrefecturesService;
+use App\Services\ReservationsService;
 use App\Services\TagsService;
 use App\Services\UsersService;
 use App\Services\VisitedHistoriesService;
@@ -21,6 +22,7 @@ use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\Customers\Tags\UpdateTags;
+use Domain\UseCases\Reservations\GetReservations;
 use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
@@ -48,8 +50,14 @@ final class DomainServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        /*
+         |--------------------------------------------------------------------------
+         | Usecases
+         |--------------------------------------------------------------------------
+         */
+
         /**
-         * Usecases
+         * Customers
          */
         $this->app->bind(CreateCustomer::class, function () {
             return new CreateCustomer(
@@ -101,6 +109,18 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
+        /**
+         * Reservations
+         */
+        $this->app->bind(GetReservations::class, function () {
+            return new GetReservations(
+                app(ReservationsService::class)
+            );
+        });
+
+        /**
+         * Visited Histories
+         */
         $this->app->bind(CreateVisitedHistory::class, function () {
             return new CreateVisitedHistory(
                 app(CustomersService::class)
@@ -119,6 +139,9 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
+        /**
+         * Tags
+         */
         $this->app->bind(CreateTag::class, function () {
             return new CreateTag(
                 app(StoresService::class)
@@ -156,8 +179,10 @@ final class DomainServiceProvider extends ServiceProvider
         });
 
 
-        /**
-         * View Composers
+        /*
+         |--------------------------------------------------------------------------
+         | View Composers
+         |--------------------------------------------------------------------------
          */
         $this->app->bind(PrefecturesComposer::class, function () {
             return new PrefecturesComposer(
