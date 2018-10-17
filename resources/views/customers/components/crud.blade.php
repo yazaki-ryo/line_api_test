@@ -251,25 +251,6 @@
     </div>
 </div>
 
-@if (false)
-    <div class="form-group{{ $errors->has($attribute = 'store_id') ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
-            @lang (sprintf('attributes.customers.%s', $attribute))
-        </label>
-
-        <div class="col-md-6">
-            <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" disabled>
-                <option value>@lang ('Please select')</option>
-                @foreach ($stores as $item)
-                    <option value="{{ $item->id() }}" {{ $item->id() === (int)$storeId ? 'selected' : '' }}>{{ $item->name() }}</option>
-                @endforeach
-            </select>
-
-            @include ('components.form.err_msg', ['attribute' => $attribute])
-        </div>
-    </div>
-@endif
-
 @if ($mode === 'edit')
     <div class="form-group">
         <label for="{{ $attribute = 'last_visited_at' }}" class="col-md-4 control-label">

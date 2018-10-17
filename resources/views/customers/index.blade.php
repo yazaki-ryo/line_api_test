@@ -78,7 +78,7 @@
 
                                 <div class="panel-body">
                                     {!! Form::open(['url' => route('customers.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                                        @include ('customers.components.crud', ['mode' => 'add', 'storeId' => $storeId])
+                                        @include ('customers.components.crud', ['mode' => 'add'])
                                     {!! Form::close() !!}
                                 </div>
                             </div>

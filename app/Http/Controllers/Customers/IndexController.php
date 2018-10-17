@@ -48,18 +48,19 @@ final class IndexController extends Controller
         $args = $request->validated();
         $storeId = session(config('session.name.current_store'));
 
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+
         return view('customers.index', [
-            'row' => $customer,
-            'rows' => $this->useCase->excute($user, array_merge($args, [
-                'store_id' => $storeId,
-            ])),
+            'rows' => $this->useCase->excute($user, $store, $args),
+            'row'  => $customer,
             'tags' => $user->company()->tags([
                 'store_id' => $storeId,
             ])->groupBy(function ($item) {
                 return $item->label();
             }),
             'printSettings' => $this->printSettings($request),
-            'storeId' => $storeId,
         ]);
     }
 
