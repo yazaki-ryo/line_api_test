@@ -77,7 +77,6 @@
 --}}
                     @can ('authorize', config('permissions.groups.reservations.create'))
                         <div class="tab-pane fade in pt-10" id="create-tab">
-                            @if (false)
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
@@ -87,7 +86,6 @@
                                     {!! Form::close() !!}
                                 </div>
                             </div>
-                            @endif
                         </div>
                     @endcan
                 </div>

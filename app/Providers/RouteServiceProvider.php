@@ -18,6 +18,7 @@ final class RouteServiceProvider extends ServiceProvider
         'id',
         'companyId',
         'customerId',
+        'reservationId',
         'settingId',
         'storeId',
         'tagId',

@@ -114,6 +114,12 @@ final class DomainServiceProvider extends ServiceProvider
          */
         $this->app->bind(GetReservations::class, function () {
             return new GetReservations(
+                app(StoresService::class)
+            );
+        });
+
+        $this->app->bind(UpdateReservation::class, function () {
+            return new UpdateReservation(
                 app(ReservationsService::class)
             );
         });

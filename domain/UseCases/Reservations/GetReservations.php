@@ -6,7 +6,6 @@ namespace Domain\UseCases\Reservations;
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
-use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
 
@@ -39,28 +38,28 @@ final class GetReservations
 
     /**
      * @param User $user
+     * @param Store $store
      * @param array $args
      * @return DomainCollection
      */
-    public function excute(User $user, array $args = []): DomainCollection
+    public function excute(User $user, Store $store, array $args = []): DomainCollection
     {
-        return $this->domainize($user, $args);
+        $args = $this->domainize($user, $args);
+
+        return $store->reservations($args);
     }
 
     /**
      * @param User $user
      * @param array $args
-     * @return DomainCollection
+     * @return array
      */
-    private function domainize(User $user, array $args = []): DomainCollection
+    private function domainize(User $user, array $args = []): array
     {
         /** @var Collection $collection */
         $collection = collect($args);
 
-        /** @var Company $company */
-        $company = $user->company();
-
-        return is_null($company) ? new DomainCollection : $company->tags($collection->all());
+        return $collection->all();
     }
 
 }
