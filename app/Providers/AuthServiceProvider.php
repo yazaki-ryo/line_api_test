@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Policies\CustomerPolicy;
+use App\Policies\ReservationPolicy;
 use App\Policies\TagPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\VisitedHistoryPolicy;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Domain\Models\Customer;
+use Domain\Models\Reservation;
 use Domain\Models\Tag;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
@@ -22,6 +24,7 @@ final class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Customer::class => CustomerPolicy::class,
+        Reservation::class => ReservationPolicy::class,
         Tag::class => TagPolicy::class,
         User::class => UserPolicy::class,
         VisitedHistory::class => VisitedHistoryPolicy::class,

@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="tab-pane fade in pt-5" id="result-tab">
-                        {{-- @include ('reservations.components.list') --}}
+                        @include ('reservations.components.list')
                     </div>
 {{--
                     @can ('authorize', config('permissions.groups.reservations.select'))
@@ -98,40 +98,40 @@
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
     <script type="text/javascript">
         jQuery(function($){
-//             $.extend( $.fn.dataTable.defaults, {
-//                 language: {
-//                     url: "{{ asset('vendor/DataTables/ja.json') }}"
-//                 }
-//             });
-//             $("#reservations-table").DataTable({
-//                 columnDefs: [
-//                     {
-//                         targets: [0, 5],
-//                         orderable: false
-//                     }
-//                 ],
-//                 displayLength: 25,
-//                 info: true,
-//                 lengthChange: true,
-//                 lengthMenu: [10, 25, 50, 100],
-//                 ordering: true,
-//                 paging: true,
-//                 // order: [0, "asc"],
-//                 searching: true,
-//                 stateSave: true
-//             });
+            $.extend( $.fn.dataTable.defaults, {
+                language: {
+                    url: "{{ asset('vendor/DataTables/ja.json') }}"
+                }
+            });
+            $("#reservations-table").DataTable({
+                columnDefs: [
+                    {
+                        targets: [0, 6],
+                        orderable: false
+                    }
+                ],
+                displayLength: 25,
+                info: true,
+                lengthChange: true,
+                lengthMenu: [10, 25, 50, 100],
+                ordering: true,
+                paging: true,
+                // order: [0, "asc"],
+                searching: true,
+                stateSave: true
+            });
         });
 
         /**
          * @param string url
          * @return void
          */
-//         function deleteRecord(url) {
-//             if( confirm('@lang ("Do you really want to delete this?")') ) {
-//                 var form = document.getElementById('basic-post-form');
-//                 form.action = url;
-//                 form.submit();
-//             }
-//         }
+        function deleteRecord(url) {
+            if( confirm('@lang ("Do you really want to delete this?")') ) {
+                var form = document.getElementById('basic-post-form');
+                form.action = url;
+                form.submit();
+            }
+        }
     </script>
 @endsection
