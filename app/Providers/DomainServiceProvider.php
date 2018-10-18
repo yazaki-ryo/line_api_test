@@ -22,6 +22,7 @@ use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\Customers\Tags\UpdateTags;
+use Domain\UseCases\Reservations\CreateReservation;
 use Domain\UseCases\Reservations\GetReservations;
 use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
@@ -115,6 +116,11 @@ final class DomainServiceProvider extends ServiceProvider
         /**
          * Reservations
          */
+        $this->app->bind(CreateReservation::class, function () {
+            return new CreateReservation(
+                app(StoresService::class)
+            );
+        });
         $this->app->bind(GetReservations::class, function () {
             return new GetReservations(
                 app(StoresService::class)

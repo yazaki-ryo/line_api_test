@@ -10,6 +10,7 @@ use Domain\Models\Company;
 use Domain\Models\Customer;
 use Domain\Models\DomainModel;
 use Domain\Models\Prefecture;
+use Domain\Models\Reservation;
 use Domain\Models\Store;
 use Domain\Models\Tag;
 use Domain\Models\User;
@@ -115,6 +116,18 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
             return null;
         }
         return CustomerRepository::toModel($resource);
+    }
+
+    /**
+     * @param  array $args
+     * @return Reservation
+     */
+    public function addReservation(array $args = []): Reservation
+    {
+        if (is_null($resource = $this->eloquent->reservations()->create($args))) {
+            return null;
+        }
+        return ReservationRepository::toModel($resource);
     }
 
     /**

@@ -94,7 +94,7 @@ $router->group([
         'prefix' => $prefix = 'reservations',
     ], function (Router $router) use ($prefix) {
         $router->get( '/', \App\Http\Controllers\Reservations\IndexController::class)->name($prefix);
-//         $router->post('add', \App\Http\Controllers\Reservations\CreateController::class)->name(sprintf('%s.add', $prefix));
+        $router->post('add', \App\Http\Controllers\Reservations\CreateController::class)->name(sprintf('%s.add', $prefix));
 
 //         $router->group([
 //             'prefix' => '{reservationId}',
