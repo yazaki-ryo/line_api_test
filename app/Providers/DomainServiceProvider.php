@@ -10,6 +10,7 @@ use App\Services\SexesService;
 use App\Services\Pdf\PdfService;
 use App\Services\FilesService;
 use App\Services\PrefecturesService;
+use App\Services\ReservationsService;
 use App\Services\TagsService;
 use App\Services\UsersService;
 use App\Services\VisitedHistoriesService;
@@ -21,13 +22,17 @@ use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\Customers\Tags\UpdateTags;
+use Domain\UseCases\Reservations\GetReservations;
 use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Domain\UseCases\Tags\CreateTag;
 use Domain\UseCases\Tags\DeleteTag;
+use Domain\UseCases\Tags\GetTags;
 use Domain\UseCases\Tags\UpdateTag;
+use Domain\UseCases\Users\CreateUser;
 use Domain\UseCases\Users\DeleteUser;
+use Domain\UseCases\Users\GetUsers;
 use Domain\UseCases\Users\RestoreUser;
 use Domain\UseCases\Users\UpdateUser;
 use Illuminate\Support\ServiceProvider;
@@ -48,8 +53,14 @@ final class DomainServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        /*
+         |--------------------------------------------------------------------------
+         | Usecases
+         |--------------------------------------------------------------------------
+         */
+
         /**
-         * Usecases
+         * Customers
          */
         $this->app->bind(CreateCustomer::class, function () {
             return new CreateCustomer(
@@ -65,7 +76,7 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(GetCustomers::class, function () {
             return new GetCustomers(
-                app(CustomersService::class)
+                app(StoresService::class)// TODO
             );
         });
 
@@ -101,6 +112,24 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
+        /**
+         * Reservations
+         */
+        $this->app->bind(GetReservations::class, function () {
+            return new GetReservations(
+                app(StoresService::class)
+            );
+        });
+
+        $this->app->bind(UpdateReservation::class, function () {
+            return new UpdateReservation(
+                app(ReservationsService::class)
+            );
+        });
+
+        /**
+         * Visited Histories
+         */
         $this->app->bind(CreateVisitedHistory::class, function () {
             return new CreateVisitedHistory(
                 app(CustomersService::class)
@@ -119,6 +148,9 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
+        /**
+         * Tags
+         */
         $this->app->bind(CreateTag::class, function () {
             return new CreateTag(
                 app(StoresService::class)
@@ -131,15 +163,36 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
+        $this->app->bind(GetTags::class, function () {
+            return new GetTags(
+                app(StoresService::class)
+            );
+        });
+
         $this->app->bind(UpdateTag::class, function () {
             return new UpdateTag(
                 app(TagsService::class)
             );
         });
 
+        /**
+         * Users
+         */
+        $this->app->bind(CreateUser::class, function () {
+            return new CreateUser(
+                app(StoresService::class)
+            );
+        });
+
         $this->app->bind(DeleteUser::class, function () {
             return new DeleteUser(
-                app(StoresService::class)
+                app(UsersService::class)
+            );
+        });
+
+        $this->app->bind(GetUsers::class, function () {
+            return new GetUsers(
+                app(StoresService::class)// TODO
             );
         });
 
@@ -156,8 +209,10 @@ final class DomainServiceProvider extends ServiceProvider
         });
 
 
-        /**
-         * View Composers
+        /*
+         |--------------------------------------------------------------------------
+         | View Composers
+         |--------------------------------------------------------------------------
          */
         $this->app->bind(PrefecturesComposer::class, function () {
             return new PrefecturesComposer(

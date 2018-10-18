@@ -1,34 +1,34 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Tags;
+namespace App\Http\Controllers\Reservations;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tags\SearchRequest;
+use App\Http\Requests\Reservations\SearchRequest;
 use App\Repositories\UserRepository;
-use Domain\Models\Tag;
+use Domain\Models\Reservation;
 use Domain\Models\User;
-use Domain\UseCases\Tags\GetTags;
+use Domain\UseCases\Reservations\GetReservations;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class IndexController extends Controller
 {
-    /** @var GetTags */
+    /** @var GetReservations */
     private $useCase;
 
     /** @var Auth */
     private $auth;
 
     /**
-     * @param  GetTags $useCase
+     * @param  GetReservations $useCase
      * @param  Auth $auth
      * @return void
      */
-    public function __construct(GetTags $useCase, Auth $auth)
+    public function __construct(GetReservations $useCase, Auth $auth)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
-            sprintf('authorize:%s', implode('|', config('permissions.groups.tags.select'))),
+            sprintf('authorize:%s', implode('|', config('permissions.groups.reservations.select'))),
         ]);
 
         $this->useCase = $useCase;
@@ -37,10 +37,10 @@ final class IndexController extends Controller
 
     /**
      * @param SearchRequest $request
-     * @param Tag $tag
+     * @param Reservation $reservation
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function __invoke(SearchRequest $request, Tag $tag)
+    public function __invoke(SearchRequest $request, Reservation $reservation)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
@@ -51,21 +51,9 @@ final class IndexController extends Controller
             'id' => $storeId,
         ]);
 
-        return view('tags.index', [
+        return view('reservations.index', [
             'rows' => $this->useCase->excute($user, $store, $args),
-            'row' => $tag,
-
-            /**
-             * TODO XXX from config file.
-             */
-            'labels' => [
-                'default' => 'デフォルト',
-                'primary' => 'プライマリ',
-                'info'    => 'インフォメーション',
-                'success' => 'サクセス',
-                'warning' => 'ワーニング',
-                'danger'  => 'デンジャー',
-            ],
+            'row' => $reservation,
         ]);
     }
 

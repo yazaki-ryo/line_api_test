@@ -46,11 +46,13 @@ final class IndexController extends Controller
         $args = $request->validated();
         $storeId = session(config('session.name.current_store'));
 
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+
         return view('users.index', [
-            'row'  => $brankUser,
-            'rows' => $this->useCase->excute($user, array_merge($args, [
-                'store_id' => $storeId,
-            ])),
+            'rows' => $this->useCase->excute($user, $store, $args),
+            'row' => $brankUser,
         ]);
     }
 

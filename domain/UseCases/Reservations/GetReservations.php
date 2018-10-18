@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domain\UseCases\Users;
+namespace Domain\UseCases\Reservations;
 
 use App\Services\DomainCollection;
 use Domain\Contracts\Model\FindableContract;
@@ -9,7 +9,7 @@ use Domain\Exceptions\NotFoundException;
 use Domain\Models\Store;
 use Domain\Models\User;
 
-final class GetUsers
+final class GetReservations
 {
     /** @var FindableContract */
     private $finder;
@@ -46,7 +46,7 @@ final class GetUsers
     {
         $args = $this->domainize($user, $args);
 
-        return $store->users($args);
+        return $store->reservations($args);
     }
 
     /**
@@ -61,4 +61,5 @@ final class GetUsers
 
         return $collection->all();
     }
+
 }

@@ -10,22 +10,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-
-            <!-- Branding Image -->
-            {{-- 
-            <a class="navbar-brand" href="{{ route('home') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            --}}
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
-{{--
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-                &nbsp;
-            </ul>
---}}
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -58,11 +45,19 @@
                     </li>
 
                     <!-- Reservations -->
-                    <li class="dropdown disabled">
-                        <a href="#" class="disabled" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                    <li>
+                        <a href="#side-nav-reservations" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             <i class="far fa-calendar-alt fa-lg"></i>
                             @lang ('elements.words.reservations')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
+
+                        <div id="side-nav-reservations" class="panel-collapse collapse">
+                            <ul class="nav nav-child">
+                                @can ('authorize', config('permissions.groups.tags.select')){{-- TODO Permissions --}}
+                                    <li class="{{ request()->route()->named('reservations') ? 'active' : '' }}"><a href="{{ route('reservations') }}">@lang ('elements.words.reservations')@lang ('elements.words.list')</a></li>
+                                @endcan
+                            </ul>
+                        </div>
                     </li>
 
                     <!-- Stores -->
@@ -75,8 +70,8 @@
                             <ul class="nav nav-child">
                                 <!-- Users -->
                                 @can ('authorize', ['stores.select', 'own-company-stores.select'])
-                                    <li class="dropdown-submenu">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    <li class="dropdown-submenu {{ ! app()->isLocal() ? 'disabled' : '' }}">
+                                        <a href="#" class="dropdown-toggle {{ ! app()->isLocal() ? 'disabled' : '' }}" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                             @lang ('elements.words.users')@lang ('elements.words.management') <span class="caret"></span>
                                         </a>
 

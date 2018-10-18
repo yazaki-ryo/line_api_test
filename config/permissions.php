@@ -40,6 +40,19 @@ return [
                 'own-company-self-store-customers.delete',
                 'own-company-self-store-customers.restore',
 
+                // Reservations
+                'own-company-reservations.select',
+                'own-company-reservations.create',
+                'own-company-reservations.update',
+                'own-company-reservations.delete',
+                'own-company-reservations.restore',
+
+                'own-company-self-store-reservations.select',
+                'own-company-self-store-reservations.create',
+                'own-company-self-store-reservations.update',
+                'own-company-self-store-reservations.delete',
+                'own-company-self-store-reservations.restore',
+
                 // Visited Histories
                 'own-company-customers-visited_histories.select',
                 'own-company-customers-visited_histories.create',
@@ -111,6 +124,11 @@ return [
                 // Postcards
                 'own-company-self-store-customers-postcards.export',
 
+                // Reservations
+                'own-company-self-store-reservations.select',
+                'own-company-self-store-reservations.create',
+                'own-company-self-store-reservations.update',
+
                 // Settings
                 'self-settings.printings.update',
 
@@ -138,21 +156,21 @@ return [
                 'companies.restore',
 
                 // Customers
-                'customers.select',
-                'customers.create',
-                'customers.update',
-                'customers.delete',
-                'customers.restore',
+//                 'customers.select',
+//                 'customers.create',
+//                 'customers.update',
+//                 'customers.delete',
+//                 'customers.restore',
 
                 // Visited Histories
-                'customers-visited_histories.select',
-                'customers-visited_histories.create',
-                'customers-visited_histories.update',
-                'customers-visited_histories.delete',
-                'customers-visited_histories.restore',
+//                 'customers-visited_histories.select',
+//                 'customers-visited_histories.create',
+//                 'customers-visited_histories.update',
+//                 'customers-visited_histories.delete',
+//                 'customers-visited_histories.restore',
 
                 // Postcards
-                'customers-postcards.export',
+//                 'customers-postcards.export',
 
                 // Stores
                 'stores.select',
@@ -253,6 +271,34 @@ return [
                     'own-company-customers-visited_histories.restore',
                     'own-company-self-store-customers-visited_histories.restore',
                 ],
+            ],
+        ],
+
+        'reservations' => [
+            'select' => [
+                'reservations.select',
+                'own-company-reservations.select',
+                'own-company-self-store-reservations.select',
+            ],
+            'create' => [
+                'reservations.create',
+                'own-company-reservations.create',
+                'own-company-self-store-reservations.create',
+            ],
+            'update' => [
+                'reservations.update',
+                'own-company-reservations.update',
+                'own-company-self-store-reservations.update',
+            ],
+            'delete' => [
+                'reservations.delete',
+                'own-company-reservations.delete',
+                'own-company-self-store-reservations.delete',
+            ],
+            'restore' => [
+                'reservations.restore',
+                'own-company-reservations.restore',
+                'own-company-self-store-reservations.restore',
             ],
         ],
 
@@ -538,6 +584,74 @@ return [
             [
                 'name'  => '自店舗顧客ハガキ印刷',
                 'slug'  => 'own-company-self-store-customers-postcards.export',
+            ],
+        ],
+
+        'reservations' => [
+            // all
+            [
+                'name'  => '全予約閲覧',
+                'slug'  => 'reservations.select',
+            ],
+            [
+                'name'  => '全予約作成',
+                'slug'  => 'reservations.create',
+            ],
+            [
+                'name'  => '全予約更新',
+                'slug'  => 'reservations.update',
+            ],
+            [
+                'name'  => '全予約削除',
+                'slug'  => 'reservations.delete',
+            ],
+            [
+                'name'  => '全予約復旧',
+                'slug'  => 'reservations.restore',
+            ],
+
+            // 自社
+            [
+                'name'  => '自社予約閲覧',
+                'slug'  => 'own-company-reservations.select',
+            ],
+            [
+                'name'  => '自社予約作成',
+                'slug'  => 'own-company-reservations.create',
+            ],
+            [
+                'name'  => '自社予約更新',
+                'slug'  => 'own-company-reservations.update',
+            ],
+            [
+                'name'  => '自社予約削除',
+                'slug'  => 'own-company-reservations.delete',
+            ],
+            [
+                'name'  => '自社予約復旧',
+                'slug'  => 'own-company-reservations.restore',
+            ],
+
+            // 自店舗
+            [
+                'name'  => '自店舗予約閲覧',
+                'slug'  => 'own-company-self-store-reservations.select',
+            ],
+            [
+                'name'  => '自店舗予約作成',
+                'slug'  => 'own-company-self-store-reservations.create',
+            ],
+            [
+                'name'  => '自店舗予約更新',
+                'slug'  => 'own-company-self-store-reservations.update',
+            ],
+            [
+                'name'  => '自店舗予約削除',
+                'slug'  => 'own-company-self-store-reservations.delete',
+            ],
+            [
+                'name'  => '自店舗予約復旧',
+                'slug'  => 'own-company-self-store-reservations.restore',
             ],
         ],
 

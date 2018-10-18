@@ -114,8 +114,8 @@
     <div class="col-md-6">
         <select name="{{ $attribute }}" class="form-control p-region-id" id="{{ $attribute }}">
             <option value>@lang ('Please select')</option>
-            @foreach ($prefectures->pluckNamesByIds() as $key => $item)
-                <option value="{{ $key }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) === $key ? 'selected' : '' }} >{{ $item }}</option>
+            @foreach ($prefectures as $item)
+                <option value="{{ $item->id() }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) === $item->id() ? 'selected' : '' }} >{{ $item->name() }}</option>
             @endforeach
         </select>
 
@@ -250,25 +250,6 @@
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
-
-@if (false)
-    <div class="form-group{{ $errors->has($attribute = 'store_id') ? ' has-error' : '' }}">
-        <label for="{{ $attribute }}" class="col-md-4 control-label">
-            @lang (sprintf('attributes.customers.%s', $attribute))
-        </label>
-
-        <div class="col-md-6">
-            <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" disabled>
-                <option value>@lang ('Please select')</option>
-                @foreach ($stores as $item)
-                    <option value="{{ $item->id() }}" {{ $item->id() === (int)$storeId ? 'selected' : '' }}>{{ $item->name() }}</option>
-                @endforeach
-            </select>
-
-            @include ('components.form.err_msg', ['attribute' => $attribute])
-        </div>
-    </div>
-@endif
 
 @if ($mode === 'edit')
     <div class="form-group">

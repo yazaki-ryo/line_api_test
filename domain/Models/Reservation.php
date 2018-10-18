@@ -3,24 +3,36 @@ declare(strict_types=1);
 
 namespace Domain\Models;
 
-use App\Repositories\VisitedHistoryRepository;
+use App\Repositories\ReservationRepository;
 
-final class VisitedHistory extends DomainModel
+final class Reservation extends DomainModel
 {
-    /** @var VisitedHistoryRepository */
+    /** @var ReservationRepository */
     protected $repo;
 
     /** @var int */
     private $id;
 
     /** @var Datetime */
-    private $visitedAt;
+    private $reservedAt;
+
+    /** @var string */
+    private $name;
 
     /** @var string */
     private $seat;
 
     /** @var int */
     private $amount;
+
+    /** @var string */
+    private $reservationCode;
+
+    /** @var int */
+    private $floor;
+
+    /** @var int */
+    private $status;
 
     /** @var string */
     private $note;
@@ -32,15 +44,18 @@ final class VisitedHistory extends DomainModel
     private $updatedAt;
 
     /** @var int */
+    private $storeId;
+
+    /** @var int */
     private $customerId;
 
     /**
-     * @param VisitedHistoryRepository|null $repo
+     * @param ReservationRepository|null $repo
      * @return void
      */
-    public function __construct(VisitedHistoryRepository $repo = null)
+    public function __construct(ReservationRepository $repo = null)
     {
-        $this->repo = is_null($repo) ? new VisitedHistoryRepository : $repo;
+        $this->repo = is_null($repo) ? new ReservationRepository : $repo;
     }
 
     /**
@@ -54,9 +69,17 @@ final class VisitedHistory extends DomainModel
     /**
      * @return Datetime|null
      */
-    public function visitedAt(): ?Datetime
+    public function reservedAt(): ?Datetime
     {
-        return $this->visitedAt;
+        return $this->reservedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function name(): ?string
+    {
+        return $this->name;
     }
 
     /**
@@ -73,6 +96,30 @@ final class VisitedHistory extends DomainModel
     public function amount(): ?int
     {
         return $this->amount;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function reservationCode(): ?string
+    {
+        return $this->reservationCode;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function floor(): ?int
+    {
+        return $this->floor;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function status(): ?int
+    {
+        return $this->status;
     }
 
     /**
@@ -100,6 +147,22 @@ final class VisitedHistory extends DomainModel
     }
 
     /**
+     * @return Store|null
+     */
+    public function store(): ?Store
+    {
+        return $this->repo->store();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function storeId(): ?int
+    {
+        return $this->storeId;
+    }
+
+    /**
      * @return Customer|null
      */
     public function customer(): ?Customer
@@ -116,10 +179,10 @@ final class VisitedHistory extends DomainModel
     }
 
     /**
-     * @param VisitedHistoryRepository $repo
+     * @param ReservationRepository $repo
      * @return self
      */
-    public static function of(VisitedHistoryRepository $repo): self
+    public static function of(ReservationRepository $repo): self
     {
         return (new self($repo))->propertiesByArray($repo->attributesToArray());
     }
@@ -130,7 +193,7 @@ final class VisitedHistory extends DomainModel
      */
     public static function ofByArray(array $args = []): self
     {
-        return (new self(new VisitedHistoryRepository))->propertiesByArray($args);
+        return (new self(new ReservationRepository))->propertiesByArray($args);
     }
 
     /**
@@ -145,8 +208,12 @@ final class VisitedHistory extends DomainModel
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
-        if ($args->has($key = 'visited_at')) {
+        if ($args->has($key = 'reserved_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'name')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         if ($args->has($key = 'seat')) {
@@ -154,6 +221,18 @@ final class VisitedHistory extends DomainModel
         }
 
         if ($args->has($key = 'amount')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'reservation_code')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'floor')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'status')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
@@ -167,6 +246,10 @@ final class VisitedHistory extends DomainModel
 
         if ($args->has($key = 'updated_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         if ($args->has($key = 'customer_id')) {

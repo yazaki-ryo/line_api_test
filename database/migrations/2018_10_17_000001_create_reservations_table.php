@@ -5,13 +5,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVisitedHistoriesTable extends Migration
+class CreateReservationsTable extends Migration
 {
     /** @var string */
-    private $table = 'visited_histories';
+    private $table = 'reservations';
 
     /** @var string */
-    private $name = '来店履歴';
+    private $name = '予約';
 
     /**
      * @return void
@@ -21,12 +21,24 @@ class CreateVisitedHistoriesTable extends Migration
         try {
             Schema::create($this->table, function (Blueprint $table) {
                 $table->increments('id');
+
+                $table->unsignedInteger('store_id')->nullable()->comment('店舗ID');
                 $table->unsignedInteger('customer_id')->nullable()->comment('顧客ID');
-                $table->timestamp('visited_at')->nullable()->comment('来店日時');
+
+                $table->timestamp('reserved_at')->nullable()->comment('予約日時');
+                $table->string('name')->nullable()->comment('お名前');
                 $table->string('seat')->nullable()->comment('席');
                 $table->unsignedInteger('amount')->nullable()->comment('人数');
+                $table->string('reservation_code')->nullable()->comment('予約コード');
+                $table->unsignedTinyInteger('floor')->nullable()->comment('フロア');
+                $table->unsignedTinyInteger('status')->nullable()->comment('状態');
                 $table->text('note')->nullable()->comment('メモ');
+
                 $table->timestamps();
+
+                $table->foreign('store_id')
+                    ->references('id')
+                    ->on('stores');
 
                 $table->foreign('customer_id')
                     ->references('id')

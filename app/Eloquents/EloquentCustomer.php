@@ -96,6 +96,14 @@ final class EloquentCustomer extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(EloquentReservation::class, 'customer_id', 'id');
+    }
+
+    /**
      * @return MorphToMany
      */
     public function tags(): MorphToMany

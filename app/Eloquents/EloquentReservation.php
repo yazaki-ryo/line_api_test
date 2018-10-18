@@ -9,20 +9,25 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-final class EloquentVisitedHistory extends Model
+final class EloquentReservation extends Model
 {
     use Domainable, Scopable;
 
     /** @var string */
-    protected $table = 'visited_histories';
+    protected $table = 'reservations';
 
     /**
      * @var array
      */
     protected $fillable = [
-        'visited_at',
+        'customer_id',
+        'reserved_at',
+        'name',
         'seat',
         'amount',
+        'reservation_code',
+        'floor',
+        'status',
         'note',
     ];
 
@@ -30,7 +35,7 @@ final class EloquentVisitedHistory extends Model
      * @var array
      */
     protected $dates = [
-        'visited_at',
+        'reserved_at',
     ];
 
     /**
@@ -42,15 +47,11 @@ final class EloquentVisitedHistory extends Model
     }
 
     /**
-     * @param Builder $query
-     * @param int $id
-     * @return Builder
+     * @return BelongsTo
      */
-    public function scopeStoreId(Builder $query, int $id): Builder
+    public function store(): BelongsTo
     {
-        return $query->whereHas('customer', function(Builder $q) use ($id) {
-            $q->where('store_id', $id);
-        });
+        return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
     }
 
 }
