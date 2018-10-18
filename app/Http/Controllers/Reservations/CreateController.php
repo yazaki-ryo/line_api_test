@@ -38,10 +38,9 @@ final class CreateController extends Controller
 
     /**
      * @param CreateRequest $request
-     * @param Reservation $visitedHistory
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(CreateRequest $request, Reservation $visitedHistory)
+    public function __invoke(CreateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());

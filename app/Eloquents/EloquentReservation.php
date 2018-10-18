@@ -54,4 +54,16 @@ final class EloquentReservation extends Model
         return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
     }
 
+    /**
+     * @param  Builder $query
+     * @param  int $value
+     * @return Builder
+     */
+    public function scopeStoreId(Builder $query, int $value): Builder
+    {
+        $field = sprintf('%s.store_id', $this->getTable());
+
+        return $query->where($field, '=', $value);
+    }
+
 }
