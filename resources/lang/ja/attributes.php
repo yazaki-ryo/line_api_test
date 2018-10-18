@@ -99,6 +99,9 @@ return [
             'visited_time' => 'チェックイン',
             'amount'       => '人数',
             'seat'         => '席',
+            'note'         => 'メモ',
+            'created_at'   => '登録日時',
+            'updated_at'   => '更新日時',
         ],
     ],
 

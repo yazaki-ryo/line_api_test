@@ -23,6 +23,7 @@ final class EloquentVisitedHistory extends Model
         'visited_at',
         'seat',
         'amount',
+        'note',
     ];
 
     /**

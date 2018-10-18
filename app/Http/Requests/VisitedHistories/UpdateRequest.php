@@ -45,6 +45,11 @@ class UpdateRequest extends FormRequest
                 'string',
                 'max:191',
             ],
+            'note' => [
+                'nullable',
+                'string',
+                'max:1000',
+            ],
         ];
     }
 

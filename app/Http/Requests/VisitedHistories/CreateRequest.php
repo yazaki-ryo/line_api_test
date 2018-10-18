@@ -45,6 +45,11 @@ class CreateRequest extends FormRequest
                 'string',
                 'max:191',
             ],
+            'note' => [
+                'nullable',
+                'string',
+                'max:1000',
+            ],
             'customer_id' => [
                 'required',
                 'numeric',

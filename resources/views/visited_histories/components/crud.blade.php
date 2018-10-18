@@ -47,6 +47,29 @@
     </div>
 </div>
 
+<div class="form-group{{ $errors->has($attribute = 'note') ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang (sprintf('attributes.customers.%s', $attribute))
+    </label>
+
+    <div class="col-md-6">
+        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+</div>
+
+@if ($mode === 'edit')
+    <div class="form-group">
+        <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
+            @lang (sprintf('attributes.reservations.%s', $attribute))
+        </label>
+
+        <div class="col-md-6 form-control-static">
+            {{ $row->{$camel = camel_case($attribute)}() ?? null }}
+        </div>
+    </div>
+@endif
+
 <hr>
 
 <div class="form-group">

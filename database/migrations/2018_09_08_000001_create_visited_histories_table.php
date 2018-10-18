@@ -25,6 +25,7 @@ class CreateVisitedHistoriesTable extends Migration
                 $table->timestamp('visited_at')->nullable()->comment('来店日時');
                 $table->string('seat')->nullable()->comment('席');
                 $table->unsignedInteger('amount')->nullable()->comment('人数');
+                $table->text('note')->nullable()->comment('メモ');
                 $table->timestamps();
 
                 $table->foreign('customer_id')

@@ -22,6 +22,9 @@ final class VisitedHistory extends DomainModel
     /** @var int */
     private $amount;
 
+    /** @var string */
+    private $note;
+
     /** @var Datetime */
     private $createdAt;
 
@@ -70,6 +73,14 @@ final class VisitedHistory extends DomainModel
     public function amount(): ?int
     {
         return $this->amount;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function note(): ?string
+    {
+        return $this->note;
     }
 
     /**
@@ -143,6 +154,10 @@ final class VisitedHistory extends DomainModel
         }
 
         if ($args->has($key = 'amount')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'note')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
