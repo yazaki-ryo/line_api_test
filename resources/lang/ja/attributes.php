@@ -106,9 +106,21 @@ return [
     ],
 
     'reservations' => [
+        'store_id'              => '店舗',
+        'customer_id'           => '顧客',
+
+        'reserved_date'         => '予約日',
+        'reserved_time'         => '予約時間',
+        'name'                  => 'お名前',
+        'amount'                => '人数',
+        'seat'                  => '席',
+        'reservation_code'      => '予約コード',
+        'floor'                 => 'フロア',
+        'status'                => '状態',
+        'note'                  => 'メモ',
+
         'created_at'            => '登録日時',
         'updated_at'            => '更新日時',
-        'deleted_at'            => '削除日時',
     ],
 
     'stores' => [

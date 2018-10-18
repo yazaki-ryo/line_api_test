@@ -3,54 +3,57 @@
 </div>
 
 @if ($rows->count())
-    <table id="reservations-table" class="table table-striped table-hover table-condensed table-bordered dt-responsive nowrap dataTable dtr-inline">
+    <table id="reservations-table" class="table table-striped table-hover table-condensed">
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
-                <th class="text-center">@lang ('elements.words.name')</th>
-                <th class="text-center">@lang ('elements.words.customers')@lang ('elements.words.num')</th>
-                <th class="text-center">@lang ('elements.words.created')@lang ('elements.words.datetime')</th>
-                <th class="text-center">@lang ('elements.words.updated')@lang ('elements.words.datetime')</th>
+                <th class="text-center">@lang ('attributes.reservations.name')</th>
+                <th class="text-center">@lang ('attributes.reservations.reserved_date')</th>
+                <th class="text-center">@lang ('attributes.reservations.reserved_time')</th>
+                <th class="text-center">@lang ('attributes.reservations.amount')</th>
+                <th class="text-center">@lang ('attributes.reservations.seat')</th>
                 <th class="text-center">@lang ('elements.words.action')</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($rows as $row)
-                <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
+                <tr>
                     <td class="text-center">
                         <div class="checkbox">
-                            <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
+                            <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} /></label>
                         </div>
                     </td>
-                    <td class="text-left"><span class="label label-{{ $row->{$camel = camel_case('label')}() }}">{{ $row->{$camel = camel_case('name')}() }}</span></td>
-                    <td class="text-center"><span class="badge">{{ $row->customers()->count() }}</span></td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('created_at')}() }}</td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('updated_at')}() }}</td>
-                    <td class="text-center">
-                        <ul class="side-by-side around wrap">
-                            @if (! $row->{$camel = camel_case('deleted_at')}())
-                                @can ('authorize', config('permissions.groups.reservations.select'))
-                                    @can ('select', $row)
-                                        <li>
-                                            <a href="{{ route('reservations.edit', $row->id()) }}">
-                                                <i class="fas fa-pencil-alt icon-edit" title="@lang('elements.words.detail')"></i>
-                                            </a>
-                                        </li>
-                                    @endcan
+                    <td class="text-center">{{ $row->{$camel = camel_case('name')}() }}</td>
+                    <td class="text-center">{{ empty($row->{$camel = camel_case('reserved_at')}()) ? '' : $row->{$camel}()->format('Y-m-d') }}</td>
+                    <td class="text-center">{{ empty($row->{$camel = camel_case('reserved_at')}()) ? '' : $row->{$camel}()->format('H:i') }}</td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('amount')}() }}</td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('seat')}() }}</td>
+                    <td class="text-center dropdown">
+                        <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="glyphicon glyphicon-option-horizontal"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            @can ('authorize', config('permissions.groups.reservations.select'))
+                                @can ('select', $row)
+                                    <li>
+                                        <a href="{{ route('reservations.edit', $row->id()) }}">
+                                            @lang ('elements.words.detail')
+                                        </a>
+                                    </li>
                                 @endcan
+                            @endcan
 
-                                @can ('authorize', config('permissions.groups.reservations.delete'))
-                                    @can ('delete', $row)
-                                        <li role="separator" class="divider"></li>
+                            @can ('authorize', config('permissions.groups.reservations.delete'))
+                                @can ('delete', $row)
+                                    <li role="separator" class="divider"></li>
 
-                                        <li>
-                                            <a href="{{ route('reservations.delete', $row->id()) }}" onclick="deleteRecord('{{ route('reservations.delete', $row->id()) }}'); return false;">
-                                                <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
-                                            </a>
-                                        </li>
-                                    @endcan
+                                    <li>
+                                        <a href="{{ route('reservations.delete', $row->id()) }}" onclick="deleteRecord('{{ route('reservations.delete', [$row->customerId(), $row->id()]) }}'); return false;">
+                                            @lang ('elements.words.delete')
+                                        </a>
+                                    </li>
                                 @endcan
-                            @endif
+                            @endcan
                         </ul>
                     </td>
                 </tr>

@@ -94,15 +94,15 @@ $router->group([
         'prefix' => $prefix = 'reservations',
     ], function (Router $router) use ($prefix) {
         $router->get( '/', \App\Http\Controllers\Reservations\IndexController::class)->name($prefix);
-//         $router->post('add', \App\Http\Controllers\Reservations\CreateController::class)->name(sprintf('%s.add', $prefix));
+        $router->post('add', \App\Http\Controllers\Reservations\CreateController::class)->name(sprintf('%s.add', $prefix));
 
-//         $router->group([
-//             'prefix' => '{reservationId}',
-//         ], function (Router $router) use ($prefix) {
-//             $router->get( 'edit', \App\Http\Controllers\Reservations\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
-//             $router->post('edit', \App\Http\Controllers\Reservations\UpdateController::class . '@update');
-//             $router->post('delete', \App\Http\Controllers\Reservations\DeleteController::class)->name(sprintf('%s.delete', $prefix));
-//         });
+        $router->group([
+            'prefix' => '{reservationId}',
+        ], function (Router $router) use ($prefix) {
+            $router->get( 'edit', \App\Http\Controllers\Reservations\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
+            $router->post('edit', \App\Http\Controllers\Reservations\UpdateController::class . '@update');
+            $router->post('delete', \App\Http\Controllers\Reservations\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+        });
     });
 
     /**

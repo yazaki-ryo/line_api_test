@@ -228,6 +228,15 @@ final class Store extends DomainModel
 
     /**
      * @param  array $args
+     * @return Reservation
+     */
+    public function addReservation(array $args = []): Reservation
+    {
+        return $this->repo->addReservation($args);
+    }
+
+    /**
+     * @param  array $args
      * @return Tag
      */
     public function addTag(array $args = []): Tag

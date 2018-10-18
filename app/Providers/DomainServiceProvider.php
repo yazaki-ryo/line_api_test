@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\Http\Views\Composers\PrefecturesComposer;
 use App\Http\Views\Composers\SexesComposer;
+
 use App\Services\CustomersService;
 use App\Services\SexesService;
 use App\Services\Pdf\PdfService;
@@ -14,6 +15,7 @@ use App\Services\ReservationsService;
 use App\Services\TagsService;
 use App\Services\UsersService;
 use App\Services\VisitedHistoriesService;
+
 use Domain\UseCases\Customers\CreateCustomer;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Domain\UseCases\Customers\Files\ImportFiles;
@@ -22,19 +24,27 @@ use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\Customers\Tags\UpdateTags;
+
+use Domain\UseCases\Reservations\CreateReservation;
+use Domain\UseCases\Reservations\DeleteReservation;
 use Domain\UseCases\Reservations\GetReservations;
+use Domain\UseCases\Reservations\UpdateReservation;
+
 use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
+
 use Domain\UseCases\Tags\CreateTag;
 use Domain\UseCases\Tags\DeleteTag;
 use Domain\UseCases\Tags\GetTags;
 use Domain\UseCases\Tags\UpdateTag;
+
 use Domain\UseCases\Users\CreateUser;
 use Domain\UseCases\Users\DeleteUser;
 use Domain\UseCases\Users\GetUsers;
 use Domain\UseCases\Users\RestoreUser;
 use Domain\UseCases\Users\UpdateUser;
+
 use Illuminate\Support\ServiceProvider;
 use App\Services\StoresService;
 
@@ -115,6 +125,18 @@ final class DomainServiceProvider extends ServiceProvider
         /**
          * Reservations
          */
+        $this->app->bind(CreateReservation::class, function () {
+            return new CreateReservation(
+                app(StoresService::class)
+            );
+        });
+
+        $this->app->bind(DeleteReservation::class, function () {
+            return new DeleteReservation(
+                app(ReservationsService::class)
+            );
+        });
+
         $this->app->bind(GetReservations::class, function () {
             return new GetReservations(
                 app(StoresService::class)
