@@ -60,7 +60,23 @@ class StoresSeeder extends Seeder
         try {
             $this->transaction(function () {
                 collect(self::$items)->each(function ($item) {
-                    EloquentStore::create($item);
+                    /** @var EloquentStore $store */
+                    $store = EloquentStore::create($item);
+
+                    /**
+                     * Reservations
+                     */
+                    if ($store->getKey() & 1) {// odd
+                        $store->reservations()->create([
+                            'reserved_at' => now()->addWeek($store->id)->setTime($store->id + 17, 30),
+                            'name'        => sprintf('テスト%s郎', $store->id),
+                            'seat'        => sprintf('テスト%s席', $store->id),
+                            'amount'      => $store->id,
+                            'floor'       => $store->id,
+                            'note'        => '割引クーポン使用予定',
+                            'reservation_code' => str_random(8),
+                        ]);
+                    }
                 });
             });
         } catch (\Exception $e) {

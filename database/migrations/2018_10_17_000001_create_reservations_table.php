@@ -31,7 +31,7 @@ class CreateReservationsTable extends Migration
                 $table->unsignedInteger('amount')->nullable()->comment('人数');
                 $table->string('reservation_code')->nullable()->comment('予約コード');
                 $table->unsignedTinyInteger('floor')->nullable()->comment('フロア');
-                $table->unsignedTinyInteger('status')->nullable()->comment('状態');
+                $table->unsignedTinyInteger('status')->default(1)->comment('予約状況');
                 $table->text('note')->nullable()->comment('メモ');
 
                 $table->timestamps();
