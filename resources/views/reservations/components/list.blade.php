@@ -44,7 +44,7 @@
                                     @endcan
                                 @endcan
 
-                                @if ($row->{$camel = camel_case('customer_id')}())
+                                @if ($row->{$camel = camel_case('customer_id')}() && is_null($row->visitedHistory()))
                                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                                         <li>
                                             <a href="{{ route('reservations.visited_histories.add', $row->id()) }}" onclick="test('{{ route('reservations.visited_histories.add', $row->id()) }}'); return false;">

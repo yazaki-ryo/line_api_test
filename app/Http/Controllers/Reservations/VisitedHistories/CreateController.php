@@ -59,6 +59,11 @@ final class CreateController extends Controller
             return redirect()->route('reservations');
         }
 
+        if (! is_null($reservation->visitedHistory())) {
+            flash(__('Visiting information has already been registered.'), 'info');
+            return redirect()->route('reservations');
+        }
+
         $this->authorize('create', [
             $visitedHistory,
             $customer,
