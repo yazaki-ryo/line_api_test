@@ -17,10 +17,10 @@
         </thead>
         <tbody>
             @foreach ($rows as $row)
-                <tr>
+                <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
                     <td class="text-center">
                         <div class="checkbox">
-                            <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} /></label>
+                            <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
                     </td>
                     <td class="text-center">{{ $row->{$camel = camel_case('name')}() }}</td>
@@ -33,27 +33,29 @@
                             <span class="glyphicon glyphicon-option-horizontal"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            @can ('authorize', config('permissions.groups.reservations.select'))
-                                @can ('select', $row)
-                                    <li>
-                                        <a href="{{ route('reservations.edit', $row->id()) }}">
-                                            @lang ('elements.words.detail')
-                                        </a>
-                                    </li>
+                            @if (! $row->{$camel = camel_case('deleted_at')}())
+                                @can ('authorize', config('permissions.groups.reservations.select'))
+                                    @can ('select', $row)
+                                        <li>
+                                            <a href="{{ route('reservations.edit', $row->id()) }}">
+                                                @lang ('elements.words.detail')
+                                            </a>
+                                        </li>
+                                    @endcan
                                 @endcan
-                            @endcan
 
-                            @can ('authorize', config('permissions.groups.reservations.delete'))
-                                @can ('delete', $row)
-                                    <li role="separator" class="divider"></li>
+                                @can ('authorize', config('permissions.groups.reservations.delete'))
+                                    @can ('delete', $row)
+                                        <li role="separator" class="divider"></li>
 
-                                    <li>
-                                        <a href="{{ route('reservations.delete', $row->id()) }}" onclick="deleteRecord('{{ route('reservations.delete', [$row->customerId(), $row->id()]) }}'); return false;">
-                                            @lang ('elements.words.delete')
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a href="{{ route('reservations.delete', $row->id()) }}" onclick="deleteRecord('{{ route('reservations.delete', [$row->customerId(), $row->id()]) }}'); return false;">
+                                                @lang ('elements.words.delete')
+                                            </a>
+                                        </li>
+                                    @endcan
                                 @endcan
-                            @endcan
+                            @endif
                         </ul>
                     </td>
                 </tr>

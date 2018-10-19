@@ -43,6 +43,9 @@ final class Reservation extends DomainModel
     /** @var Datetime */
     private $updatedAt;
 
+    /** @var Datetime */
+    private $deletedAt;
+
     /** @var int */
     private $storeId;
 
@@ -147,6 +150,14 @@ final class Reservation extends DomainModel
     }
 
     /**
+     * @return Datetime|null
+     */
+    public function deletedAt(): ?Datetime
+    {
+        return $this->deletedAt;
+    }
+
+    /**
      * @return Store|null
      */
     public function store(): ?Store
@@ -245,6 +256,10 @@ final class Reservation extends DomainModel
         }
 
         if ($args->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 

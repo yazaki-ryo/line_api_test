@@ -35,6 +35,7 @@ class CreateReservationsTable extends Migration
                 $table->text('note')->nullable()->comment('メモ');
 
                 $table->timestamps();
+                $table->softDeletes();
 
                 $table->foreign('store_id')
                     ->references('id')

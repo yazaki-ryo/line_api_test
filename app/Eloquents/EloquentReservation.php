@@ -7,11 +7,12 @@ use App\Traits\Collections\Domainable;
 use App\Traits\Database\Eloquent\Scopable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class EloquentReservation extends Model
 {
-    use Domainable, Scopable;
+    use Domainable, Scopable, SoftDeletes;
 
     /** @var string */
     protected $table = 'reservations';
