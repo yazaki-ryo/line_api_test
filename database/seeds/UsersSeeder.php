@@ -34,7 +34,8 @@ class UsersSeeder extends Seeder
         try {
             $this->transaction(function () {
                 collect(self::$items)->each(function ($item) {
-                    EloquentUser::create(array_merge($item, [
+                    /** @var EloquentUser $user */
+                    $user = EloquentUser::create(array_merge($item, [
                         'password'   => bcrypt('testtest'),
                     ]));
                 });

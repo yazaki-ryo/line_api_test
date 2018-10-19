@@ -36,7 +36,8 @@ class PlansSeeder extends Seeder
         try {
             $this->transaction(function () {
                 collect(self::$items)->each(function ($item) {
-                    EloquentPlan::create($item);
+                    /** @var EloquentPlan $plan */
+                    $plan = EloquentPlan::create($item);
                 });
             });
         } catch (\Exception $e) {

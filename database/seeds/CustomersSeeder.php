@@ -105,6 +105,7 @@ class CustomersSeeder extends Seeder
         try {
             $this->transaction(function () {
                 collect(self::$items)->each(function ($item) {
+                    /** @var EloquentCustomer $customer */
                     $customer = EloquentCustomer::create($item);
 
                     /**
