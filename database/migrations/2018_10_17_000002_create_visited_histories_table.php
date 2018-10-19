@@ -31,6 +31,7 @@ class CreateVisitedHistoriesTable extends Migration
                 $table->text('note')->nullable()->comment('メモ');
 
                 $table->timestamps();
+                $table->softDeletes();
 
                 $table->foreign('customer_id')
                     ->references('id')

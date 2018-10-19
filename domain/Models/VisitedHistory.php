@@ -31,6 +31,9 @@ final class VisitedHistory extends DomainModel
     /** @var Datetime */
     private $updatedAt;
 
+    /** @var Datetime */
+    private $deletedAt;
+
     /** @var int */
     private $customerId;
 
@@ -100,6 +103,14 @@ final class VisitedHistory extends DomainModel
     }
 
     /**
+     * @return Datetime|null
+     */
+    public function deletedAt(): ?Datetime
+    {
+        return $this->deletedAt;
+    }
+
+    /**
      * @return Customer|null
      */
     public function customer(): ?Customer
@@ -166,6 +177,10 @@ final class VisitedHistory extends DomainModel
         }
 
         if ($args->has($key = 'updated_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
+        if ($args->has($key = 'deleted_at')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
