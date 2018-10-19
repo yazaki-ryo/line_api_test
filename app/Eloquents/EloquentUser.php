@@ -57,14 +57,6 @@ final class EloquentUser extends Authenticatable
     }
 
     /**
-     * @return HasOne
-     */
-    public function role(): HasOne
-    {
-        return $this->hasOne(EloquentRole::class, 'id', 'role_id');
-    }
-
-    /**
      * @return MorphToMany
      */
     public function permissions(): MorphToMany
