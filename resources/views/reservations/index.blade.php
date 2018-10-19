@@ -133,5 +133,13 @@
                 form.submit();
             }
         }
+
+        function test(url) {
+            if( confirm('@lang ("Do you want to register this reservation information as visit information?")') ) {
+                var form = document.getElementById('basic-post-form');
+                form.action = url;
+                form.submit();
+            }
+        }
     </script>
 @endsection

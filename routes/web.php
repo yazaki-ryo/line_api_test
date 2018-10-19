@@ -69,7 +69,7 @@ $router->group([
             $router->group([
                 'prefix' => $prefix2 = 'tags',
             ], function (Router $router) use ($prefix, $prefix2) {
-                $router->post('/', \App\Http\Controllers\Customers\Tags\UpdateController::class)->name(sprintf('%s.%s', $prefix, $prefix2));
+                $router->post('edit', \App\Http\Controllers\Customers\Tags\UpdateController::class)->name(sprintf('%s.%s.edit', $prefix, $prefix2));
             });
         });
 
@@ -102,6 +102,12 @@ $router->group([
             $router->get( 'edit', \App\Http\Controllers\Reservations\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
             $router->post('edit', \App\Http\Controllers\Reservations\UpdateController::class . '@update');
             $router->post('delete', \App\Http\Controllers\Reservations\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+
+            $router->group([
+                'prefix' => $prefix2 = 'visited_histories',
+            ], function (Router $router) use ($prefix, $prefix2) {
+                $router->post('add', \App\Http\Controllers\Reservations\VisitedHistories\CreateController::class)->name(sprintf('%s.%s.add', $prefix, $prefix2));
+            });
         });
     });
 

@@ -44,12 +44,22 @@
                                     @endcan
                                 @endcan
 
+                                @if ($row->{$camel = camel_case('customer_id')}())
+                                    @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
+                                        <li>
+                                            <a href="{{ route('reservations.visited_histories.add', $row->id()) }}" onclick="test('{{ route('reservations.visited_histories.add', $row->id()) }}'); return false;">
+                                                @lang ('elements.words.visit')@lang ('elements.words.register')
+                                            </a>
+                                        </li>
+                                    @endcan
+                                @endif
+
                                 @can ('authorize', config('permissions.groups.reservations.delete'))
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>
 
                                         <li>
-                                            <a href="{{ route('reservations.delete', $row->id()) }}" onclick="deleteRecord('{{ route('reservations.delete', [$row->customerId(), $row->id()]) }}'); return false;">
+                                            <a href="{{ route('reservations.delete', $row->id()) }}" onclick="deleteRecord('{{ route('reservations.delete', $row->id()) }}'); return false;">
                                                 @lang ('elements.words.delete')
                                             </a>
                                         </li>

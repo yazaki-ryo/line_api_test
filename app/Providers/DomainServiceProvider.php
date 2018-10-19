@@ -29,6 +29,7 @@ use Domain\UseCases\Reservations\CreateReservation;
 use Domain\UseCases\Reservations\DeleteReservation;
 use Domain\UseCases\Reservations\GetReservations;
 use Domain\UseCases\Reservations\UpdateReservation;
+use Domain\UseCases\Reservations\VisitedHistories\CreateVisitedHistory as CreateVisitedHistoryFromReservation;
 
 use Domain\UseCases\Settings\UpdateStore;
 
@@ -147,6 +148,12 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(UpdateReservation::class, function () {
             return new UpdateReservation(
+                app(ReservationsService::class)
+            );
+        });
+
+        $this->app->bind(CreateVisitedHistoryFromReservation::class, function () {
+            return new CreateVisitedHistoryFromReservation(
                 app(ReservationsService::class)
             );
         });
