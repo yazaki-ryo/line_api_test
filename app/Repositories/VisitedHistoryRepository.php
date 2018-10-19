@@ -8,6 +8,7 @@ use Domain\Contracts\Model\DomainableContract;
 use Domain\Exceptions\DomainRuleException;
 use Domain\Models\Customer;
 use Domain\Models\DomainModel;
+use Domain\Models\Reservation;
 use Domain\Models\VisitedHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -58,6 +59,18 @@ final class VisitedHistoryRepository extends EloquentRepository implements Domai
         }
 
         return CustomerRepository::toModel($resource);
+    }
+
+    /**
+     * @return Reservation|null
+     */
+    public function reservation(): ?Reservation
+    {
+        if (is_null($resource = $this->eloquent->reservation)) {
+            return null;
+        }
+
+        return ReservationRepository::toModel($resource);
     }
 
     /**

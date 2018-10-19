@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 final class EloquentReservation extends Model
 {
@@ -53,6 +54,14 @@ final class EloquentReservation extends Model
     public function store(): BelongsTo
     {
         return $this->belongsTo(EloquentStore::class, 'store_id', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function visitedHistory(): HasOne
+    {
+        return $this->hasOne(EloquentVisitedHistory::class, 'reservation_id', 'id');
     }
 
     /**

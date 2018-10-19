@@ -37,6 +37,9 @@ final class VisitedHistory extends DomainModel
     /** @var int */
     private $customerId;
 
+    /** @var int */
+    private $reservationId;
+
     /**
      * @param VisitedHistoryRepository|null $repo
      * @return void
@@ -127,6 +130,22 @@ final class VisitedHistory extends DomainModel
     }
 
     /**
+     * @return Reservation|null
+     */
+    public function reservation(): ?Reservation
+    {
+        return $this->repo->reservation();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function reservationId(): ?int
+    {
+        return $this->reservationId;
+    }
+
+    /**
      * @param VisitedHistoryRepository $repo
      * @return self
      */
@@ -185,6 +204,10 @@ final class VisitedHistory extends DomainModel
         }
 
         if ($args->has($key = 'customer_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'reservation_id')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

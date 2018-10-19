@@ -7,9 +7,10 @@ use App\Eloquents\EloquentReservation;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Exceptions\DomainRuleException;
 use Domain\Models\Customer;
-use Domain\Models\Store;
 use Domain\Models\DomainModel;
 use Domain\Models\Reservation;
+use Domain\Models\Store;
+use Domain\Models\VisitedHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -71,6 +72,18 @@ final class ReservationRepository extends EloquentRepository implements Domainab
         }
 
         return StoreRepository::toModel($resource);
+    }
+
+    /**
+     * @return VisitedHistory|null
+     */
+    public function visitedHistory(): ?VisitedHistory
+    {
+        if (is_null($resource = $this->eloquent->visitedHistory)) {
+            return null;
+        }
+
+        return VisitedHistoryRepository::toModel($resource);
     }
 
     /**

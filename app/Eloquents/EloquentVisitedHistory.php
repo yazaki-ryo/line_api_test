@@ -21,6 +21,7 @@ final class EloquentVisitedHistory extends Model
      * @var array
      */
     protected $fillable = [
+        'reservation_id',
         'visited_at',
         'seat',
         'amount',
@@ -40,6 +41,14 @@ final class EloquentVisitedHistory extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(EloquentCustomer::class, 'customer_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function reservation(): BelongsTo
+    {
+        return $this->belongsTo(EloquentReservation::class, 'reservation_id', 'id');
     }
 
     /**

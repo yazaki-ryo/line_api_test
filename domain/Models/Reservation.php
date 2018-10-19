@@ -190,6 +190,14 @@ final class Reservation extends DomainModel
     }
 
     /**
+     * @return VisitedHistory|null
+     */
+    public function visitedHistory(): ?VisitedHistory
+    {
+        return $this->repo->visitedHistory();
+    }
+
+    /**
      * @param ReservationRepository $repo
      * @return self
      */
