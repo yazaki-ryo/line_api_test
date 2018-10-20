@@ -3,28 +3,12 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Tags;
 
-use App\Repositories\UserRepository;
-use Domain\Models\User;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class UpdateRequest extends FormRequest
 {
-    /** @var User */
-    private $user;
-
-    /**
-     * @param  Auth $auth
-     * @return void
-     */
-    public function __construct(Auth $auth)
-    {
-        /** @var User $user */
-        $this->user = UserRepository::toModel($auth->user());
-    }
-
     /**
      * @return bool
      */
@@ -46,7 +30,7 @@ class UpdateRequest extends FormRequest
                 Rule::unique('tags')
                     ->ignore($this->segment(2))
                     ->where(function (Builder $query) {
-                        return $query->where('store_id', $this->user->storeId());
+                        return $query->where('store_id', config('session.name.current_store'));
                     }),
             ],
             'label' => [

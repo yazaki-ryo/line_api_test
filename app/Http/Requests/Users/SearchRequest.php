@@ -3,28 +3,11 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Users;
 
-use App\Repositories\UserRepository;
-use Domain\Models\User;
-use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class SearchRequest extends FormRequest
 {
-    /** @var User */
-    private $user;
-
-    /**
-     * @param  Auth $auth
-     * @return void
-     */
-    public function __construct(Auth $auth)
-    {
-        /** @var User $user */
-        $this->user = UserRepository::toModel($auth->user());
-    }
-
     /**
      * @return bool
      */
