@@ -34,18 +34,6 @@ class CreateRequest extends FormRequest
                 'max:191',
                 'unique:users,email',
             ],
-//             'store_id' => [
-//                 'required',
-//                 'numeric',
-//                 'exists:stores,id',
-//                 'store_id',
-//             ],
-            'role_id' => [
-                'required',
-                'numeric',
-                'exists:roles,id',
-                // TODO by permissions
-            ],
             'password' => [
                 'required',
                 'string',
@@ -53,6 +41,18 @@ class CreateRequest extends FormRequest
                 'max:16',
                 'confirmed',
             ],
+//             'store_id' => [
+//                 'required',
+//                 'numeric',
+//                 'exists:stores,id',
+//                 'store_id',
+//             ],
+//             'role_id' => [
+//                 'required',
+//                 'string',
+//                 Rule::in(array_keys(config('permissions.roles.general'))),
+//                 // TODO by permissions
+//             ],
         ];
     }
 
