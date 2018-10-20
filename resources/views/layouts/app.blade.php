@@ -38,11 +38,11 @@
         @include ('layouts.nav')
 
         @yield('content')
-        
+
         @include ('layouts.footer')
     </div>
 
-    @include('components.form.basic')
+    {!! form::open(['id' => 'basic-form', 'url' => '', 'method' => 'post', 'style' => 'display: none;']) !!}{!! form::close() !!}
 
     <!-- Scripts -->
     @if (file_exists(public_path('mix-manifest.json')))

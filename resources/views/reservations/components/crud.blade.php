@@ -132,7 +132,7 @@
 
             @can ('authorize', config('permissions.groups.reservations.delete'))
                 @can ('delete', $row)
-                    <a href="{{ route('reservations.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('reservations.delete', $row->id()) }}'); return false;">
+                    <a href="{{ route('reservations.delete', $row->id()) }}" class="btn btn-danger" onclick="common.submitFormWithConfirm('{{ route('reservations.delete', $row->id()) }}', '@lang ('Do you really want to delete this?')'); return false;">
                         <i class="fa fa-trash"></i>@lang ('elements.words.delete')
                     </a>
                 @endcan

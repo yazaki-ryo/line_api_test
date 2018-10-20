@@ -47,7 +47,7 @@
                                 @if ($row->{$camel = camel_case('customer_id')}() && is_null($row->visitedHistory()))
                                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                                         <li>
-                                            <a href="{{ route('reservations.visited_histories.add', $row->id()) }}" onclick="test('{{ route('reservations.visited_histories.add', $row->id()) }}'); return false;">
+                                            <a href="{{ route('reservations.visited_histories.add', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('reservations.visited_histories.add', $row->id()) }}', '@lang ('Do you want to register this reservation information as visit information?')'); return false;">
                                                 @lang ('elements.words.visit')@lang ('elements.words.register')
                                             </a>
                                         </li>
@@ -59,7 +59,7 @@
                                         <li role="separator" class="divider"></li>
 
                                         <li>
-                                            <a href="{{ route('reservations.delete', $row->id()) }}" onclick="deleteRecord('{{ route('reservations.delete', $row->id()) }}'); return false;">
+                                            <a href="{{ route('reservations.delete', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('reservations.delete', $row->id()) }}', '@lang ('Do you really want to delete this?')'); return false;">
                                                 @lang ('elements.words.delete')
                                             </a>
                                         </li>

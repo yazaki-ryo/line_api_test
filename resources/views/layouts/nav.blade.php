@@ -179,11 +179,9 @@
                                 <li role="separator" class="divider"></li>
 
                                 <li>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('@lang ('Do you want to log out?')')) document.getElementById('logout-form').submit(); return false;">
+                                    <a href="{{ route('logout') }}" onclick="common.submitFormWithConfirm('{{ route('logout') }}', '@lang ('Do you want to log out?')'); return false;">
                                         <i class="fa fa-sign-out pull-right"></i>@lang ('elements.words.logout')
                                     </a>
-
-                                    {{ Form::open(['id' => 'logout-form', 'url' => route('logout'), 'method' => 'post', 'style' => 'display: none;']) }}{{ Form::close() }}
                                 </li>
                             </ul>
                         </div>

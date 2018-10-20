@@ -32,7 +32,7 @@
                                 @can ('authorize', config('permissions.groups.users.restore'))
                                     @can ('restore', $row)
                                         <li>
-                                            <a href="{{ route('users.restore', $row->id()) }}" onclick="restoreRecord('{{ route('users.restore', $row->id()) }}'); return false;">
+                                            <a href="{{ route('users.restore', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('users.restore', $row->id()) }}', '@lang ('Do you really want to restore this?')'); return false;">
                                                 @lang ('elements.words.restore')
                                             </a>
                                         </li>
@@ -54,7 +54,7 @@
                                         <li role="separator" class="divider"></li>
 
                                         <li>
-                                            <a href="{{ route('users.delete', $row->id()) }}" onclick="deleteRecord('{{ route('users.delete', $row->id()) }}'); return false;">
+                                            <a href="{{ route('users.delete', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('users.delete', $row->id()) }}', '@lang ('Do you really want to delete this?')'); return false;">
                                                 <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
                                             </a>
                                         </li>

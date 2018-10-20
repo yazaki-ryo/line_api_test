@@ -347,7 +347,7 @@
 
             @can ('authorize', config('permissions.groups.customers.delete'))
                 @can ('delete', $row)
-                    <a href="{{ route('customers.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
+                    <a href="{{ route('customers.delete', $row->id()) }}" class="btn btn-danger" onclick="common.submitFormWithConfirm('{{ route('customers.delete', $row->id()) }}'); return false;">
                         <i class="fa fa-trash"></i>@lang ('elements.words.delete')
                     </a>
                 @endcan

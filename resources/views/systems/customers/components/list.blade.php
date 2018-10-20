@@ -37,7 +37,7 @@
                                 @can ('authorize', config('permissions.groups.customers.restore'))
                                     @can ('restore', $row)
                                         <li>
-                                            <a href="{{ route('customers.restore', $row->id()) }}" onclick="restoreRecord('{{ route('customers.restore', $row->id()) }}'); return false;">
+                                            <a href="{{ route('customers.restore', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('customers.restore', $row->id()) }}'); return false;">
                                                 @lang ('elements.words.restore')
                                             </a>
                                         </li>
@@ -67,7 +67,7 @@
                                         <li role="separator" class="divider"></li>
 
                                         <li>
-                                            <a href="{{ route('customers.delete', $row->id()) }}" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
+                                            <a href="{{ route('customers.delete', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('customers.delete', $row->id()) }}'); return false;">
                                                 @lang ('elements.words.delete')
                                             </a>
                                         </li>
