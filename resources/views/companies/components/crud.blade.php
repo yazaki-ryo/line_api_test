@@ -125,13 +125,22 @@
 </div>
 
 <div class="form-group">
+    <label class="col-md-4 control-label">
+        @lang ('elements.words.register')@lang ('elements.words.store')@lang ('elements.words.num')
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        <span class="badge">{{ $row->stores()->count() }}</span>
+    </div>
+</div>
+
+<div class="form-group">
     <label for="{{ $attribute = 'user_limit' }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.companies.%s', $attribute))
     </label>
 
     <div class="col-md-6 form-control-static">
         <span class="badge">{{ $row->{$camel = camel_case($attribute)}()->asInt() ?? null }}</span>
-        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
@@ -142,7 +151,6 @@
 
     <div class="col-md-6 form-control-static">
         {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
@@ -153,7 +161,6 @@
 
     <div class="col-md-6 form-control-static">
         {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
@@ -164,7 +171,6 @@
 
     <div class="col-md-6 form-control-static">
         {{ $row->{$camel = camel_case($attribute)}() ?? null }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 

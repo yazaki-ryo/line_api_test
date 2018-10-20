@@ -49,7 +49,7 @@
 
 <div class="form-group{{ $errors->has($attribute = 'note') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang (sprintf('attributes.customers.%s', $attribute))
+        @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
 
     <div class="col-md-6">
@@ -60,8 +60,24 @@
 
 @if ($mode === 'edit')
     <div class="form-group">
+        <label for="{{ $attribute = 'reservation' }}" class="col-md-4 control-label">
+            @lang (sprintf('elements.words.%s', $attribute))
+        </label>
+
+        <div class="col-md-6 form-control-static">
+            @if ($row->reservation())
+                <span class="text-success">@lang ('elements.words.yes')</span>
+            @else
+                <span class="text-danger">@lang ('elements.words.no')</span>
+            @endif
+        </div>
+    </div>
+@endif
+
+@if ($mode === 'edit')
+    <div class="form-group">
         <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
-            @lang (sprintf('attributes.reservations.%s', $attribute))
+            @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
         </label>
 
         <div class="col-md-6 form-control-static">
@@ -87,7 +103,7 @@
 
             @can ('authorize', config('permissions.groups.customers.visited_histories.delete'))
                 @can ('delete', $row)
-                    <a href="{{ route('visited_histories.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
+                    <a href="{{ route('visited_histories.delete', $row->id()) }}" class="btn btn-danger" onclick="common.submitFormWithConfirm('{{ route('visited_histories.delete', $row->id()) }}', '@lang ('Do you really want to delete this?')'); return false;">
                         @lang ('elements.words.delete')
                     </a>
                 @endcan

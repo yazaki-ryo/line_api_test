@@ -31,8 +31,14 @@ final class VisitedHistory extends DomainModel
     /** @var Datetime */
     private $updatedAt;
 
+    /** @var Datetime */
+    private $deletedAt;
+
     /** @var int */
     private $customerId;
+
+    /** @var int */
+    private $reservationId;
 
     /**
      * @param VisitedHistoryRepository|null $repo
@@ -100,6 +106,14 @@ final class VisitedHistory extends DomainModel
     }
 
     /**
+     * @return Datetime|null
+     */
+    public function deletedAt(): ?Datetime
+    {
+        return $this->deletedAt;
+    }
+
+    /**
      * @return Customer|null
      */
     public function customer(): ?Customer
@@ -113,6 +127,22 @@ final class VisitedHistory extends DomainModel
     public function customerId(): ?int
     {
         return $this->customerId;
+    }
+
+    /**
+     * @return Reservation|null
+     */
+    public function reservation(): ?Reservation
+    {
+        return $this->repo->reservation();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function reservationId(): ?int
+    {
+        return $this->reservationId;
     }
 
     /**
@@ -169,7 +199,15 @@ final class VisitedHistory extends DomainModel
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
         }
 
+        if ($args->has($key = 'deleted_at')) {
+            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+        }
+
         if ($args->has($key = 'customer_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'reservation_id')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

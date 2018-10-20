@@ -43,7 +43,7 @@
                                     <li role="separator" class="divider"></li>
 
                                     <li>
-                                        <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" onclick="deleteRecord('{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
+                                        <a href="{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}" onclick="common.submitFormWithConfirm('{{ route('customers.visited_histories.delete', [$row->customerId(), $row->id()]) }}'); return false;">
                                             <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
                                         </a>
                                     </li>

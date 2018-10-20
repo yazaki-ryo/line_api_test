@@ -81,10 +81,13 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function role(): ?Role
     {
-        if (is_null($resource = $this->eloquent->role)) {
-            return null;
-        }
-        return RoleRepository::toModel($resource);
+        /**
+         * TODO
+         */
+//         if (is_null($resource = $this->eloquent->role)) {
+//             return null;
+//         }
+//         return RoleRepository::toModel($resource);
     }
 
     /**

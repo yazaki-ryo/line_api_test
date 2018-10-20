@@ -29,7 +29,8 @@ class PermissionsSeeder extends Seeder
             $this->transaction(function () {
                 collect(self::$items)->each(function (array $resource, string $label) {
                     collect($resource)->each(function (array $item) use ($label) {
-                        EloquentPermission::create(array_merge($item, [
+                        /** @var EloquentPermission $permission */
+                        $permission = EloquentPermission::create(array_merge($item, [
                             'label' => $label,
                         ]));
                     });

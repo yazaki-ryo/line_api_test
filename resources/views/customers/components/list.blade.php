@@ -35,7 +35,7 @@
                                 @can ('authorize', config('permissions.groups.customers.restore'))
                                     @can ('restore', $row)
                                         <li>
-                                            <a href="{{ route('customers.restore', $row->id()) }}" onclick="restoreRecord('{{ route('customers.restore', $row->id()) }}'); return false;">
+                                            <a href="{{ route('customers.restore', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('customers.restore', $row->id()) }}', '@lang ('Do you really want to restore this?')'); return false;">
                                                 @lang ('elements.words.restore')
                                             </a>
                                         </li>
@@ -57,7 +57,7 @@
                                         <li role="separator" class="divider"></li>
 
                                         <li>
-                                            <a href="{{ route('customers.delete', $row->id()) }}" onclick="deleteRecord('{{ route('customers.delete', $row->id()) }}'); return false;">
+                                            <a href="{{ route('customers.delete', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('customers.delete', $row->id()) }}', '@lang ('Do you really want to delete this?')'); return false;">
                                                 <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
                                             </a>
                                         </li>
@@ -71,7 +71,7 @@
             @endforeach
         </tbody>
     </table>
-</div>    
+</div>
 @else
     <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.customers'), __('elements.words.data'))])</p>
 @endif

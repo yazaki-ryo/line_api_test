@@ -29,7 +29,8 @@ class SexesSeeder extends Seeder
         try {
             $this->transaction(function () {
                 collect(self::$items)->each(function ($item) {
-                    EloquentSex::create($item);
+                    /** @var EloquentSex $sex */
+                    $sex = EloquentSex::create($item);
                 });
             });
         } catch (\Exception $e) {

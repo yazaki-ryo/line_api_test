@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Domain\UseCases\Settings;
 
 use App\Traits\Database\Transactionable;
+use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Store;
 use Domain\Models\User;
@@ -12,22 +13,26 @@ final class UpdateStore
 {
     use Transactionable;
 
+     /** @var FindableContract */
+    private $finder;
+
     /**
+     * @param FindableContract $finder
      * @return void
      */
-    public function __construct()
+    public function __construct(FindableContract $finder)
     {
-        //
+        $this->finder = $finder;
     }
 
     /**
-     * @param User $user
+     * @param  array $args
      * @return Store
      * @throws NotFoundException
      */
-    public function getStore(User $user): Store
+    public function getStore(array $args): Store
     {
-        if (is_null($resource = $user->store())) {
+        if (is_null($resource = $this->finder->findAll($args)->first())) {
             throw new NotFoundException('Resource not found.');
         }
         return $resource;
@@ -35,17 +40,17 @@ final class UpdateStore
 
     /**
      * @param User $user
+     * @param Store $store
      * @param array $args
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(User $user, array $args = []): bool
+    public function excute(User $user, Store $store, array $args = []): bool
     {
-        $resource = $this->getStore($user);
         $args = $this->domainize($user, $args);
 
-        return $this->transaction(function () use ($resource, $args) {
-            return $resource->update($args);
+        return $this->transaction(function () use ($store, $args) {
+            return $store->update($args);
         });
     }
 

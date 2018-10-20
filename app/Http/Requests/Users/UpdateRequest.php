@@ -22,17 +22,17 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role_id' => [
-                'required',
-                'numeric',
-                'exists:roles,id',
-                // TODO by permissions
-            ],
-            // TODO permissions
-//             'permissions' => [
+//             'store_id' => [
 //                 'required',
-//                 'array',
-//                 'exists:permissions,id',
+//                 'numeric',
+//                 'exists:stores,id',
+//                 'store_id',
+//             ],
+//             'role_id' => [
+//                 'required',
+//                 'string',
+//                 Rule::in(array_keys(config('permissions.roles.general'))),
+//                 // TODO by permissions
 //             ],
         ];
     }

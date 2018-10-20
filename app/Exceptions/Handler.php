@@ -70,7 +70,7 @@ class Handler extends ExceptionHandler
             $name = sprintf('systems.%s', $name);
         }
 
-        return redirect()->route($name);
+        return redirect()->guest(route($name));
     }
 
     /**

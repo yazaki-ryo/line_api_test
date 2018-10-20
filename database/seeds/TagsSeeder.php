@@ -113,7 +113,8 @@ class TagsSeeder extends Seeder
         try {
             $this->transaction(function () {
                 collect(self::$items)->each(function ($item) {
-                    EloquentTag::create($item);
+                    /** @var EloquentTag $tag */
+                    $tag = EloquentTag::create($item);
                 });
             });
         } catch (\Exception $e) {

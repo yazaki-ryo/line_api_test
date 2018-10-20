@@ -105,6 +105,7 @@ class CustomersSeeder extends Seeder
         try {
             $this->transaction(function () {
                 collect(self::$items)->each(function ($item) {
+                    /** @var EloquentCustomer $customer */
                     $customer = EloquentCustomer::create($item);
 
                     /**
@@ -119,8 +120,9 @@ class CustomersSeeder extends Seeder
                     if ($customer->getKey() & 1) {// odd
                         $customer->visitedHistories()->create([
                             'visited_at' => now()->subMonth($customer->id)->setTime($customer->id + 17, 30),
-                            'seat'       => sprintf('test%s席', $customer->id),
+                            'seat'       => sprintf('テスト%s席', $customer->id),
                             'amount'     => $customer->id,
+                            'note'       => '忘れ物有り',
                         ]);
                     }
                 });

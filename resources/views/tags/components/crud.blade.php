@@ -54,7 +54,7 @@
 
             @can ('authorize', config('permissions.groups.tags.delete'))
                 @can ('delete', $row)
-                    <a href="{{ route('tags.delete', $row->id()) }}" class="btn btn-danger" onclick="deleteRecord('{{ route('tags.delete', $row->id()) }}'); return false;">
+                    <a href="{{ route('tags.delete', $row->id()) }}" class="btn btn-danger" onclick="common.submitFormWithConfirm('{{ route('tags.delete', $row->id()) }}', '@lang ('Do you really want to delete this?')'); return false;">
                         <i class="fa fa-trash"></i>@lang ('elements.words.delete')
                     </a>
                 @endcan

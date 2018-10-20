@@ -69,6 +69,9 @@ return [
         'last_visited_at'       => '前回来店日時',
         'first_visited_at'      => '初回来店日時',
 
+        'last_reserved_at'      => '前回予約日時',
+        'first_reserved_at'     => '初回予約日時',
+
         'cancel_cnt'            => 'キャンセル回数',
         'noshow_cnt'            => 'ノーショウ回数',
 

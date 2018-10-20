@@ -78,7 +78,7 @@
                     @can ('authorize', config('permissions.groups.tags.select'))
                         <div class="tab-pane fade in pt-10" id="tags-tab">
                             <div class="well">
-                                {!! Form::open(['url' => route('customers.tags', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('customers.tags.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                     @include ('customers.components.tags')
                                 {!! Form::close() !!}
                             </div>
@@ -148,17 +148,5 @@
                 }
             } );
         });
-
-        /**
-         * @param string url
-         * @return void
-         */
-        function deleteRecord(url) {
-            if( confirm('@lang ("Do you really want to delete this?")') ) {
-                var form = document.getElementById('basic-post-form');
-                form.action = url;
-                form.submit();
-            }
-        }
     </script>
 @endsection

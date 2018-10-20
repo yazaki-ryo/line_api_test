@@ -29,10 +29,9 @@ use Domain\UseCases\Reservations\CreateReservation;
 use Domain\UseCases\Reservations\DeleteReservation;
 use Domain\UseCases\Reservations\GetReservations;
 use Domain\UseCases\Reservations\UpdateReservation;
+use Domain\UseCases\Reservations\VisitedHistories\CreateVisitedHistory as CreateVisitedHistoryFromReservation;
 
-use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
-use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
-use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
+use Domain\UseCases\Settings\UpdateStore;
 
 use Domain\UseCases\Tags\CreateTag;
 use Domain\UseCases\Tags\DeleteTag;
@@ -44,6 +43,10 @@ use Domain\UseCases\Users\DeleteUser;
 use Domain\UseCases\Users\GetUsers;
 use Domain\UseCases\Users\RestoreUser;
 use Domain\UseCases\Users\UpdateUser;
+
+use Domain\UseCases\VisitedHistories\CreateVisitedHistory;
+use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
+use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\StoresService;
@@ -86,7 +89,7 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(GetCustomers::class, function () {
             return new GetCustomers(
-                app(StoresService::class)// TODO
+                app(StoresService::class)
             );
         });
 
@@ -149,24 +152,18 @@ final class DomainServiceProvider extends ServiceProvider
             );
         });
 
+        $this->app->bind(CreateVisitedHistoryFromReservation::class, function () {
+            return new CreateVisitedHistoryFromReservation(
+                app(ReservationsService::class)
+            );
+        });
+
         /**
-         * Visited Histories
+         * Settings
          */
-        $this->app->bind(CreateVisitedHistory::class, function () {
-            return new CreateVisitedHistory(
-                app(CustomersService::class)
-            );
-        });
-
-        $this->app->bind(DeleteVisitedHistory::class, function () {
-            return new DeleteVisitedHistory(
-                app(VisitedHistoriesService::class)
-            );
-        });
-
-        $this->app->bind(UpdateVisitedHistory::class, function () {
-            return new UpdateVisitedHistory(
-                app(VisitedHistoriesService::class)
+        $this->app->bind(UpdateStore::class, function () {
+            return new UpdateStore(
+                app(StoresService::class)
             );
         });
 
@@ -214,7 +211,7 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->bind(GetUsers::class, function () {
             return new GetUsers(
-                app(StoresService::class)// TODO
+                app(StoresService::class)
             );
         });
 
@@ -227,6 +224,27 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->bind(UpdateUser::class, function () {
             return new UpdateUser(
                 app(UsersService::class)
+            );
+        });
+
+        /**
+         * Visited Histories
+         */
+        $this->app->bind(CreateVisitedHistory::class, function () {
+            return new CreateVisitedHistory(
+                app(CustomersService::class)
+            );
+        });
+
+        $this->app->bind(DeleteVisitedHistory::class, function () {
+            return new DeleteVisitedHistory(
+                app(VisitedHistoriesService::class)
+            );
+        });
+
+        $this->app->bind(UpdateVisitedHistory::class, function () {
+            return new UpdateVisitedHistory(
+                app(VisitedHistoriesService::class)
             );
         });
 

@@ -42,8 +42,15 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
+        $storeId = session(config('session.name.current_store'));
+
+        /** @var Store $store */
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+
         return view('settings.store', [
-            'row' => $this->useCase->getStore($user),
+            'row' => $store,
         ]);
     }
 
@@ -57,8 +64,15 @@ final class UpdateController extends Controller
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
-        $callback = function () use ($user, $args) {
-            $this->useCase->excute($user, $args);
+        $storeId = session(config('session.name.current_store'));
+
+        /** @var Store $store */
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+
+        $callback = function () use ($user, $store, $args) {
+            $this->useCase->excute($user, $store, $args);
         };
 
         if (! is_null(rescue($callback, false))) {

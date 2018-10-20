@@ -209,7 +209,8 @@ class PrefecturesSeeder extends Seeder
         try {
             $this->transaction(function () {
                 collect(self::$items)->each(function ($item) {
-                    EloquentPrefecture::create($item);
+                    /** @var EloquentPrefecture $prefecture */
+                    $prefecture = EloquentPrefecture::create($item);
                 });
             });
         } catch (\Exception $e) {

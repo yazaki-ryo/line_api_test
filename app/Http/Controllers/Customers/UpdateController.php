@@ -60,6 +60,7 @@ final class UpdateController extends Controller
             }),
             'tagIds' => $customer->tags(),
             'visitedHistories' => $customer->visitedHistories(),
+            'reservations' => $customer->reservations(),
             'brankHistory' => $visitedHistory,
         ]);
     }

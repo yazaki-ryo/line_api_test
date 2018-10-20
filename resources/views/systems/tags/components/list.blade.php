@@ -47,7 +47,7 @@
                                         <li role="separator" class="divider"></li>
 
                                         <li>
-                                            <a href="{{ route('tags.delete', $row->id()) }}" onclick="deleteRecord('{{ route('tags.delete', $row->id()) }}'); return false;">
+                                            <a href="{{ route('tags.delete', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('tags.delete', $row->id()) }}'); return false;">
                                                 @lang ('elements.words.delete')
                                             </a>
                                         </li>

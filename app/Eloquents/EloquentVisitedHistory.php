@@ -7,11 +7,12 @@ use App\Traits\Collections\Domainable;
 use App\Traits\Database\Eloquent\Scopable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 final class EloquentVisitedHistory extends Model
 {
-    use Domainable, Scopable;
+    use Domainable, Scopable, SoftDeletes;
 
     /** @var string */
     protected $table = 'visited_histories';
@@ -20,6 +21,7 @@ final class EloquentVisitedHistory extends Model
      * @var array
      */
     protected $fillable = [
+        'reservation_id',
         'visited_at',
         'seat',
         'amount',
@@ -39,6 +41,14 @@ final class EloquentVisitedHistory extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(EloquentCustomer::class, 'customer_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function reservation(): BelongsTo
+    {
+        return $this->belongsTo(EloquentReservation::class, 'reservation_id', 'id');
     }
 
     /**

@@ -45,7 +45,8 @@ class CompaniesSeeder extends Seeder
                 $now = now();
 
                 collect(self::$items)->each(function ($item) use ($now) {
-                    EloquentCompany::create(array_merge($item, [
+                    /** @var EloquentCompany $company */
+                    $company = EloquentCompany::create(array_merge($item, [
                         'starts_at'        => $now,
                         'ends_at'          => $now->copy()->addMonths(mt_rand(1, 3)),
                         'user_limit'       => mt_rand(3, 5),
