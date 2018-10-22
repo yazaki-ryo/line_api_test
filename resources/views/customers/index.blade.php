@@ -11,51 +11,47 @@
 @endsection
 
 @section('content')
-    <div class="container tab-container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="page-header">
-                    <h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.list')
-                </div>
-            </div>
-        </div>
+    <div class="page-title-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.customers')@lang ('elements.words.list')
+        </p>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#result-tab" data-toggle="tab">
+                    @lang ('elements.words.list')
+                    <span class="badge">{{ $rows->count() }}</span>
+                </a>
+            </li>
 
+            @can ('authorize', config('permissions.groups.customers.create'))
+                <li>
+                    <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
+                </li>
+            @endcan
+
+            @can ('authorize', config('permissions.groups.customers.select'))
+                <li>
+                    <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
+                </li>
+            @endcan
+
+            @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                <li>
+                    <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
+                </li>
+            @endcan
+        </ul>
+    </div>
+    <div class="container tab-container pt-50">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 @include ('components.parts.alerts')
                 @include ('components.parts.any_errors')
             </div>
         </div>
-
-        <div class="row">
+        <div class="row mt-100">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#result-tab" data-toggle="tab">
-                            @lang ('elements.words.list')
-                            <span class="badge">{{ $rows->count() }}</span>
-                        </a>
-                    </li>
-
-                    @can ('authorize', config('permissions.groups.customers.create'))
-                        <li>
-                            <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
-                        </li>
-                    @endcan
-
-                    @can ('authorize', config('permissions.groups.customers.select'))
-                        <li>
-                            <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
-                        </li>
-                    @endcan
-
-                    @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                        <li>
-                            <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
-                        </li>
-                    @endcan
-                </ul>
-
                 <div class="tab-content">
                     <div class="tab-pane active fade in pt-5" id="result-tab">
                         @include ('customers.components.list')

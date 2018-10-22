@@ -1,19 +1,22 @@
 @auth
-<header class="header">
+<header class="navbar-default navbar-fixed-top main-header">
 @else
-<header class="header login-header">
+<header class="navbar-default navbar-fixed-top main-header login-header">
 @endauth
   <a class="navbar-brand">顧客管理システム</a>
 @auth
-  <nav>
-    <ul class="nav navbar-nav navbar-right header-gnav">
+  <nav>    
+    <ul class="nav navbar-nav navbar-right header-gnav">      
       <li>
         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
         <i class="far fa-user-circle"></i> 
-        居酒屋○○
+        {{ $currentStore->name() ?? null }}        
         <span class=" fa fa-angle-down"></span>
         </a>
-        <ul class="dropdown-menu">          
+        <ul class="navbar-sub-nav dropdown-menu">
+          <li>
+            <p class="center">@lang ('Welcome, :name.', ['name' => $user->name()])</p>
+          </li>
           <li>
           <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('@lang ('Do you want to log out?')')) document.getElementById('logout-form').submit(); return false;">
             <i class="fa fa-sign-out pull-right"></i>@lang ('elements.words.logout')

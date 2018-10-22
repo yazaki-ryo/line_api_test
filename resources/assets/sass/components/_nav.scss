@@ -1,47 +1,64 @@
-.nav {
-  li {    
-    a {
-      position: relative;
-      display: block;
-      color: #fff;
-      &:hover {
-        color: #fff;
-        background-color: #222 !important;
-      }
-      &:focus {
-        color: #fff;
-        background-color: #222 !important;
-      }
-    }    
-  }
-}
-.header-gnav {
-  margin: 0;
-  border-left: 1px solid #fff;
-  li {
-    float: right;
-  }
-  .dropdown-menu {
+.navbar-default {
+  .header-gnav {
+    margin: 0;
+    border-left: 1px solid #fff;
     li {
-      width: 100%;
+      float: right;
+      a {
+        &:link,
+         :hover,
+         :active,
+         :focus,
+         :visited {
+          color: #fff;
+          background-color: #333;
+        }
+      }
+    }
+    .open {
+      a {
+        &:focus {
+          color: #fff;
+          background-color: #333;
+        }
+      }
+    }
+    .navbar-sub-nav {
+      li {
+        width: 100%;
+        a {
+          color: #222;
+          &:link,
+           :hover,
+           :focus,
+           :visited {
+            background-color: #fff;
+          }
+        }
+      }
     }
   }
-}
-.navbar-nav {
-  li {
-    a {
-      text-shadow: none;
-    }
-  }
-}
-.navbar-brand {
-  color: #fff;
-  &:hover {
+  .navbar-brand {
     color: #fff;
+    &:hover {
+      color: #fff;
+    }
   }
+  .navbar-nav {
+    li {
+      a {
+        color: #fff;
+        text-shadow: none;
+      }
+    }
+  }
+}
+.navbar-fixed-top {
+  z-index: 1031 !important;
 }
 .navbar-fixed-left {
-  box-shadow: none;
+  top: 50px !important;
+  box-shadow: none !important;
 }
 .navbar-inverse {
   .navbar-nav {
@@ -83,5 +100,35 @@
   }
   a {
     color: #fff;
+  }
+}
+.nav-tabs {
+  border-bottom: 0;
+  li {
+    a {
+      padding: 16px;
+      display: block;
+      &:link,
+       :hover,
+       :active,
+       :focus,
+       :visited {
+        border: 0;
+      }
+    }
+    &.active {
+      a {        
+        &:link,
+         :hover,
+         :active,
+         :focus,
+         :visited {
+          border: 0;
+          background: none;
+        }
+        background-color: #f8f8f8;
+        border-bottom: 3px solid #777 !important;
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
 @auth
-<nav class="navbar navbar-inverse navbar-fixed-left">
+<nav class="navbar navbar-inverse navbar-fixed-left pt-30">
     <div class="container">
         <div class="navbar-header">
 
@@ -17,14 +17,6 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @auth
-                    <li class="dropdown-header">
-                        @lang ('Welcome, :name.', ['name' => $user->name()])
-                    </li>
-
-                    <li class="dropdown-header">
-                        {{ $currentStore->name() ?? null }}
-                    </li>
-
                     <!-- Customers -->
                     <li>
                         <a href="#side-nav1" class="dropdown-toggle" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
