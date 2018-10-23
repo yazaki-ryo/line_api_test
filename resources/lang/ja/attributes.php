@@ -163,7 +163,7 @@ return [
         'avatar'                => 'アイコン',
         'store_id'              => '店舗',
         'company_id'            => '企業',
-        'role_id'               => 'ロール',
+        'role'                  => 'ロール',
         'password'              => 'パスワード',
         'password_confirmation' => 'パスワード(確認)',
         'remember'              => '次回から自動でログインする',

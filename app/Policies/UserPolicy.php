@@ -130,4 +130,22 @@ final class UserPolicy
         return false;
     }
 
+    /**
+     * @param  EloquentUser  $user
+     * @param  User  $targetUser
+     * @return bool
+     */
+    public function changeRole(EloquentUser $user, User $targetUser): bool
+    {
+        if ($user->id === $targetUser->id()) {
+            return false;
+        }
+
+        if ($user->can('authorize', config('permissions.groups.users.create'))) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

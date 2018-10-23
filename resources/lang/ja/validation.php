@@ -90,6 +90,8 @@ return [
      |
      */
 
+    'format' => ":attributeの形式が正しくありません。",
+    'invalid' => '送信された :attributeの値が無効か、又は不正です。',
 //     'custom_alpha_dash'  => ':attributeは、半角英数字と半角ハイフンが使用できます。',
 //     'exists_files'  => '指定した:attributeが、存在しません。',
 //     'strings' => [
