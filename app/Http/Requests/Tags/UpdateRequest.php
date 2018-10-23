@@ -6,6 +6,7 @@ namespace App\Http\Requests\Tags;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use InvalidArgumentException;
 
 class UpdateRequest extends FormRequest
 {
@@ -19,16 +20,21 @@ class UpdateRequest extends FormRequest
 
     /**
      * @return array
+     * @throws InvalidArgumentException
      */
     public function rules(): array
     {
+        if (is_null($tagId = $this->route()->parameter('tagId'))) {
+            throw new InvalidArgumentException('There is no tag ID in the route parameter.');
+        }
+
         return [
             'name' => [
                 'required',
                 'string',
                 'max:191',
                 Rule::unique('tags')
-                    ->ignore($this->segment(2))
+                    ->ignore($tagId)
                     ->where(function (Builder $query) {
                         return $query->where('store_id', config('session.name.current_store'));
                     }),

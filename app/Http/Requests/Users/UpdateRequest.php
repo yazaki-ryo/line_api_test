@@ -21,6 +21,7 @@ class UpdateRequest extends FormRequest
 
     /**
      * @return array
+     * @throws InvalidArgumentException
      */
     public function rules(): array
     {
