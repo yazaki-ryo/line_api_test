@@ -5,25 +5,11 @@ namespace App\Http\Requests\Users;
 
 use App\Repositories\UserRepository;
 use Domain\Models\User;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class SelfUpdateRequest extends FormRequest
 {
-    /** @var User */
-    private $user;
-
-    /**
-     * @param  Auth $auth
-     * @return void
-     */
-    public function __construct(Auth $auth)
-    {
-        /** @var User $user */
-        $this->user = UserRepository::toModel($auth->user());
-    }
-
     /**
      * @return bool
      */
@@ -37,6 +23,9 @@ class SelfUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var User $user */
+        $user = UserRepository::toModel($this->user());
+
         return [
             'name' => [
                 'required',
@@ -48,7 +37,7 @@ class SelfUpdateRequest extends FormRequest
                 'string',
                 'email',
                 'max:191',
-                Rule::unique('users')->ignore($this->user->id()),
+                Rule::unique('users')->ignore($user->id()),
             ],
             'password' => [
                 'nullable',

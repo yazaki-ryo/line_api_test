@@ -12,14 +12,6 @@ use InvalidArgumentException;
 class UpdateRequest extends FormRequest
 {
     /**
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
      * @return bool
      */
     public function authorize(): bool
