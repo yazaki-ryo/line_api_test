@@ -54,18 +54,6 @@ final class IndexController extends Controller
         return view('tags.index', [
             'rows' => $this->useCase->excute($user, $store, $args),
             'row' => $tag,
-
-            /**
-             * TODO XXX from config file.
-             */
-            'labels' => [
-                'default' => 'デフォルト',
-                'primary' => 'プライマリ',
-                'info'    => 'インフォメーション',
-                'success' => 'サクセス',
-                'warning' => 'ワーニング',
-                'danger'  => 'デンジャー',
-            ],
         ]);
     }
 

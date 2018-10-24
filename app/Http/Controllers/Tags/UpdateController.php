@@ -53,18 +53,6 @@ final class UpdateController extends Controller
 
         return view('tags.edit', [
             'row' => $tag,
-
-            /**
-             * TODO XXX configから取得
-             */
-            'labels' => [
-                'default' => 'デフォルト',
-                'primary' => 'プライマリ',
-                'info'    => 'インフォメーション',
-                'success' => 'サクセス',
-                'warning' => 'ワーニング',
-                'danger'  => 'デンジャー',
-            ],
         ]);
     }
 

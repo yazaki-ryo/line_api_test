@@ -36,7 +36,7 @@ class CreateRequest extends FormRequest
                 'required',
                 'string',
                 'max:32',
-                // TODO in array rule.
+                Rule::in(array_keys(config('tags.labels'))),
             ],
         ];
     }

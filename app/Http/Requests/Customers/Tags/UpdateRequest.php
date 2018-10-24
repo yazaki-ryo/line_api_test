@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Customers\Tags;
 
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,7 +25,10 @@ class UpdateRequest extends FormRequest
         return [
             'tags' => [
                 'array',
-                // TODO XXX exists validate
+                Rule::exists('tags', 'id')
+                    ->where(function (Builder $query) {
+                        return $query->where('store_id', session(config('session.name.current_store')));
+                    }),
             ],
         ];
     }
