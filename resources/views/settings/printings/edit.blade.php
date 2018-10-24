@@ -7,14 +7,42 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.print')@lang ('elements.words.settings')
-                </div>
-            </div>
-        </div>
+    <div class="nav-tabs-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.print')@lang ('elements.words.settings')
+        </p>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#setting1-tab" data-toggle="tab">
+                    @if (empty($rows[1]))
+                        @lang ('elements.words.settings')1
+                    @else
+                        {{ $rows[1]->name }}
+                    @endif
+                </a>
+            </li>
+            <li>
+                <a href="#setting2-tab" data-toggle="tab">
+                    @if (empty($rows[2]))
+                        @lang ('elements.words.settings')2
+                    @else
+                        {{ $rows[2]->name }}
+                    @endif
+                </a>
+            </li>
+            <li>
+                <a href="#setting3-tab" data-toggle="tab">
+                    @if (empty($rows[3]))
+                        @lang ('elements.words.settings')3
+                    @else
+                        {{ $rows[3]->name }}
+                    @endif
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container pt-150">
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
@@ -25,36 +53,6 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#setting1-tab" data-toggle="tab">
-                            @if (empty($rows[1]))
-                                @lang ('elements.words.settings')1
-                            @else
-                                {{ $rows[1]->name }}
-                            @endif
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#setting2-tab" data-toggle="tab">
-                            @if (empty($rows[2]))
-                                @lang ('elements.words.settings')2
-                            @else
-                                {{ $rows[2]->name }}
-                            @endif
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#setting3-tab" data-toggle="tab">
-                            @if (empty($rows[3]))
-                                @lang ('elements.words.settings')3
-                            @else
-                                {{ $rows[3]->name }}
-                            @endif
-                        </a>
-                    </li>
-                </ul>
-
                 <div class="tab-content">
                     <div class="tab-pane active fade in pt-10" id="setting1-tab">
                         <div class="well">

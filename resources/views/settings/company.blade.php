@@ -7,14 +7,13 @@
 @endsection
 
 @section('content')
+    <div class="nav-tabs-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.company')@lang ('elements.words.information')
+        </p>
+    </div>
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.company')@lang ('elements.words.information')
-                </div>
-            </div>
-        </div>
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">

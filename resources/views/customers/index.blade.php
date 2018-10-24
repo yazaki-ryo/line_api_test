@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <div class="page-title-container side-by-side wrap">
+    <div class="nav-tabs-container side-by-side wrap">
         <p class="page-title">
             <i class="fas fa-angle-double-right"></i>
             @lang ('elements.words.customers')@lang ('elements.words.list')
@@ -43,14 +43,14 @@
             @endcan
         </ul>
     </div>
-    <div class="container tab-container pt-50">
+    <div class="container pt-150">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 @include ('components.parts.alerts')
                 @include ('components.parts.any_errors')
             </div>
         </div>
-        <div class="row mt-100">
+        <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="tab-content">
                     <div class="tab-pane active fade in pt-5" id="result-tab">

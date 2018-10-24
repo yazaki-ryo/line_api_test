@@ -11,14 +11,39 @@
 @endsection
 
 @section('content')
-    <div class="container tab-container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.reservations')@lang ('elements.words.list')
-                </div>
-            </div>
-        </div>
+    <div class="nav-tabs-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.reservations')@lang ('elements.words.list')
+        </p>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#calender-tab" data-toggle="tab">
+                    @lang ('elements.words.calender')
+                </a>
+            </li>
+
+            <li>
+                <a href="#result-tab" data-toggle="tab">
+                    @lang ('elements.words.list')
+                    <span class="badge">{{ $rows->count() }}</span>
+                </a>
+            </li>
+{{--
+            @can ('authorize', config('permissions.groups.reservations.select'))
+                <li>
+                    <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
+                </li>
+            @endcan
+--}}
+            @can ('authorize', config('permissions.groups.reservations.create'))
+                <li>
+                    <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
+                </li>
+            @endcan
+        </ul>
+    </div>
+    <div class="container pt-150">
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
@@ -29,32 +54,6 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#calender-tab" data-toggle="tab">
-                            @lang ('elements.words.calender')
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#result-tab" data-toggle="tab">
-                            @lang ('elements.words.list')
-                            <span class="badge">{{ $rows->count() }}</span>
-                        </a>
-                    </li>
-{{--
-                    @can ('authorize', config('permissions.groups.reservations.select'))
-                        <li>
-                            <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
-                        </li>
-                    @endcan
---}}
-                    @can ('authorize', config('permissions.groups.reservations.create'))
-                        <li>
-                            <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
-                        </li>
-                    @endcan
-                </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane active fade in pt-5" id="calender-tab">

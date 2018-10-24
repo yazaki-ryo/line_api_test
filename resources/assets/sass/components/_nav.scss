@@ -132,3 +132,21 @@
     }
   }
 }
+.nav-tabs-container {
+  width: 100%;
+  position: fixed;
+  top: 50px;
+  z-index: 2;  
+  border-bottom: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+.nav-side {
+  li {
+    a {
+      &:hover,
+      :focus {
+        background-color: #333;
+      }
+    }
+  }
+}
