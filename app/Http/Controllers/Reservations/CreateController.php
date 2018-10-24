@@ -64,7 +64,7 @@ final class CreateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.reservation'), 'action' => __('elements.words.created')]), 'success');
-        return redirect()->route('reservations');
+        return redirect()->route('reservations.index');
     }
 
 }

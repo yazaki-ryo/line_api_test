@@ -22,25 +22,14 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'company_id') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang (sprintf('attributes.users.%s', $attribute))
-    </label>
-
-    <div class="col-md-6 form-control-static">
-        {{ optional($row->company())->name() ?? optional($user->company())->name() }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
-
-<div class="form-group{{ $errors->has($attribute = 'role_id') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'role') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.users.%s', $attribute))
         @if ($mode === 'add' || $mode === 'edit') <span class="label label-danger">@lang ('elements.words.required')</span> @endif
     </label>
 
     <div class="col-md-6">
-        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ ($mode === 'profile') || ($user->id() === $row->id()) || $user->cant('authorize', config('permissions.groups.users.create')) ? 'disabled' : 'required' }}>
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ ($mode === 'profile') || $user->cant('change-role', $row) ? 'disabled' : 'required' }}>
             <option value>@lang ('Please select')</option>
             @foreach (config('permissions.roles.general') as $key => $item)
                 <option value="{{ $key }}" {{ old($attribute, empty($row->role()) ? $user->role() : $row->role()) === $key ? 'selected' : '' }}>{{ $item }}</option>

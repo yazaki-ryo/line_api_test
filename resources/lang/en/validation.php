@@ -101,6 +101,7 @@ return [
     |
     */
 
+    'format' => 'The :attribute does not match the format :format.',
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

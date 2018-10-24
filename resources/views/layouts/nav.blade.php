@@ -34,7 +34,7 @@
                         <div id="side-nav1" class="panel-collapse collapse">
                             <ul class="nav nav-child">
                                 @can ('authorize', config('permissions.groups.customers.select'))
-                                    <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers') }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
+                                    <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers.index') }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
                                 @endcan
 
                                 @can ('authorize', config('permissions.groups.customers.create'))
@@ -54,7 +54,7 @@
                         <div id="side-nav-reservations" class="panel-collapse collapse">
                             <ul class="nav nav-child">
                                 @can ('authorize', config('permissions.groups.tags.select')){{-- TODO Permissions --}}
-                                    <li class="{{ request()->route()->named('reservations') ? 'active' : '' }}"><a href="{{ route('reservations') }}">@lang ('elements.words.reservations')@lang ('elements.words.list')</a></li>
+                                    <li class="{{ request()->route()->named('reservations') ? 'active' : '' }}"><a href="{{ route('reservations.index') }}">@lang ('elements.words.reservations')@lang ('elements.words.list')</a></li>
                                 @endcan
                             </ul>
                         </div>
@@ -77,7 +77,7 @@
 
                                         <ul class="dropdown-menu">
                                             @can ('authorize', config('permissions.groups.users.select'))
-                                                <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
+                                                <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users.index') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
                                             @endcan
                                         </ul>
                                     </li>
@@ -92,7 +92,7 @@
                                     <div id="side-nav2-child1" class="panel-collapse collapse">
                                         <ul class="nav nav-child">
                                             @can ('authorize', config('permissions.groups.tags.select'))
-                                                <li class="{{ request()->route()->named('tags') ? 'active' : '' }}"><a href="{{ route('tags') }}">@lang ('elements.words.tags')@lang ('elements.words.list')</a></li>
+                                                <li class="{{ request()->route()->named('tags') ? 'active' : '' }}"><a href="{{ route('tags.index') }}">@lang ('elements.words.tags')@lang ('elements.words.list')</a></li>
                                             @endcan
                                         </ul>
                                     </div>

@@ -17,7 +17,7 @@
     </label>
 
     <div class="col-md-6 form-control-static">
-        @foreach ($labels as $key => $item)
+        @foreach (config('tags.labels') as $key => $item)
             <div><label><input type="radio" name="{{ $attribute }}" value="{{ $key }}" {{ old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)) === $key ? 'checked' : ($key === 'default' ? 'checked' : '') }} /> <span class="label label-{{ $key }}">{{ $item }}</span></label></div>
         @endforeach
 

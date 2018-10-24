@@ -39,7 +39,7 @@
 
                         <ul class="dropdown-menu">
                             @can ('authorize', config('permissions.groups.customers.select'))
-                                <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers') }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
+                                <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers.index') }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
                             @endcan
 
                             @can ('authorize', config('permissions.groups.customers.create'))
@@ -69,7 +69,7 @@
 
                                 <ul class="dropdown-menu">
                                     @can ('authorize', config('permissions.groups.users.select'))
-                                        <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
+                                        <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users.index') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
                                     @endcan
 
                                     @can ('authorize', config('permissions.groups.users.create'))

@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'role_id') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->has($attribute = 'role') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.users.%s', $attribute))
         @if ($mode === 'add' || $mode === 'edit') <span class="label label-danger">@lang ('elements.words.required')</span> @endif

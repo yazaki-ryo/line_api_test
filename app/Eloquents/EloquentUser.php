@@ -28,7 +28,6 @@ final class EloquentUser extends Authenticatable
         'name',
         'email',
         'store_id',
-        'role_id',
         'password',
     ];
 

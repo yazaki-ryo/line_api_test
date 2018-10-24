@@ -53,18 +53,6 @@ final class UpdateController extends Controller
 
         return view('tags.edit', [
             'row' => $tag,
-
-            /**
-             * TODO XXX configから取得
-             */
-            'labels' => [
-                'default' => 'デフォルト',
-                'primary' => 'プライマリ',
-                'info'    => 'インフォメーション',
-                'success' => 'サクセス',
-                'warning' => 'ワーニング',
-                'danger'  => 'デンジャー',
-            ],
         ]);
     }
 
@@ -99,7 +87,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.tags'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('tags');
+        return redirect()->route('tags.index');
     }
 
 }

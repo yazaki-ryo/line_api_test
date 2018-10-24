@@ -40,7 +40,7 @@ final class CurrentStore
                 /** @var User $user */
                 $user = UserRepository::toModel($this->auth->user());
 
-                if (is_numeric($value = request('store_id'))) {
+                if (is_numeric($value = $request->query('store_id'))) {
                     $this->validate($user, (int)$value);
                     session()->put($this->sessionKeyName, (int)$value);
 

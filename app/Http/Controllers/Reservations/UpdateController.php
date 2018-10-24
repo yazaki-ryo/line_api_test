@@ -88,7 +88,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.reservation'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('reservations');
+        return redirect()->route('reservations.index');
     }
 
 }
