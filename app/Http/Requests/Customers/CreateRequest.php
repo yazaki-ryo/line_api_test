@@ -35,13 +35,13 @@ class CreateRequest extends FormRequest
             'last_name_kana' => [
                 'nullable',
                 'string',
-                // TODO フリガナバリデートルール
+                'zenkaku_katakana',
                 'max:191',
             ],
             'first_name_kana' => [
                 'nullable',
                 'string',
-                // TODO フリガナバリデートルール
+                'zenkaku_katakana',
                 'max:191',
             ],
             'sex_id' => [
@@ -57,7 +57,7 @@ class CreateRequest extends FormRequest
             'office_kana' => [
                 'nullable',
                 'string',
-                // TODO フリガナバリデートルール
+                'zenkaku_katakana',
                 'max:191',
             ],
             'department' => [
@@ -91,13 +91,13 @@ class CreateRequest extends FormRequest
             ],
             'tel' => [
                 'required',
-                'string',// TODO 又はnumeric
-                'max:191',
+                'numeric',
+                'digits_between:1,11',
             ],
             'fax' => [
                 'nullable',
-                'string',// TODO 又はnumeric
-                'max:191',
+                'numeric',
+                'digits_between:1,11',
             ],
             'email' => [
                 'nullable',
@@ -107,8 +107,8 @@ class CreateRequest extends FormRequest
             ],
             'mobile_phone' => [
                 'nullable',
-                'string',// TODO 又はnumeric
-                'max:191',
+                'numeric',
+                'digits_between:1,11',
             ],
             'mourning_flag' => [
                 'required',

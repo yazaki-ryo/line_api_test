@@ -24,13 +24,25 @@ final class ValidationServiceProvider extends ServiceProvider
         /** @var Factory $validator */
         $validator = $this->app->make('validator');
 
+        $validator->extend('custom_alpha_dash', function ($attribute, $value) {
+            return preg_match("/^[a-z0-9-]+$/i", $value) > 0;
+        });
+
+        $validator->extend('customer_id', function ($attribute, $value) use ($auth) {
+            return Customer::validateCustomerId(UserRepository::toModel($auth->user()), (int)$value);
+        }, Lang::get('validation.invalid'));
+
+        $validator->extend('customer_ids_from_csv_string_for_output_postcards', function ($attribute, $value) use ($auth) {
+            return Customer::validateCustomerIdsFromCsvStringForOutputPostcards(UserRepository::toModel($auth->user()), $value);
+        }, Lang::get('validation.invalid'));
+
         $validator->extend('email', function ($attribute, $value) {
             return Email::validate($value);
-        }, null);
+        });
 
         $validator->extend('invalid', function ($attribute, $value) {
             return false;
-        }, null);
+        });
 
         $validator->extend('postal_code', function ($attribute, $value) {
             return PostalCode::validate($value);
@@ -40,13 +52,9 @@ final class ValidationServiceProvider extends ServiceProvider
             return Store::validateStoreId(UserRepository::toModel($auth->user()), (int)$value);
         }, Lang::get('validation.invalid'));
 
-        $validator->extend('customer_id', function ($attribute, $value) use ($auth) {
-            return Customer::validateCustomerId(UserRepository::toModel($auth->user()), (int)$value);
-        }, Lang::get('validation.invalid'));
-
-        $validator->extend('customer_ids_from_csv_string_for_output_postcards', function ($attribute, $value) use ($auth) {
-            return Customer::validateCustomerIdsFromCsvStringForOutputPostcards(UserRepository::toModel($auth->user()), $value);
-        }, Lang::get('validation.invalid'));
+        $validator->extend('zenkaku_katakana', function ($attribute, $value) {
+            return preg_match("/[^ァ-ヶー]/u", $value) === 0;
+        });
 }
 
     /**

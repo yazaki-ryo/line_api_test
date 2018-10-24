@@ -30,7 +30,7 @@ class UpdateRequest extends FormRequest
             'kana' => [
                 'required',
                 'string',
-                // TODO フリガナバリデートルール
+                'zenkaku_katakana',
                 'max:191',
             ],
             'postal_code' => [
@@ -54,13 +54,13 @@ class UpdateRequest extends FormRequest
             ],
             'tel' => [
                 'required',
-                'string',// TODO 又はnumeric
-                'max:191',
+                'numeric',
+                'digits_between:1,11',
             ],
             'fax' => [
                 'nullable',
-                'string',// TODO 又はnumeric
-                'max:191',
+                'numeric',
+                'digits_between:1,11',
             ],
             'email' => [
                 'required',
