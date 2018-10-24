@@ -24,15 +24,29 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="panel panel-default">
-                    <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#edit-tab" data-toggle="tab">
+                            @lang ('elements.words.detail')
+                        </a>
+                    </li>
+                </ul>
 
-                    <div class="panel-body">
-                        {!! Form::open(['url' => route('users.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                            @include ('users.components.crud', ['mode' => 'edit'])
-                        {!! Form::close() !!}
-                    </div>
+                <div class="tab-content">
+                    @can ('select', $row)
+                        <div class="tab-pane active fade in pt-10" id="edit-tab">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+
+                                <div class="panel-body">
+                                    {!! Form::open(['url' => route('users.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
+                                        @include ('users.components.crud', ['mode' => 'edit'])
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>
