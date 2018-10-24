@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.words.tags')@lang ('elements.words.detail') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.csv')@lang ('elements.words.import') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.tags')@lang ('elements.words.detail')
+                    	<h1 class="h2">@lang ('elements.words.csv')@lang ('elements.words.import')
                 </div>
             </div>
         </div>
@@ -29,8 +29,8 @@
                     <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('tags.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                            @include ('tags.components.crud', ['mode' => 'edit'])
+                        {!! Form::open(['url' => route('customers.files.import'), 'method' => 'post', 'files' => true, 'id' => '', 'class' => 'form-horizontal']) !!}
+                            @include ('customers.components.files.import')
                         {!! Form::close() !!}
                     </div>
                 </div>
