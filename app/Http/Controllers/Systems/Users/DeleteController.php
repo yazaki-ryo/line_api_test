@@ -57,7 +57,7 @@ final class DeleteController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.users'), 'action' => __('elements.words.deleted')]), 'info');
-        return redirect()->route('users');
+        return redirect()->route('users.index');
     }
 
 }

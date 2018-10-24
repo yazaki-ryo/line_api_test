@@ -64,7 +64,7 @@
                     @can ('authorize', config('permissions.groups.customers.select'))
                         <div class="tab-pane fade in pt-10" id="search-tab">
                             <div class="well">
-                                {!! Form::open(['url' => route('customers'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('customers.index'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('customers.components.search')
                                 {!! Form::close() !!}
                             </div>

@@ -68,7 +68,7 @@
                     @can ('authorize', config('permissions.groups.reservations.select'))
                         <div class="tab-pane fade in pt-10" id="search-tab">
                             <div class="well">
-                                {!! Form::open(['url' => route('reservations'), 'id' => 'reservations-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('reservations.index'), 'id' => 'reservations-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('reservations.components.search')
                                 {!! Form::close() !!}
                             </div>

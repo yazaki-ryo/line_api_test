@@ -63,7 +63,7 @@ final class RestoreController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.customers'), 'action' => __('elements.words.restored')]), 'success');
-        return redirect()->route('customers');
+        return redirect()->route('customers.index');
     }
 
 }

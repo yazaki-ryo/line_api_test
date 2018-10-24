@@ -56,12 +56,12 @@ final class CreateController extends Controller
         /** @var Customer $customer */
         if (is_null($customer = $reservation->customer())) {
             flash(__('Customer information is not associated with reservation information.'), 'info');
-            return redirect()->route('reservations');
+            return redirect()->route('reservations.index');
         }
 
         if (! is_null($reservation->visitedHistory())) {
             flash(__('Visiting information has already been registered.'), 'info');
-            return redirect()->route('reservations');
+            return redirect()->route('reservations.index');
         }
 
         $this->authorize('create', [
@@ -79,7 +79,7 @@ final class CreateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.visit'), 'action' => __('elements.words.created')]), 'success');
-        return redirect()->route('reservations');
+        return redirect()->route('reservations.index');
     }
 
 }
