@@ -155,13 +155,6 @@ Route::prefix('/')->group(function () {
     Route::prefix($prefix = 'notifications')->name(sprintf('%s.', $prefix))->group(function () {
         Route::get($name = 'test', \App\Http\Controllers\Notifications\TestController::class)->name($name);
     });
-
-    /**
-     * Docs
-     */
-    Route::prefix($prefix = 'docs')->name(sprintf('%s.', $prefix))->group(function () {
-        Route::get($name = 'permissions', \App\Http\Controllers\Docs\Permissions\IndexController::class)->name($name);
-    });
 });
 
 /**
@@ -177,6 +170,13 @@ Route::prefix($prefix = 'systems')->name(sprintf('%s.', $prefix))->group(functio
     Route::get($name = 'login', sprintf('%s@showLoginForm', \App\Http\Controllers\Systems\Auth\LoginController::class))->name($name);
     Route::post($name,  sprintf('%s@%s', \App\Http\Controllers\Systems\Auth\LoginController::class, $name));
     Route::post($name = 'logout', sprintf('%s@%s', \App\Http\Controllers\Systems\Auth\LoginController::class, $name))->name($name);
+
+    /**
+     * Docs
+     */
+    Route::prefix($prefix = 'docs')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get($name = 'permissions', \App\Http\Controllers\Systems\Docs\Permissions\IndexController::class)->name($name);
+    });
 
     /**
      * Registration

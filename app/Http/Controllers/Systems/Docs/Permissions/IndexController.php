@@ -23,7 +23,7 @@ final class IndexController extends Controller
      */
     public function __invoke(PermissionsService $permissionsService)
     {
-        return view('docs.permissions.index', [
+        return view(sprintf('%s.docs.permissions.index', $this->prefix), [
             'systemAdmin'  => collect(config('permissions.default.system.system-admin')),
             'companyAdmin' => collect(config('permissions.default.general.company-admin')),
             'storeUser'    => collect(config('permissions.default.general.store-user')),
