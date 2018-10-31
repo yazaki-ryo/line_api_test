@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has($attribute = 'free_word') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'free_word') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute1 = 'visited_date_s') || $errors->has($attribute2 = 'visited_date_e') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'visited_date_s') || $errors->{$errorBag ?? 'default'}->has($attribute2 = 'visited_date_e') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang ('attributes.customers.visited_histories.visited_date')
     </label>
@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'trashed') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'trashed') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'tags') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'tags') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('elements.words.%s', $attribute))
     </label>

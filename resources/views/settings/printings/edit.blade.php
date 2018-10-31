@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
-                @include ('components.parts.any_errors', ['errorBags' => ['setting_1', 'setting_2', 'setting_3']])
+                @include ('components.parts.any_errors')
             </div>
         </div>
 

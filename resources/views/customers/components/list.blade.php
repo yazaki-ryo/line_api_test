@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has('selection') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has('selection') ? ' has-error' : '' }}">
     @include ('components.form.err_msg', ['attribute' => 'selection'])
 </div>
 

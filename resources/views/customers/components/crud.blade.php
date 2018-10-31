@@ -1,6 +1,6 @@
 <input type="hidden" value="Japan" class="p-country-name" />
 
-<div class="form-group{{ $errors->has($attribute1 = 'last_name') || $errors->has($attribute2 = 'first_name') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'last_name') || $errors->{$errorBag ?? 'default'}->has($attribute2 = 'first_name') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute1))@lang (sprintf('attributes.customers.%s', $attribute2))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute1 = 'last_name_kana') || $errors->has($attribute2 = 'first_name_kana') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'last_name_kana') || $errors->{$errorBag ?? 'default'}->has($attribute2 = 'first_name_kana') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang ('attributes.customers.last_name')@lang (sprintf('attributes.customers.%s', $attribute2))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'sex_id') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'sex_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -50,7 +50,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'office') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'office') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -61,7 +61,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'office_kana') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'office_kana') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -72,7 +72,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'department') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'department') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -83,7 +83,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'position') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'position') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -94,7 +94,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'postal_code') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'postal_code') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('By entering the postal code, the prefecture city, town, village address is automatically entered.')"></span>
@@ -106,7 +106,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'prefecture_id') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'prefecture_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -123,7 +123,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'address') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'address') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -134,7 +134,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'building') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'building') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -145,7 +145,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'tel') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'tel') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -157,7 +157,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'fax') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'fax') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -168,7 +168,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'email') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -179,7 +179,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'mobile_phone') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'mobile_phone') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -190,7 +190,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'birthday') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'birthday') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -201,7 +201,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'anniversary') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'anniversary') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -212,7 +212,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -229,7 +229,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'likes_and_dislikes') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'likes_and_dislikes') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
@@ -240,7 +240,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'note') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'note') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>

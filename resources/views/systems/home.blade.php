@@ -120,6 +120,15 @@
                 </div>
             </div>
         </div>
+
+<v-test></v-test>
+<v-test></v-test>
+<v-test></v-test>
+
+<input type="file" v-on:change="handleChange">
+<div v-if="src"><img v-bind:src="src" width="250" height="auto" alt="" /></div>
+<v-preview></v-preview>
+
     </div>
 @endsection
 

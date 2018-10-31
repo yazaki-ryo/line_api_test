@@ -17,8 +17,20 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-//Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('v-preview', require('./components/vue/Preview.vue'));
+Vue.component('v-test', require('./components/vue/Test.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        src: ''
+      },
+      methods: {
+          handleChange: function (event) {
+              var file = event.target.files[0]
+              if (file && file.type.match(/^image\/(png|jpeg)$/)) {
+                  this.src = window.URL.createObjectURL(file)
+              }
+          }
+      }
 });

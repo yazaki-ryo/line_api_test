@@ -2,7 +2,7 @@
     <input type="hidden" name="customer_id" value="{{ $customer->id() }}" />
 @endif
 
-<div class="form-group{{ $errors->has($attribute = 'visited_date') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'visited_date') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'visited_time') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'visited_time') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'amount') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'amount') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'seat') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'seat') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'note') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'note') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>

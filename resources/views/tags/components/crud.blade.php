@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.tags.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'label') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'label') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.tags.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
