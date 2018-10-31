@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'reserved_date') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'reserved_date') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'reserved_time') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'reserved_time') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
     </label>
@@ -33,7 +33,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'amount') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'amount') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
     </label>
@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'seat') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'seat') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
     </label>
@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'reservation_code') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'reservation_code') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
     </label>
@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'floor') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'floor') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
     </label>
@@ -77,7 +77,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'status') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'status') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -92,7 +92,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'note') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'note') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
     </label>

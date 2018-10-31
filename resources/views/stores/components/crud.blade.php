@@ -1,6 +1,6 @@
 <input type="hidden" value="Japan" class="p-country-name" />
 
-<div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'kana') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'kana') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'postal_code') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'postal_code') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('By entering the postal code, the prefecture city, town, village address is automatically entered.')"></span>
@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'prefecture_id') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'prefecture_id') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -55,7 +55,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'address') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'address') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'building') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'building') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
     </label>
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'tel') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'tel') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -90,7 +90,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'fax') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'fax') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
     </label>
@@ -101,7 +101,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'email') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>

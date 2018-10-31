@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has($attribute = 'tags') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'tags') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('elements.words.%s', $attribute))
     </label>

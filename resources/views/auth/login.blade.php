@@ -23,7 +23,7 @@
                     <div class="panel-body">
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
-                            <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'email') ? ' has-error' : '' }}">
 
                                 <div class="col-md-12">
                                     <div class="input-group">
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'password') ? ' has-error' : '' }}">
 
                                 <div class="col-md-12">
                                     <div class="input-group">

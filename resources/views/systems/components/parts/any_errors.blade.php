@@ -1,5 +1,5 @@
 @foreach (array_merge(['default'], $errorBags ?? []) as $errorBag)
-    @if ($errors->{$errorBag}->any())
+    @if ($errors->{$errorBag ?? 'default'}->any())
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert">
                 <span aria-hidden="true">&times;</span>
