@@ -247,6 +247,6 @@ final class PrintingsRequest extends FormRequest
             throw new InvalidArgumentException('There is no setting ID in the route parameter.');
         }
 
-        $this->errorBag = sprintf('%s_%s', $settingId);
+        $this->errorBag = sprintf('%s_%s', snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_'))), $settingId);
     }
 }
