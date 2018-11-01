@@ -168,7 +168,7 @@ class CreateRequest extends FormRequest
      */
     public function withValidator($validator): void
     {
-        $this->errorBag = camel_case(class_basename(__CLASS__));
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 
 }

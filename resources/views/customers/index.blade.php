@@ -44,7 +44,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.create'))
-                        <li class="{{ \Util::activeTab($errors, 'createRequest', false) }}">
+                        <li class="{{ \Util::activeTab($errors, 'customers_create_request', false) }}">
                             <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                         </li>
                     @endcan
@@ -72,13 +72,13 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.create'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'createRequest', false) }}" id="create-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'customers_create_request', false) }}" id="create-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
                                     {!! Form::open(['url' => route('customers.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                                        @include ('customers.components.crud', ['mode' => 'add', 'errorBag' => 'createRequest'])
+                                        @include ('customers.components.crud', ['mode' => 'add', 'errorBag' => 'customers_create_request'])
                                     {!! Form::close() !!}
                                 </div>
                             </div>
