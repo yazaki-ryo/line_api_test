@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class ResendRequest extends FormRequest
+final class ResendRequest extends FormRequest
 {
     /**
      * @return void
@@ -53,4 +55,12 @@ class ResendRequest extends FormRequest
         return \Lang::get('attributes.users');
     }
 
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
+    }
 }

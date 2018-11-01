@@ -6,8 +6,9 @@ namespace App\Http\Requests\Tags;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class CreateRequest extends FormRequest
+final class CreateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -61,5 +62,14 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.tags');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

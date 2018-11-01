@@ -5,8 +5,9 @@ namespace App\Http\Requests\Customers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class CreateRequest extends FormRequest
+final class CreateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -163,12 +164,11 @@ class CreateRequest extends FormRequest
     }
 
     /**
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param Validator $validator
      * @return void
      */
-    public function withValidator($validator): void
+    protected function withValidator(Validator $validator): void
     {
         $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
-
 }

@@ -5,8 +5,9 @@ namespace App\Http\Requests\Customers\Files;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class ImportRequest extends FormRequest
+final class ImportRequest extends FormRequest
 {
     /**
      * @return bool
@@ -51,5 +52,14 @@ class ImportRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.customers.files');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

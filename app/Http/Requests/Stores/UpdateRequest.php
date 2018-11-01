@@ -5,8 +5,9 @@ namespace App\Http\Requests\Stores;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class UpdateRequest extends FormRequest
+final class UpdateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -91,5 +92,14 @@ class UpdateRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.stores');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

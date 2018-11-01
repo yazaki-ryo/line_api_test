@@ -6,8 +6,9 @@ namespace App\Http\Requests\Customers;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class SearchRequest extends FormRequest
+final class SearchRequest extends FormRequest
 {
     /**
      * @return bool
@@ -87,11 +88,11 @@ class SearchRequest extends FormRequest
     }
 
     /**
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param Validator $validator
      * @return void
      */
-    public function withValidator($validator): void
+    protected function withValidator(Validator $validator): void
     {
-        $this->errorBag = camel_case(class_basename(__CLASS__));
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }
