@@ -10,22 +10,21 @@ final class UtilitiesService
 {
     /**
      * @param ViewErrorBag $errorBags
-     * @param string $name
-     * @param bool $default
+     * @param string|null $name
      * @return string
      */
-    public function activeTab(ViewErrorBag $errorBags, string $name = 'default', bool $default = true): string
+    public function activeTab(ViewErrorBag $errorBags, string $name = null): string
     {
         /** @var MessageBag $errorBag */
         foreach ($errorBags->getBags() as $key => $errorBag) {
             if ($errorBag->any()) {
-                if ($key === $name) {
-                    return 'active';
-                } elseif ($default) {
+                if (is_null($name)) {
                     return '';
+                } elseif ($key === $name) {
+                    return 'active';
                 }
             }
         }
-        return $default ? 'active' : '';
+        return is_null($name) ? 'active' : '';
     }
 }

@@ -38,19 +38,19 @@
                     </li>
 
                     @can ('authorize', config('permissions.groups.customers.select'))
-                        <li class="{{ \Util::activeTab($errors, 'test', false) }}">
+                        <li class="{{ \Util::activeTab($errors, 'test') }}">
                             <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                         </li>
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.create'))
-                        <li class="{{ \Util::activeTab($errors, 'customers_create_request', false) }}">
+                        <li class="{{ \Util::activeTab($errors, 'customers_create_request') }}">
                             <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                         </li>
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                        <li class="{{ \Util::activeTab($errors, 'test', false) }}">
+                        <li class="{{ \Util::activeTab($errors, 'test') }}">
                             <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
                         </li>
                     @endcan
@@ -62,7 +62,7 @@
                     </div>
 
                     @can ('authorize', config('permissions.groups.customers.select'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'test', false) }}" id="search-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'test') }}" id="search-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.index'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('customers.components.search')
@@ -72,7 +72,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.create'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'customers_create_request', false) }}" id="create-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'customers_create_request') }}" id="create-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
@@ -86,7 +86,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'test', false) }}" id="print-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'test') }}" id="print-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                     @include ('customers.components.postcard')
