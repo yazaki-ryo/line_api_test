@@ -16,6 +16,14 @@
     </div>
 </div>
 
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'selection') ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label"></label>
+
+    <div class="col-md-5">
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+</div>
+
 <hr>
 
 <div class="form-group">
