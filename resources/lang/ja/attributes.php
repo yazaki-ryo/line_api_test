@@ -86,6 +86,8 @@ return [
             'tags'           => 'タグ',
         ],
 
+        'tags'               => 'タグ',
+
         'postcards' => [
             'mode'      => '出力モード',
             'selection' => '顧客選択',
