@@ -28,8 +28,6 @@ final class EloquentCustomer extends Model
         'store_id',
         'prefecture_id',
         'sex_id',
-//         'group_id',
-//         'introducer_id',
         'last_name',
         'first_name',
         'last_name_kana',
