@@ -161,4 +161,14 @@ class CreateRequest extends FormRequest
     {
         return \Lang::get('attributes.customers');
     }
+
+    /**
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator): void
+    {
+        $this->errorBag = camel_case(class_basename(__CLASS__));
+    }
+
 }

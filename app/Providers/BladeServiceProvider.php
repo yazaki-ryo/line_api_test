@@ -12,6 +12,10 @@ final class BladeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /**
+         * @param string|array $env
+         * @return bool
+         */
         \Blade::if('env', function ($env) {
             return app()->environment($env);
         });
