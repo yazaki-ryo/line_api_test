@@ -30,14 +30,14 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activeTab($errors) }}">
+                    <li class="{{ \Util::activatable($errors) }}">
                         <a href="#edit-tab" data-toggle="tab">
                             @lang ('elements.words.detail')
                         </a>
                     </li>
 
                     @can ('authorize', config('permissions.groups.tags.select'))
-                        <li class="{{ \Util::activeTab($errors, 'customers_tags_update_request') }}">
+                        <li class="{{ \Util::activatable($errors, 'customers_tags_update_request') }}">
                             <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
                         </li>
                     @endcan
@@ -52,7 +52,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
-                        <li class="{{ \Util::activeTab($errors, 'visited_histories_create_request') }}">
+                        <li class="{{ \Util::activatable($errors, 'visited_histories_create_request') }}">
                             <a href="#create-history-tab" data-toggle="tab">
                                 @lang ('elements.words.visit')@lang ('elements.words.register')
                             </a>
@@ -62,7 +62,7 @@
 
                 <div class="tab-content">
                     @can ('select', $row)
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors) }}" id="edit-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
@@ -76,7 +76,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.tags.select'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'customers_tags_update_request') }}" id="tags-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_tags_update_request') }}" id="tags-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.tags.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                     @include ('customers.components.tags', ['errorBag' => 'customers_tags_update_request'])
@@ -92,7 +92,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'visited_histories_create_request') }}" id="create-history-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'visited_histories_create_request') }}" id="create-history-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 

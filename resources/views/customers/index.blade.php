@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activeTab($errors) }}">
+                    <li class="{{ \Util::activatable($errors) }}">
                         <a href="#result-tab" data-toggle="tab">
                             @lang ('elements.words.list')
                             <span class="badge">{{ $rows->count() }}</span>
@@ -38,31 +38,31 @@
                     </li>
 
                     @can ('authorize', config('permissions.groups.customers.select'))
-                        <li class="{{ \Util::activeTab($errors, 'customers_search_request') }}">
+                        <li class="{{ \Util::activatable($errors, 'customers_search_request') }}">
                             <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                         </li>
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.create'))
-                        <li class="{{ \Util::activeTab($errors, 'customers_create_request') }}">
+                        <li class="{{ \Util::activatable($errors, 'customers_create_request', request('tab') === 'test') }}">
                             <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                         </li>
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                        <li class="{{ \Util::activeTab($errors, 'customers_postcards_export_request') }}">
+                        <li class="{{ \Util::activatable($errors, 'customers_postcards_export_request') }}">
                             <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
                         </li>
                     @endcan
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-5 {{ \Util::activeTab($errors) }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="result-tab">
                         @include ('customers.components.list')
                     </div>
 
                     @can ('authorize', config('permissions.groups.customers.select'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'customers_search_request') }}" id="search-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_search_request') }}" id="search-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.index'), 'id' => 'customers-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('customers.components.search', ['errorBag' => 'customers_search_request'])
@@ -72,7 +72,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.create'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'customers_create_request') }}" id="create-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_create_request') }}" id="create-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
@@ -86,7 +86,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'customers_postcards_export_request') }}" id="print-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_postcards_export_request') }}" id="print-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                     @include ('customers.components.postcard', ['errorBag' => 'customers_postcards_export_request'])

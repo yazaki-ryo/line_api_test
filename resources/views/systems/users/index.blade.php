@@ -46,7 +46,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active fade in pt-5" id="result-tab">
+                    <div class="tab-pane active fade in pt-10" id="result-tab">
                         @include ('users.components.list')
                     </div>
 {{--

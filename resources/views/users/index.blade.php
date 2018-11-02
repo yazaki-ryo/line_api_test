@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <ul class="nav nav-tabs">
-                    <li class="active">
+                    <li class="{{ \Util::activatable($errors) }}">
                         <a href="#result-tab" data-toggle="tab">
                             @lang ('elements.words.list')
                             <span class="badge">{{ $rows->count() }}</span>
@@ -44,14 +44,14 @@
                     @endcan
 --}}
                     @can ('authorize', config('permissions.groups.users.create'))
-                        <li>
+                        <li class="{{ \Util::activatable($errors, 'users_create_request') }}">
                             <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                         </li>
                     @endcan
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active fade in pt-5" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="result-tab">
                         @include ('users.components.list')
                     </div>
 {{--
@@ -66,13 +66,13 @@
                     @endcan
 --}}
                     @can ('authorize', config('permissions.groups.users.create'))
-                        <div class="tab-pane fade in pt-10" id="create-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'users_create_request') }}" id="create-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
                                     {!! Form::open(['url' => route('users.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                        @include ('users.components.crud', ['mode' => 'add'])
+                                        @include ('users.components.crud', ['mode' => 'add', 'errorBag' => 'users_create_request'])
                                     {!! Form::close() !!}
                                 </div>
                             </div>
