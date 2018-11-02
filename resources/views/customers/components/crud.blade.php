@@ -276,29 +276,30 @@
     </div>
 @endif
 
-@if ($mode === 'edit')
-    <div class="form-group">
-        <label for="{{ $attribute = 'last_reserved_at' }}" class="col-md-4 control-label">
-            @lang (sprintf('attributes.customers.%s', $attribute))
-        </label>
+@if (\Route::has('reservations.index'))<!-- TODO -->
+    @if ($mode === 'edit')
+        <div class="form-group">
+            <label for="{{ $attribute = 'last_reserved_at' }}" class="col-md-4 control-label">
+                @lang (sprintf('attributes.customers.%s', $attribute))
+            </label>
 
-        <div class="col-md-6 form-control-static">
-            {{ $reservations->count() ? $reservations->last()->reservedAt()->format('Y-m-d H:i') : '-' }}
+            <div class="col-md-6 form-control-static">
+                {{ $reservations->count() ? $reservations->last()->reservedAt()->format('Y-m-d H:i') : '-' }}
+            </div>
         </div>
-    </div>
-@endif
+    @endif
 
+    @if ($mode === 'edit')
+        <div class="form-group">
+            <label for="{{ $attribute = 'first_reserved_at' }}" class="col-md-4 control-label">
+                @lang (sprintf('attributes.customers.%s', $attribute))
+            </label>
 
-@if ($mode === 'edit')
-    <div class="form-group">
-        <label for="{{ $attribute = 'first_reserved_at' }}" class="col-md-4 control-label">
-            @lang (sprintf('attributes.customers.%s', $attribute))
-        </label>
-
-        <div class="col-md-6 form-control-static">
-            {{ $reservations->count() ? $reservations->first()->reservedAt()->format('Y-m-d H:i') : '-' }}
+            <div class="col-md-6 form-control-static">
+                {{ $reservations->count() ? $reservations->first()->reservedAt()->format('Y-m-d H:i') : '-' }}
+            </div>
         </div>
-    </div>
+    @endif
 @endif
 
 @if ($mode === 'edit')

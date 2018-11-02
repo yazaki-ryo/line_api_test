@@ -45,7 +45,7 @@
                     </li>
 
                     <!-- Reservations -->
-                    <li>
+                    <li class="{{ \Route::has('reservations.index') ? '' : 'disabled' }}"><!-- TODO -->
                         <a href="#side-nav-reservations" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             <i class="far fa-calendar-alt fa-lg"></i>
                             @lang ('elements.words.reservations')@lang ('elements.words.management') <span class="caret"></span>
@@ -53,8 +53,10 @@
 
                         <div id="side-nav-reservations" class="panel-collapse collapse">
                             <ul class="nav nav-child">
-                                @can ('authorize', config('permissions.groups.tags.select')){{-- TODO Permissions --}}
-                                    <li class="{{ request()->route()->named('reservations') ? 'active' : '' }}"><a href="{{ route('reservations.index') }}">@lang ('elements.words.reservations')@lang ('elements.words.list')</a></li>
+                                @can ('authorize', config('permissions.groups.reservations.select'))
+                                    @if (\Route::has('reservations.index'))<!-- TODO -->
+                                        <li class="{{ request()->route()->named('reservations') ? 'active' : '' }}"><a href="{{ route('reservations.index') }}">@lang ('elements.words.reservations')@lang ('elements.words.list')</a></li>
+                                    @endif
                                 @endcan
                             </ul>
                         </div>
@@ -70,14 +72,16 @@
                             <ul class="nav nav-child">
                                 <!-- Users -->
                                 @can ('authorize', ['stores.select', 'own-company-stores.select'])
-                                    <li class="dropdown-submenu {{ ! app()->isLocal() ? 'disabled' : '' }}">
-                                        <a href="#" class="dropdown-toggle {{ ! app()->isLocal() ? 'disabled' : '' }}" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    <li class="dropdown-submenu {{ \Route::has('users.index') ? '' : 'disabled' }}"><!-- TODO -->
+                                        <a href="#" class="dropdown-toggle {{ \Route::has('users.index') ? '' : 'disabled' }}" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                             @lang ('elements.words.users')@lang ('elements.words.management') <span class="caret"></span>
                                         </a>
 
                                         <ul class="dropdown-menu">
                                             @can ('authorize', config('permissions.groups.users.select'))
-                                                <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users.index') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
+                                                @if (\Route::has('users.index'))<!-- TODO -->
+                                                    <li class="{{ request()->route()->named('users') ? 'active' : '' }}"><a href="{{ route('users.index') }}">@lang ('elements.words.users')@lang ('elements.words.list')</a></li>
+                                                @endif
                                             @endcan
                                         </ul>
                                     </li>
@@ -193,7 +197,7 @@
                         </a>
                     </li>
 
-                    @if (\Route::has('register'))
+                    @if (\Route::has('register'))<!-- TODO -->
                         <li>
                             <a href="{{ route('register') }}">
                                 <i class="fa fa-sign-in"></i>@lang ('elements.words.user')@lang ('elements.words.register')
