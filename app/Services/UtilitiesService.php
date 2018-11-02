@@ -13,7 +13,7 @@ final class UtilitiesService
      * @param string|null $name
      * @return string
      */
-    public function activeTab(ViewErrorBag $errorBags, string $name = null): string
+    public function activatable(ViewErrorBag $errorBags, string $name = null): string
     {
         /** @var MessageBag $errorBag */
         foreach ($errorBags->getBags() as $key => $errorBag) {

@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activeTab($errors) }}">
+                    <li class="{{ \Util::activatable($errors) }}">
                         <a href="#setting1-tab" data-toggle="tab">
                             @if (empty($rows[1]))
                                 @lang ('elements.words.settings')1
@@ -35,7 +35,7 @@
                             @endif
                         </a>
                     </li>
-                    <li class="{{ \Util::activeTab($errors, 'settings_printings_request_2') }}">
+                    <li class="{{ \Util::activatable($errors, 'settings_printings_request_2') }}">
                         <a href="#setting2-tab" data-toggle="tab">
                             @if (empty($rows[2]))
                                 @lang ('elements.words.settings')2
@@ -44,7 +44,7 @@
                             @endif
                         </a>
                     </li>
-                    <li class="{{ \Util::activeTab($errors, 'settings_printings_request_3') }}">
+                    <li class="{{ \Util::activatable($errors, 'settings_printings_request_3') }}">
                         <a href="#setting3-tab" data-toggle="tab">
                             @if (empty($rows[3]))
                                 @lang ('elements.words.settings')3
@@ -56,21 +56,21 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors) }}" id="setting1-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="setting1-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('settings.printings.update', 1), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                 @include ('settings.printings.components.crud', ['row' => $rows[1], 'key' => 1, 'errorBag' => 'settings_printings_request_1'])
                             {!! Form::close() !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'settings_printings_request_2') }}" id="setting2-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'settings_printings_request_2') }}" id="setting2-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('settings.printings.update', 2), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                 @include ('settings.printings.components.crud', ['row' => $rows[2], 'key' => 2, 'errorBag' => 'settings_printings_request_2'])
                             {!! Form::close() !!}
                         </div>
                     </div>
-                    <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'settings_printings_request_3') }}" id="setting3-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'settings_printings_request_3') }}" id="setting3-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('settings.printings.update', 3), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                 @include ('settings.printings.components.crud', ['row' => $rows[3], 'key' => 3, 'errorBag' => 'settings_printings_request_3'])

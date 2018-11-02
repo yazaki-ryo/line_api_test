@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activeTab($errors) }}">
+                    <li class="{{ \Util::activatable($errors) }}">
                         <a href="#edit-tab" data-toggle="tab">
                             @lang ('elements.words.detail')
                         </a>
@@ -35,7 +35,7 @@
 
                 <div class="tab-content">
                     @can ('select', $row)
-                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors) }}" id="edit-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
