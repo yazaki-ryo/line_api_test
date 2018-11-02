@@ -51,7 +51,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-5 {{ \Util::activeTab($errors) }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors) }}" id="result-tab">
                         @include ('users.components.list')
                     </div>
 {{--

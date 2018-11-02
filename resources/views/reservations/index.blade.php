@@ -57,11 +57,11 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-5 {{ \Util::activeTab($errors) }}" id="calender-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors) }}" id="calender-tab">
                         @include ('reservations.components.calender')
                     </div>
 
-                    <div class="tab-pane fade in pt-5" id="result-tab">
+                    <div class="tab-pane fade in pt-10" id="result-tab">
                         @include ('reservations.components.list')
                     </div>
 {{--
