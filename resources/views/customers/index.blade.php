@@ -44,7 +44,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.create'))
-                        <li class="{{ \Util::activatable($errors, 'customers_create_request') }}">
+                        <li class="{{ \Util::activatable($errors, 'customers_create_request', request('tab') === 'test') }}">
                             <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                         </li>
                     @endcan
