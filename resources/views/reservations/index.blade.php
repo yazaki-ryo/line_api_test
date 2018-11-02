@@ -30,13 +30,13 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <ul class="nav nav-tabs">
-                    <li class="active">
+                    <li class="{{ \Util::activeTab($errors) }}">
                         <a href="#calender-tab" data-toggle="tab">
                             @lang ('elements.words.calender')
                         </a>
                     </li>
 
-                    <li>
+                    <li class="">
                         <a href="#result-tab" data-toggle="tab">
                             @lang ('elements.words.list')
                             <span class="badge">{{ $rows->count() }}</span>
@@ -44,20 +44,20 @@
                     </li>
 {{--
                     @can ('authorize', config('permissions.groups.reservations.select'))
-                        <li>
+                        <li class="">
                             <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                         </li>
                     @endcan
 --}}
                     @can ('authorize', config('permissions.groups.reservations.create'))
-                        <li>
+                        <li class="{{ \Util::activeTab($errors, 'reservations_create_request') }}">
                             <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                         </li>
                     @endcan
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active fade in pt-5" id="calender-tab">
+                    <div class="tab-pane fade in pt-5 {{ \Util::activeTab($errors) }}" id="calender-tab">
                         @include ('reservations.components.calender')
                     </div>
 
@@ -76,13 +76,13 @@
                     @endcan
 --}}
                     @can ('authorize', config('permissions.groups.reservations.create'))
-                        <div class="tab-pane fade in pt-10" id="create-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'reservations_create_request') }}" id="create-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
                                     {!! Form::open(['url' => route('reservations.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                        @include ('reservations.components.crud', ['mode' => 'add'])
+                                        @include ('reservations.components.crud', ['mode' => 'add', 'errorBag' => 'reservations_create_request'])
                                     {!! Form::close() !!}
                                 </div>
                             </div>
