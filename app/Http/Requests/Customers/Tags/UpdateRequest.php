@@ -6,8 +6,9 @@ namespace App\Http\Requests\Customers\Tags;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class UpdateRequest extends FormRequest
+final class UpdateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -56,11 +57,11 @@ class UpdateRequest extends FormRequest
     }
 
     /**
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param Validator $validator
      * @return void
      */
-    public function withValidator($validator): void
+    protected function withValidator(Validator $validator): void
     {
-        $this->errorBag = 'tags';
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

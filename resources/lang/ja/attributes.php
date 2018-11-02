@@ -41,8 +41,6 @@ return [
         'store_id'              => '店舗',
         'prefecture_id'         => '都道府県',
         'sex_id'                => '性別',
-//         'group_id'              => 'グループ',
-//         'introducer_id'         => '紹介者',
         'last_name'             => '姓',
         'first_name'            => '名',
         'last_name_kana'        => '姓フリガナ',
@@ -87,6 +85,8 @@ return [
             'visited_date_e' => '来店日（終了）',
             'tags'           => 'タグ',
         ],
+
+        'tags'               => 'タグ',
 
         'postcards' => [
             'mode'      => '出力モード',

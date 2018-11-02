@@ -30,20 +30,20 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <ul class="nav nav-tabs">
-                    <li class="active">
+                    <li class="{{ \Util::activeTab($errors) }}">
                         <a href="#edit-tab" data-toggle="tab">
                             @lang ('elements.words.detail')
                         </a>
                     </li>
 
                     @can ('authorize', config('permissions.groups.tags.select'))
-                        <li>
+                        <li class="{{ \Util::activeTab($errors, 'customers_tags_update_request') }}">
                             <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
                         </li>
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                        <li>
+                        <li class="">
                             <a href="#histories-tab" data-toggle="tab">
                                 @lang ('elements.words.visit')@lang ('elements.words.history')
                                 <span class="badge">{{ $visitedHistories->count() }}</span>
@@ -52,7 +52,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
-                        <li>
+                        <li class="{{ \Util::activeTab($errors, 'visited_histories_create_request') }}">
                             <a href="#create-history-tab" data-toggle="tab">
                                 @lang ('elements.words.visit')@lang ('elements.words.register')
                             </a>
@@ -62,7 +62,7 @@
 
                 <div class="tab-content">
                     @can ('select', $row)
-                        <div class="tab-pane active fade in pt-10" id="edit-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors) }}" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
@@ -76,10 +76,10 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.tags.select'))
-                        <div class="tab-pane fade in pt-10" id="tags-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'customers_tags_update_request') }}" id="tags-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.tags.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                    @include ('customers.components.tags')
+                                    @include ('customers.components.tags', ['errorBag' => 'customers_tags_update_request'])
                                 {!! Form::close() !!}
                             </div>
                         </div>
@@ -92,13 +92,13 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
-                        <div class="tab-pane fade in pt-10" id="create-history-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activeTab($errors, 'visited_histories_create_request') }}" id="create-history-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
                                     {!! Form::open(['url' => route('visited_histories.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                        @include ('visited_histories.components.crud', ['mode' => 'add', 'row' => $brankHistory, 'customer' => $row])
+                                        @include ('visited_histories.components.crud', ['mode' => 'add', 'row' => $brankHistory, 'customer' => $row, 'errorBag' => 'visited_histories_create_request'])
                                     {!! Form::close() !!}
                                 </div>
                             </div>

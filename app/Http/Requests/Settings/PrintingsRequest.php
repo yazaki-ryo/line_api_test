@@ -5,9 +5,10 @@ namespace App\Http\Requests\Settings;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 use InvalidArgumentException;
 
-class PrintingsRequest extends FormRequest
+final class PrintingsRequest extends FormRequest
 {
     /**
      * @return bool
@@ -236,16 +237,16 @@ class PrintingsRequest extends FormRequest
     }
 
     /**
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param Validator $validator
      * @throws InvalidArgumentException
      * @return void
      */
-    public function withValidator($validator): void
+    protected function withValidator(Validator $validator): void
     {
         if (is_null($settingId = $this->route()->parameter('settingId'))) {
             throw new InvalidArgumentException('There is no setting ID in the route parameter.');
         }
 
-        $this->errorBag = sprintf('setting_%s', $settingId);
+        $this->errorBag = sprintf('%s_%s', snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_'))), $settingId);
     }
 }

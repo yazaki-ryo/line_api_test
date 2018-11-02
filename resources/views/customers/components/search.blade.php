@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'visited_date_s') || $errors->{$errorBag ?? 'default'}->has($attribute2 = 'visited_date_e') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'visited_date_s') ? ' has-error' : '' }}{{ $errors->{$errorBag ?? 'default'}->has($attribute2 = 'visited_date_e') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang ('attributes.customers.visited_histories.visited_date')
     </label>

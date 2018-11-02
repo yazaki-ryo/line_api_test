@@ -1,7 +1,3 @@
-<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has('selection') ? ' has-error' : '' }}">
-    @include ('components.form.err_msg', ['attribute' => 'selection'])
-</div>
-
 @if ($rows->count())
 <div class="table-responsive">
     <table id="customers-table" class="table table-striped table-condensed table-bordered dt-responsive nowrap dataTable dtr-inline">

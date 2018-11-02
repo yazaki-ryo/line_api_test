@@ -1,6 +1,6 @@
 <input type="hidden" value="Japan" class="p-country-name" />
 
-<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'last_name') || $errors->{$errorBag ?? 'default'}->has($attribute2 = 'first_name') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'last_name') ? ' has-error' : '' }}{{ $errors->{$errorBag ?? 'default'}->has($attribute2 = 'first_name') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute1))@lang (sprintf('attributes.customers.%s', $attribute2))
         <span class="label label-danger">@lang ('elements.words.required')</span>
@@ -17,7 +17,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'last_name_kana') || $errors->{$errorBag ?? 'default'}->has($attribute2 = 'first_name_kana') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'last_name_kana') ? ' has-error' : '' }}{{ $errors->{$errorBag ?? 'default'}->has($attribute2 = 'first_name_kana') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang ('attributes.customers.last_name')@lang (sprintf('attributes.customers.%s', $attribute2))
         <span class="label label-danger">@lang ('elements.words.required')</span>

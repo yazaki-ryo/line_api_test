@@ -7,8 +7,9 @@ use App\Repositories\UserRepository;
 use Domain\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class SelfUpdateRequest extends FormRequest
+final class SelfUpdateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -80,5 +81,14 @@ class SelfUpdateRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.users');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

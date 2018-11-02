@@ -5,8 +5,9 @@ namespace App\Http\Requests\Customers\Postcards;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class ExportRequest extends FormRequest
+final class ExportRequest extends FormRequest
 {
     /**
      * @return bool
@@ -58,5 +59,14 @@ class ExportRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.customers.postcards');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }
