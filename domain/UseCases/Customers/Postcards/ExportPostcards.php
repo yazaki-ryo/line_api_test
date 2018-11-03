@@ -6,6 +6,7 @@ namespace Domain\UseCases\Customers\Postcards;
 use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Contracts\Responses\ExportableContract;
+use Domain\Exceptions\InvariantException;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Store;
 use Domain\Models\User;
@@ -65,10 +66,15 @@ final class ExportPostcards
      * @param User $user
      * @param Store $store
      * @param array $args
+     * @throws InvariantException
      * @return array
      */
     private function domainize(User $user, Store $store, array $args = []): array
     {
+        if (! $store->postalCode() || ! $store->name() || ! $store->address()) {
+            throw new InvariantException('The sender\'s name, zip code, and address are required items.');
+        }
+
         /** @var Collection $collection */
         $collection = collect($args);
         $collection->put('from', $store);
@@ -76,8 +82,14 @@ final class ExportPostcards
         if ($collection->has($key = 'selection')) {
             $ids = explode(',', $collection->get($key));
             $collection->put('data', $store->customers([
-                'mourning_flag' => true,
                 'ids'           => $ids,
+                'mourning_flag' => true,
+                'notNull'       => [
+                    'last_name',
+                    'first_name',
+                    'postal_code',
+                    'address',
+                ],
             ])->toArray());
         }
 

@@ -31,7 +31,6 @@
         @can ('authorize', config('permissions.groups.customers.postcards.export'))
             <a href="{{ route('customers.postcards.export') }}" class="btn btn-primary" onclick="submitPostcardsForm('{{ route('customers.postcards.export') }}', 'selection'); return false;">
                 @lang ('elements.words.pdf')@lang ('elements.words.export')
-                <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('Please select the destination customer from the list.')"></span>
             </a>
 
             <button type="button" class="btn btn-default" disabled>
@@ -41,7 +40,9 @@
         @endcan
 
         <p>
-            <code>@lang ('Data that does not satisfy the output condition is automatically excluded.')</code>
+            <code>@lang ('elements.words.komejirushi')@lang ('Please select the destination customer from the list.')</code>
+            <br>
+            <code>@lang ('elements.words.komejirushi')@lang ('Data that does not satisfy the output condition is automatically excluded.')</code>
         </p>
     </div>
 </div>
