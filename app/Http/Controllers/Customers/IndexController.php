@@ -46,7 +46,7 @@ final class IndexController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         $store = $this->useCase->getStore([
             'id' => $storeId,

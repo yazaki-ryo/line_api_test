@@ -11,6 +11,7 @@ use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -37,13 +38,14 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param VisitedHistory $visitedHistory
      * @param int $customerId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(VisitedHistory $visitedHistory, int $customerId)
+    public function view(Request $request, VisitedHistory $visitedHistory, int $customerId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer([
@@ -75,7 +77,7 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer([

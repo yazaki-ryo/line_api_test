@@ -11,6 +11,7 @@ use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\Reservations\VisitedHistories\CreateVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class CreateController extends Controller
 {
@@ -37,15 +38,16 @@ final class CreateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param  int $reservationId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(VisitedHistory $visitedHistory, int $reservationId)
+    public function __invoke(Request $request, VisitedHistory $visitedHistory, int $reservationId)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Reservation $reservation */
         $reservation = $this->useCase->getReservation([

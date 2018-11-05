@@ -59,7 +59,7 @@ final class SearchRequest extends FormRequest
                 'array',
                 Rule::exists('tags', 'id')
                     ->where(function (Builder $query) {
-                        return $query->where('store_id', session(config('session.name.current_store')));
+                        return $query->where('store_id', $this->cookie(config('cookie.name.current_store')));
                     }),
             ],
         ];

@@ -8,6 +8,7 @@ use App\Repositories\UserRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\DeleteCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class DeleteController extends Controller
 {
@@ -34,15 +35,16 @@ final class DeleteController extends Controller
     }
 
     /**
+     * @param Request $request;
      * @param int $customerId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(int $customerId)
+    public function __invoke(Request $request, int $customerId)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer([

@@ -44,7 +44,7 @@ final class ExportController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Store $store */
         $store = $this->useCase->getStore([

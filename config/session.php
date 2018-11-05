@@ -203,7 +203,7 @@ return [
      */
 
     'name' => [
-        $key = 'current_store' => sprintf('_%s', $key),
+//         $key = '' => sprintf('_%s', $key),
     ],
 
 ];

@@ -10,6 +10,7 @@ use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -36,12 +37,13 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $visitedHistoryId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $visitedHistoryId)
+    public function view(Request $request, int $visitedHistoryId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory([
@@ -66,7 +68,7 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory([

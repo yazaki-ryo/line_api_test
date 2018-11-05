@@ -30,7 +30,7 @@ final class CreateRequest extends FormRequest
                 'max:191',
                 Rule::unique('tags')
                     ->where(function (Builder $query) {
-                        return $query->where('store_id', config('session.name.current_store'));
+                        return $query->where('store_id', $this->cookie(config('cookie.name.current_store')));
                     }),
             ],
             'label' => [
