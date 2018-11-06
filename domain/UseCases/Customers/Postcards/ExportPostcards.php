@@ -8,6 +8,7 @@ use Domain\Contracts\Model\FindableContract;
 use Domain\Contracts\Responses\ExportableContract;
 use Domain\Exceptions\InvariantException;
 use Domain\Exceptions\NotFoundException;
+use Domain\Models\PrintSetting;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Support\Collection;
@@ -29,6 +30,21 @@ final class ExportPostcards
     {
         $this->exporter = $exporter;
         $this->finder = $finder;
+    }
+
+    /**
+     * @param User $user
+     * @param int $settingId
+     * @return PrintSetting|null
+     */
+    public function getPrintSetting(User $user, int $settingId): ?PrintSetting
+    {
+        if (is_null($resource = $user->printSettings()->sortBy(function (PrintSetting $item) {
+            return $item->createdAt();
+        })->pull($settingId - 1))) {
+            throw new NotFoundException('Resource not found.');
+        }
+        return $resource;
     }
 
     /**

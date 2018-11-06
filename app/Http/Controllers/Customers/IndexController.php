@@ -7,10 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\SearchRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\Customer;
+use Domain\Models\PrintSetting;
 use Domain\Models\User;
 use Domain\UseCases\Customers\GetCustomers;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\Http\Request;
 
 final class IndexController extends Controller
 {
@@ -60,23 +60,10 @@ final class IndexController extends Controller
             ])->groupBy(function ($item) {
                 return $item->label();
             }),
-            'printSettings' => $this->printSettings($request),
+            'printSettings' => $user->printSettings()->sortBy(function (PrintSetting $item) {
+                return $item->createdAt();
+            }),
         ]);
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    private function printSettings(Request $request): array
-    {
-        $cookies = [];
-        for ($i = 1; $i < 4; $i++) {
-            if (! is_null($cookie = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), $i)))) {
-                $cookies[$i] = (json_decode($cookie))->name;
-            }
-        }
-        return $cookies;
     }
 
 }

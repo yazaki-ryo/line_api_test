@@ -9,7 +9,6 @@ use App\Repositories\UserRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\Http\Request;
 
 final class ExportController extends Controller
 {
@@ -44,6 +43,7 @@ final class ExportController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
+        $args = $request->validated();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Store $store */
@@ -51,31 +51,14 @@ final class ExportController extends Controller
             'id' => $storeId,
         ]);
 
-        $args = $request->validated();
-
         $result = $this->useCase->excute($user, $store, array_merge($args, [
-            'settings' => $this->printSettings($request),
+            'settings' => $this->useCase->getPrintSetting($user, (int)$request->get('mode')),
         ]));
 
         if ($result === false) {
             flash(__('There is no data that can be output.'), 'warning');
             return back()->withInput();
         }
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    private function printSettings(Request $request): array
-    {
-        $cookie = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), $request->mode));
-
-        if (! is_null($cookie)) {
-            $cookie = json_decode($cookie, true);
-        }
-
-        return $cookie;
     }
 
 }
