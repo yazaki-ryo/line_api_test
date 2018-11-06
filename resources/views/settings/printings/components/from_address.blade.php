@@ -5,7 +5,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -17,7 +17,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -31,7 +31,7 @@
     <div class="col-md-3">
         <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
             @foreach ($fonttypes as $key => $item)
-                <option value="{{ $key }}" {{ ($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
+                <option value="{{ $key }}" {{ ($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
             @endforeach
         </select>
 
@@ -48,7 +48,7 @@
     <div class="col-md-3">
         <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
             @foreach ($fontsizes as $key => $item)
-                <option value="{{ $key }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === (int)$key ? 'selected' : '' }}>{{ $item }}</option>
+                <option value="{{ $key }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute]) === (int)$key ? 'selected' : '' }}>{{ $item }}</option>
             @endforeach
         </select>
 

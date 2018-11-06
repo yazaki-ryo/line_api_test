@@ -11,7 +11,7 @@ use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Avatar;
 use Domain\Models\Company;
 use Domain\Models\DomainModel;
-use Domain\Models\Role;
+use Domain\Models\PrintSetting;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -70,24 +70,18 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function addAvatar(array $args = []): Avatar
     {
-        if (is_null($resource = $this->eloquent->avatars()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->avatars()->create($args);
         return AvatarRepository::toModel($resource);
     }
 
     /**
-     * @return Role|null
+     * @param  array $args
+     * @return PrintSetting
      */
-    public function role(): ?Role
+    public function addPrintSetting(array $args = []): PrintSetting
     {
-        /**
-         * TODO
-         */
-//         if (is_null($resource = $this->eloquent->role)) {
-//             return null;
-//         }
-//         return RoleRepository::toModel($resource);
+        $resource = $this->eloquent->printSettings()->create($args);
+        return PrintSettingRepository::toModel($resource);
     }
 
     /**
@@ -120,6 +114,16 @@ final class UserRepository extends EloquentRepository implements DomainableContr
     {
         $collection = PermissionRepository::build($this->eloquent->permissions(), $args)->get();
         return PermissionRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function printSettings(array $args = []): DomainCollection
+    {
+        $collection = PrintSettingRepository::build($this->eloquent->printSettings(), $args)->get();
+        return PrintSettingRepository::toModels($collection);
     }
 
     /**

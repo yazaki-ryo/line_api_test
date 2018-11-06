@@ -97,6 +97,7 @@ return [
         /**
          * K
          */
+        'komejirushi'    => '※',
 
         /**
          * L

@@ -10,6 +10,7 @@ use Domain\Models\User;
 use Domain\Models\Reservation;
 use Domain\UseCases\Reservations\UpdateReservation;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -36,12 +37,13 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $reservationId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $reservationId)
+    public function view(Request $request, int $reservationId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Reservation $reservationId */
         $reservation = $this->useCase->getReservation([
@@ -66,7 +68,7 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Reservation $reservationId */
         $reservation = $this->useCase->getReservation([

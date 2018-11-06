@@ -112,9 +112,7 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
      */
     public function addCustomer(array $args = []): Customer
     {
-        if (is_null($resource = $this->eloquent->customers()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->customers()->create($args);
         return CustomerRepository::toModel($resource);
     }
 
@@ -124,9 +122,7 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
      */
     public function addReservation(array $args = []): Reservation
     {
-        if (is_null($resource = $this->eloquent->reservations()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->reservations()->create($args);
         return ReservationRepository::toModel($resource);
     }
 
@@ -136,9 +132,7 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
      */
     public function addTag(array $args = []): Tag
     {
-        if (is_null($resource = $this->eloquent->tags()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->tags()->create($args);
         return TagRepository::toModel($resource);
     }
 
@@ -148,9 +142,7 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
     */
     public function addUser(array $args = []): User
     {
-        if (is_null($resource = $this->eloquent->users()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->users()->create($args);
         return UserRepository::toModel($resource);
     }
 

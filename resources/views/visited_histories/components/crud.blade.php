@@ -58,20 +58,22 @@
     </div>
 </div>
 
-@if ($mode === 'edit')
-    <div class="form-group">
-        <label for="{{ $attribute = 'reservation' }}" class="col-md-4 control-label">
-            @lang (sprintf('elements.words.%s', $attribute))
-        </label>
+@if (\Route::has('reservations.index'))<!-- TODO -->
+    @if ($mode === 'edit')
+        <div class="form-group">
+            <label for="{{ $attribute = 'reservation' }}" class="col-md-4 control-label">
+                @lang (sprintf('elements.words.%s', $attribute))
+            </label>
 
-        <div class="col-md-6 form-control-static">
-            @if ($row->reservation())
-                <span class="text-success">@lang ('elements.words.yes')</span>
-            @else
-                <span class="text-danger">@lang ('elements.words.no')</span>
-            @endif
+            <div class="col-md-6 form-control-static">
+                @if ($row->reservation())
+                    <span class="text-success">@lang ('elements.words.yes')</span>
+                @else
+                    <span class="text-danger">@lang ('elements.words.no')</span>
+                @endif
+            </div>
         </div>
-    </div>
+    @endif
 @endif
 
 @if ($mode === 'edit')

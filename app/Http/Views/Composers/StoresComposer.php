@@ -5,6 +5,7 @@ namespace App\Http\Views\Composers;
 
 use App\Repositories\UserRepository;
 use App\Services\DomainCollection;
+use Cookie;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -71,12 +72,11 @@ final class StoresComposer
 
         $view->with('stores', $collection);
 
-        if (session()->has(config('session.name.current_store'))) {
-            $id = session(config('session.name.current_store'));
+        if (is_numeric($value = Cookie::get(config('cookie.name.current_store')))) {
             $view->with(
                 'currentStore',
-                $collection->filter(function (Store $item) use ($id){
-                    return $item->id() === (int)$id;
+                $collection->filter(function (Store $item) use ($value){
+                    return $item->id() === (int)$value;
                 })->first()
             );
         }

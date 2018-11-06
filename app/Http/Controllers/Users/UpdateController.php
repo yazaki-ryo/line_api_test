@@ -9,6 +9,7 @@ use App\Repositories\UserRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\UpdateUser;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -35,12 +36,13 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $userId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $userId)
+    public function view(Request $request, int $userId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var User $targetUser */
         $targetUser = $this->useCase->getUser([
@@ -65,7 +67,7 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var User $targetUser */
         $targetUser = $this->useCase->getUser([

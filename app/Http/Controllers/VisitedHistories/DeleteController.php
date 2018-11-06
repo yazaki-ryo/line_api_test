@@ -9,6 +9,7 @@ use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class DeleteController extends Controller
 {
@@ -35,15 +36,16 @@ final class DeleteController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $visitedHistoryId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(int $visitedHistoryId)
+    public function __invoke(Request $request, int $visitedHistoryId)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory([

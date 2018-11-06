@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 
 use App\Repositories\UserRepository;
 use Closure;
+use Cookie;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -16,8 +17,7 @@ final class CurrentStore
     private $auth;
 
     /** @var string */
-    private $sessionKeyName;
-
+    private $keyName;
 
     /**
      * @param Auth $auth
@@ -25,7 +25,7 @@ final class CurrentStore
     public function __construct(Auth $auth)
     {
         $this->auth = $auth;
-        $this->sessionKeyName = config('session.name.current_store');
+        $this->keyName = config('cookie.name.current_store');
     }
 
     /**
@@ -35,27 +35,30 @@ final class CurrentStore
      */
     public function handle($request, Closure $next)
     {
-        try {
-            if ($this->auth->check()) {
-                /** @var User $user */
-                $user = UserRepository::toModel($this->auth->user());
+        if ($this->auth->check()) {
+            /** @var User $user */
+            $user = UserRepository::toModel($this->auth->user());
 
+            try {
                 if (is_numeric($value = $request->query('store_id'))) {
                     $this->validate($user, (int)$value);
-                    session()->put($this->sessionKeyName, (int)$value);
 
-                } elseif (session()->has($this->sessionKeyName)) {
-                    $this->validate($user, (int)session($this->sessionKeyName));
+                } elseif (is_numeric($value = $request->cookie($this->keyName))) {
+                    $this->validate($user, (int)$value);
+                    return $next($request);
                 } else {
-                    session()->put($this->sessionKeyName, $user->storeId());
+                    $value = $user->storeId();
                 }
+            } catch (AuthorizationException $e) {
+                flash(__('The store does not exist or you do not have access.'), 'info');
+                $request->session()->reflash();
+                $value = $user->storeId();
             }
-        } catch (AuthorizationException $e) {
-            flash(__('The store does not exist or you do not have access.'), 'info');
-            session()->put($this->sessionKeyName, $user->storeId());
+
+            Cookie::queue(Cookie::forever($this->keyName, (int)$value));
         }
 
-        return $next($request);
+        return redirect($request->path());
     }
 
     /**

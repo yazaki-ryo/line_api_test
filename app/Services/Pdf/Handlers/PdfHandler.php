@@ -5,6 +5,7 @@ namespace App\Services\Pdf\Handlers;
 
 use Domain\Contracts\Handlers\HandlableContract;
 use Domain\Models\DomainModel;
+use Domain\Models\PrintSetting;
 use Illuminate\Support\Collection;
 
 abstract class PdfHandler implements HandlableContract
@@ -15,8 +16,8 @@ abstract class PdfHandler implements HandlableContract
     /** @var DomainModel|null */
     protected $from;
 
-    /** @var array */
-    protected $settings = [];
+    /** @var PrintSetting */
+    protected $settings;
 
     /**
      * @param array $args
@@ -108,18 +109,18 @@ abstract class PdfHandler implements HandlableContract
     }
 
     /**
-     * @return array
+     * @return PrintSetting|null
      */
-    public function getSettings(): array
+    public function getSettings(): ?PrintSetting
     {
         return $this->settings;
     }
 
     /**
-     * @param array $args
+     * @param PrintSetting $args
      * @return $this
      */
-    public function setSettings(array $args = []): self
+    public function setSettings(PrintSetting $args): self
     {
         $this->settings = $args;
         return $this;

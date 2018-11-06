@@ -149,13 +149,11 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
 
     /**
      * @param  array $args
-     * @return VisitedHistory|null
+     * @return VisitedHistory
      */
-    public function addVisitedHistory(array $args = []): ?VisitedHistory
+    public function addVisitedHistory(array $args = []): VisitedHistory
     {
-        if (is_null($resource = $this->eloquent->visitedHistories()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->visitedHistories()->create($args);
         return VisitedHistoryRepository::toModel($resource);
     }
 
@@ -212,6 +210,10 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             $q1->when($args->get($key) === 'only', function (Builder $q2) {
                 $q2->onlyTrashed();
             });
+        });
+
+        $query->when($args->has($key = 'notNull') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->null($args->get($key), true);
         });
 
         return $query;

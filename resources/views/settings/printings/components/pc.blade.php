@@ -7,7 +7,7 @@
     <div class="col-md-3">
         <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
             @foreach ($positions as $key => $item)
-                <option value="{{ $key }}" {{ ($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
+                <option value="{{ $key }}" {{ ($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
             @endforeach
         </select>
 
@@ -24,7 +24,7 @@
     <div class="col-md-7 form-control-static">
         @foreach (array_reverse(\Lang::get('attributes.yes_or_no')) as $key => $item)
             <label>
-                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === false ?  'checked' : '') }} /> {{ $item }}
+                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : optional($row->{$camel = camel_case($attribute)}())->asBoolean() ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === false ?  'checked' : '') }} /> {{ $item }}
             </label>
         @endforeach
 
@@ -41,7 +41,7 @@
     <div class="col-md-7 form-control-static">
         @foreach (\Lang::get('attributes.yes_or_no') as $key => $item)
             <label>
-                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === true ?  'checked' : '') }} /> {{ $item }}
+                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : optional($row->{$camel = camel_case($attribute)}())->asBoolean() ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === true ?  'checked' : '') }} /> {{ $item }}
             </label>
         @endforeach
 
@@ -56,7 +56,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -68,7 +68,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute] }}" class="form-control" id="{{ $attribute }}" maxlength="3" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>
@@ -82,7 +82,7 @@
     <div class="col-md-3">
         <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
             @foreach ($fonttypes as $key => $item)
-                <option value="{{ $key }}" {{ ($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
+                <option value="{{ $key }}" {{ ($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
             @endforeach
         </select>
 
@@ -99,7 +99,7 @@
     <div class="col-md-3">
         <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
             @foreach ($fontsizes as $key => $item)
-                <option value="{{ $key }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$attribute} ?? $defaults[$attribute]) === (int)$key ? 'selected' : '' }}>{{ $item }}</option>
+                <option value="{{ $key }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute]) === (int)$key ? 'selected' : '' }}>{{ $item }}</option>
             @endforeach
         </select>
 
