@@ -5,7 +5,6 @@ return [
 
     'name' => [
         $key = 'current_store' => sprintf('%s_%s', str_slug(env('SYS_NAME', 'laravel'), '_'), $key),
-        $key = 'printings' => sprintf('%s_%s', str_slug(env('SYS_NAME', 'laravel'), '_'), $key),
     ],
 
 ];

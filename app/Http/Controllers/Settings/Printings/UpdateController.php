@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Settings\Printings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\PrintingsRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\PrintSetting;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdatePrintings;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -37,16 +38,21 @@ final class UpdateController extends Controller
 
     /**
      * @param Request $request
+     * @param PrintSetting $printSetting
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(Request $request)
+    public function view(Request $request, PrintSetting $printSetting)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
-        dd($user->printSettings());
 
         return view('settings.printings.edit', [
-            'rows' => $user->printSettings(),
+            'rows' => [
+                1 => $this->useCase->getPrintSetting($user, 1),
+                2 => $this->useCase->getPrintSetting($user, 2),
+                3 => $this->useCase->getPrintSetting($user, 3),
+            ],
+            'brankPrintSetting' => $printSetting,
         ]);
     }
 
@@ -57,13 +63,21 @@ final class UpdateController extends Controller
      */
     public function update(PrintingsRequest $request, int $settingId)
     {
-        $cookie = cookie()->forever(sprintf('%s_%s', config('cookie.name.printings'), $settingId), json_encode($request->validated()));
+        /** @var User $user */
+        $user = UserRepository::toModel($this->auth->user());
+        $args = $request->validated();
+
+        $callback = function () use ($user, $settingId, $args) {
+            $this->useCase->excute($user, $settingId, $args);
+        };
+
+        if (! is_null(rescue($callback, false))) {
+            flash(__('An internal error occurred. Please contact the administrator.'), 'danger');
+            return back()->withInput();
+        }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.setting'), 'action' => __('elements.words.updated')]), 'success');
-
-        return redirect()
-            ->route('settings.printings')
-            ->cookie($cookie);
+        return redirect()->route('settings.printings');
     }
 
 }

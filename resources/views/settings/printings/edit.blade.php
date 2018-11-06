@@ -28,13 +28,10 @@
                 <ul class="nav nav-tabs">
                     <li class="{{ \Util::activatable($errors) }}">
                         <a href="#setting1-tab" data-toggle="tab">
-                            @if (empty($rows[1]))
-                                @lang ('elements.words.settings')1
-                            @else
-                                {{ $rows[1]->name }}
-                            @endif
+                            {{ is_null($rows[1]) ? sprintf('%s1', __('elements.words.settings')) : $rows[1]->name() }}
                         </a>
                     </li>
+@if (false)
                     <li class="{{ \Util::activatable($errors, 'settings_printings_request_2') }}">
                         <a href="#setting2-tab" data-toggle="tab">
                             @if (empty($rows[2]))
@@ -53,16 +50,18 @@
                             @endif
                         </a>
                     </li>
+@endif
                 </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="setting1-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('settings.printings.update', 1), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                @include ('settings.printings.components.crud', ['row' => $rows[1], 'key' => 1, 'errorBag' => 'settings_printings_request_1'])
+                                @include ('settings.printings.components.crud', ['row' => is_null($rows[1]) ? $brankPrintSetting : $rows[1], 'key' => 1, 'errorBag' => 'settings_printings_request_1'])
                             {!! Form::close() !!}
                         </div>
                     </div>
+@if (false)
                     <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'settings_printings_request_2') }}" id="setting2-tab">
                         <div class="well">
                             {!! Form::open(['url' => route('settings.printings.update', 2), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
@@ -77,6 +76,7 @@
                             {!! Form::close() !!}
                         </div>
                     </div>
+@endif
                 </div>
             </div>
         </div>

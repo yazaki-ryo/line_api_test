@@ -22,7 +22,6 @@ class CreatePrintSettingsTable extends Migration
             Schema::create($this->table, function (Blueprint $table) {
                 $table->increments('id');
                 $table->unsignedInteger('user_id')->nullable()->comment('ユーザーID');
-                $table->string('name')->nullable()->comment('名称');
                 $table->json('data')->nullable()->comment('データ');
                 $table->timestamps();
 

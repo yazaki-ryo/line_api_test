@@ -19,7 +19,6 @@ final class EloquentPrintSetting extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
         'data',
     ];
 

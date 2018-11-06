@@ -11,6 +11,7 @@ use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Avatar;
 use Domain\Models\Company;
 use Domain\Models\DomainModel;
+use Domain\Models\PrintSetting;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -71,6 +72,16 @@ final class UserRepository extends EloquentRepository implements DomainableContr
     {
         $resource = $this->eloquent->avatars()->create($args);
         return AvatarRepository::toModel($resource);
+    }
+
+    /**
+     * @param  array $args
+     * @return PrintSetting
+     */
+    public function addPrintSetting(array $args = []): PrintSetting
+    {
+        $resource = $this->eloquent->printSettings()->create($args);
+        return PrintSettingRepository::toModel($resource);
     }
 
     /**

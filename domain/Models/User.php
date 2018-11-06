@@ -112,6 +112,15 @@ final class User extends DomainModel
     }
 
     /**
+     * @param  array $args
+     * @return PrintSetting
+     */
+    public function addPrintSetting(array $args = []): PrintSetting
+    {
+        return $this->repo->addPrintSetting($args);
+    }
+
+    /**
      * @return int|null
      */
     public function storeId(): ?int
