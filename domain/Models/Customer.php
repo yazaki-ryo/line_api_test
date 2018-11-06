@@ -418,9 +418,9 @@ final class Customer extends DomainModel
 
     /**
      * @param  array $args
-     * @return VisitedHistory|null
+     * @return VisitedHistory
      */
-    public function addVisitedHistory(array $args = []): ?VisitedHistory
+    public function addVisitedHistory(array $args = []): VisitedHistory
     {
         return $this->repo->addVisitedHistory($args);
     }

@@ -69,9 +69,7 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function addAvatar(array $args = []): Avatar
     {
-        if (is_null($resource = $this->eloquent->avatars()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->avatars()->create($args);
         return AvatarRepository::toModel($resource);
     }
 

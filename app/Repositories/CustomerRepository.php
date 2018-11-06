@@ -149,13 +149,11 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
 
     /**
      * @param  array $args
-     * @return VisitedHistory|null
+     * @return VisitedHistory
      */
-    public function addVisitedHistory(array $args = []): ?VisitedHistory
+    public function addVisitedHistory(array $args = []): VisitedHistory
     {
-        if (is_null($resource = $this->eloquent->visitedHistories()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->visitedHistories()->create($args);
         return VisitedHistoryRepository::toModel($resource);
     }
 
