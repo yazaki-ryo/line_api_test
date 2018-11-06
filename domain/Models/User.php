@@ -145,6 +145,15 @@ final class User extends DomainModel
     }
 
     /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function printSettings(array $args = []): DomainCollection
+    {
+        return $this->repo->printSettings($args);
+    }
+
+    /**
      * @param string $side
      * @return string
      */

@@ -11,7 +11,6 @@ use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Avatar;
 use Domain\Models\Company;
 use Domain\Models\DomainModel;
-use Domain\Models\Role;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -77,20 +76,6 @@ final class UserRepository extends EloquentRepository implements DomainableContr
     }
 
     /**
-     * @return Role|null
-     */
-    public function role(): ?Role
-    {
-        /**
-         * TODO
-         */
-//         if (is_null($resource = $this->eloquent->role)) {
-//             return null;
-//         }
-//         return RoleRepository::toModel($resource);
-    }
-
-    /**
      * @return Company|null
      */
     public function company(): ?Company
@@ -120,6 +105,16 @@ final class UserRepository extends EloquentRepository implements DomainableContr
     {
         $collection = PermissionRepository::build($this->eloquent->permissions(), $args)->get();
         return PermissionRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function printSettings(array $args = []): DomainCollection
+    {
+        $collection = PrintSettingRepository::build($this->eloquent->printSettings(), $args)->get();
+        return PrintSettingRepository::toModels($collection);
     }
 
     /**

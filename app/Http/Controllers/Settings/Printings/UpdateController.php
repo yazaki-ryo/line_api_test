@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Settings\Printings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\PrintingsRequest;
+use App\Repositories\UserRepository;
+use Domain\Models\User;
 use Domain\UseCases\Settings\UpdatePrintings;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
@@ -39,16 +41,12 @@ final class UpdateController extends Controller
      */
     public function view(Request $request)
     {
-        $cookie1 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 1));
-        $cookie2 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 2));
-        $cookie3 = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), 3));
+        /** @var User $user */
+        $user = UserRepository::toModel($this->auth->user());
+        dd($user->printSettings());
 
         return view('settings.printings.edit', [
-            'rows' => [
-                1 => is_null($cookie1) ? $cookie1 : json_decode($cookie1),
-                2 => is_null($cookie2) ? $cookie2 : json_decode($cookie2),
-                3 => is_null($cookie3) ? $cookie3 : json_decode($cookie3),
-            ],
+            'rows' => $user->printSettings(),
         ]);
     }
 
