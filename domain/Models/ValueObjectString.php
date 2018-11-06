@@ -12,6 +12,7 @@ trait ValueObjectString
 
     /**
      * @param string $value
+     * @return void
      */
     private function __construct(string $value)
     {

@@ -12,12 +12,16 @@ trait ValueObjectBoolean
 
     /**
      * @param bool $value
+     * @return void
      */
     private function __construct(bool $value)
     {
         $this->value = $value;
     }
 
+    /**
+     * @return bool
+     */
     public function asBoolean(): bool
     {
         return $this->value;
