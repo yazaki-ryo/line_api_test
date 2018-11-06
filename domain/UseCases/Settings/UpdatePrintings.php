@@ -27,11 +27,9 @@ final class UpdatePrintings
      */
     public function getPrintSetting(User $user, int $settingId): ?PrintSetting
     {
-        /**
-         * TODO take by $settingId
-         * TODO order by latest.
-         */
-        return $user->printSettings()->first();
+        return $user->printSettings()->sortBy(function (PrintSetting $item) {
+            return $item->createdAt();
+        })->pull($settingId - 1);
     }
 
     /**

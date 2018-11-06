@@ -24,7 +24,7 @@
     <div class="col-md-7 form-control-static">
         @foreach (array_reverse(\Lang::get('attributes.yes_or_no')) as $key => $item)
             <label>
-                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === false ?  'checked' : '') }} /> {{ $item }}
+                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : optional($row->{$camel = camel_case($attribute)}())->asBoolean() ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === false ?  'checked' : '') }} /> {{ $item }}
             </label>
         @endforeach
 
@@ -41,7 +41,7 @@
     <div class="col-md-7 form-control-static">
         @foreach (\Lang::get('attributes.yes_or_no') as $key => $item)
             <label>
-                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === true ?  'checked' : '') }} /> {{ $item }}
+                <input type="radio" name="{{ $attribute }}" value="{{ $key }}" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : optional($row->{$camel = camel_case($attribute)}())->asBoolean() ?? $defaults[$attribute]) === (bool)$key ? 'checked' : ((bool)$key === true ?  'checked' : '') }} /> {{ $item }}
             </label>
         @endforeach
 
