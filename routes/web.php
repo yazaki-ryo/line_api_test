@@ -51,9 +51,7 @@ Route::prefix('/')->group(function () {
         Route::get('/', \App\Http\Controllers\Customers\IndexController::class)->name('index');
         Route::post($name = 'add', \App\Http\Controllers\Customers\CreateController::class)->name($name);
 
-        Route::group([
-            'prefix' => '{customerId}',
-        ], function () {
+        Route::prefix('{customerId}')->group(function () {
             Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Customers\UpdateController::class))->name($name);
             Route::post($name, sprintf('%s@update', \App\Http\Controllers\Customers\UpdateController::class));
             Route::post($name = 'delete', \App\Http\Controllers\Customers\DeleteController::class)->name($name);
@@ -113,10 +111,10 @@ Route::prefix('/')->group(function () {
         });
 
         Route::prefix($prefix = 'printings')->name(sprintf('%s.', $prefix))->group(function () {
-            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
+            Route::get('/', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name('index');
 
-            Route::prefix('{settingId}')->group(function () use ($name) {
-                Route::post($name, sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class));
+            Route::prefix('{settingId}')->group(function () {
+                Route::post($name = 'edit', sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
             });
         });
     });

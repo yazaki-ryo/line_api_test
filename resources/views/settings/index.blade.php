@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors) }}">
+                    <li class="{{ \Util::activatable($errors, 'users_self_update_request', true) }}">
                         <a href="#user-tab" data-toggle="tab">
                             @lang ('elements.words.user')@lang ('elements.words.information')
                         </a>
@@ -49,13 +49,13 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="user-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'users_self_update_request', true) }}" id="user-tab">
                         <div class="panel panel-default">
                             <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                             <div class="panel-body">
                                 {!! Form::open(['url' => route('settings.profile.edit'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal', 'files' => true]) !!}
-                                    @include ('users.components.crud', ['row' => $user, 'mode' => 'profile'])
+                                    @include ('users.components.crud', ['row' => $user, 'errorBag' => 'users_self_update_request', 'mode' => 'profile'])
                                 {!! Form::close() !!}
                             </div>
                         </div>

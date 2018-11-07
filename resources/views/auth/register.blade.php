@@ -38,7 +38,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input type="text" name="{{ $attribute }}" value="{{ old($attribute) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
+                                    <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input type="email" name="{{ $attribute }}" value="{{ old($attribute) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
+                                    <input type="email" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" required />
+                                    <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="form-control" required />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" required />
+                                    <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="form-control" required />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>

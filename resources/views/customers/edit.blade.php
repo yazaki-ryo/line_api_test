@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors) }}">
+                    <li class="{{ \Util::activatable($errors, 'customers_update_request', true) }}">
                         <a href="#edit-tab" data-toggle="tab">
                             @lang ('elements.words.detail')
                         </a>
@@ -62,13 +62,13 @@
 
                 <div class="tab-content">
                     @can ('select', $row)
-                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="edit-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_update_request', true) }}" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
                                     {!! Form::open(['url' => route('customers.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
-                                        @include ('customers.components.crud', ['mode' => 'edit'])
+                                        @include ('customers.components.crud', ['mode' => 'edit', 'errorBag' => 'customers_update_request'])
                                     {!! Form::close() !!}
                                 </div>
                             </div>

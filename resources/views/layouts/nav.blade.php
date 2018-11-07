@@ -164,7 +164,7 @@
                                     <div id="side-nav3-child2" class="panel-collapse collapse">
                                         <ul class="nav nav-child">
                                             @can ('authorize', 'self-settings.printings.update')
-                                                <li class="{{ request()->route()->named('settings.printings.edit') ? 'active' : '' }}"><a href="{{ route('settings.printings.edit') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
+                                                <li class="{{ request()->route()->named('settings.printings.index') ? 'active' : '' }}"><a href="{{ route('settings.printings.index') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
                                             @endcan
                                         </ul>
                                     </div>

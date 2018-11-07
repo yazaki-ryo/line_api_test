@@ -46,7 +46,7 @@ final class UpdateController extends Controller
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
 
-        return view('settings.printings.edit', [
+        return view('settings.printings.index', [
             'rows' => [
                 1 => $this->useCase->getPrintSetting($user, 1),
                 2 => $this->useCase->getPrintSetting($user, 2),
@@ -77,7 +77,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.setting'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('settings.printings.edit');
+        return redirect()->route('settings.printings.index');
     }
 
 }
