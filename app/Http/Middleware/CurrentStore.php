@@ -35,28 +35,30 @@ final class CurrentStore
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->check()) {
-            /** @var User $user */
-            $user = UserRepository::toModel($this->auth->user());
+        if (! $this->auth->check()) {
+            return $next($request);
+        }
 
-            try {
-                if (is_numeric($value = $request->query('store_id'))) {
-                    $this->validate($user, (int)$value);
+        /** @var User $user */
+        $user = UserRepository::toModel($this->auth->user());
 
-                } elseif (is_numeric($value = $request->cookie($this->keyName))) {
-                    $this->validate($user, (int)$value);
-                    return $next($request);
-                } else {
-                    $value = $user->storeId();
-                }
-            } catch (AuthorizationException $e) {
-                flash(__('The store does not exist or you do not have access.'), 'info');
-                $request->session()->reflash();
+        try {
+            if (is_numeric($value = $request->query('store_id'))) {
+                $this->validate($user, (int)$value);
+
+            } elseif (is_numeric($value = $request->cookie($this->keyName))) {
+                $this->validate($user, (int)$value);
+                return $next($request);
+            } else {
                 $value = $user->storeId();
             }
-
-            Cookie::queue(Cookie::forever($this->keyName, (int)$value));
+        } catch (AuthorizationException $e) {
+            flash(__('The store does not exist or you do not have access.'), 'info');
+            $request->session()->reflash();
+            $value = $user->storeId();
         }
+
+        Cookie::queue(Cookie::forever($this->keyName, (int)$value));
 
         return redirect($request->path());
     }
