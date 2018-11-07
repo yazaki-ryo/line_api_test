@@ -37,8 +37,7 @@ final class ViewServiceProvider extends ServiceProvider
         ], NotificationsComposer::class);
 
         View::creator([
-            'settings.company',
-            'settings.store',
+            'settings.index',
             'customers.index',
             'customers.edit',
         ], PrefecturesComposer::class);

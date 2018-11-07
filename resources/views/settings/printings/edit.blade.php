@@ -39,7 +39,7 @@
                     @foreach ($rows as $key => $item)
                         <div class="tab-pane fade in pt-10 {{ $key === 1 ? \Util::activatable($errors) : \Util::activatable($errors, sprintf('settings_printings_request_%s', $key)) }}" id="{{ sprintf('setting%s-tab', $key) }}">
                             <div class="well">
-                                {!! Form::open(['url' => route('settings.printings.update', $key), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('settings.printings.edit', $key), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                     @include ('settings.printings.components.crud', ['row' => is_null($rows[$key]) ? $brankPrintSetting : $rows[$key], 'key' => $key, 'errorBag' => sprintf('settings_printings_request_%s', $key)])
                                 {!! Form::close() !!}
                             </div>

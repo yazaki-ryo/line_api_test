@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Settings\Company;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
 use App\Repositories\UserRepository;
+use Domain\Models\Company;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdateCompany;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -35,30 +36,20 @@ final class UpdateController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view()
-    {
-        /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
-
-        return view('settings.company', [
-            'row' => $this->useCase->getCompany($user),
-        ]);
-    }
-
-    /**
      * @param UpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request)
+    public function __invoke(UpdateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
         $args = $request->validated();
 
-        $callback = function () use ($user, $args) {
-            $this->useCase->excute($user, $args);
+        /** @var Company $company */
+        $company = $this->useCase->getCompany($user);
+
+        $callback = function () use ($user, $company, $args) {
+            $this->useCase->excute($user, $company, $args);
         };
 
         if (! is_null(rescue($callback, false))) {
@@ -67,7 +58,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.companies'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('settings.company');
+        return redirect()->route('settings.index');
     }
 
 }

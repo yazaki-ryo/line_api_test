@@ -98,17 +98,27 @@ Route::prefix('/')->group(function () {
      * Settings
      */
     Route::prefix($prefix = 'settings')->name(sprintf('%s.', $prefix))->group(function () {
-        Route::get($name = 'company', sprintf('%s@view', \App\Http\Controllers\Settings\Company\UpdateController::class))->name($name);
-        Route::post($name, sprintf('%s@update', \App\Http\Controllers\Settings\Company\UpdateController::class));
+        Route::get('/', \App\Http\Controllers\Settings\IndexController::class)->name('index');
 
-        Route::get($name = 'profile', sprintf('%s@view', \App\Http\Controllers\Settings\Profile\UpdateController::class))->name($name);
-        Route::post($name, sprintf('%s@update', \App\Http\Controllers\Settings\Profile\UpdateController::class));
+        Route::prefix($prefix = 'company')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::post($name = 'edit', \App\Http\Controllers\Settings\Company\UpdateController::class)->name($name);
+        });
 
-        Route::get($name = 'store', sprintf('%s@view', \App\Http\Controllers\Settings\Store\UpdateController::class))->name($name);
-        Route::post($name, sprintf('%s@update', \App\Http\Controllers\Settings\Store\UpdateController::class));
+        Route::prefix($prefix = 'profile')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::post($name = 'edit', \App\Http\Controllers\Settings\Profile\UpdateController::class)->name($name);
+        });
 
-        Route::get($name = 'printings', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
-        Route::post(sprintf('%s/{settingId}', $name), sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name(sprintf('%s.update', $name));
+        Route::prefix($prefix = 'store')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::post($name = 'edit', \App\Http\Controllers\Settings\Store\UpdateController::class)->name($name);
+        });
+
+        Route::prefix($prefix = 'printings')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
+
+            Route::prefix('{settingId}')->group(function () use ($name) {
+                Route::post($name, sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class));
+            });
+        });
     });
 
     /**

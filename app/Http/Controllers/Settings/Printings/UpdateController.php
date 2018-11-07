@@ -77,7 +77,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.print') . __('elements.words.setting'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('settings.printings');
+        return redirect()->route('settings.printings.edit');
     }
 
 }
