@@ -36,31 +36,10 @@ final class UpdateController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view(Request $request)
-    {
-        /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
-
-        $storeId = $request->cookie(config('cookie.name.current_store'));
-
-        /** @var Store $store */
-        $store = $this->useCase->getStore([
-            'id' => $storeId,
-        ]);
-
-        return view('settings.store', [
-            'row' => $store,
-        ]);
-    }
-
-    /**
      * @param UpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request)
+    public function __invoke(UpdateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
@@ -83,7 +62,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.stores'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('settings.store');
+        return redirect()->route('settings.index');
     }
 
 }

@@ -30,13 +30,13 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors) }}">
+                    <li class="{{ \Util::activatable($errors, null, true) }}">
                         <a href="#calender-tab" data-toggle="tab">
                             @lang ('elements.words.calender')
                         </a>
                     </li>
 
-                    <li class="">
+                    <li class="{{ \Util::activatable($errors) }}">
                         <a href="#result-tab" data-toggle="tab">
                             @lang ('elements.words.list')
                             <span class="badge">{{ $rows->count() }}</span>
@@ -44,7 +44,7 @@
                     </li>
 {{--
                     @can ('authorize', config('permissions.groups.reservations.select'))
-                        <li class="">
+                        <li class="{{ \Util::activatable($errors, 'reservations_search_request') }}">
                             <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                         </li>
                     @endcan
@@ -57,16 +57,16 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="calender-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="calender-tab">
                         @include ('reservations.components.calender')
                     </div>
 
-                    <div class="tab-pane fade in pt-10" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="result-tab">
                         @include ('reservations.components.list')
                     </div>
 {{--
                     @can ('authorize', config('permissions.groups.reservations.select'))
-                        <div class="tab-pane fade in pt-10" id="search-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'reservations_search_request') }}" id="search-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('reservations.index'), 'id' => 'reservations-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('reservations.components.search')

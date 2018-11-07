@@ -5,7 +5,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : 'autofocus' }} />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : 'autofocus' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -17,7 +17,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : '' }} />
+        <input type="email" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : '' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -32,7 +32,7 @@
         <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ ($mode === 'profile') || $user->cant('change-role', $row) ? 'disabled' : 'required' }}>
             <option value>@lang ('Please select')</option>
             @foreach (config('permissions.roles.general') as $key => $item)
-                <option value="{{ $key }}" {{ old($attribute, empty($row->role()) ? $user->role() : $row->role()) === $key ? 'selected' : '' }}>{{ $item }}</option>
+                <option value="{{ $key }}" {{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->role()) ? $user->role() : $row->role()) === $key ? 'selected' : '' }}>{{ $item }}</option>
             @endforeach
         </select>
 
@@ -79,7 +79,7 @@
         </label>
 
         <div class="col-md-6">
-            <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please input only when changing.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
+            <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please input only when changing.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
             @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
@@ -92,7 +92,7 @@
         </label>
 
         <div class="col-md-6">
-            <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please re-enter for confirmation.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
+            <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please re-enter for confirmation.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
             @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>

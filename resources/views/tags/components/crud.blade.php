@@ -5,7 +5,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -18,7 +18,7 @@
 
     <div class="col-md-6 form-control-static">
         @foreach (config('tags.labels') as $key => $item)
-            <div><label><input type="radio" name="{{ $attribute }}" value="{{ $key }}" {{ old($attribute, request($attribute, $row->{$camel = camel_case($attribute)}() ?? null)) === $key ? 'checked' : ($key === 'default' ? 'checked' : '') }} /> <span class="label label-{{ $key }}">{{ $item }}</span></label></div>
+            <div><label><input type="radio" name="{{ $attribute }}" value="{{ $key }}" {{ ($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null) === $key ? 'checked' : ($key === 'default' ? 'checked' : '') }} /> <span class="label label-{{ $key }}">{{ $item }}</span></label></div>
         @endforeach
 
         @include ('components.form.err_msg', ['attribute' => $attribute])

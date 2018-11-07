@@ -123,12 +123,7 @@
                                     </a>
                                 </li>
 
-                                <!-- Own store -->
-                                @can ('authorize', config('permissions.groups.stores.update'))
-                                    <li class="{{ request()->route()->named('settings.store') ? 'active' : '' }}"><a href="{{ route('settings.store') }}">@lang ('elements.words.store')@lang ('elements.words.information')</a></li>
-                                @endcan
-
-                                <!-- Own company stores -->
+                                <!-- Switch selected stores -->
                                 @can ('authorize', ['stores.select', 'own-company-stores.select'])
                                     <li class="dropdown-submenu">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -155,13 +150,8 @@
 
                         <div id="side-nav3" class="panel-collapse collapse">
                             <ul class="nav nav-child">
-                                <!-- My profile -->
-                                <li class="{{ request()->route()->named('settings.profile') ? 'active' : '' }}"><a href="{{ route('settings.profile') }}">@lang ('elements.words.user')@lang ('elements.words.information')</a></li>
-
-                                <!-- Own company -->
-                                @can ('authorize', config('permissions.groups.companies.update'))
-                                    <li class="{{ request()->route()->named('settings.company') ? 'active' : '' }}"><a href="{{ route('settings.company') }}">@lang ('elements.words.company')@lang ('elements.words.information')</a></li>
-                                @endcan
+                                <!-- General settings -->
+                                <li class="{{ request()->route()->named('settings.index') ? 'active' : '' }}"><a href="{{ route('settings.index') }}">@lang ('elements.words.user')@lang ('elements.words.information')</a></li>
 
                                 <li class="disabled"><a href="#">@lang ('elements.words.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>
 
@@ -174,7 +164,7 @@
                                     <div id="side-nav3-child2" class="panel-collapse collapse">
                                         <ul class="nav nav-child">
                                             @can ('authorize', 'self-settings.printings.update')
-                                                <li class="{{ request()->route()->named('settings.printings') ? 'active' : '' }}"><a href="{{ route('settings.printings') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
+                                                <li class="{{ request()->route()->named('settings.printings.index') ? 'active' : '' }}"><a href="{{ route('settings.printings.index') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
                                             @endcan
                                         </ul>
                                     </div>

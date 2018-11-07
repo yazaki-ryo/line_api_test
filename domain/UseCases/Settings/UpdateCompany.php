@@ -35,17 +35,17 @@ final class UpdateCompany
 
     /**
      * @param User $user
+     * @param Company $company
      * @param array $args
      * @return bool
      * @throws NotFoundException
      */
-    public function excute(User $user, array $args = []): bool
+    public function excute(User $user, Company $company, array $args = []): bool
     {
-        $resource = $this->getCompany($user);
         $args = $this->domainize($user, $args);
 
-        return $this->transaction(function () use ($resource, $args) {
-            return $resource->update($args);
+        return $this->transaction(function () use ($company, $args) {
+            return $company->update($args);
         });
     }
 

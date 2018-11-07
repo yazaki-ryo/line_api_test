@@ -5,7 +5,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : 'autofocus' }} />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : 'autofocus' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -17,7 +17,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : '' }} />
+        <input type="email" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : '' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -43,7 +43,7 @@
         <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ ($mode === 'profile') || ($user->id() === $row->id()) || $user->cant('authorize', config('permissions.groups.users.create')) ? 'disabled' : 'required' }}>
             <option value>@lang ('Please select')</option>
             @foreach (config('permissions.roles.general') as $key => $item)
-                <option value="{{ $key }}" {{ old($attribute, empty($row->role()) ? $user->role() : $row->role()) === $key ? 'selected' : '' }}>{{ $item }}</option>
+                <option value="{{ $key }}" {{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->role()) ? $user->role() : $row->role()) === $key ? 'selected' : '' }}>{{ $item }}</option>
             @endforeach
         </select>
 

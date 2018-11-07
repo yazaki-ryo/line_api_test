@@ -27,7 +27,7 @@
             <div class="col-md-12 col-md-offset-0">
                 <ul class="nav nav-tabs">
                     @foreach ($rows as $key => $item)
-                        <li class="{{ $key === 1 ? \Util::activatable($errors) : \Util::activatable($errors, sprintf('settings_printings_request_%s', $key)) }}">
+                        <li class="{{ \Util::activatable($errors, sprintf('settings_printings_request_%s', $key), $key === 1 ? true : false) }}">
                             <a href="{{ sprintf('#setting%s-tab', $key) }}" data-toggle="tab">
                                 {{ is_null($rows[$key]) ? sprintf('%s%s', __('elements.words.settings'), $key) : $rows[$key]->name() }}
                             </a>
@@ -37,9 +37,9 @@
 
                 <div class="tab-content">
                     @foreach ($rows as $key => $item)
-                        <div class="tab-pane fade in pt-10 {{ $key === 1 ? \Util::activatable($errors) : \Util::activatable($errors, sprintf('settings_printings_request_%s', $key)) }}" id="{{ sprintf('setting%s-tab', $key) }}">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, sprintf('settings_printings_request_%s', $key), $key === 1 ? true : false) }}" id="{{ sprintf('setting%s-tab', $key) }}">
                             <div class="well">
-                                {!! Form::open(['url' => route('settings.printings.update', $key), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('settings.printings.edit', $key), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                     @include ('settings.printings.components.crud', ['row' => is_null($rows[$key]) ? $brankPrintSetting : $rows[$key], 'key' => $key, 'errorBag' => sprintf('settings_printings_request_%s', $key)])
                                 {!! Form::close() !!}
                             </div>

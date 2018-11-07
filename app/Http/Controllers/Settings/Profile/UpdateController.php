@@ -35,23 +35,10 @@ final class UpdateController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view()
-    {
-        /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
-
-        return view('settings.profile', [
-            'row' => $user,
-        ]);
-    }
-
-    /**
      * @param SelfUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(SelfUpdateRequest $request)
+    public function __invoke(SelfUpdateRequest $request)
     {
         /** @var User $user */
         $user = UserRepository::toModel($this->auth->user());
@@ -70,7 +57,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.user'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('settings.profile');
+        return redirect()->route('settings.index');
     }
 
 }

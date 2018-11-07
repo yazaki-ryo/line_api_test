@@ -39,7 +39,7 @@
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $email) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
+                                    <input type="email" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $email }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>

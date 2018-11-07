@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors) }}">
+                    <li class="{{ \Util::activatable($errors, null, true) }}">
                         <a href="#result-tab" data-toggle="tab">
                             @lang ('elements.words.list')
                             <span class="badge">{{ $rows->count() }}</span>
@@ -38,7 +38,7 @@
                     </li>
 {{--
                     @can ('authorize', config('permissions.groups.tags.select'))
-                        <li class="">
+                        <li class="{{ \Util::activatable($errors, 'tags_search_request') }}">
                             <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                         </li>
                     @endcan
@@ -51,12 +51,12 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="result-tab">
                         @include ('tags.components.list')
                     </div>
 {{--
                     @can ('authorize', config('permissions.groups.tags.select'))
-                        <div class="tab-pane fade in pt-10" id="search-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'tags_search_request') }}" id="search-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('tags.index'), 'id' => 'tags-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('tags.components.search')

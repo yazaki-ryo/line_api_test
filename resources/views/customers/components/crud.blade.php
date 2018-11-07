@@ -7,12 +7,12 @@
     </label>
 
     <div class="col-md-3">
-        <input type="text" name="{{ $attribute1 }}" value="{{ old($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null) }}" class="form-control" id="{{ $attribute1 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute1))" required autofocus />
+        <input type="text" name="{{ $attribute1 }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute1) : $row->{$camel = camel_case($attribute1)}() ?? null }}" class="form-control" id="{{ $attribute1 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute1))" required autofocus />
         @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
     <div class="col-md-3">
-        <input type="text" name="{{ $attribute2 }}" value="{{ old($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null) }}" class="form-control" id="{{ $attribute2 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute2))" required />
+        <input type="text" name="{{ $attribute2 }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute2) : $row->{$camel = camel_case($attribute2)}() ?? null }}" class="form-control" id="{{ $attribute2 }}" maxlength="191" placeholder="@lang (sprintf('attributes.customers.%s', $attribute2))" required />
         @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
 </div>
@@ -24,12 +24,12 @@
     </label>
 
     <div class="col-md-3">
-        <input type="text" name="{{ $attribute1 }}" value="{{ old($attribute1, $row->{$camel = camel_case($attribute1)}() ?? null) }}" class="form-control" id="{{ $attribute1 }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute1))" />
+        <input type="text" name="{{ $attribute1 }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute1) : $row->{$camel = camel_case($attribute1)}() ?? null }}" class="form-control" id="{{ $attribute1 }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute1))" />
         @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
     <div class="col-md-3">
-        <input type="text" name="{{ $attribute2 }}" value="{{ old($attribute2, $row->{$camel = camel_case($attribute2)}() ?? null) }}" class="form-control" id="{{ $attribute2 }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute2))" />
+        <input type="text" name="{{ $attribute2 }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute2) : $row->{$camel = camel_case($attribute2)}() ?? null }}" class="form-control" id="{{ $attribute2 }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute2))" />
         @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
 </div>
@@ -42,7 +42,7 @@
     <div class="col-md-6 form-control-static">
         @foreach ($sexes as $item)
             <label>
-                <input type="radio" name="{{ $attribute }}" value="{{ $item->id() }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? 1) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
+                <input type="radio" name="{{ $attribute }}" value="{{ $item->id() }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? 1) === $item->id() ? 'checked' : '' }} /> <span class="text-{{ $item->id() === 1 ? 'info' : ($item->id() === 2 ? 'danger' : '') }}">{{ $item->name() }}</span>
             </label>
         @endforeach
 
@@ -56,7 +56,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -67,7 +67,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -78,7 +78,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -89,7 +89,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -101,7 +101,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control p-postal-code" id="{{ $attribute }}" maxlength="7" placeholder="@lang ('No hyphen, 7 numeric digits')" />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control p-postal-code" id="{{ $attribute }}" maxlength="7" placeholder="@lang ('No hyphen, 7 numeric digits')" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -115,7 +115,7 @@
         <select name="{{ $attribute }}" class="form-control p-region-id" id="{{ $attribute }}">
             <option value>@lang ('Please select')</option>
             @foreach ($prefectures as $item)
-                <option value="{{ $item->id() }}" {{ (int)old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) === $item->id() ? 'selected' : '' }} >{{ $item->name() }}</option>
+                <option value="{{ $item->id() }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null) === $item->id() ? 'selected' : '' }} >{{ $item->name() }}</option>
             @endforeach
         </select>
 
@@ -129,7 +129,7 @@
     </label>
 
     <div class="col-md-6">
-        <textarea name="{{ $attribute }}" class="form-control p-locality p-street-address" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
+        <textarea name="{{ $attribute }}" class="form-control p-locality p-street-address" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -140,7 +140,7 @@
     </label>
 
     <div class="col-md-6">
-        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
+        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -152,7 +152,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" required />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -163,7 +163,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -174,7 +174,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+        <input type="email" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -185,7 +185,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -196,7 +196,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="date" name="{{ $attribute }}" value="{{ old($attribute, empty($row->{$camel = camel_case($attribute)}()) ? null : $row->{$camel = camel_case($attribute)}()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
+        <input type="date" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->{$camel = camel_case($attribute)}()) ? null : $row->{$camel = camel_case($attribute)}()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -207,7 +207,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="date" name="{{ $attribute }}" value="{{ old($attribute, empty($row->{$camel = camel_case($attribute)}()) ? null : $row->{$camel = camel_case($attribute)}()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
+        <input type="date" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->{$camel = camel_case($attribute)}()) ? null : $row->{$camel = camel_case($attribute)}()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -223,7 +223,7 @@
             <input type="radio" name="{{ $attribute }}" value="0" required checked /> <span class="text-success">@lang ('elements.words.no')</span>
         </label>
         <label>
-            <input type="radio" name="{{ $attribute }}" value="1" required {{ (bool)old($attribute, request($attribute, !empty($row->mournedAt()) ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ('elements.words.yes')</span>
+            <input type="radio" name="{{ $attribute }}" value="1" required {{ (bool)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : request($attribute, !empty($row->mournedAt()) ?? null)) === true ? 'checked' : '' }} /> <span class="text-danger">@lang ('elements.words.yes')</span>
         </label>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
@@ -235,7 +235,7 @@
     </label>
 
     <div class="col-md-6">
-        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
+        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -246,7 +246,7 @@
     </label>
 
     <div class="col-md-6">
-        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
+        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

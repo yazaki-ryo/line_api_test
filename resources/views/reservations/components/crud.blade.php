@@ -5,7 +5,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -17,7 +17,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="date" name="{{ $attribute }}" value="{{ old($attribute, empty($row->reservedAt()) ? null : $row->reservedAt()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" required />
+        <input type="date" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->reservedAt()) ? null : $row->reservedAt()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -28,7 +28,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="time" name="{{ $attribute }}" value="{{ old($attribute, empty($row->reservedAt()) ? null : $row->reservedAt()->format('H:i')) }}" class="form-control" id="{{ $attribute }}" maxlength="5" placeholder="" />
+        <input type="time" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->reservedAt()) ? null : $row->reservedAt()->format('H:i')) }}" class="form-control" id="{{ $attribute }}" maxlength="5" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -39,7 +39,7 @@
     </label>
 
     <div class="col-md-3">
-        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -50,7 +50,7 @@
     </label>
 
     <div class="col-md-5">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -61,7 +61,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -72,7 +72,7 @@
     </label>
 
     <div class="col-md-6">
-        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
@@ -85,7 +85,7 @@
 
     <div class="col-md-6 form-control-static">
 {{--
-        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
 --}}
         TODO status
         @include ('components.form.err_msg', ['attribute' => $attribute])
@@ -98,7 +98,7 @@
     </label>
 
     <div class="col-md-6">
-        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
+        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

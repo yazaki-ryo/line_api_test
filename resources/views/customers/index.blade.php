@@ -30,7 +30,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors) }}">
+                    <li class="{{ \Util::activatable($errors, null, true) }}">
                         <a href="#result-tab" data-toggle="tab">
                             @lang ('elements.words.list')
                             <span class="badge">{{ $rows->count() }}</span>
@@ -57,7 +57,7 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="result-tab">
                         @include ('customers.components.list')
                     </div>
 

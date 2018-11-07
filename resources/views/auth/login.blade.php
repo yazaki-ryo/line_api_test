@@ -24,11 +24,10 @@
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
                             <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'email') ? ' has-error' : '' }}">
-
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon-{{ $attribute }}">@</span>
-                                        <input type="email" name="{{ $attribute }}" value="{{ old($attribute) }}" class="none-radius form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang('attributes.users.email')" aria-describedby="basic-addon-{{ $attribute }}" required autofocus />
+                                        <input type="email" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : null }}" class="none-radius form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang('attributes.users.email')" aria-describedby="basic-addon-{{ $attribute }}" required autofocus />
                                     </div>
 
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
@@ -36,11 +35,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'password') ? ' has-error' : '' }}">
-
                                 <div class="col-md-12">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon-{{ $attribute }}"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="none-radius form-control" placeholder="@lang('attributes.users.password')" required />
+                                        <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="none-radius form-control" placeholder="@lang('attributes.users.password')" required />
                                     </div>
 
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
@@ -51,7 +49,7 @@
                                 <div class="col-md-12">
                                     <div class="checkbox">
                                         <label>
-                                            {!! Form::checkbox($attribute = 'remember', 1, old($attribute), []) !!} @lang (sprintf('attributes.users.%s', $attribute))
+                                            {!! Form::checkbox($attribute = 'remember', 1, $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : null) !!} @lang (sprintf('attributes.users.%s', $attribute))
                                         </label>
                                     </div>
                                 </div>
