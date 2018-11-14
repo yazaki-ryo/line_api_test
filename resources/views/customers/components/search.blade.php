@@ -36,16 +36,20 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'trashed') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang (sprintf('attributes.customers.search.%s', $attribute))
-    </label>
+@can ('authorize', config('permissions.groups.customers.restore'))
+    @can ('authorize', config('permissions.groups.customers.delete'))
+        <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'trashed') ? ' has-error' : '' }}">
+            <label for="{{ $attribute }}" class="col-md-4 control-label">
+                @lang (sprintf('attributes.customers.search.%s', $attribute))
+            </label>
 
-    <div class="col-md-6 form-control-static">
-        {!! Form::select($attribute, \Lang::get('attributes.trashed'), null, ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
+            <div class="col-md-6 form-control-static">
+                {!! Form::select($attribute, \Lang::get('attributes.trashed'), null, ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
+                @include ('components.form.err_msg', ['attribute' => $attribute])
+            </div>
+        </div>
+    @endcan
+@endcan
 
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'tags') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">

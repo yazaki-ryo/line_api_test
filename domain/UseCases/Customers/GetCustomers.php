@@ -63,6 +63,13 @@ final class GetCustomers
             $collection->put($key, ! ((bool)$collection->get($key)));
         }
 
+        if ($collection->has($key = 'trashed')
+            && ($user->cant('authorize', config('permissions.groups.customers.restore'))
+                || $user->cant('authorize', config('permissions.groups.customers.delete')))
+        ) {
+            $collection->forget($key);
+        }
+
         return $collection->all();
     }
 
