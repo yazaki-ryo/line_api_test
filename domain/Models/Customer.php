@@ -437,6 +437,18 @@ final class Customer extends DomainModel
     }
 
     /**
+     * @return void
+     */
+    public function delete(): void
+    {
+        $this->visitedHistories()->destroy();
+        $this->reservations()->destroy();
+        $this->syncTags([]);
+
+        parent::delete();
+    }
+
+    /**
      * @param  CustomerRepository $repo
      * @return  self
      */
