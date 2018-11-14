@@ -7,9 +7,6 @@ use App\Repositories\AvatarRepository;
 
 final class Avatar extends DomainModel
 {
-    /** @var AvatarRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

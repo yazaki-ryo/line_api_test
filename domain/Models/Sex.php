@@ -8,9 +8,6 @@ use App\Services\DomainCollection;
 
 final class Sex extends DomainModel
 {
-    /** @var SexRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

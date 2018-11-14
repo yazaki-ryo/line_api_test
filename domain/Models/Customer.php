@@ -8,9 +8,6 @@ use App\Services\DomainCollection;
 
 final class Customer extends DomainModel
 {
-    /** @var CustomerRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

@@ -8,9 +8,6 @@ use App\Services\DomainCollection;
 
 final class Tag extends DomainModel
 {
-    /** @var TagRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

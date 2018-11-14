@@ -7,9 +7,6 @@ use App\Repositories\VisitedHistoryRepository;
 
 final class VisitedHistory extends DomainModel
 {
-    /** @var VisitedHistoryRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

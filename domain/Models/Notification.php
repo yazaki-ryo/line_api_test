@@ -7,9 +7,6 @@ use App\Repositories\NotificationRepository;
 
 final class Notification extends DomainModel
 {
-    /** @var NotificationRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 
