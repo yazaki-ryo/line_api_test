@@ -4,13 +4,9 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\PrintSettingRepository;
-use App\Services\DomainCollection;
 
 final class PrintSetting extends DomainModel
 {
-    /** @var PrintSettingRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

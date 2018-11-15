@@ -12,9 +12,6 @@ final class User extends DomainModel
 {
     use Authorizable, Notifiable;
 
-    /** @var UserRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

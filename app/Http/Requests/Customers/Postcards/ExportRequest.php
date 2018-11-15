@@ -25,16 +25,19 @@ final class ExportRequest extends FormRequest
         return [
             'mode' => [
                 'required',
+                'string',
+                'in:export,preview',
+            ],
+            'setting' => [
+                'required',
                 'numeric',
                 'max:3',
-                'in:1,2,3',// TODO Validate value.
+                'in:1,2,3',
             ],
             'selection' => [
                 'required',
-                'string',
-                'max:20000',
-                'customer_ids_from_csv_string_for_output_postcards',// TODO XXX only current store's customers
-                // TODO Validate mourned_at.
+                'array',
+                'customer_id',
             ],
         ];
     }
@@ -47,7 +50,7 @@ final class ExportRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'mode.in' => __('validation.invalid'),
         ];
     }
 

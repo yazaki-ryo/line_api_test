@@ -96,9 +96,8 @@ final class ExportPostcards
         $collection->put('from', $store);
 
         if ($collection->has($key = 'selection')) {
-            $ids = explode(',', $collection->get($key));
             $collection->put('data', $store->customers([
-                'ids'           => $ids,
+                'ids'           => $collection->get($key),
                 'mourning_flag' => true,
                 'notNull'       => [
                     'last_name',

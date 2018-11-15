@@ -8,9 +8,6 @@ use App\Services\DomainCollection;
 
 final class Permission extends DomainModel
 {
-    /** @var PermissionRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

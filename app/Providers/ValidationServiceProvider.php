@@ -32,10 +32,6 @@ final class ValidationServiceProvider extends ServiceProvider
             return Customer::validateCustomerId(UserRepository::toModel($auth->user()), (int)$value);
         }, Lang::get('validation.invalid'));
 
-        $validator->extend('customer_ids_from_csv_string_for_output_postcards', function ($attribute, $value) use ($auth) {
-            return Customer::validateCustomerIdsFromCsvStringForOutputPostcards(UserRepository::toModel($auth->user()), $value);
-        }, Lang::get('validation.invalid'));
-
         $validator->extend('email', function ($attribute, $value) {
             return Email::validate($value);
         });

@@ -27,7 +27,11 @@ return [
     ],
 
     'templates' => [
-        'vertically_postcard' => storage_path('system/pdf/postcards/postcard.pdf'),
+        'postcard' => [
+            'plain'         => storage_path('system/pdf/postcards/plain.pdf'),
+            'preview'       => storage_path('system/pdf/postcards/preview.pdf'),
+            'with_pc_frame' => storage_path('system/pdf/postcards/with_pc_frame.pdf'),
+        ],
     ],
 
     'positions' => [

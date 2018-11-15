@@ -90,6 +90,7 @@ return [
 
         'postcards' => [
             'mode'      => '出力モード',
+            'setting'   => '印刷設定',
             'selection' => '顧客選択',
         ],
 

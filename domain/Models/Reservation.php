@@ -7,9 +7,6 @@ use App\Repositories\ReservationRepository;
 
 final class Reservation extends DomainModel
 {
-    /** @var ReservationRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

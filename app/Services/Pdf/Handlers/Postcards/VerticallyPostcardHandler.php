@@ -38,7 +38,9 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     protected function init(): void
     {
-        $this->templates('vertically_postcard');
+        $this->templates($this->mode === 'preview' ? 'preview' :
+            ($this->settings->pcPosition() === 'fixed' && $this->settings->pcFrame()->asBoolean() ? 'with_pc_frame' : 'plain')
+        );
         $this->processor->SetMargins(0,0,0);
         $this->processor->SetAutoPageBreak(false);
         $this->processor->setPrintHeader(false);
