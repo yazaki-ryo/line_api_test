@@ -88,7 +88,7 @@
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_postcards_export_request') }}" id="print-tab">
                             <div class="well">
-                                {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('customers.components.postcard', ['errorBag' => 'customers_postcards_export_request'])
                                 {!! Form::close() !!}
                             </div>
@@ -130,42 +130,26 @@
             });
         });
 
+        (function () {
+            'use strict';
+
+            replaceHref();
+
+            document.getElementById('setting').addEventListener('change', replaceHref, false);
+            document.getElementsByName('selection').forEach(function (item) {
+                item.addEventListener('change', replaceHref, false);
+            });
+        })();
+
         /**
-         * @param string url
-         * @param string name
          * @return void
          */
-        function submitPostcardsForm(url, name) {
-            var element = document.createElement('input');
-            element.setAttribute('type', 'hidden');
-            element.setAttribute('name', name);
-
-            var value = elementsByName(name);
-            element.setAttribute('value', value);
-
-            var form = document.getElementById('customers-postcards-form');
-            form.action = url;
-            form.appendChild(element);
-            form.submit();
-        }
-
-        /**
-         * @param string name
-         * @param bool onlyChecked
-         * @return array
-         */
-        function elementsByName(name, onlyChecked = true) {
-            var element = document.getElementsByName(name);
-            var selected = [];
-
-            for (var item of element) {
-                if (item.checked === false && onlyChecked) {
-                    continue;
-                }
-                selected.push(parseInt(item.value));
-            }
-
-            return selected;
+        function replaceHref() {
+            var a = document.getElementById('postcard-link');
+            a.search = window.common.serialize({
+                'setting': document.getElementById('setting').selectedIndex,
+                'selection': window.common.elementsByName('selection')
+            });
         }
     </script>
 @endsection

@@ -52,7 +52,7 @@ final class ExportController extends Controller
         ]);
 
         $result = $this->useCase->excute($user, $store, array_merge($args, [
-            'settings' => $this->useCase->getPrintSetting($user, (int)$request->get('mode')),
+            'settings' => $this->useCase->getPrintSetting($user, (int)$request->get('setting')),
         ]));
 
         if ($result === false) {

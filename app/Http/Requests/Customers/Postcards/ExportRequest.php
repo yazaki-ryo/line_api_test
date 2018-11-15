@@ -23,7 +23,7 @@ final class ExportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'mode' => [
+            'setting' => [
                 'required',
                 'numeric',
                 'max:3',
@@ -31,10 +31,8 @@ final class ExportRequest extends FormRequest
             ],
             'selection' => [
                 'required',
-                'string',
-                'max:20000',
-                'customer_ids_from_csv_string_for_output_postcards',// TODO XXX only current store's customers
-                // TODO Validate mourned_at.
+                'array',
+                'customer_id',// TODO XXX only current store's customers
             ],
         ];
     }
