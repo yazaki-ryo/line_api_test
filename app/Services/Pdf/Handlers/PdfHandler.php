@@ -19,6 +19,9 @@ abstract class PdfHandler implements HandlableContract
     /** @var PrintSetting */
     protected $settings;
 
+    /** @var string */
+    protected $mode;
+
     /**
      * @param array $args
      * @return void
@@ -87,6 +90,24 @@ abstract class PdfHandler implements HandlableContract
             $this->pushData($value);
         }
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMode(): string
+    {
+        return $this->mode;
+    }
+
+    /**
+     * @param string $mode
+     * @return $this
+     */
+    public function setMode(string $mode): self
+    {
+        $this->mode = $mode;
         return $this;
     }
 
