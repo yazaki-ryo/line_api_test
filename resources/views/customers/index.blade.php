@@ -145,10 +145,19 @@
          * @return void
          */
         function replaceHref() {
-            var a = document.getElementById('postcard-link');
-            a.search = window.common.serialize({
-                'setting': document.getElementById('setting').selectedIndex,
-                'selection': window.common.elementsByName('selection')
+            var setting = document.getElementById('setting').selectedIndex;
+            var selection = window.common.elementsByName('selection');
+
+            document.getElementById('export-link').search = window.common.serialize({
+                'mode': 'export',
+                'setting': setting,
+                'selection': selection
+            });
+
+            document.getElementById('preview-link').search = window.common.serialize({
+                'mode': 'preview',
+                'setting': setting,
+                'selection': selection
             });
         }
     </script>

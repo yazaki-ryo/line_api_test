@@ -23,16 +23,21 @@ final class ExportRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'mode' => [
+                'required',
+                'string',
+                'in:export,preview',
+            ],
             'setting' => [
                 'required',
                 'numeric',
                 'max:3',
-                'in:1,2,3',// TODO Validate value.
+                'in:1,2,3',
             ],
             'selection' => [
                 'required',
                 'array',
-                'customer_id',// TODO XXX only current store's customers
+                'customer_id',
             ],
         ];
     }
@@ -45,7 +50,7 @@ final class ExportRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'mode.in' => __('validation.invalid'),
         ];
     }
 
