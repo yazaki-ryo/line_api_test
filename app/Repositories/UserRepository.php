@@ -22,9 +22,6 @@ final class UserRepository extends EloquentRepository implements DomainableContr
 {
     use Authorizable, Notifiable;
 
-    /** @var EloquentUser */
-    protected $eloquent;
-
     /**
      * @param EloquentUser|null $eloquent
      * @return void

@@ -16,9 +16,6 @@ use Illuminate\Support\Collection;
 
 final class NotificationRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var DatabaseNotification */
-    protected $eloquent;
-
     /**
      * @param DatabaseNotification|null $eloquent
      * @return void

@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 final class PrefectureRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentPrefecture */
-    protected $eloquent;
-
     /**
      * @param EloquentPrefecture|null $eloquent
      * @return void

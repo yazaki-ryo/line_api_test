@@ -15,9 +15,6 @@ use Illuminate\Support\Collection;
 
 final class AvatarRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentAvatar */
-    protected $eloquent;
-
     /**
      * @param EloquentAvatar|null $eloquent
      * @return void

@@ -20,9 +20,6 @@ use Carbon\Carbon;
 
 final class CustomerRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentCustomer */
-    protected $eloquent;
-
     /**
      * @param EloquentCustomer|null $eloquent
      * @return void

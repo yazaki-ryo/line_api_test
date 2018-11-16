@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 final class PermissionRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentPermission */
-    protected $eloquent;
-
     /**
      * @param EloquentPermission|null $eloquent
      * @return void

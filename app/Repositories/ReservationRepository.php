@@ -17,9 +17,6 @@ use Illuminate\Support\Collection;
 
 final class ReservationRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentReservation */
-    protected $eloquent;
-
     /**
      * @param EloquentReservation|null $eloquent
      * @return void

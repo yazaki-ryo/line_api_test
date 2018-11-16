@@ -20,9 +20,6 @@ use Illuminate\Support\Collection;
 
 final class StoreRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentStore */
-    protected $eloquent;
-
     /**
      * @param EloquentStore|null $eloquent
      * @return void

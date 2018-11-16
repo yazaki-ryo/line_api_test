@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 final class SexRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentSex */
-    protected $eloquent;
-
     /**
      * @param EloquentSex|null $eloquent
      * @return void

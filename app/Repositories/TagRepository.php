@@ -15,8 +15,6 @@ use Illuminate\Support\Collection;
 
 final class TagRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentTag */
-    protected $eloquent;
 
     /**
      * @param EloquentTag|null $eloquent

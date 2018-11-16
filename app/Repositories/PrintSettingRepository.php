@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 final class PrintSettingRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentPrintSetting */
-    protected $eloquent;
-
     /**
      * @param EloquentPrintSetting|null $eloquent
      * @return void

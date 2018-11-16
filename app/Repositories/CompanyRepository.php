@@ -16,9 +16,6 @@ use Illuminate\Support\Collection;
 
 final class CompanyRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentCompany */
-    protected $eloquent;
-
     /**
      * @param EloquentCompany|null $eloquent
      * @return void

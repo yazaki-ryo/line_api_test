@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 final class PlanRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentPlan */
-    protected $eloquent;
-
     /**
      * @param EloquentPlan|null $eloquent
      * @return void

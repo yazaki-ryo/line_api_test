@@ -16,9 +16,6 @@ use Illuminate\Support\Collection;
 
 final class VisitedHistoryRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentVisitedHistory */
-    protected $eloquent;
-
     /**
      * @param EloquentVisitedHistory|null $eloquent
      * @return void
