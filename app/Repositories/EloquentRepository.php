@@ -7,6 +7,7 @@ use App\Traits\Repositories\Creatable;
 use App\Traits\Repositories\Deletable;
 use App\Traits\Repositories\Findable;
 use App\Traits\Repositories\Restorable;
+use App\Traits\Repositories\Synchronizable;
 use App\Traits\Repositories\Updatable;
 use Domain\Contracts\Model\CreatableContract;
 use Domain\Contracts\Model\DeletableContract;
@@ -31,6 +32,7 @@ abstract class EloquentRepository implements
         Deletable,
         Findable,
         Restorable,
+        Synchronizable,
         Updatable;
 
     /** @var Model */

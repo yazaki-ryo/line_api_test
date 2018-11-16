@@ -443,7 +443,7 @@ final class Customer extends DomainModel
     {
         $this->visitedHistories()->destroy();
         $this->reservations()->destroy();
-        $this->syncTags([]);
+        $this->sync('tags', []);
 
         parent::delete();
     }

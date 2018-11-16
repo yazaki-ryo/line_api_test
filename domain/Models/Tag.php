@@ -112,6 +112,16 @@ final class Tag extends DomainModel
     }
 
     /**
+     * @return void
+     */
+    public function delete(): void
+    {
+        $this->sync('customers', []);
+
+        parent::delete();
+    }
+
+    /**
      * @param TagRepository $repo
      * @return self
      */
