@@ -70,6 +70,11 @@ final class GetCustomers
             $collection->forget($key);
         }
 
+        $collection->put('relations', [
+            'store',
+            'visitedHistories',
+        ]);
+
         return $collection->all();
     }
 

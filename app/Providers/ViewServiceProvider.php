@@ -26,9 +26,7 @@ final class ViewServiceProvider extends ServiceProvider
 
         View::creator([
             'layouts.app',
-            'tags.add',
             'tags.edit',
-            'users.add',
             'users.edit',
         ], StoresComposer::class);
 

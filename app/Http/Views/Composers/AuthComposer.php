@@ -47,6 +47,9 @@ final class AuthComposer
     {
         if (! $this->auth->check()) return;
 
+        /**
+         * TODO XXX
+         */
         $view->with('user', UserRepository::toModel($this->auth->user()));
     }
 
