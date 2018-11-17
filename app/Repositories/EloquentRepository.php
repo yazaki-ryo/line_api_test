@@ -51,18 +51,35 @@ abstract class EloquentRepository implements
     abstract public static function toModels(Collection $collection): Collection;
 
     /**
-     * @param  mixed $query
-     * @param  array $args
-     * @return mixed
-     */
-    abstract public static function build($query, array $args = []);
-
-    /**
      * @return array
      */
     public function attributesToArray(): array
     {
         return $this->eloquent->attributesToArray();
+    }
+
+    /**
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
+     */
+    public static function build($query, array $args = [])
+    {
+        $args = collect($args);
+
+        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
+            $q->id($args->get($key));
+        });
+
+        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->ids($args->get($key));
+        });
+
+        $query->when($args->has($key = 'relations'), function (Builder $q) use ($key, $args) {
+            $q->relations($args->get($key));
+        });
+
+        return $query;
     }
 
     /**

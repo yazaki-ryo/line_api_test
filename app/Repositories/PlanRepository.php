@@ -38,8 +38,8 @@ final class PlanRepository extends EloquentRepository implements DomainableContr
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentPlan $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentPlan ? self::toModel($item) : $item;
         });
     }
 
@@ -49,7 +49,7 @@ final class PlanRepository extends EloquentRepository implements DomainableContr
      */
     public function companies(array $args = []): DomainCollection
     {
-        $collection = CompanyRepository::build($this->eloquent->companies(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->companies : CompanyRepository::build($this->eloquent->companies(), $args)->get();
         return CompanyRepository::toModels($collection);
     }
 
@@ -60,15 +60,8 @@ final class PlanRepository extends EloquentRepository implements DomainableContr
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         return $query;
     }

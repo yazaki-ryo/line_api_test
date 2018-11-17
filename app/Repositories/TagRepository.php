@@ -39,8 +39,8 @@ final class TagRepository extends EloquentRepository implements DomainableContra
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentTag $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentTag ? self::toModel($item) : $item;
         });
     }
 
@@ -50,7 +50,7 @@ final class TagRepository extends EloquentRepository implements DomainableContra
      */
     public function customers(array $args = []): DomainCollection
     {
-        $collection = CustomerRepository::build($this->eloquent->customers(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->customers : CustomerRepository::build($this->eloquent->customers(), $args)->get();
         return CustomerRepository::toModels($collection);
     }
 
@@ -72,15 +72,8 @@ final class TagRepository extends EloquentRepository implements DomainableContra
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         $query->when($args->has($key = 'store_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->storeId($args->get($key));

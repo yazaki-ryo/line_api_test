@@ -41,8 +41,8 @@ final class ReservationRepository extends EloquentRepository implements Domainab
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentReservation $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentReservation ? self::toModel($item) : $item;
         });
     }
 
@@ -90,15 +90,8 @@ final class ReservationRepository extends EloquentRepository implements Domainab
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         $query->when($args->has($key = 'store_id'), function (Builder $q) use ($key, $args) {
             $q->storeId((int)$args->get($key));
