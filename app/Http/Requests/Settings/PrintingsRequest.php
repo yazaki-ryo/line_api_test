@@ -123,7 +123,7 @@ final class PrintingsRequest extends FormRequest
             ],
 
             /**
-             * Senders
+             * From
              */
             'from_flag' => [
                 'required',
@@ -131,8 +131,15 @@ final class PrintingsRequest extends FormRequest
             ],
 
             /**
-             * Sender postalcode
+             * From postalcode
              */
+            'from_pc_position' => [
+                'required',
+                'string',
+                'max:191',
+                Rule::in(array_keys(config('pdf.positions'))),
+            ],
+
             'from_pc_symbol' => [
                 'required',
                 'boolean',
@@ -161,7 +168,7 @@ final class PrintingsRequest extends FormRequest
             ],
 
             /**
-             * Sender address
+             * From address
              */
             'from_address_x' => [
                 'required',
@@ -187,7 +194,7 @@ final class PrintingsRequest extends FormRequest
             ],
 
             /**
-             * Sender name
+             * From name
              */
             'from_name_x' => [
                 'required',

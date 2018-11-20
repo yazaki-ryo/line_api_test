@@ -61,6 +61,9 @@ final class PrintSetting extends DomainModel
     /** @var Flag */
     private $fromFlag;
 
+    /** @var string */
+    private $fromPcPosition;
+
     /** @var Flag */
     private $fromPcSymbol;
 
@@ -257,6 +260,14 @@ final class PrintSetting extends DomainModel
     public function fromFlag(): ?Flag
     {
         return $this->fromFlag;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function fromPcPosition(): ?string
+    {
+        return $this->fromPcPosition;
     }
 
     /**
@@ -521,6 +532,10 @@ final class PrintSetting extends DomainModel
 
         if ($args->has($key = 'from_flag')) {
             $this->{$camel = camel_case($key)} = Flag::of((bool)$args->get($key));
+        }
+
+        if ($args->has($key = 'from_pc_position')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         if ($args->has($key = 'from_pc_symbol')) {

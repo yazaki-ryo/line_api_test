@@ -103,7 +103,7 @@ return [
 
             'from_flag'                => true,
             'from_pc_position'         => 'fixed',
-            'from_pc_symbol'           => true,
+            'from_pc_symbol'           => false,
             'from_pc_x'                => 35,
             'from_pc_y'                => 110,
             'from_pc_font'             => 'gothic',
