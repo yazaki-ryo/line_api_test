@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\SearchRequest;
 use App\Repositories\UserRepository;
 use Domain\Models\Customer;
-use Domain\Models\PrintSetting;
 use Domain\Models\User;
 use Domain\UseCases\Customers\GetCustomers;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -55,13 +54,11 @@ final class IndexController extends Controller
         return view('customers.index', [
             'rows' => $this->useCase->excute($user, $store, $args),
             'row'  => $customer,
+            'printSettings' => $user->printSettings()->domainizePrintSettings(true),
             'tags' => $user->company()->tags([
                 'store_id' => $storeId,
             ])->groupBy(function ($item) {
                 return $item->label();
-            }),
-            'printSettings' => $user->printSettings()->sortBy(function (PrintSetting $item) {
-                return $item->createdAt();
             }),
         ]);
     }

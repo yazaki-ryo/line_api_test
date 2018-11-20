@@ -39,9 +39,7 @@ final class ExportPostcards
      */
     public function getPrintSetting(User $user, int $settingId): ?PrintSetting
     {
-        if (is_null($resource = $user->printSettings()->sortBy(function (PrintSetting $item) {
-            return $item->createdAt();
-        })->pull($settingId - 1))) {
+        if (is_null($resource = $user->printSettings()->domainizePrintSettings(true)->get($settingId))) {
             throw new NotFoundException('Resource not found.');
         }
         return $resource;

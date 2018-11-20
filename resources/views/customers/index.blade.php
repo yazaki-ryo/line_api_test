@@ -145,12 +145,12 @@
          * @return void
          */
         function replaceHref() {
-            var setting = document.getElementById('setting').selectedIndex;
+            var setting = document.getElementById('setting');
             var selection = window.common.elementsByName('selection');
 
             document.getElementById('export-link').search = window.common.serialize({
                 'mode': 'export',
-                'setting': setting,
+                'setting': setting[setting.selectedIndex].value,
                 'selection': selection
             });
 
