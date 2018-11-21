@@ -3,9 +3,19 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Eloquents\EloquentAvatar;
+use App\Eloquents\EloquentCompany;
+use App\Eloquents\EloquentCustomer;
+use App\Eloquents\EloquentPermission;
+use App\Eloquents\EloquentPlan;
+use App\Eloquents\EloquentPrefecture;
+use App\Eloquents\EloquentPrintSetting;
+use App\Eloquents\EloquentReservation;
+use App\Eloquents\EloquentSex;
+use App\Eloquents\EloquentStore;
+use App\Eloquents\EloquentTag;
 use App\Eloquents\EloquentUser;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Eloquents\EloquentVisitedHistory;
 use App\Traits\Repositories\Creatable;
 use App\Traits\Repositories\Deletable;
 use App\Traits\Repositories\Findable;
@@ -21,6 +31,7 @@ use Domain\Contracts\Model\UpdatableContract;
 use Domain\Models\DomainModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -41,6 +52,23 @@ abstract class EloquentRepository implements
 
     /** @var Model */
     protected $eloquent;
+
+    /** @var array */
+    private static $modelMap = [
+        EloquentAvatar::class => AvatarRepository::class,
+        EloquentCompany::class => CompanyRepository::class,
+        EloquentCustomer::class => CustomerRepository::class,
+        EloquentPermission::class => PermissionRepository::class,
+        EloquentPlan::class => PlanRepository::class,
+        EloquentPrefecture::class => PrefectureRepository::class,
+        EloquentPrintSetting::class => PrintSettingRepository::class,
+        EloquentReservation::class => ReservationRepository::class,
+        EloquentSex::class => SexRepository::class,
+        EloquentStore::class => StoreRepository::class,
+        EloquentTag::class => TagRepository::class,
+        EloquentUser::class => UserRepository::class,
+        EloquentVisitedHistory::class => VisitedHistoryRepository::class,
+    ];
 
     /**
      * @param  Model $model
@@ -98,8 +126,8 @@ abstract class EloquentRepository implements
             throw new InvalidArgumentException('Only authenticatable user models will be accepted.');
         }
 
-        if ($model instanceof EloquentUser) {
-            return UserRepository::toModel($model);
+        if (! is_null($repo = collect(static::$modelMap)->get(get_class($model)))) {
+            return app()->make($repo)->toModel($model);
         }
 
         throw new InvalidArgumentException('No assignable model exists.');
