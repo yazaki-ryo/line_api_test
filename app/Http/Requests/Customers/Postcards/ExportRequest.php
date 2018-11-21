@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Customers\Postcards;
 
+use App\Repositories\EloquentRepository;
+use Domain\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -22,6 +24,9 @@ final class ExportRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var User $user */
+        $user = EloquentRepository::assign($this->user());
+
         return [
             'mode' => [
                 'required',
@@ -31,8 +36,7 @@ final class ExportRequest extends FormRequest
             'setting' => [
                 'required',
                 'numeric',
-                'max:3',
-                'in:1,2,3',
+                Rule::in($user->printSettings()->domainizePrintSettings(true)->keys()->all()),
             ],
             'selection' => [
                 'required',

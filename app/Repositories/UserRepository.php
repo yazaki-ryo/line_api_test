@@ -22,9 +22,6 @@ final class UserRepository extends EloquentRepository implements DomainableContr
 {
     use Authorizable, Notifiable;
 
-    /** @var EloquentUser */
-    protected $eloquent;
-
     /**
      * @param EloquentUser|null $eloquent
      * @return void
@@ -49,8 +46,8 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentUser $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentUser ? self::toModel($item) : $item;
         });
     }
 
@@ -60,7 +57,7 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function avatars(array $args = []): DomainCollection
     {
-        $collection = AvatarRepository::build($this->eloquent->avatars(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->tags : AvatarRepository::build($this->eloquent->avatars(), $args)->get();
         return AvatarRepository::toModels($collection);
     }
 
@@ -112,7 +109,7 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function permissions(array $args = []): DomainCollection
     {
-        $collection = PermissionRepository::build($this->eloquent->permissions(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->permissions : PermissionRepository::build($this->eloquent->permissions(), $args)->get();
         return PermissionRepository::toModels($collection);
     }
 
@@ -122,7 +119,7 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function printSettings(array $args = []): DomainCollection
     {
-        $collection = PrintSettingRepository::build($this->eloquent->printSettings(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->printSettings : PrintSettingRepository::build($this->eloquent->printSettings(), $args)->get();
         return PrintSettingRepository::toModels($collection);
     }
 
@@ -133,15 +130,8 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         $query->when($args->has($key = 'store_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->storeId($args->get($key));

@@ -8,7 +8,7 @@
         <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
             <option value>@lang ('Please select')</option>
             @foreach ($printSettings as $key => $item)
-                <option value="{{ $key + 1 }}" {{ (int)old($attribute) === $key + 1 ? 'selected' : '' }} >{{ $item->name() }}</option>
+                <option value="{{ $key }}" {{ (int)old($attribute) === (int)$key ? 'selected' : '' }} >{{ $item->name() }}</option>
             @endforeach
         </select>
 

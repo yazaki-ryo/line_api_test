@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Systems\Tags;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\Tags\SearchRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Tags\GetTags;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -41,7 +41,7 @@ final class IndexController extends Controller
     public function __invoke(SearchRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         return view('tags.index', [

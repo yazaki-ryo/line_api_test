@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
@@ -36,7 +36,7 @@ final class IndexController extends Controller
     public function __invoke(Request $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         /** @var Company $company */
         $company = $user->company();

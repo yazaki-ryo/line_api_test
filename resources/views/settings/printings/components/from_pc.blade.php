@@ -2,6 +2,7 @@
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can choose whether to output information of sender such as zip code, address, name etc.')"></span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-7 form-control-static">
@@ -15,9 +16,29 @@
     </div>
 </div>
 
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'from_pc_position') ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-5 control-label">
+        @lang (sprintf('attributes.settings.printings.%s', $attribute))
+        <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can choose whether to output the postal code to the prescribed position or to the arbitrary position.')"></span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
+    </label>
+
+    <div class="col-md-3">
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" required>
+            @foreach ($positions as $key => $item)
+                <option value="{{ $key }}" {{ ($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? $defaults[$attribute]) === $key ? 'selected' : '' }}>{{ $item }}</option>
+            @endforeach
+        </select>
+
+        @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
+    </div>
+</div>
+
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'from_pc_symbol') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang (sprintf('attributes.settings.printings.%s', $attribute))
+        <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can choose whether to output the 〒 mark when you want to output the postal code to an arbitrary position.')"></span>
+        <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-7 form-control-static">

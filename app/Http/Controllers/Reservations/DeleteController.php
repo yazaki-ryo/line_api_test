@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Reservations;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\Reservation;
 use Domain\UseCases\Reservations\DeleteReservation;
@@ -43,7 +43,7 @@ final class DeleteController extends Controller
     public function __invoke(Request $request, int $reservationId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         $storeId = $request->cookie(config('cookie.name.current_store'));
 

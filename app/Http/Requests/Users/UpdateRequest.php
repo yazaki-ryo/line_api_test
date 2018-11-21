@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Users;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -27,7 +27,7 @@ final class UpdateRequest extends FormRequest
     public function rules(): array
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->user());
+        $user = EloquentRepository::assign($this->user());
 
         if (is_null($userId = $this->route()->parameter('userId'))) {
             throw new InvalidArgumentException('There is no user ID in the route parameter.');

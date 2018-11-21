@@ -111,12 +111,12 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $x = 45.5;
             $y = 14.0;
             $this->processor->text($x, $y, mb_substr($value, 0, 1));
-            $this->processor->text($x + 7.0, $y, mb_substr($value, 1, 1));
-            $this->processor->text($x + 14.0, $y, mb_substr($value, 2, 1));
-            $this->processor->text($x + 21.6, $y, mb_substr($value, 3, 1));
-            $this->processor->text($x + 28.4, $y, mb_substr($value, 4, 1));
-            $this->processor->text($x + 35.2, $y, mb_substr($value, 5, 1));
-            $this->processor->text($x + 42.0, $y, mb_substr($value, 6, 1));
+            $this->processor->text($x += 7.0, $y, mb_substr($value, 1, 1));
+            $this->processor->text($x += 7.0, $y, mb_substr($value, 2, 1));
+            $this->processor->text($x += 7.6, $y, mb_substr($value, 3, 1));
+            $this->processor->text($x += 6.8, $y, mb_substr($value, 4, 1));
+            $this->processor->text($x += 6.8, $y, mb_substr($value, 5, 1));
+            $this->processor->text($x += 6.8, $y, mb_substr($value, 6, 1));
         } elseif ($this->settings->pcPosition() === 'free') {
             $this->processor->setFontSpacing(0.5);
             $this->processor->text((float)$this->settings->pcX(), (float)$this->settings->pcY(), sprintf('%s%s-%s', $this->settings->pcSymbol()->asBoolean() ? '〒' : '', mb_substr($value, 0, 3), mb_substr($value, 3, 4)));
@@ -133,7 +133,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->fonts($this->settings->addressFont());
         $this->processor->SetFont($this->font, '', (float)$this->settings->addressFontSize(), '', true);
         $this->processor->setFontSpacing(0);
-        $this->processor->MultiCell(70.0, 20.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, (float)$this->settings->addressX(), (float)$this->settings->addressY(), true, 0, false, true, 20.0, 'T', true);
+        $this->processor->MultiCell(65.0, 20.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, (float)$this->settings->addressX(), (float)$this->settings->addressY(), true, 0, false, true, 20.0, 'T', true);
     }
 
     /**
@@ -152,7 +152,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         if (! is_null($company)) {
             $this->processor->SetFont($this->font, '', 13.0, '', true);// TODO company font and size
             $this->processor->setFontSpacing(2.0);
-            $this->processor->MultiCell(70.0, 5.0, $company, 0, 'C', 0, 0, 15.0, $y, true, 0, false, true, 10.0, 'T', true);
+            $this->processor->MultiCell(70.0, 5.0, $company, 0, 'C', 0, 0, 20.0, $y, true, 0, false, true, 10.0, 'T', true);
             $y += 10.0;
 
             if (! is_null($department)) {
@@ -162,14 +162,14 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
 
                 $this->processor->SetFont($this->font, '', 11.0, '', true);// TODO department font and size
                 $this->processor->setFontSpacing(0.5);
-                $this->processor->MultiCell(60.0, 5.0, $department, 0, 'C', 0, 0, 20.0, $y, true, 0, false, true, 10.0, 'T', true);
+                $this->processor->MultiCell(60.0, 5.0, $department, 0, 'C', 0, 0, 25.0, $y, true, 0, false, true, 10.0, 'T', true);
                 $y += 10.0;
             }
         }
 
         $this->processor->SetFont($this->font, '', (float)$this->settings->nameFontSize(), '', true);
         $this->processor->setFontSpacing(2.0);
-        $this->processor->MultiCell(60.0, 20.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'C', 0, 0, (float)$this->settings->nameX(), $y, true, 0, false, true, 20.0, 'T', true);
+        $this->processor->MultiCell(60.0, 15.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'C', 0, 0, (float)$this->settings->nameX(), $y, true, 0, false, true, 15.0, 'T', true);
     }
 
     /**
@@ -182,8 +182,21 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
 
         $this->fonts($this->settings->fromPcFont());
         $this->processor->SetFont($this->font, '', (float)$this->settings->fromPcFontSize(), '', true);
-        $this->processor->setFontSpacing(0.2);
-        $this->processor->text((float)$this->settings->fromPcX(), (float)$this->settings->fromPcY(), sprintf('%s%s-%s', $this->settings->fromPcSymbol()->asBoolean() ? '〒' : '', mb_substr($value, 0, 3), mb_substr($value, 3, 4)));
+
+        if ($this->settings->fromPcPosition() === 'fixed') {
+            $x = 9.4;
+            $y = 118.3;
+            $this->processor->text($x, $y, mb_substr($value, 0, 1));
+            $this->processor->text($x += 3.7, $y, mb_substr($value, 1, 1));
+            $this->processor->text($x += 3.7, $y, mb_substr($value, 2, 1));
+            $this->processor->text($x += 4.5, $y, mb_substr($value, 3, 1));
+            $this->processor->text($x += 3.7, $y, mb_substr($value, 4, 1));
+            $this->processor->text($x += 3.7, $y, mb_substr($value, 5, 1));
+            $this->processor->text($x += 3.7, $y, mb_substr($value, 6, 1));
+        } elseif ($this->settings->fromPcPosition() === 'free') {
+            $this->processor->setFontSpacing(0.2);
+            $this->processor->text((float)$this->settings->fromPcX(), (float)$this->settings->fromPcY(), sprintf('%s%s-%s', $this->settings->fromPcSymbol()->asBoolean() ? '〒' : '', mb_substr($value, 0, 3), mb_substr($value, 3, 4)));
+        }
     }
 
     /**
@@ -193,6 +206,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     private function fromAddress(string $address, string $building = null): void
     {
+        if (! $this->settings->fromFlag()->asBoolean()) return;
+
         $this->fonts($this->settings->fromAddressFont());
         $this->processor->SetFont($this->font, '', (float)$this->settings->fromAddressFontSize(), '', true);
         $this->processor->setFontSpacing(0);
@@ -205,6 +220,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     private function fromName(string $value): void
     {
+        if (! $this->settings->fromFlag()->asBoolean()) return;
+
         $this->fonts($this->settings->fromNameFont());
         $this->processor->SetFont($this->font, '', (float)$this->settings->fromNameFontSize(), '', true);
         $this->processor->setFontSpacing(1.0);

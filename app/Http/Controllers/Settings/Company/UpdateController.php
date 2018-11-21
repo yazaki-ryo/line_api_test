@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Settings\Company;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Company;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdateCompany;
@@ -42,7 +42,7 @@ final class UpdateController extends Controller
     public function __invoke(UpdateRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         /** @var Company $company */

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Domain\Models\DomainModel;
+use Domain\Models\PrintSetting;
 use Illuminate\Database\Eloquent\Collection;
 
 final class DomainCollection extends Collection
@@ -19,15 +20,26 @@ final class DomainCollection extends Collection
     }
 
     /**
-     * @return array
+     * @param bool $withDefaults
+     * @return self
      */
-    public function pluckNamesByIds(): array
+    public function domainizePrintSettings(bool $withDefaults = false): self
     {
-        return $this->map(function (DomainModel $item) {
-            return [
-                'id'   => $item->id(),
-                'name' => $item->name(),
-            ];
-        })->pluck('name', 'id')->all();
+        return $this->sortBy(function (PrintSetting $item) {
+            return $item->createdAt();
+        })
+        ->mapWithKeys(function (PrintSetting $item, $key) {
+            return [$key + 1 => $item];
+        })
+        ->when($withDefaults, function (self $items) {
+            return $items->put(4, PrintSetting::ofByArray([
+                'data' => json_encode(config('pdf.defaults.general')),
+            ]));
+        })
+        ->when($withDefaults, function (self $items) {
+            return $items->put(5, PrintSetting::ofByArray([
+                'data' => json_encode(config('pdf.defaults.new_year')),
+            ]));
+        });
     }
 }

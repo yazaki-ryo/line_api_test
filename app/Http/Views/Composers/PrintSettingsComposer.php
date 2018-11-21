@@ -44,7 +44,7 @@ final class PrintSettingsComposer
      */
     private function excute(View $view)
     {
-        $view->with('defaults', config('pdf.defaults'));
+        $view->with('defaults', config('pdf.defaults.general'));
         $view->with('fonttypes', config('pdf.fonttypes'));
         $view->with('fontsizes', config('pdf.fontsizes'));
         $view->with('positions', config('pdf.positions'));

@@ -22,7 +22,7 @@
                     </li>
 
                     <li class="dropdown-header">
-                        {{ $currentStore->name() ?? null }}
+                        {{ optional($currentStore)->name() ?? null }}
                     </li>
 
                     <!-- Customers -->

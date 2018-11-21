@@ -4,7 +4,7 @@
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? sprintf('%s%s', __('elements.words.settings'), $key) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (is_null($row->id()) ? sprintf('%s%s', __('elements.words.settings'), $key) : $row->{$camel = camel_case($attribute)}()) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>

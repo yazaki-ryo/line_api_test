@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\Email;
 use Domain\Models\PostalCode;
@@ -29,7 +29,7 @@ final class ValidationServiceProvider extends ServiceProvider
         });
 
         $validator->extend('customer_id', function ($attribute, $value) use ($auth) {
-            return Customer::validateCustomerId(UserRepository::toModel($auth->user()), (int)$value);
+            return Customer::validateCustomerId(EloquentRepository::assign($auth->user(), true), (int)$value);
         }, Lang::get('validation.invalid'));
 
         $validator->extend('email', function ($attribute, $value) {
@@ -45,7 +45,7 @@ final class ValidationServiceProvider extends ServiceProvider
         }, Lang::get('validation.format'));
 
         $validator->extend('store_id', function ($attribute, $value) use ($auth) {
-            return Store::validateStoreId(UserRepository::toModel($auth->user()), (int)$value);
+            return Store::validateStoreId(EloquentRepository::assign($auth->user(), true), (int)$value);
         }, Lang::get('validation.invalid'));
 
         $validator->extend('zenkaku_katakana', function ($attribute, $value) {

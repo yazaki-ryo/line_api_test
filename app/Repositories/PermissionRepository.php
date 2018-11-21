@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 final class PermissionRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentPermission */
-    protected $eloquent;
-
     /**
      * @param EloquentPermission|null $eloquent
      * @return void
@@ -41,8 +38,8 @@ final class PermissionRepository extends EloquentRepository implements Domainabl
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentPermission $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentPermission ? self::toModel($item) : $item;
         });
     }
 
@@ -52,7 +49,7 @@ final class PermissionRepository extends EloquentRepository implements Domainabl
      */
     public function users(array $args = []): DomainCollection
     {
-        $collection = UserRepository::build($this->eloquent->users(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->users : UserRepository::build($this->eloquent->users(), $args)->get();
         return UserRepository::toModels($collection);
     }
 
@@ -63,15 +60,8 @@ final class PermissionRepository extends EloquentRepository implements Domainabl
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         return $query;
     }

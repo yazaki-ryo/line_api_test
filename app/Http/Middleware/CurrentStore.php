@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Closure;
 use Cookie;
 use Domain\Models\Store;
@@ -40,7 +40,7 @@ final class CurrentStore
         }
 
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         try {
             if (is_numeric($value = $request->query('store_id'))) {

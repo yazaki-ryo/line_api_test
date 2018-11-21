@@ -4,9 +4,12 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\EloquentRepository;
+use Domain\Traits\Models\Synchronizable;
 
 abstract class DomainModel
 {
+    use Synchronizable;
+
     /** @var EloquentRepository */
     protected $repo;
 

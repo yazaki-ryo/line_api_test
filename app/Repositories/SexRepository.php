@@ -14,9 +14,6 @@ use Illuminate\Support\Collection;
 
 final class SexRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentSex */
-    protected $eloquent;
-
     /**
      * @param EloquentSex|null $eloquent
      * @return void
@@ -41,8 +38,8 @@ final class SexRepository extends EloquentRepository implements DomainableContra
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentSex $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentSex ? self::toModel($item) : $item;
         });
     }
 
@@ -52,7 +49,7 @@ final class SexRepository extends EloquentRepository implements DomainableContra
      */
     public function customers(array $args = []): DomainCollection
     {
-        $collection = CustomerRepository::build($this->eloquent->customers(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->customers : CustomerRepository::build($this->eloquent->customers(), $args)->get();
         return CustomerRepository::toModels($collection);
     }
 
@@ -63,15 +60,8 @@ final class SexRepository extends EloquentRepository implements DomainableContra
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         return $query;
     }

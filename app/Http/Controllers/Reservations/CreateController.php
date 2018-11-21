@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Reservations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservations\CreateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\Reservation;
@@ -43,7 +43,7 @@ final class CreateController extends Controller
     public function __invoke(CreateRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         $storeId = $request->cookie(config('cookie.name.current_store'));
 

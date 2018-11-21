@@ -51,4 +51,15 @@ trait Scopable
 
         return $query;
     }
+
+    /**
+     * @param  Builder $query
+     * @param  string|array $args
+     * @return Builder
+     */
+    public function scopeRelations(Builder $query, $args): Builder
+    {
+        $args = is_array($args) ? $args : [$args];
+        return $query->with($args);
+    }
 }

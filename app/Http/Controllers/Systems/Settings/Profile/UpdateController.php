@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Systems\Settings\Profile;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdateProfile;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -40,7 +40,7 @@ final class UpdateController extends Controller
     public function view()
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         return view('settings.profile', [
             'row' => $user,
@@ -54,7 +54,7 @@ final class UpdateController extends Controller
     public function update(SelfUpdateRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         /** @var UploadedFile $file */

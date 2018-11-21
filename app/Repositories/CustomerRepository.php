@@ -20,9 +20,6 @@ use Carbon\Carbon;
 
 final class CustomerRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentCustomer */
-    protected $eloquent;
-
     /**
      * @param EloquentCustomer|null $eloquent
      * @return void
@@ -47,8 +44,8 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentCustomer $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentCustomer ? self::toModel($item) : $item;
         });
     }
 
@@ -105,7 +102,7 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
      */
     public function reservations(array $args = []): DomainCollection
     {
-        $collection = ReservationRepository::build($this->eloquent->reservations(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->reservations : ReservationRepository::build($this->eloquent->reservations(), $args)->get();
         return ReservationRepository::toModels($collection);
     }
 
@@ -115,26 +112,8 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
      */
     public function tags(array $args = []): DomainCollection
     {
-        $collection = TagRepository::build($this->eloquent->tags(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->tags : TagRepository::build($this->eloquent->tags(), $args)->get();
         return TagRepository::toModels($collection);
-    }
-
-    /**
-     * @param  array $args
-     * @return void
-     */
-    public function syncTags(array $args = []): void
-    {
-        $this->eloquent->tags()->sync($args);
-    }
-
-    /**
-     * @param  array $args
-     * @return void
-     */
-    public function toggleTags(array $args = []): void
-    {
-        $this->eloquent->tags()->toggle($args);
     }
 
     /**
@@ -143,7 +122,7 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
      */
     public function visitedHistories(array $args = []): DomainCollection
     {
-        $collection = VisitedHistoryRepository::build($this->eloquent->visitedHistories(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->visitedHistories : VisitedHistoryRepository::build($this->eloquent->visitedHistories(), $args)->get();
         return VisitedHistoryRepository::toModels($collection);
     }
 
@@ -164,7 +143,8 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         $query->when($args->has($key = 'company_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->companyId($args->get($key));
@@ -189,14 +169,6 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
                 $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start))->startOfDay() : null,
                 $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end))->endOfDay() : null
             );
-        });
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
         });
 
         $query->when($args->has($key = 'tags') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
