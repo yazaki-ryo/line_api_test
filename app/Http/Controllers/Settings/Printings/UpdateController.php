@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Settings\Printings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\PrintingsRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\PrintSetting;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdatePrintings;
@@ -44,7 +44,7 @@ final class UpdateController extends Controller
     public function view(Request $request, PrintSetting $printSetting)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         return view('settings.printings.index', [
             'rows' => [
@@ -64,7 +64,7 @@ final class UpdateController extends Controller
     public function update(PrintingsRequest $request, int $settingId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         $callback = function () use ($user, $settingId, $args) {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customers\Postcards;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Postcards\ExportRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -41,7 +41,7 @@ final class ExportController extends Controller
     public function __invoke(ExportRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         $args = $request->validated();
         $storeId = $request->cookie(config('cookie.name.current_store'));

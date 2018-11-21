@@ -5,7 +5,7 @@ namespace App\Http\Controllers\VisitedHistories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VisitedHistories\CreateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
@@ -44,7 +44,7 @@ final class CreateController extends Controller
     public function __invoke(CreateRequest $request, VisitedHistory $visitedHistory)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         $storeId = $request->cookie(config('cookie.name.current_store'));
 

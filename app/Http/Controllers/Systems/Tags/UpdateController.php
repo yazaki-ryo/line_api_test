@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Systems\Tags;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\Tags\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Tag;
 use Domain\Models\User;
 use Domain\UseCases\Tags\UpdateTag;
@@ -70,7 +70,7 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $tagId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         /** @var Tag $tag */
         $tag = $this->useCase->getTag($tagId);

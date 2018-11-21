@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Notification;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
@@ -48,7 +48,7 @@ final class NotificationsComposer
     {
         if (! $this->auth->check()) return;
 
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         $notifications = $user->notifications();
 

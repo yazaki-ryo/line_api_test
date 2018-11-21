@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\SearchRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\GetCustomers;
@@ -43,7 +43,7 @@ final class IndexController extends Controller
     public function __invoke(SearchRequest $request, Customer $customer)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 

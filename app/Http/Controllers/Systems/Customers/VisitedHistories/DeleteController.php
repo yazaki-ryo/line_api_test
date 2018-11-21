@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Systems\VisitedHistories;
 
 use App\Http\Controllers\Systems\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
@@ -42,7 +42,7 @@ final class DeleteController extends Controller
     public function __invoke(int $customerId, int $visitedHistory)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);

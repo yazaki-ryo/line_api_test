@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Eloquents\EloquentUser;
 use Domain\Contracts\Model\DomainableContract;
-use Domain\Exceptions\DomainRuleException;
 use Domain\Models\DomainModel;
 use Domain\Models\Notification;
 use Illuminate\Database\Eloquent\Builder;
@@ -46,18 +44,12 @@ final class NotificationRepository extends EloquentRepository implements Domaina
     }
 
     /**
-     * @return mixed DomainModel
-     * @throws DomainRuleException
+     * @return DomainModel
      */
     public function notifiable(): DomainModel
     {
         $resource = $this->eloquent->notifiable;
-
-        if ($resource instanceof EloquentUser) {
-            return UserRepository::toModel($resource);
-        }
-
-        throw new DomainRuleException('Either domain model should be returned.');
+        return EloquentRepository::assign($resource);
     }
 
     /**

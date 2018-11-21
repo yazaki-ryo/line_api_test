@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
@@ -47,10 +47,7 @@ final class AuthComposer
     {
         if (! $this->auth->check()) return;
 
-        /**
-         * TODO XXX
-         */
-        $view->with('user', UserRepository::toModel($this->auth->user()));
+        $view->with('user', EloquentRepository::assign($this->auth->user(), true));
     }
 
 }

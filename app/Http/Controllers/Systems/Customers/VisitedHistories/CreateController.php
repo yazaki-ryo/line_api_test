@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Systems\VisitedHistories;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\VisitedHistories\CreateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
@@ -66,7 +66,7 @@ final class CreateController extends Controller
     public function create(CreateRequest $request, VisitedHistory $visitedHistory, int $customerId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer($customerId);

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\VisitedHistories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VisitedHistories\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
@@ -66,7 +66,7 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $visitedHistoryId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         $storeId = $request->cookie(config('cookie.name.current_store'));
 

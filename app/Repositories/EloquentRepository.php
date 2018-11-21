@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Eloquents\EloquentUser;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
 use App\Traits\Repositories\Creatable;
 use App\Traits\Repositories\Deletable;
 use App\Traits\Repositories\Findable;
@@ -19,6 +22,7 @@ use Domain\Models\DomainModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 
 abstract class EloquentRepository implements
     CreatableContract,
@@ -83,6 +87,25 @@ abstract class EloquentRepository implements
     }
 
     /**
+     * @param Authenticatable $model
+     * @param bool $authenticatable
+     * @throws InvalidArgumentException
+     * @return DomainModel
+     */
+    public static function assign(Authenticatable $model, bool $authenticatable = false): DomainModel
+    {
+        if ($authenticatable && ! $model instanceof Authenticatable) {
+            throw new InvalidArgumentException('Only authenticatable user models will be accepted.');
+        }
+
+        if ($model instanceof EloquentUser) {
+            return UserRepository::toModel($model);
+        }
+
+        throw new InvalidArgumentException('No assignable model exists.');
+    }
+
+    /**
      * @param Model $eloquent
      * @return self
      */
@@ -98,4 +121,5 @@ abstract class EloquentRepository implements
     {
         return $this->eloquent->newQuery();
     }
+
 }

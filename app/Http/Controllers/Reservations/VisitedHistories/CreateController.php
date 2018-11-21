@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Reservations\VisitedHistories;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\Reservation;
 use Domain\Models\User;
@@ -45,7 +45,7 @@ final class CreateController extends Controller
     public function __invoke(Request $request, VisitedHistory $visitedHistory, int $reservationId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         $storeId = $request->cookie(config('cookie.name.current_store'));
 

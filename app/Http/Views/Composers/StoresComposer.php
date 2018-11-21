@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use App\Services\DomainCollection;
 use Cookie;
 use Domain\Models\Company;
@@ -53,7 +53,7 @@ final class StoresComposer
         if (! $this->auth->check()) return;
 
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         /** @var Store $store */
         $store = $user->store();

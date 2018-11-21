@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Systems\Users;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\Users\CreateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\CreateUser;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -52,7 +52,7 @@ final class CreateController extends Controller
     public function create(CreateRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         $callback = function () use ($user, $args) {

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Systems\Tags;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\Tags\CreateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Tag;
 use Domain\Models\Store;
 use Domain\Models\User;
@@ -65,7 +65,7 @@ final class CreateController extends Controller
     public function create(CreateRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         /** @var Store $store */
         $store = $user->store();
