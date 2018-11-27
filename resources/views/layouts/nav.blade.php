@@ -155,20 +155,22 @@
 
                                 <li class="disabled"><a href="#">@lang ('elements.words.notification') @if ($unreadNotifications->count()) <span class="badge bg-danger">{{ $unreadNotifications->count() }}</span> @endif </a></li>
 
-                                <!-- Various settings -->
-                                <li>
-                                    <a href="#side-nav3-child2" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                        @lang ('elements.words.settings') <span class="caret"></span>
-                                    </a>
+                                @env ('local')
+                                    <!-- Various settings -->
+                                    <li>
+                                        <a href="#side-nav3-child2" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                            @lang ('elements.words.settings') <span class="caret"></span>
+                                        </a>
 
-                                    <div id="side-nav3-child2" class="panel-collapse collapse">
-                                        <ul class="nav nav-child">
-                                            @can ('authorize', 'self-settings.printings.update')
-                                                <li class="{{ request()->route()->named('settings.printings.index') ? 'active' : '' }}"><a href="{{ route('settings.printings.index') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
-                                            @endcan
-                                        </ul>
-                                    </div>
-                                </li>
+                                        <div id="side-nav3-child2" class="panel-collapse collapse">
+                                            <ul class="nav nav-child">
+                                                @can ('authorize', 'self-settings.printings.update')
+                                                    <li class="{{ request()->route()->named('settings.printings.index') ? 'active' : '' }}"><a href="{{ route('settings.printings.index') }}">@lang ('elements.words.print')@lang ('elements.words.settings')</a></li>
+                                                @endcan
+                                            </ul>
+                                        </div>
+                                    </li>
+                                @endenv
 
                                 <li role="separator" class="divider"></li>
 

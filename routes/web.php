@@ -110,13 +110,15 @@ Route::prefix('/')->group(function () {
             Route::post($name = 'edit', \App\Http\Controllers\Settings\Store\UpdateController::class)->name($name);
         });
 
-        Route::prefix($prefix = 'printings')->name(sprintf('%s.', $prefix))->group(function () {
-            Route::get('/', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name('index');
+        if (app()->isLocal()) {// TODO
+            Route::prefix($prefix = 'printings')->name(sprintf('%s.', $prefix))->group(function () {
+                Route::get('/', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name('index');
 
-            Route::prefix('{settingId}')->group(function () {
-                Route::post($name = 'edit', sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
+                Route::prefix('{settingId}')->group(function () {
+                    Route::post($name = 'edit', sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
+                });
             });
-        });
+        }
     });
 
     /**
