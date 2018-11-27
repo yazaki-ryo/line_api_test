@@ -156,7 +156,7 @@
 
             document.getElementById('preview-link').search = window.common.serialize({
                 'mode': 'preview',
-                'setting': setting,
+                'setting': setting[setting.selectedIndex].value,
                 'selection': selection
             });
         }
