@@ -6,21 +6,9 @@ namespace App\Http\Middleware;
 use Closure;
 
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class Authorize
 {
-    /** @var Auth */
-    private $auth;
-
-    /**
-     * @param Auth $auth
-     */
-    public function __construct(Auth $auth)
-    {
-        $this->auth = $auth;
-    }
-
     /**
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
@@ -29,7 +17,9 @@ final class Authorize
      */
     public function handle($request, Closure $next, string $args = '')
     {
-        if ($this->auth->user()->can('authorize', explode('|', $args))) {
+        if (! is_null($user = $request->assign()) &&
+            $user->can('authorize', explode('|', $args))
+        ) {
             return $next($request);
         }
 

@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Settings\Printings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\PrintingsRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\PrintSetting;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdatePrintings;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
@@ -17,15 +15,11 @@ final class UpdateController extends Controller
     /** @var UpdatePrintings */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  UpdatePrintings $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdatePrintings $useCase, Auth $auth)
+    public function __construct(UpdatePrintings $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -33,7 +27,6 @@ final class UpdateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -44,7 +37,7 @@ final class UpdateController extends Controller
     public function view(Request $request, PrintSetting $printSetting)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
 
         return view('settings.printings.index', [
             'rows' => [
@@ -64,7 +57,7 @@ final class UpdateController extends Controller
     public function update(PrintingsRequest $request, int $settingId)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
         $args = $request->validated();
 
         $callback = function () use ($user, $settingId, $args) {

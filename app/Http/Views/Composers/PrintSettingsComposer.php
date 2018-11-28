@@ -3,23 +3,10 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
 final class PrintSettingsComposer
 {
-    /** @var Auth */
-    private $auth;
-
-    /**
-     * @param  Auth $auth
-     * @return void
-     */
-    public function __construct(Auth $auth)
-    {
-        $this->auth = $auth;
-    }
-
     /**
      * @param  View  $view
      * @return void

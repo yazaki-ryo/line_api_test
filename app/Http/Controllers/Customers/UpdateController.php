@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\UpdateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\Customers\UpdateCustomer;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
@@ -18,15 +16,11 @@ final class UpdateController extends Controller
     /** @var UpdateCustomer */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  UpdateCustomer $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateCustomer $useCase, Auth $auth)
+    public function __construct(UpdateCustomer $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -34,7 +28,6 @@ final class UpdateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -75,8 +68,7 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $customerId)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */

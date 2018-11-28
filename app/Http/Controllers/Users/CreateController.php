@@ -5,25 +5,19 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\CreateUser;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class CreateController extends Controller
 {
     /** @var CreateUser */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  CreateUser $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(CreateUser $useCase, Auth $auth)
+    public function __construct(CreateUser $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -31,7 +25,6 @@ final class CreateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -41,8 +34,7 @@ final class CreateController extends Controller
     public function __invoke(CreateRequest $request)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Store $store */

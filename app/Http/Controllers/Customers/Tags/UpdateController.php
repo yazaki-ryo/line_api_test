@@ -5,26 +5,20 @@ namespace App\Http\Controllers\Customers\Tags;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Tags\UpdateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Tags\UpdateTags;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class UpdateController extends Controller
 {
     /** @var UpdateTags */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  UpdateTags $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateTags $useCase, Auth $auth)
+    public function __construct(UpdateTags $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -32,7 +26,6 @@ final class UpdateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -43,8 +36,7 @@ final class UpdateController extends Controller
     public function __invoke(UpdateRequest $request, int $customerId)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */

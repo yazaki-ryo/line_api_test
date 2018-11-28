@@ -10,6 +10,7 @@ use App\Policies\UserPolicy;
 use App\Policies\VisitedHistoryPolicy;
 use App\Repositories\EloquentRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Domain\Models\Customer;
@@ -34,17 +35,18 @@ final class AuthServiceProvider extends ServiceProvider
     ];
 
     /**
+     * @param Request $request
      * @return void
      */
-    public function boot(): void
+    public function boot(Request $request): void
     {
         $this->registerPolicies();
 
-        Gate::define('authorize', function (Model $user, ...$args): bool {
+        Gate::define('authorize', function (Model $user, ...$args) use ($request): bool {
             $args = is_array($args) ? $args : [$args];
 
             /** @var DomainModel $user */
-            $user = EloquentRepository::assign($user, true);
+            $user = $request->assign();
 
             foreach ($args as $arg) {
                 if ($user->permissions()->containsStrict(function (Permission $item) use ($arg) {

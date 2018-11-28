@@ -3,23 +3,23 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Repositories\EloquentRepository;
 use Domain\Models\Notification;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Domain\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 final class NotificationsComposer
 {
-    /** @var Auth */
-    private $auth;
+    /** @var Request */
+    private $request;
 
     /**
-     * @param  Auth $auth
+     * @param  Request $request
      * @return void
      */
-    public function __construct(Auth $auth)
+    public function __construct(Request $request)
     {
-        $this->auth = $auth;
+        $this->request = $request;
     }
 
     /**
@@ -28,6 +28,10 @@ final class NotificationsComposer
      */
     public function compose(View $view)
     {
+        if (is_null($this->request->user())) {
+            return;
+        }
+
         $this->excute($view);
     }
 
@@ -37,6 +41,10 @@ final class NotificationsComposer
      */
     public function create(View $view)
     {
+        if (is_null($this->request->user())) {
+            return;
+        }
+
         $this->excute($view);
     }
 
@@ -46,10 +54,8 @@ final class NotificationsComposer
      */
     private function excute(View $view)
     {
-        if (! $this->auth->check()) return;
-
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        /** @var User $user */
+        $user = $this->request->assign();
         $notifications = $user->notifications();
 
         $view->with('notifications', $notifications);
