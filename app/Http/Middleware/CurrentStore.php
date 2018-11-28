@@ -9,22 +9,17 @@ use Cookie;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class CurrentStore
 {
-    /** @var Auth */
-    private $auth;
-
     /** @var string */
     private $keyName;
 
     /**
-     * @param Auth $auth
+     * @return void
      */
-    public function __construct(Auth $auth)
+    public function __construct()
     {
-        $this->auth = $auth;
         $this->keyName = config('cookie.name.current_store');
     }
 
@@ -35,12 +30,9 @@ final class CurrentStore
      */
     public function handle($request, Closure $next)
     {
-        if (! $this->auth->check()) {
+        if (is_null($user = $request->assign())) {
             return $next($request);
         }
-
-        /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
 
         try {
             if (is_numeric($value = $request->query('store_id'))) {

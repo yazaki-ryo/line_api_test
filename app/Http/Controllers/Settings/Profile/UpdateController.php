@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Settings\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdateProfile;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\UploadedFile;
 
 final class UpdateController extends Controller
@@ -16,22 +14,17 @@ final class UpdateController extends Controller
     /** @var UpdateProfile */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  UpdateProfile $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateProfile $useCase, Auth $auth)
+    public function __construct(UpdateProfile $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -41,7 +34,7 @@ final class UpdateController extends Controller
     public function __invoke(SelfUpdateRequest $request)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
         $args = $request->validated();
 
         /** @var UploadedFile $file */

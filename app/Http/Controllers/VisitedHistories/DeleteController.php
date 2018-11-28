@@ -4,11 +4,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers\VisitedHistories;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
 final class DeleteController extends Controller
@@ -16,15 +14,11 @@ final class DeleteController extends Controller
     /** @var DeleteVisitedHistory */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  DeleteVisitedHistory $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(DeleteVisitedHistory $useCase, Auth $auth)
+    public function __construct(DeleteVisitedHistory $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -32,7 +26,6 @@ final class DeleteController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -43,8 +36,7 @@ final class DeleteController extends Controller
     public function __invoke(Request $request, int $visitedHistoryId)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */

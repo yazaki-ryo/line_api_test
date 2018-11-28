@@ -3,27 +3,26 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Repositories\EloquentRepository;
 use App\Services\DomainCollection;
 use Cookie;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 final class StoresComposer
 {
-    /** @var Auth */
-    private $auth;
+    /** @var Request */
+    private $request;
 
     /**
-     * @param  Auth $auth
+     * @param  Request $request
      * @return void
      */
-    public function __construct(Auth $auth)
+    public function __construct(Request $request)
     {
-        $this->auth = $auth;
+        $this->request = $request;
     }
 
     /**
@@ -32,6 +31,10 @@ final class StoresComposer
      */
     public function compose(View $view)
     {
+        if (is_null($this->request->user())) {
+            return;
+        }
+
         $this->excute($view);
     }
 
@@ -41,6 +44,10 @@ final class StoresComposer
      */
     public function create(View $view)
     {
+        if (is_null($this->request->user())) {
+            return;
+        }
+
         $this->excute($view);
     }
 
@@ -50,10 +57,8 @@ final class StoresComposer
      */
     private function excute(View $view)
     {
-        if (! $this->auth->check()) return;
-
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $this->request->assign();
 
         /** @var Store $store */
         $store = $user->store();

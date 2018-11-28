@@ -5,25 +5,19 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SearchRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\GetUsers;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class IndexController extends Controller
 {
     /** @var GetUsers */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  GetUsers $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(GetUsers $useCase, Auth $auth)
+    public function __construct(GetUsers $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -31,7 +25,6 @@ final class IndexController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -42,7 +35,7 @@ final class IndexController extends Controller
     public function __invoke(SearchRequest $request, User $brankUser)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
         $args = $request->validated();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 

@@ -4,41 +4,36 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Notifications;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Notifications\CreateNotification;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class TestController extends Controller
 {
     /** @var CreateNotification */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  CreateNotification $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(CreateNotification $useCase, Auth $auth)
+    public function __construct(CreateNotification $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke()
+    public function __invoke(Request $request)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
         $this->useCase->excute($user);
     }
 

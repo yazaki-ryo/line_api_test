@@ -5,26 +5,20 @@ namespace App\Http\Controllers\Reservations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservations\SearchRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\Reservation;
 use Domain\Models\User;
 use Domain\UseCases\Reservations\GetReservations;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class IndexController extends Controller
 {
     /** @var GetReservations */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  GetReservations $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(GetReservations $useCase, Auth $auth)
+    public function __construct(GetReservations $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -32,7 +26,6 @@ final class IndexController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -43,7 +36,7 @@ final class IndexController extends Controller
     public function __invoke(SearchRequest $request, Reservation $reservation)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
         $args = $request->validated();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 

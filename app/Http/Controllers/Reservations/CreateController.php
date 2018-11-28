@@ -5,27 +5,21 @@ namespace App\Http\Controllers\Reservations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservations\CreateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\Reservation;
 use Domain\UseCases\Reservations\CreateReservation;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class CreateController extends Controller
 {
     /** @var CreateReservation */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  CreateReservation $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(CreateReservation $useCase, Auth $auth)
+    public function __construct(CreateReservation $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -33,7 +27,6 @@ final class CreateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -43,8 +36,7 @@ final class CreateController extends Controller
     public function __invoke(CreateRequest $request)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Store $store */

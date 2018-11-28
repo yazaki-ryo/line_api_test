@@ -4,29 +4,21 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Settings;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\EloquentRepository;
 use Domain\Models\Company;
 use Domain\Models\Store;
 use Domain\Models\User;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
 final class IndexController extends Controller
 {
-    /** @var Auth */
-    private $auth;
-
     /**
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(Auth $auth)
+    public function __construct()
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
         ]);
-
-        $this->auth = $auth;
     }
 
     /**
@@ -36,7 +28,7 @@ final class IndexController extends Controller
     public function __invoke(Request $request)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
 
         /** @var Company $company */
         $company = $user->company();

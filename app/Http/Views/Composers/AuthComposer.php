@@ -3,22 +3,21 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Repositories\EloquentRepository;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 final class AuthComposer
 {
-    /** @var Auth */
-    private $auth;
+    /** @var Request */
+    private $request;
 
     /**
-     * @param  Auth $auth
+     * @param  Request $request
      * @return void
      */
-    public function __construct(Auth $auth)
+    public function __construct(Request $request)
     {
-        $this->auth = $auth;
+        $this->request = $request;
     }
 
     /**
@@ -27,6 +26,10 @@ final class AuthComposer
      */
     public function compose(View $view)
     {
+        if (is_null($this->request->user())) {
+            return;
+        }
+
         $this->excute($view);
     }
 
@@ -36,6 +39,10 @@ final class AuthComposer
      */
     public function create(View $view)
     {
+        if (is_null($this->request->user())) {
+            return;
+        }
+
         $this->excute($view);
     }
 
@@ -45,9 +52,7 @@ final class AuthComposer
      */
     private function excute(View $view)
     {
-        if (! $this->auth->check()) return;
-
-        $view->with('user', EloquentRepository::assign($this->auth->user(), true));
+        $view->with('user', $this->request->assign());
     }
 
 }

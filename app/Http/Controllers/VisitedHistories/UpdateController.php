@@ -5,11 +5,9 @@ namespace App\Http\Controllers\VisitedHistories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VisitedHistories\UpdateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
@@ -17,15 +15,11 @@ final class UpdateController extends Controller
     /** @var UpdateVisitedHistory */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  UpdateVisitedHistory $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateVisitedHistory $useCase, Auth $auth)
+    public function __construct(UpdateVisitedHistory $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -33,7 +27,6 @@ final class UpdateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -66,8 +59,7 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $visitedHistoryId)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */
