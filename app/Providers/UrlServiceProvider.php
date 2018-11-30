@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 final class UrlServiceProvider extends ServiceProvider
@@ -12,12 +13,7 @@ final class UrlServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        /**
-         * 特定の環境と条件でHttps接続を強制させる
-         */
-        if (true === env('SESSION_SECURE_COOKIE', false)) {
-            \URL::forceScheme('https');
-        }
+        $this->forceHttps();
     }
 
     /**
@@ -26,5 +22,18 @@ final class UrlServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+    }
+
+    /**
+     * @return void
+     */
+    private function forceHttps(): void
+    {
+        /**
+         * Force Https connection under certain circumstances and conditions.
+         */
+        if (true === config('session.secure')) {
+            URL::forceScheme('https');
+        }
     }
 }

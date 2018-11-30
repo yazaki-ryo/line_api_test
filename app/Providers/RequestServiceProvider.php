@@ -15,7 +15,7 @@ final class RequestServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->macro();
     }
 
     /**
@@ -23,13 +23,13 @@ final class RequestServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->registerAssign();
+        //
     }
 
     /**
      * @return void
      */
-    private function registerAssign()
+    private function macro()
     {
         /**
          * @param string|null  $guard

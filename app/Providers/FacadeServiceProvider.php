@@ -9,6 +9,11 @@ use Illuminate\Support\ServiceProvider;
 class FacadeServiceProvider extends ServiceProvider
 {
     /**
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
      * @return void
      */
     public function boot()
@@ -21,7 +26,18 @@ class FacadeServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('utility', UtilitiesService::class);
+        $this->app->singleton('utility', UtilitiesService::class);
     }
 
+    /**
+     * {@inheritDoc}
+     * @see \Illuminate\Support\ServiceProvider::provides()
+     * @return array
+     */
+    public function provides(): array
+    {
+        return [
+            'utility',
+        ];
+    }
 }

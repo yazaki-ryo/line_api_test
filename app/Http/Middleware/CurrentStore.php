@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Repositories\EloquentRepository;
 use Closure;
 use Cookie;
 use Domain\Models\Store;
@@ -45,7 +44,7 @@ final class CurrentStore
                 $value = $user->storeId();
             }
         } catch (AuthorizationException $e) {
-            flash(__('The store does not exist or you do not have access.'), 'info');
+            flash(__('The store does not exist or you do not have access.'), 'warning');
             $request->session()->reflash();
             $value = $user->storeId();
         }
