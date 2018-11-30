@@ -20,6 +20,23 @@ final class ValidationServiceProvider extends ServiceProvider
      */
     public function boot(Request $request): void
     {
+        $this->extends($request);
+    }
+
+    /**
+     * @return void
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     */
+    private function extends(Request $request): void
+    {
         /** @var Factory $validator */
         $validator = $this->app->make('validator');
 
@@ -50,13 +67,5 @@ final class ValidationServiceProvider extends ServiceProvider
         $validator->extend('zenkaku_katakana', function ($attribute, $value) {
             return preg_match("/[^ァ-ヶー]/u", $value) === 0;
         });
-}
-
-    /**
-     * @return void
-     */
-    public function register(): void
-    {
-        //
     }
 }

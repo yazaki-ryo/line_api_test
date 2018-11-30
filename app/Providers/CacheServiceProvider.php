@@ -10,6 +10,11 @@ use Illuminate\Support\ServiceProvider;
 final class CacheServiceProvider extends ServiceProvider
 {
     /**
+     * @var bool
+     */
+    protected $defer = true;
+
+    /**
      * @return void
      */
     public function boot(): void
@@ -40,5 +45,17 @@ final class CacheServiceProvider extends ServiceProvider
                 }
             };
         });
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \Illuminate\Support\ServiceProvider::provides()
+     * @return array
+     */
+    public function provides(): array
+    {
+        return [
+            CacheableContract::class,
+        ];
     }
 }
