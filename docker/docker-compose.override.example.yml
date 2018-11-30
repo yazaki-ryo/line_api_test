@@ -3,11 +3,8 @@ version: '2'
 services:
 
     tsf_customer_management_db:
-        container_name: tsf_customer_management_db
-        ports:
-            - "3306:3306"
         volumes:
-            - ./db/mysql:/var/lib/mysql
+            - ./db/mysql:/var/lib/mysql:cached
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: defaultdb
@@ -15,13 +12,9 @@ services:
             MYSQL_PASSWORD: defaultdbpasswd
 
     tsf_customer_management_web:
-        container_name: tsf_customer_management_web
-        ports:
-            - "8000:80"
         volumes:
-            - ../:/var/www/html
+            - ../:/var/www/html:cached
 
-    tsf_customer_management_pma:
-        container_name: tsf_customer_management_pma
-        ports:
-            - "8080:8080"
+#volumes:
+    #tsf_customer_management_sync:
+        #external: true
