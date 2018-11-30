@@ -3,8 +3,6 @@ version: '2'
 services:
 
     tsf_customer_management_db:
-        volumes:
-            - ./db/mysql:/var/lib/mysql:cached
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: defaultdb
