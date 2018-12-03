@@ -11,14 +11,43 @@
 @endsection
 
 @section('content')
-    <div class="container tab-container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="page-header">
-                    <h1 class="h2">@lang ('elements.words.customers')@lang ('elements.words.detail')
-                </div>
-            </div>
-        </div>
+    <div class="nav-tabs-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.customers')@lang ('elements.words.detail')
+        </p>
+        <ul class="nav nav-tabs">
+            <li class="{{ \Util::activatable($errors, 'customers_update_request', true) }}">
+                <a href="#edit-tab" data-toggle="tab">
+                    @lang ('elements.words.detail')
+                </a>
+            </li>
+
+            @can ('authorize', config('permissions.groups.tags.select'))
+                <li class="{{ \Util::activatable($errors, 'customers_tags_update_request') }}">
+                    <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
+                </li>
+            @endcan
+
+            @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                <li class="">
+                    <a href="#histories-tab" data-toggle="tab">
+                        @lang ('elements.words.visit')@lang ('elements.words.history')
+                        <span class="badge">{{ $visitedHistories->count() }}</span>
+                    </a>
+                </li>
+            @endcan
+
+            @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
+                <li class="{{ \Util::activatable($errors, 'visited_histories_create_request') }}">
+                    <a href="#create-history-tab" data-toggle="tab">
+                        @lang ('elements.words.visit')@lang ('elements.words.register')
+                    </a>
+                </li>
+            @endcan
+        </ul>
+    </div>
+    <div class="container pt-150">
 
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -29,37 +58,6 @@
 
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors, 'customers_update_request', true) }}">
-                        <a href="#edit-tab" data-toggle="tab">
-                            @lang ('elements.words.detail')
-                        </a>
-                    </li>
-
-                    @can ('authorize', config('permissions.groups.tags.select'))
-                        <li class="{{ \Util::activatable($errors, 'customers_tags_update_request') }}">
-                            <a href="#tags-tab" data-toggle="tab">@lang ('elements.words.tags')</a>
-                        </li>
-                    @endcan
-
-                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                        <li class="">
-                            <a href="#histories-tab" data-toggle="tab">
-                                @lang ('elements.words.visit')@lang ('elements.words.history')
-                                <span class="badge">{{ $visitedHistories->count() }}</span>
-                            </a>
-                        </li>
-                    @endcan
-
-                    @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
-                        <li class="{{ \Util::activatable($errors, 'visited_histories_create_request') }}">
-                            <a href="#create-history-tab" data-toggle="tab">
-                                @lang ('elements.words.visit')@lang ('elements.words.register')
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-
                 <div class="tab-content">
                     @can ('select', $row)
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_update_request', true) }}" id="edit-tab">

@@ -11,14 +11,33 @@
 @endsection
 
 @section('content')
-    <div class="container tab-container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.tags')@lang ('elements.words.list')
-                </div>
-            </div>
-        </div>
+    <div class="nav-tabs-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.tags')@lang ('elements.words.list')
+        </p>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#result-tab" data-toggle="tab">
+                    @lang ('elements.words.list')
+                    <span class="badge">{{ $rows->count() }}</span>
+                </a>
+            </li>
+    {{--
+            @can ('authorize', config('permissions.groups.tags.select'))
+                <li>
+                    <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
+                </li>
+            @endcan
+    --}}
+            @can ('authorize', config('permissions.groups.tags.create'))
+                <li>
+                    <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
+                </li>
+            @endcan
+        </ul>
+    </div>
+    <div class="container pt-150">
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">

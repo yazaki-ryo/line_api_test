@@ -1,5 +1,5 @@
 @auth
-<nav class="navbar navbar-inverse navbar-fixed-left">
+<nav class="navbar navbar-inverse navbar-fixed-left pt-30">
     <div class="container">
         <div class="navbar-header">
 
@@ -14,7 +14,7 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right nav-side">
                 <!-- Authentication Links -->
                 @auth
                     <li class="dropdown-header">
