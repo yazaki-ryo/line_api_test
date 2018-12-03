@@ -49,7 +49,7 @@ final class UpdateTags
         $args = $this->domainize($user, $args);
 
         $this->transaction(function () use ($customer, $args) {
-            return $customer->syncTags($args['tags']);
+            return $customer->sync('tags', $args['tags']);
         });
     }
 

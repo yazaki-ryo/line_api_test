@@ -1,0 +1,9 @@
+version: '2'
+
+syncs:
+    tsf_customer_management_sync:
+        src: '~/dev/src/tsf_customer_management'
+        sync_strategy: native_osx
+        sync_host_port: 10871
+        sync_userid: 1000
+        sync_excludes: ['.git', '.idea']

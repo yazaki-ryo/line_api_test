@@ -3,12 +3,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\Email;
 use Domain\Models\PostalCode;
 use Domain\Models\Store;
-use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Factory;
 use Lang;
@@ -16,10 +15,27 @@ use Lang;
 final class ValidationServiceProvider extends ServiceProvider
 {
     /**
-     * @param Auth $auth
+     * @param Request $request
      * @return void
      */
-    public function boot(Auth $auth): void
+    public function boot(Request $request): void
+    {
+        $this->extends($request);
+    }
+
+    /**
+     * @return void
+     */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     */
+    private function extends(Request $request): void
     {
         /** @var Factory $validator */
         $validator = $this->app->make('validator');
@@ -28,8 +44,8 @@ final class ValidationServiceProvider extends ServiceProvider
             return preg_match("/^[a-z0-9-]+$/i", $value) > 0;
         });
 
-        $validator->extend('customer_id', function ($attribute, $value) use ($auth) {
-            return Customer::validateCustomerId(EloquentRepository::assign($auth->user(), true), (int)$value);
+        $validator->extend('customer_id', function ($attribute, $value) use ($request) {
+            return Customer::validateCustomerId($request->assign(), (int)$value);
         }, Lang::get('validation.invalid'));
 
         $validator->extend('email', function ($attribute, $value) {
@@ -44,20 +60,12 @@ final class ValidationServiceProvider extends ServiceProvider
             return PostalCode::validate($value);
         }, Lang::get('validation.format'));
 
-        $validator->extend('store_id', function ($attribute, $value) use ($auth) {
-            return Store::validateStoreId(EloquentRepository::assign($auth->user(), true), (int)$value);
+        $validator->extend('store_id', function ($attribute, $value) use ($request) {
+            return Store::validateStoreId($request->assign(), (int)$value);
         }, Lang::get('validation.invalid'));
 
         $validator->extend('zenkaku_katakana', function ($attribute, $value) {
             return preg_match("/[^ァ-ヶー]/u", $value) === 0;
         });
-}
-
-    /**
-     * @return void
-     */
-    public function register(): void
-    {
-        //
     }
 }

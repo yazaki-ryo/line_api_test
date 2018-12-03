@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Tags;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tags\UpdateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\Tag;
 use Domain\Models\User;
 use Domain\UseCases\Tags\UpdateTag;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
@@ -17,15 +15,11 @@ final class UpdateController extends Controller
     /** @var UpdateTag */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  UpdateTag $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateTag $useCase, Auth $auth)
+    public function __construct(UpdateTag $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -33,7 +27,6 @@ final class UpdateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -66,8 +59,7 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $tagId)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Tag $tag */

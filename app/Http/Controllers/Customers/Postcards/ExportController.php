@@ -5,25 +5,19 @@ namespace App\Http\Controllers\Customers\Postcards;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Postcards\ExportRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Postcards\ExportPostcards;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class ExportController extends Controller
 {
     /** @var ExportPostcards */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  ExportPostcards $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(ExportPostcards $useCase, Auth $auth)
+    public function __construct(ExportPostcards $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -31,7 +25,6 @@ final class ExportController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -41,7 +34,7 @@ final class ExportController extends Controller
     public function __invoke(ExportRequest $request)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
 
         $args = $request->validated();
         $storeId = $request->cookie(config('cookie.name.current_store'));

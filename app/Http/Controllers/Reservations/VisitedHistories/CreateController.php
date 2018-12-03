@@ -4,13 +4,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Reservations\VisitedHistories;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\Reservation;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\Reservations\VisitedHistories\CreateVisitedHistory;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
 final class CreateController extends Controller
@@ -18,15 +16,11 @@ final class CreateController extends Controller
     /** @var CreateVisitedHistory */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  CreateVisitedHistory $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(CreateVisitedHistory $useCase, Auth $auth)
+    public function __construct(CreateVisitedHistory $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -34,7 +28,6 @@ final class CreateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -45,8 +38,7 @@ final class CreateController extends Controller
     public function __invoke(Request $request, VisitedHistory $visitedHistory, int $reservationId)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Reservation $reservation */

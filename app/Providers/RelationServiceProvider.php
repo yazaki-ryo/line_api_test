@@ -15,10 +15,7 @@ final class RelationServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Relation::morphMap([
-            'customers' => EloquentCustomer::class,
-            'users'     => EloquentUser::class,
-        ]);
+        $this->morphMap();
     }
 
     /**
@@ -27,5 +24,16 @@ final class RelationServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+    }
+
+    /**
+     * @return void
+     */
+    private function morphMap(): void
+    {
+        Relation::morphMap([
+            'customers' => EloquentCustomer::class,
+            'users'     => EloquentUser::class,
+        ]);
     }
 }
