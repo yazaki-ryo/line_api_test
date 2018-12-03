@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 final class SchemaServiceProvider extends ServiceProvider
@@ -12,10 +13,7 @@ final class SchemaServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        /**
-         * utf8mb4_general_ciへの対応
-         */
-        \Schema::defaultStringLength(191);
+        $this->defaultStringLength();
     }
 
     /**
@@ -24,5 +22,16 @@ final class SchemaServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+    }
+
+    /**
+     * @return void
+     */
+    private function defaultStringLength(): void
+    {
+        /**
+         * For utf8mb4_general_ci collation.
+         */
+        Schema::defaultStringLength(191);
     }
 }

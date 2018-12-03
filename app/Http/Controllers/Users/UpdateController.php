@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\UpdateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\UpdateUser;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
@@ -16,15 +14,11 @@ final class UpdateController extends Controller
     /** @var UpdateUser */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  UpdateUser $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateUser $useCase, Auth $auth)
+    public function __construct(UpdateUser $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -32,7 +26,6 @@ final class UpdateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -65,8 +58,7 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $userId)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
-
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var User $targetUser */

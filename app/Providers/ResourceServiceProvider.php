@@ -13,7 +13,7 @@ final class ResourceServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Resource::withoutWrapping();
+        $this->withoutWrapping();
     }
 
     /**
@@ -22,5 +22,13 @@ final class ResourceServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+    }
+
+    /**
+     * @return void
+     */
+    private function withoutWrapping(): void
+    {
+        Resource::withoutWrapping();
     }
 }

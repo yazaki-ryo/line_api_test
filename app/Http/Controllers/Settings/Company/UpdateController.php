@@ -5,26 +5,20 @@ namespace App\Http\Controllers\Settings\Company;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Companies\UpdateRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\Company;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdateCompany;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class UpdateController extends Controller
 {
     /** @var UpdateCompany */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  UpdateCompany $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(UpdateCompany $useCase, Auth $auth)
+    public function __construct(UpdateCompany $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -32,7 +26,6 @@ final class UpdateController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -42,7 +35,7 @@ final class UpdateController extends Controller
     public function __invoke(UpdateRequest $request)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
         $args = $request->validated();
 
         /** @var Company $company */

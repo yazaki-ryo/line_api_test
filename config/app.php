@@ -181,7 +181,6 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
@@ -192,6 +191,7 @@ return [
         App\Providers\FacadeServiceProvider::class,
         App\Providers\LocalServiceProvider::class,
         App\Providers\RelationServiceProvider::class,
+        App\Providers\RequestServiceProvider::class,
         App\Providers\ResourceServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\SchemaServiceProvider::class,

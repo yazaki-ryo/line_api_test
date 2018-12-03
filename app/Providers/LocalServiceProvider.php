@@ -22,7 +22,7 @@ final class LocalServiceProvider extends ServiceProvider
      * @var array
      */
     protected $aliases = [
-        'Debugbar' => \Barryvdh\Debugbar\Facade::class,
+        //
     ];
 
     /**

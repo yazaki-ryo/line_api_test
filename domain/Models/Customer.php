@@ -388,24 +388,6 @@ final class Customer extends DomainModel
 
     /**
      * @param  array $args
-     * @return void
-     */
-    public function syncTags(array $args = []): void
-    {
-        $this->repo->syncTags($args);
-    }
-
-    /**
-     * @param  array $args
-     * @return void
-     */
-    public function toggleTags(array $args = []): void
-    {
-        $this->repo->toggleTags($args);
-    }
-
-    /**
-     * @param  array $args
      * @return DomainCollection
      */
     public function visitedHistories(array $args = []): DomainCollection

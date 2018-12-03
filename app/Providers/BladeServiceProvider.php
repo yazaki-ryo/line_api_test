@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 final class BladeServiceProvider extends ServiceProvider
@@ -12,13 +13,7 @@ final class BladeServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        /**
-         * @param string|array $env
-         * @return bool
-         */
-        \Blade::if('env', function ($env) {
-            return app()->environment($env);
-        });
+        $this->extends();
     }
 
     /**
@@ -27,5 +22,19 @@ final class BladeServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
+    }
+
+    /**
+     * @return void
+     */
+    private function extends(): void
+    {
+        /**
+         * @param string|array $env
+         * @return bool
+         */
+        Blade::if('env', function ($env) {
+            return app()->environment($env);
+        });
     }
 }

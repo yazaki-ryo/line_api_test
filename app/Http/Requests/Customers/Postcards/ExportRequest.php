@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Customers\Postcards;
 
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,7 +24,7 @@ final class ExportRequest extends FormRequest
     public function rules(): array
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->user());
+        $user = request()->assign();
 
         return [
             'mode' => [

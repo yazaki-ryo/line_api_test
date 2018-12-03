@@ -115,12 +115,12 @@ abstract class EloquentRepository implements
     }
 
     /**
-     * @param Authenticatable $model
+     * @param Model $model
      * @param bool $authenticatable
      * @throws InvalidArgumentException
      * @return DomainModel
      */
-    public static function assign(Authenticatable $model, bool $authenticatable = false): DomainModel
+    public static function assign(Model $model, bool $authenticatable = false): DomainModel
     {
         if ($authenticatable && ! $model instanceof Authenticatable) {
             throw new InvalidArgumentException('Only authenticatable user models will be accepted.');

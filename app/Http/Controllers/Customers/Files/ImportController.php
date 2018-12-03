@@ -5,25 +5,19 @@ namespace App\Http\Controllers\Customers\Files;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Files\ImportRequest;
-use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Files\ImportFiles;
-use Illuminate\Contracts\Auth\Factory as Auth;
 
 final class ImportController extends Controller
 {
     /** @var ImportFiles */
     private $useCase;
 
-    /** @var Auth */
-    private $auth;
-
     /**
      * @param  ImportFiles $useCase
-     * @param  Auth $auth
      * @return void
      */
-    public function __construct(ImportFiles $useCase, Auth $auth)
+    public function __construct(ImportFiles $useCase)
     {
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
@@ -31,7 +25,6 @@ final class ImportController extends Controller
         ]);
 
         $this->useCase = $useCase;
-        $this->auth = $auth;
     }
 
     /**
@@ -49,7 +42,7 @@ final class ImportController extends Controller
     public function import(ImportRequest $request)
     {
         /** @var User $user */
-        $user = EloquentRepository::assign($this->auth->user(), true);
+        $user = $request->assign();
         $args = $request->validated();
 
         return $this->useCase->excute($user, $args);

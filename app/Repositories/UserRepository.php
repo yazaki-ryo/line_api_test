@@ -57,7 +57,7 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function avatars(array $args = []): DomainCollection
     {
-        $collection = empty($args) ? $this->eloquent->tags : AvatarRepository::build($this->eloquent->avatars(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->avatars : AvatarRepository::build($this->eloquent->avatars(), $args)->get();
         return AvatarRepository::toModels($collection);
     }
 
