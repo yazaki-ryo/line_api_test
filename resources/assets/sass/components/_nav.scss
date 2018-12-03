@@ -65,6 +65,10 @@
     li {
       a {
         text-shadow: none;
+        &:focus {
+          color: #fff;
+          background-color: #333;
+         }
       }
     }
   }
