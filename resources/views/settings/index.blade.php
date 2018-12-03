@@ -7,47 +7,43 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.user')@lang ('elements.words.information')
-                </div>
-            </div>
-        </div>
+    <div class="nav-tabs-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.user')@lang ('elements.words.information')
+        </p>
+        <ul class="nav nav-tabs">
+            <li class="{{ \Util::activatable($errors, 'users_self_update_request', true) }}">
+                <a href="#user-tab" data-toggle="tab">
+                    @lang ('elements.words.user')@lang ('elements.words.information')
+                </a>
+            </li>
+            @if ($store)
+                @can ('authorize', config('permissions.groups.stores.update'))
+                    <li class="{{ \Util::activatable($errors, 'stores_update_request') }}">
+                        <a href="#store-tab" data-toggle="tab">@lang ('elements.words.store')@lang ('elements.words.information')</a>
+                    </li>
+                @endcan
+            @endif
 
+            @if ($company)
+                @can ('authorize', config('permissions.groups.companies.update'))
+                    <li class="{{ \Util::activatable($errors, 'companies_update_request') }}">
+                        <a href="#company-tab" data-toggle="tab">@lang ('elements.words.company')@lang ('elements.words.information')</a>
+                    </li>
+                @endcan
+            @endif
+        </ul>
+    </div>
+    <div class="container pt-150">
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
                 @include ('components.parts.any_errors')
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors, 'users_self_update_request', true) }}">
-                        <a href="#user-tab" data-toggle="tab">
-                            @lang ('elements.words.user')@lang ('elements.words.information')
-                        </a>
-                    </li>
-                    @if ($store)
-                        @can ('authorize', config('permissions.groups.stores.update'))
-                            <li class="{{ \Util::activatable($errors, 'stores_update_request') }}">
-                                <a href="#store-tab" data-toggle="tab">@lang ('elements.words.store')@lang ('elements.words.information')</a>
-                            </li>
-                        @endcan
-                    @endif
-
-                    @if ($company)
-                        @can ('authorize', config('permissions.groups.companies.update'))
-                            <li class="{{ \Util::activatable($errors, 'companies_update_request') }}">
-                                <a href="#company-tab" data-toggle="tab">@lang ('elements.words.company')@lang ('elements.words.information')</a>
-                            </li>
-                        @endcan
-                    @endif
-                </ul>
-
                 <div class="tab-content">
                     <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'users_self_update_request', true) }}" id="user-tab">
                         <div class="panel panel-default">
