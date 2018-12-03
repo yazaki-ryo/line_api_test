@@ -5,11 +5,12 @@ namespace App\Http\Controllers\VisitedHistories;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VisitedHistories\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -36,12 +37,13 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $visitedHistoryId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $visitedHistoryId)
+    public function view(Request $request, int $visitedHistoryId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory([
@@ -64,9 +66,9 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $visitedHistoryId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory([

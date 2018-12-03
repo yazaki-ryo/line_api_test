@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,188 +13,163 @@ use Illuminate\Routing\Router;
 */
 
 /**
- * @var Router $router
  * @prefix /
  * @middleware web
  */
-$router->group([
-    //
-], function (Router $router) {
-    $router->get('/', \App\Http\Controllers\HomeController::class)->name('home');
+Route::prefix('/')->group(function () {
+    Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
     /**
      * Authentication
      */
-    $router->get( 'login',  \App\Http\Controllers\Auth\LoginController::class . '@showLoginForm')->name('login');
-    $router->post('login',  \App\Http\Controllers\Auth\LoginController::class . '@login');
-    $router->post('logout', \App\Http\Controllers\Auth\LoginController::class . '@logout')->name('logout');
+    Route::get($name = 'login', sprintf('%s@showLoginForm', \App\Http\Controllers\Auth\LoginController::class))->name($name);
+    Route::post($name,  sprintf('%s@%s', \App\Http\Controllers\Auth\LoginController::class, $name));
+    Route::post($name = 'logout', sprintf('%s@%s', \App\Http\Controllers\Auth\LoginController::class, $name))->name($name);
 
     /**
      * Registration
      */
-//     $router->get( 'register', \App\Http\Controllers\Auth\RegisterController::class . '@showRegistrationForm')->name('register');
-//     $router->post('register', \App\Http\Controllers\Auth\RegisterController::class . '@register');
+    if (app()->isLocal()) {// TODO
+        Route::get($name = 'register', sprintf('%s@showRegistrationForm', \App\Http\Controllers\Auth\RegisterController::class))->name($name);
+        Route::post($name, sprintf('%s@%s', \App\Http\Controllers\Auth\RegisterController::class, $name));
+    }
 
     /**
      * Password Reset
      */
-    $router->group([
-        'prefix' => $prefix = 'password',
-    ], function (Router $router) use ($prefix) {
-        $router->get( 'reset',         \App\Http\Controllers\Auth\Password\ForgotController::class . '@showLinkRequestForm')->name(sprintf('%s.request', $prefix));
-        $router->post('email',         \App\Http\Controllers\Auth\Password\ForgotController::class . '@sendResetLinkEmail')->name(sprintf('%s.email', $prefix));
-        $router->get( 'reset/{token}', \App\Http\Controllers\Auth\Password\ResetController::class . '@showResetForm')->name(sprintf('%s.reset', $prefix));
-        $router->post('reset',         \App\Http\Controllers\Auth\Password\ResetController::class . '@reset');
+    Route::prefix($prefix = 'password')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::post($name = 'email', sprintf('%s@sendResetLinkEmail', \App\Http\Controllers\Auth\Password\ForgotController::class))->name($name);
+        Route::get($name = 'reset', sprintf('%s@showLinkRequestForm', \App\Http\Controllers\Auth\Password\ForgotController::class))->name('request');
+        Route::get(sprintf('%s/{token}', $name), sprintf('%s@showResetForm', \App\Http\Controllers\Auth\Password\ResetController::class))->name($name);
+        Route::post($name, sprintf('%s@%s', \App\Http\Controllers\Auth\Password\ResetController::class, $name));
     });
 
     /**
      * Customers
      */
-    $router->group([
-        'prefix' => $prefix = 'customers',
-    ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Customers\IndexController::class)->name($prefix);
-        $router->post('add', \App\Http\Controllers\Customers\CreateController::class)->name(sprintf('%s.add', $prefix));
+    Route::prefix($prefix = 'customers')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get('/', \App\Http\Controllers\Customers\IndexController::class)->name('index');
+        Route::post($name = 'add', \App\Http\Controllers\Customers\CreateController::class)->name($name);
 
-        $router->group([
-            'prefix' => '{customerId}',
-        ], function (Router $router) use ($prefix) {
-            $router->get( 'edit', \App\Http\Controllers\Customers\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
-            $router->post('edit', \App\Http\Controllers\Customers\UpdateController::class . '@update');
-            $router->post('delete', \App\Http\Controllers\Customers\DeleteController::class)->name(sprintf('%s.delete', $prefix));
-            $router->post('restore', \App\Http\Controllers\Customers\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+        Route::prefix('{customerId}')->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Customers\UpdateController::class))->name($name);
+            Route::post($name, sprintf('%s@update', \App\Http\Controllers\Customers\UpdateController::class));
+            Route::post($name = 'delete', \App\Http\Controllers\Customers\DeleteController::class)->name($name);
+            Route::post($name = 'restore', \App\Http\Controllers\Customers\RestoreController::class)->name($name);
 
-            $router->group([
-                'prefix' => $prefix2 = 'tags',
-            ], function (Router $router) use ($prefix, $prefix2) {
-                $router->post('edit', \App\Http\Controllers\Customers\Tags\UpdateController::class)->name(sprintf('%s.%s.edit', $prefix, $prefix2));
+            Route::prefix($prefix = 'tags')->name(sprintf('%s.', $prefix))->group(function () {
+                Route::post($name = 'edit', \App\Http\Controllers\Customers\Tags\UpdateController::class)->name($name);
             });
         });
 
-        $router->group([
-            'prefix' => $prefix2 = 'postcards',
-        ], function (Router $router) use ($prefix, $prefix2) {
-            $router->post( 'export', \App\Http\Controllers\Customers\Postcards\ExportController::class)->name(sprintf('%s.%s.export', $prefix, $prefix2));
+        Route::prefix($prefix = 'postcards')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::get($name = 'export', \App\Http\Controllers\Customers\Postcards\ExportController::class)->name($name);
         });
 
-        $router->group([
-            'prefix' => $prefix2 = 'files',
-        ], function (Router $router) use ($prefix, $prefix2) {
-            $router->get( 'import', \App\Http\Controllers\Customers\Files\ImportController::class . '@view')->name(sprintf('%s.%s.import', $prefix, $prefix2));
-            $router->post('import', \App\Http\Controllers\Customers\Files\ImportController::class . '@import');
+        Route::prefix($prefix = 'files')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::get($name = 'import', sprintf('%s@view', \App\Http\Controllers\Customers\Files\ImportController::class))->name($name);
+            Route::post($name, sprintf('%s@%s', \App\Http\Controllers\Customers\Files\ImportController::class, $name));
         });
     });
 
     /**
      * Reservations
      */
-    $router->group([
-        'prefix' => $prefix = 'reservations',
-    ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Reservations\IndexController::class)->name($prefix);
-        $router->post('add', \App\Http\Controllers\Reservations\CreateController::class)->name(sprintf('%s.add', $prefix));
+    if (app()->isLocal()) {// TODO
+        Route::prefix($prefix = 'reservations')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::get('/', \App\Http\Controllers\Reservations\IndexController::class)->name('index');
+            Route::post($name = 'add', \App\Http\Controllers\Reservations\CreateController::class)->name($name);
 
-        $router->group([
-            'prefix' => '{reservationId}',
-        ], function (Router $router) use ($prefix) {
-            $router->get( 'edit', \App\Http\Controllers\Reservations\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
-            $router->post('edit', \App\Http\Controllers\Reservations\UpdateController::class . '@update');
-            $router->post('delete', \App\Http\Controllers\Reservations\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+            Route::prefix('{reservationId}')->group(function () {
+                Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Reservations\UpdateController::class))->name($name);
+                Route::post($name, sprintf('%s@update', \App\Http\Controllers\Reservations\UpdateController::class));
+                Route::post($name = 'delete', \App\Http\Controllers\Reservations\DeleteController::class)->name($name);
 
-            $router->group([
-                'prefix' => $prefix2 = 'visited_histories',
-            ], function (Router $router) use ($prefix, $prefix2) {
-                $router->post('add', \App\Http\Controllers\Reservations\VisitedHistories\CreateController::class)->name(sprintf('%s.%s.add', $prefix, $prefix2));
+                Route::prefix($prefix = 'visited_histories')->name(sprintf('%s.', $prefix))->group(function () {
+                    Route::post($name = 'add', \App\Http\Controllers\Reservations\VisitedHistories\CreateController::class)->name($name);
+                });
             });
         });
-    });
+    }
 
     /**
-     * Visited histories
+     * Settings
      */
-    $router->group([
-        'prefix' => $prefix = 'visited_histories',
-    ], function (Router $router) use ($prefix) {
-        $router->post('add', \App\Http\Controllers\VisitedHistories\CreateController::class)->name(sprintf('%s.add', $prefix));
+    Route::prefix($prefix = 'settings')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get('/', \App\Http\Controllers\Settings\IndexController::class)->name('index');
 
-        $router->group([
-            'prefix' => '{visitedHistoryId}',
-        ], function (Router $router) use ($prefix) {
-            $router->get( 'edit', \App\Http\Controllers\VisitedHistories\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
-            $router->post('edit', \App\Http\Controllers\VisitedHistories\UpdateController::class . '@update');
-            $router->post('delete', \App\Http\Controllers\VisitedHistories\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+        Route::prefix($prefix = 'company')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::post($name = 'edit', \App\Http\Controllers\Settings\Company\UpdateController::class)->name($name);
         });
+
+        Route::prefix($prefix = 'profile')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::post($name = 'edit', \App\Http\Controllers\Settings\Profile\UpdateController::class)->name($name);
+        });
+
+        Route::prefix($prefix = 'store')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::post($name = 'edit', \App\Http\Controllers\Settings\Store\UpdateController::class)->name($name);
+        });
+
+        if (app()->isLocal()) {// TODO
+            Route::prefix($prefix = 'printings')->name(sprintf('%s.', $prefix))->group(function () {
+                Route::get('/', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name('index');
+
+                Route::prefix('{settingId}')->group(function () {
+                    Route::post($name = 'edit', sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
+                });
+            });
+        }
     });
 
     /**
      * Tags
      */
-    $router->group([
-        'prefix' => $prefix = 'tags',
-    ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Tags\IndexController::class)->name($prefix);
-        $router->post('add', \App\Http\Controllers\Tags\CreateController::class)->name(sprintf('%s.add', $prefix));
+    Route::prefix($prefix = 'tags')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get('/', \App\Http\Controllers\Tags\IndexController::class)->name('index');
+        Route::post($name = 'add', \App\Http\Controllers\Tags\CreateController::class)->name($name);
 
-        $router->group([
-            'prefix' => '{tagId}',
-        ], function (Router $router) use ($prefix) {
-            $router->get( 'edit', \App\Http\Controllers\Tags\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
-            $router->post('edit', \App\Http\Controllers\Tags\UpdateController::class . '@update');
-            $router->post('delete', \App\Http\Controllers\Tags\DeleteController::class)->name(sprintf('%s.delete', $prefix));
+        Route::prefix('{tagId}')->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Tags\UpdateController::class))->name($name);
+            Route::post($name, sprintf('%s@update', \App\Http\Controllers\Tags\UpdateController::class));
+            Route::post($name = 'delete', \App\Http\Controllers\Tags\DeleteController::class)->name($name);
         });
     });
 
     /**
      * Users
      */
-    $router->group([
-        'prefix' => $prefix = 'users',
-    ], function (Router $router) use ($prefix) {
-        $router->get( '/', \App\Http\Controllers\Users\IndexController::class)->name($prefix);
-        $router->post('add', \App\Http\Controllers\Users\CreateController::class)->name(sprintf('%s.add', $prefix));
+    if (app()->isLocal()) {// TODO
+        Route::prefix($prefix = 'users')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::get('/', \App\Http\Controllers\Users\IndexController::class)->name('index');
+            Route::post($name = 'add', \App\Http\Controllers\Users\CreateController::class)->name($name);
 
-        $router->group([
-            'prefix' => '{userId}',
-        ], function (Router $router) use ($prefix) {
-            $router->get( 'edit', \App\Http\Controllers\Users\UpdateController::class . '@view')->name(sprintf('%s.edit', $prefix));
-            $router->post('edit', \App\Http\Controllers\Users\UpdateController::class . '@update');
-            $router->post('delete', \App\Http\Controllers\Users\DeleteController::class)->name(sprintf('%s.delete', $prefix));
-            $router->post('restore', \App\Http\Controllers\Users\RestoreController::class)->name(sprintf('%s.restore', $prefix));
+            Route::prefix('{userId}')->group(function () {
+                Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Users\UpdateController::class))->name($name);
+                Route::post($name, sprintf('%s@update', \App\Http\Controllers\Users\UpdateController::class));
+                Route::post($name = 'delete', \App\Http\Controllers\Users\DeleteController::class)->name($name);
+                Route::post($name = 'restore', \App\Http\Controllers\Users\RestoreController::class)->name($name);
+            });
         });
-    });
+    }
 
     /**
-     * Settings
+     * Visited histories
      */
-    $router->group([
-        'prefix' => $prefix = 'settings',
-    ], function (Router $router) use ($prefix) {
-        $router->get( 'company', \App\Http\Controllers\Settings\Company\UpdateController::class . '@view')->name(sprintf('%s.company', $prefix));
-        $router->post('company', \App\Http\Controllers\Settings\Company\UpdateController::class . '@update');
-        $router->get( 'profile', \App\Http\Controllers\Settings\Profile\UpdateController::class . '@view')->name(sprintf('%s.profile', $prefix));
-        $router->post('profile', \App\Http\Controllers\Settings\Profile\UpdateController::class . '@update');
-        $router->get( 'store', \App\Http\Controllers\Settings\Store\UpdateController::class . '@view')->name(sprintf('%s.store', $prefix));
-        $router->post('store', \App\Http\Controllers\Settings\Store\UpdateController::class . '@update');
-        $router->get( 'printings', \App\Http\Controllers\Settings\Printings\UpdateController::class . '@view')->name(sprintf('%s.printings', $prefix));
-        $router->post('printings/{settingId}', \App\Http\Controllers\Settings\Printings\UpdateController::class . '@update')->name(sprintf('%s.printings.update', $prefix));
+    Route::prefix($prefix = 'visited_histories')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::post($name = 'add', \App\Http\Controllers\VisitedHistories\CreateController::class)->name($name);
+
+        Route::prefix('{visitedHistoryId}')->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\VisitedHistories\UpdateController::class))->name($name);
+            Route::post($name, sprintf('%s@update', \App\Http\Controllers\VisitedHistories\UpdateController::class));
+            Route::post($name = 'delete', \App\Http\Controllers\VisitedHistories\DeleteController::class)->name($name);
+        });
     });
 
     /**
      * Notifications
      */
-    $router->group([
-        'prefix' => $prefix = 'notifications',
-    ], function (Router $router) use ($prefix) {
-        $router->get( 'test', \App\Http\Controllers\Notifications\TestController::class)->name(sprintf('%s.test', $prefix));
-    });
-
-    /**
-     * Docs
-     */
-    $router->group([
-        'prefix' => $prefix = 'docs',
-    ], function (Router $router) use ($prefix) {
-        $router->get( 'permissions', \App\Http\Controllers\Docs\Permissions\IndexController::class)->name(sprintf('%s.permissions', $prefix));
+    Route::prefix($prefix = 'notifications')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get($name = 'test', \App\Http\Controllers\Notifications\TestController::class)->name($name);
     });
 });
 
@@ -204,33 +177,36 @@ $router->group([
  * @prefix systems
  * @middleware web
  */
-$router->group([
-    'prefix' => $prefix = 'systems',
-], function (Router $router) use ($prefix) {
-    $router->get('/', \App\Http\Controllers\Systems\HomeController::class)->name(sprintf('%s.home', $prefix));
+Route::prefix($prefix = 'systems')->name(sprintf('%s.', $prefix))->group(function () {
+    Route::get('/', \App\Http\Controllers\Systems\HomeController::class)->name('home');
 
     /**
      * Authentication
      */
-    $router->get( 'login',  \App\Http\Controllers\Systems\Auth\LoginController::class . '@showLoginForm')->name(sprintf('%s.login', $prefix));
-    $router->post('login',  \App\Http\Controllers\Systems\Auth\LoginController::class . '@login');
-    $router->post('logout', \App\Http\Controllers\Systems\Auth\LoginController::class . '@logout')->name(sprintf('%s.logout', $prefix));
+    Route::get($name = 'login', sprintf('%s@showLoginForm', \App\Http\Controllers\Systems\Auth\LoginController::class))->name($name);
+    Route::post($name,  sprintf('%s@%s', \App\Http\Controllers\Systems\Auth\LoginController::class, $name));
+    Route::post($name = 'logout', sprintf('%s@%s', \App\Http\Controllers\Systems\Auth\LoginController::class, $name))->name($name);
+
+    /**
+     * Docs
+     */
+    Route::prefix($prefix = 'docs')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get($name = 'permissions', \App\Http\Controllers\Systems\Docs\Permissions\IndexController::class)->name($name);
+    });
 
     /**
      * Registration
      */
-    $router->get( 'register', \App\Http\Controllers\Systems\Auth\RegisterController::class . '@showRegistrationForm')->name(sprintf('%s.register', $prefix));
-    $router->post('register', \App\Http\Controllers\Systems\Auth\RegisterController::class . '@register');
+    Route::get($name = 'register', sprintf('%s@showRegistrationForm', \App\Http\Controllers\Systems\Auth\RegisterController::class))->name($name);
+    Route::post($name, sprintf('%s@%s', \App\Http\Controllers\Systems\Auth\RegisterController::class, $name));
 
     /**
      * Password Reset
      */
-    $router->group([
-        'prefix' => $prefix2 = 'password',
-    ], function (Router $router) use ($prefix, $prefix2) {
-        $router->get( 'reset',         \App\Http\Controllers\Systems\Auth\Password\ForgotController::class . '@showLinkRequestForm')->name(sprintf('%s.%s.request', $prefix, $prefix2));
-        $router->post('email',         \App\Http\Controllers\Systems\Auth\Password\ForgotController::class . '@sendResetLinkEmail')->name(sprintf('%s.%s.email', $prefix, $prefix2));
-        $router->get( 'reset/{token}', \App\Http\Controllers\Systems\Auth\Password\ResetController::class . '@showResetForm')->name(sprintf('%s.%s.reset', $prefix, $prefix2));
-        $router->post('reset',         \App\Http\Controllers\Systems\Auth\Password\ResetController::class . '@reset');
+    Route::prefix($prefix = 'password')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::post($name = 'email', sprintf('%s@sendResetLinkEmail', \App\Http\Controllers\Systems\Auth\Password\ForgotController::class))->name($name);
+        Route::get($name = 'reset', sprintf('%s@showLinkRequestForm', \App\Http\Controllers\Systems\Auth\Password\ForgotController::class))->name('request');
+        Route::get(sprintf('%s/{token}', $name), sprintf('%s@showResetForm', \App\Http\Controllers\Systems\Auth\Password\ResetController::class))->name($name);
+        Route::post($name, sprintf('%s@%s', \App\Http\Controllers\Systems\Auth\Password\ResetController::class, $name));
     });
 });

@@ -3,10 +3,13 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Customers\Postcards;
 
+use App\Repositories\EloquentRepository;
+use Domain\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class ExportRequest extends FormRequest
+final class ExportRequest extends FormRequest
 {
     /**
      * @return bool
@@ -21,19 +24,24 @@ class ExportRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var User $user */
+        $user = EloquentRepository::assign($this->user());
+
         return [
             'mode' => [
                 'required',
+                'string',
+                'in:export,preview',
+            ],
+            'setting' => [
+                'required',
                 'numeric',
-                'max:3',
-                'in:1,2,3',// TODO Validate value.
+                Rule::in($user->printSettings()->domainizePrintSettings(true)->keys()->all()),
             ],
             'selection' => [
                 'required',
-                'string',
-                'max:20000',
-                'customer_ids_from_csv_string_for_output_postcards',// TODO XXX only current store's customers
-                // TODO Validate mourned_at.
+                'array',
+                'customer_id',
             ],
         ];
     }
@@ -46,7 +54,7 @@ class ExportRequest extends FormRequest
     public function messages(): array
     {
         return [
-            //
+            'mode.in' => __('validation.invalid'),
         ];
     }
 
@@ -58,5 +66,14 @@ class ExportRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.customers.postcards');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

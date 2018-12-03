@@ -8,9 +8,6 @@ use App\Services\DomainCollection;
 
 final class Customer extends DomainModel
 {
-    /** @var CustomerRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 
@@ -418,9 +415,9 @@ final class Customer extends DomainModel
 
     /**
      * @param  array $args
-     * @return VisitedHistory|null
+     * @return VisitedHistory
      */
-    public function addVisitedHistory(array $args = []): ?VisitedHistory
+    public function addVisitedHistory(array $args = []): VisitedHistory
     {
         return $this->repo->addVisitedHistory($args);
     }
@@ -437,6 +434,18 @@ final class Customer extends DomainModel
         } elseif ($arg === false && !empty($this->{$camel = camel_case($column)}())) {
             $this->update([$column => null]);
         }
+    }
+
+    /**
+     * @return void
+     */
+    public function delete(): void
+    {
+        $this->visitedHistories()->destroy();
+        $this->reservations()->destroy();
+        $this->sync('tags', []);
+
+        parent::delete();
     }
 
     /**
@@ -616,40 +625,4 @@ final class Customer extends DomainModel
         return false;
     }
 
-    /**
-     * @param User $user
-     * @param string $value
-     * @return bool
-     */
-    public static function validateCustomerIdsFromCsvStringForOutputPostcards(User $user, string $value): bool
-    {
-        if (is_null($store = $user->store())
-            || is_null($company = $store->company())
-        ) {
-            return false;
-        }
-
-        if ($user->can('authorize', 'customers.select')) {
-            return true;
-        }
-
-        foreach (collect(explode(',', $value)) as $id) {
-            if ($user->can('authorize', 'own-company-customers.select')) {
-                if ($company->customers()->containsStrict(function ($item) use ($id) {
-                    return $item->id() === (int)$id;
-                })) {
-                    continue;
-                }
-            } elseif ($user->can('authorize', 'own-company-self-store-customers.select')) {
-                if ($store->customers()->containsStrict(function ($item) use ($id) {
-                    return $item->id() === (int)$id;
-                })) {
-                    continue;
-                }
-            }
-            return false;
-        }
-
-        return true;
-    }
 }

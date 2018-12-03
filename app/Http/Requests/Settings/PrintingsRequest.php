@@ -5,8 +5,10 @@ namespace App\Http\Requests\Settings;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
+use InvalidArgumentException;
 
-class PrintingsRequest extends FormRequest
+final class PrintingsRequest extends FormRequest
 {
     /**
      * @return bool
@@ -121,7 +123,7 @@ class PrintingsRequest extends FormRequest
             ],
 
             /**
-             * Senders
+             * From
              */
             'from_flag' => [
                 'required',
@@ -129,8 +131,15 @@ class PrintingsRequest extends FormRequest
             ],
 
             /**
-             * Sender postalcode
+             * From postalcode
              */
+            'from_pc_position' => [
+                'required',
+                'string',
+                'max:191',
+                Rule::in(array_keys(config('pdf.positions'))),
+            ],
+
             'from_pc_symbol' => [
                 'required',
                 'boolean',
@@ -159,7 +168,7 @@ class PrintingsRequest extends FormRequest
             ],
 
             /**
-             * Sender address
+             * From address
              */
             'from_address_x' => [
                 'required',
@@ -185,7 +194,7 @@ class PrintingsRequest extends FormRequest
             ],
 
             /**
-             * Sender name
+             * From name
              */
             'from_name_x' => [
                 'required',
@@ -235,11 +244,16 @@ class PrintingsRequest extends FormRequest
     }
 
     /**
-     * @param  \Illuminate\Validation\Validator  $validator
+     * @param Validator $validator
+     * @throws InvalidArgumentException
      * @return void
      */
-    public function withValidator($validator): void
+    protected function withValidator(Validator $validator): void
     {
-        $this->errorBag = sprintf('setting_%s', $this->segment(3));
+        if (is_null($settingId = $this->route()->parameter('settingId'))) {
+            throw new InvalidArgumentException('There is no setting ID in the route parameter.');
+        }
+
+        $this->errorBag = sprintf('%s_%s', snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_'))), $settingId);
     }
 }

@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Customers\Postcards;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Postcards\ExportRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Postcards\ExportPostcards;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\Http\Request;
 
 final class ExportController extends Controller
 {
@@ -42,40 +41,25 @@ final class ExportController extends Controller
     public function __invoke(ExportRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $args = $request->validated();
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Store $store */
         $store = $this->useCase->getStore([
             'id' => $storeId,
         ]);
 
-        $args = $request->validated();
-
         $result = $this->useCase->excute($user, $store, array_merge($args, [
-            'settings' => $this->printSettings($request),
+            'mode' => $request->get('mode'),
+            'settings' => $this->useCase->getPrintSetting($user, (int)$request->get('setting')),
         ]));
 
         if ($result === false) {
             flash(__('There is no data that can be output.'), 'warning');
             return back()->withInput();
         }
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    private function printSettings(Request $request): array
-    {
-        $cookie = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), $request->mode));
-
-        if (! is_null($cookie)) {
-            $cookie = json_decode($cookie, true);
-        }
-
-        return $cookie;
     }
 
 }

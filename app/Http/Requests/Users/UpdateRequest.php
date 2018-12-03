@@ -3,10 +3,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Users;
 
+use App\Repositories\EloquentRepository;
+use Domain\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
+use InvalidArgumentException;
 
-class UpdateRequest extends FormRequest
+final class UpdateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -18,22 +22,25 @@ class UpdateRequest extends FormRequest
 
     /**
      * @return array
+     * @throws InvalidArgumentException
      */
     public function rules(): array
     {
+        /** @var User $user */
+        $user = EloquentRepository::assign($this->user());
+
+        if (is_null($userId = $this->route()->parameter('userId'))) {
+            throw new InvalidArgumentException('There is no user ID in the route parameter.');
+        }
+
         return [
-//             'store_id' => [
-//                 'required',
-//                 'numeric',
-//                 'exists:stores,id',
-//                 'store_id',
-//             ],
-//             'role_id' => [
-//                 'required',
-//                 'string',
-//                 Rule::in(array_keys(config('permissions.roles.general'))),
-//                 // TODO by permissions
-//             ],
+            'role' => [
+                'sometimes',
+                $user->cant('authorize', config('permissions.groups.users.create')) || $user->id() === (int)$userId ? 'invalid' : 'required',
+                'string',
+                Rule::in(array_keys(config('permissions.roles.general'))),
+                // TODO by permissions
+            ],
         ];
     }
 
@@ -57,5 +64,14 @@ class UpdateRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.users');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

@@ -59,6 +59,11 @@ final class GetTags
         /** @var Collection $collection */
         $collection = collect($args);
 
+        $collection->put('relations', [
+            'customers',
+            'store',
+        ]);
+
         return $collection->all();
     }
 

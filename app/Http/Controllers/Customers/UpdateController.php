@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -37,13 +38,14 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param VisitedHistory $visitedHistory
      * @param int $customerId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(VisitedHistory $visitedHistory, int $customerId)
+    public function view(Request $request, VisitedHistory $visitedHistory, int $customerId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer([
@@ -73,9 +75,9 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $customerId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer([

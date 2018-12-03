@@ -3,27 +3,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Users;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
-use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class SelfUpdateRequest extends FormRequest
+final class SelfUpdateRequest extends FormRequest
 {
-    /** @var User */
-    private $user;
-
-    /**
-     * @param  Auth $auth
-     * @return void
-     */
-    public function __construct(Auth $auth)
-    {
-        /** @var User $user */
-        $this->user = UserRepository::toModel($auth->user());
-    }
-
     /**
      * @return bool
      */
@@ -37,6 +24,9 @@ class SelfUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var User $user */
+        $user = EloquentRepository::assign($this->user());
+
         return [
             'name' => [
                 'required',
@@ -48,7 +38,7 @@ class SelfUpdateRequest extends FormRequest
                 'string',
                 'email',
                 'max:191',
-                Rule::unique('users')->ignore($this->user->id()),
+                Rule::unique('users')->ignore($user->id()),
             ],
             'password' => [
                 'nullable',
@@ -91,5 +81,14 @@ class SelfUpdateRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.users');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

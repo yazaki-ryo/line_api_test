@@ -5,8 +5,9 @@ namespace App\Http\Requests\Customers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class CreateRequest extends FormRequest
+final class CreateRequest extends FormRequest
 {
     /**
      * @return bool
@@ -35,13 +36,13 @@ class CreateRequest extends FormRequest
             'last_name_kana' => [
                 'nullable',
                 'string',
-                // TODO フリガナバリデートルール
+                'zenkaku_katakana',
                 'max:191',
             ],
             'first_name_kana' => [
                 'nullable',
                 'string',
-                // TODO フリガナバリデートルール
+                'zenkaku_katakana',
                 'max:191',
             ],
             'sex_id' => [
@@ -57,7 +58,7 @@ class CreateRequest extends FormRequest
             'office_kana' => [
                 'nullable',
                 'string',
-                // TODO フリガナバリデートルール
+                'zenkaku_katakana',
                 'max:191',
             ],
             'department' => [
@@ -91,13 +92,13 @@ class CreateRequest extends FormRequest
             ],
             'tel' => [
                 'required',
-                'string',// TODO 又はnumeric
-                'max:191',
+                'numeric',
+                'digits_between:1,11',
             ],
             'fax' => [
                 'nullable',
-                'string',// TODO 又はnumeric
-                'max:191',
+                'numeric',
+                'digits_between:1,11',
             ],
             'email' => [
                 'nullable',
@@ -107,8 +108,8 @@ class CreateRequest extends FormRequest
             ],
             'mobile_phone' => [
                 'nullable',
-                'string',// TODO 又はnumeric
-                'max:191',
+                'numeric',
+                'digits_between:1,11',
             ],
             'mourning_flag' => [
                 'required',
@@ -160,5 +161,14 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.customers');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

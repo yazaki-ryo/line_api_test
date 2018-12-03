@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use Illuminate\Routing\Router;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,13 +13,7 @@ use Illuminate\Routing\Router;
 */
 
 /**
- * @var Router $router
  * @prefix api
  * @middleware api
  */
-// $router->group([
-//     //
-// ], function() {
-//     //
-// });
 

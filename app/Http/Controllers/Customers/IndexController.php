@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\SearchRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\GetCustomers;
 use Illuminate\Contracts\Auth\Factory as Auth;
-use Illuminate\Http\Request;
 
 final class IndexController extends Controller
 {
@@ -44,9 +43,9 @@ final class IndexController extends Controller
     public function __invoke(SearchRequest $request, Customer $customer)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         $store = $this->useCase->getStore([
             'id' => $storeId,
@@ -55,28 +54,13 @@ final class IndexController extends Controller
         return view('customers.index', [
             'rows' => $this->useCase->excute($user, $store, $args),
             'row'  => $customer,
+            'printSettings' => $user->printSettings()->domainizePrintSettings(true),
             'tags' => $user->company()->tags([
                 'store_id' => $storeId,
             ])->groupBy(function ($item) {
                 return $item->label();
             }),
-            'printSettings' => $this->printSettings($request),
         ]);
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    private function printSettings(Request $request): array
-    {
-        $cookies = [];
-        for ($i = 1; $i < 4; $i++) {
-            if (! is_null($cookie = $request->cookie(sprintf('%s_%s', config('cookie.name.printings'), $i)))) {
-                $cookies[$i] = (json_decode($cookie))->name;
-            }
-        }
-        return $cookies;
     }
 
 }

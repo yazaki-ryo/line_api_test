@@ -46,14 +46,14 @@
                 </ul>
 
                 <div class="tab-content">
-                    <div class="tab-pane active fade in pt-5" id="result-tab">
+                    <div class="tab-pane active fade in pt-10" id="result-tab">
                         @include ('users.components.list')
                     </div>
 {{--
                     @can ('authorize', config('permissions.groups.users.select'))
                         <div class="tab-pane fade pt-10" id="search-tab">
                             <div class="well">
-                                {!! Form::open(['url' => route('users'), 'id' => 'users-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('users.index'), 'id' => 'users-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('users.components.search')
                                 {!! Form::close() !!}
                             </div>

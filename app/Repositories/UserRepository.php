@@ -11,7 +11,7 @@ use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\Avatar;
 use Domain\Models\Company;
 use Domain\Models\DomainModel;
-use Domain\Models\Role;
+use Domain\Models\PrintSetting;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,9 +21,6 @@ use Illuminate\Support\Collection;
 final class UserRepository extends EloquentRepository implements DomainableContract
 {
     use Authorizable, Notifiable;
-
-    /** @var EloquentUser */
-    protected $eloquent;
 
     /**
      * @param EloquentUser|null $eloquent
@@ -49,8 +46,8 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentUser $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentUser ? self::toModel($item) : $item;
         });
     }
 
@@ -60,7 +57,7 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function avatars(array $args = []): DomainCollection
     {
-        $collection = AvatarRepository::build($this->eloquent->avatars(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->tags : AvatarRepository::build($this->eloquent->avatars(), $args)->get();
         return AvatarRepository::toModels($collection);
     }
 
@@ -70,24 +67,18 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function addAvatar(array $args = []): Avatar
     {
-        if (is_null($resource = $this->eloquent->avatars()->create($args))) {
-            return null;
-        }
+        $resource = $this->eloquent->avatars()->create($args);
         return AvatarRepository::toModel($resource);
     }
 
     /**
-     * @return Role|null
+     * @param  array $args
+     * @return PrintSetting
      */
-    public function role(): ?Role
+    public function addPrintSetting(array $args = []): PrintSetting
     {
-        /**
-         * TODO
-         */
-//         if (is_null($resource = $this->eloquent->role)) {
-//             return null;
-//         }
-//         return RoleRepository::toModel($resource);
+        $resource = $this->eloquent->printSettings()->create($args);
+        return PrintSettingRepository::toModel($resource);
     }
 
     /**
@@ -118,8 +109,18 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public function permissions(array $args = []): DomainCollection
     {
-        $collection = PermissionRepository::build($this->eloquent->permissions(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->permissions : PermissionRepository::build($this->eloquent->permissions(), $args)->get();
         return PermissionRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function printSettings(array $args = []): DomainCollection
+    {
+        $collection = empty($args) ? $this->eloquent->printSettings : PrintSettingRepository::build($this->eloquent->printSettings(), $args)->get();
+        return PrintSettingRepository::toModels($collection);
     }
 
     /**
@@ -129,15 +130,8 @@ final class UserRepository extends EloquentRepository implements DomainableContr
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         $query->when($args->has($key = 'store_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->storeId($args->get($key));

@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\VisitedHistories;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\DeleteVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class DeleteController extends Controller
 {
@@ -35,15 +36,16 @@ final class DeleteController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $visitedHistoryId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(int $visitedHistoryId)
+    public function __invoke(Request $request, int $visitedHistoryId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var VisitedHistory $visitedHistoryId */
         $visitedHistory = $this->useCase->getVisitedHistory([

@@ -90,11 +90,10 @@ return [
      |
      */
 
-//     'custom_alpha_dash'  => ':attributeは、半角英数字と半角ハイフンが使用できます。',
-//     'exists_files'  => '指定した:attributeが、存在しません。',
-//     'strings' => [
-//         'zenkaku_katakana' => ':attributeは、全角カタカナで入力してください。',
-//     ],
+    'custom_alpha_dash'  => ':attributeは、半角英数字と半角ハイフンが使用できます。',
+    'format' => ":attributeの形式が正しくありません。",
+    'invalid' => '送信された :attributeの値が無効か、又は不正です。',
+    'zenkaku_katakana' => ':attributeは、全角カタカナで入力してください。',
 
     /*
     |--------------------------------------------------------------------------

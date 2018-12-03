@@ -6,8 +6,9 @@ namespace App\Http\Requests\Customers;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
-class SearchRequest extends FormRequest
+final class SearchRequest extends FormRequest
 {
     /**
      * @return bool
@@ -58,7 +59,7 @@ class SearchRequest extends FormRequest
                 'array',
                 Rule::exists('tags', 'id')
                     ->where(function (Builder $query) {
-                        return $query->where('store_id', session(config('session.name.current_store')));
+                        return $query->where('store_id', $this->cookie(config('cookie.name.current_store')));
                     }),
             ],
         ];
@@ -84,5 +85,14 @@ class SearchRequest extends FormRequest
     public function attributes(): array
     {
         return \Lang::get('attributes.customers.search');
+    }
+
+    /**
+     * @param Validator $validator
+     * @return void
+     */
+    protected function withValidator(Validator $validator): void
+    {
+        $this->errorBag = snake_case(studly_case(strtr(str_after(__CLASS__, 'App\\Http\\Requests\\'), '\\', '_')));
     }
 }

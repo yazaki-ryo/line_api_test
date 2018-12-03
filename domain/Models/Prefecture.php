@@ -8,9 +8,6 @@ use App\Services\DomainCollection;
 
 final class Prefecture extends DomainModel
 {
-    /** @var PrefectureRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

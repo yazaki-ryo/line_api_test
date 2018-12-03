@@ -18,6 +18,6 @@ final class HomeController extends Controller
      */
     public function __invoke()
     {
-        return redirect()->route('customers');
+        return redirect()->route('customers.index');
     }
 }

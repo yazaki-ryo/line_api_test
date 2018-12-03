@@ -6,7 +6,9 @@ namespace Domain\UseCases\Customers\Postcards;
 use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Contracts\Responses\ExportableContract;
+use Domain\Exceptions\InvariantException;
 use Domain\Exceptions\NotFoundException;
+use Domain\Models\PrintSetting;
 use Domain\Models\Store;
 use Domain\Models\User;
 use Illuminate\Support\Collection;
@@ -28,6 +30,19 @@ final class ExportPostcards
     {
         $this->exporter = $exporter;
         $this->finder = $finder;
+    }
+
+    /**
+     * @param User $user
+     * @param int $settingId
+     * @return PrintSetting|null
+     */
+    public function getPrintSetting(User $user, int $settingId): ?PrintSetting
+    {
+        if (is_null($resource = $user->printSettings()->domainizePrintSettings(true)->get($settingId))) {
+            throw new NotFoundException('Resource not found.');
+        }
+        return $resource;
     }
 
     /**
@@ -65,19 +80,29 @@ final class ExportPostcards
      * @param User $user
      * @param Store $store
      * @param array $args
+     * @throws InvariantException
      * @return array
      */
     private function domainize(User $user, Store $store, array $args = []): array
     {
+        if (! $store->postalCode() || ! $store->name() || ! $store->address()) {
+            throw new InvariantException('The sender\'s name, zip code, and address are required items.');
+        }
+
         /** @var Collection $collection */
         $collection = collect($args);
         $collection->put('from', $store);
 
         if ($collection->has($key = 'selection')) {
-            $ids = explode(',', $collection->get($key));
             $collection->put('data', $store->customers([
+                'ids'           => $collection->get($key),
                 'mourning_flag' => true,
-                'ids'           => $ids,
+                'notNull'       => [
+                    'last_name',
+                    'first_name',
+                    'postal_code',
+                    'address',
+                ],
             ])->toArray());
         }
 

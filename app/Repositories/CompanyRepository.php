@@ -16,9 +16,6 @@ use Illuminate\Support\Collection;
 
 final class CompanyRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentCompany */
-    protected $eloquent;
-
     /**
      * @param EloquentCompany|null $eloquent
      * @return void
@@ -43,8 +40,8 @@ final class CompanyRepository extends EloquentRepository implements DomainableCo
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentCompany $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentCompany ? self::toModel($item) : $item;
         });
     }
 
@@ -54,7 +51,7 @@ final class CompanyRepository extends EloquentRepository implements DomainableCo
      */
     public function customers(array $args = []): DomainCollection
     {
-        $collection = CustomerRepository::build($this->eloquent->customers(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->customers : CustomerRepository::build($this->eloquent->customers(), $args)->get();
         return CustomerRepository::toModels($collection);
     }
 
@@ -64,7 +61,7 @@ final class CompanyRepository extends EloquentRepository implements DomainableCo
      */
     public function stores(array $args = []): DomainCollection
     {
-        $collection = UserRepository::build($this->eloquent->stores(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->stores : StoreRepository::build($this->eloquent->stores(), $args)->get();
         return StoreRepository::toModels($collection);
     }
 
@@ -74,7 +71,7 @@ final class CompanyRepository extends EloquentRepository implements DomainableCo
      */
     public function tags(array $args = []): DomainCollection
     {
-        $collection = TagRepository::build($this->eloquent->tags(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->tags : TagRepository::build($this->eloquent->tags(), $args)->get();
         return TagRepository::toModels($collection);
     }
 
@@ -84,7 +81,7 @@ final class CompanyRepository extends EloquentRepository implements DomainableCo
      */
     public function users(array $args = []): DomainCollection
     {
-        $collection = UserRepository::build($this->eloquent->users(), $args)->get();
+        $collection = empty($args) ? $this->eloquent->users : UserRepository::build($this->eloquent->users(), $args)->get();
         return UserRepository::toModels($collection);
     }
 
@@ -117,15 +114,8 @@ final class CompanyRepository extends EloquentRepository implements DomainableCo
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         return $query;
     }

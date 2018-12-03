@@ -4,10 +4,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\RestoreCustomer;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class RestoreController extends Controller
 {
@@ -34,15 +35,16 @@ final class RestoreController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $customerId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(int $customerId)
+    public function __invoke(Request $request, int $customerId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer([
@@ -63,7 +65,7 @@ final class RestoreController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.customers'), 'action' => __('elements.words.restored')]), 'success');
-        return redirect()->route('customers');
+        return redirect()->route('customers.index');
     }
 
 }

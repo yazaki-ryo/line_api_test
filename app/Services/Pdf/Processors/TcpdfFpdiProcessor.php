@@ -61,7 +61,7 @@ trait TcpdfFpdiProcessor
      */
     private function templates(string $name, int $idx = 1): void
     {
-        $path = config(sprintf('pdf.templates.%s', $name));
+        $path = config(sprintf('pdf.templates.postcard.%s', $name));
         $this->processor->setSourceFile($path);
         $this->tpl = $this->processor->importPage($idx);
     }

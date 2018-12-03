@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has($attribute = 'free_word') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'free_word') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute1 = 'visited_date_s') || $errors->has($attribute2 = 'visited_date_e') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'visited_date_s') ? ' has-error' : '' }}{{ $errors->{$errorBag ?? 'default'}->has($attribute2 = 'visited_date_e') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang ('attributes.customers.visited_histories.visited_date')
     </label>
@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.search.%s', $attribute))
     </label>
@@ -36,18 +36,22 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'trashed') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang (sprintf('attributes.customers.search.%s', $attribute))
-    </label>
+@can ('authorize', config('permissions.groups.customers.restore'))
+    @can ('authorize', config('permissions.groups.customers.delete'))
+        <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'trashed') ? ' has-error' : '' }}">
+            <label for="{{ $attribute }}" class="col-md-4 control-label">
+                @lang (sprintf('attributes.customers.search.%s', $attribute))
+            </label>
 
-    <div class="col-md-6 form-control-static">
-        {!! Form::select($attribute, \Lang::get('attributes.trashed'), null, ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
+            <div class="col-md-6 form-control-static">
+                {!! Form::select($attribute, \Lang::get('attributes.trashed'), null, ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 191]) !!}
+                @include ('components.form.err_msg', ['attribute' => $attribute])
+            </div>
+        </div>
+    @endcan
+@endcan
 
-<div class="form-group{{ $errors->has($attribute = 'tags') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'tags') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('elements.words.%s', $attribute))
     </label>
@@ -81,7 +85,7 @@
                 @lang ('elements.words.search')
             </button>
 
-            <a href="{{ route('customers') }}" class="btn btn-default" onclick="if (! confirm('@lang ('Do you want to reset the search conditions?')')) return false;">
+            <a href="{{ route('customers.index') }}" class="btn btn-default" onclick="if (! confirm('@lang ('Do you want to reset the search conditions?')')) return false;">
                 @lang ('elements.words.conditions')@lang ('elements.words.reset')
             </a>
         @endcan

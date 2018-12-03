@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Systems\Users;
 
 use App\Http\Controllers\Systems\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\DeleteUser;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -40,7 +40,7 @@ final class DeleteController extends Controller
     public function __invoke(int $userId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         /** @var User $targetUser */
         $targetUser = $this->useCase->getUser($userId);
@@ -57,7 +57,7 @@ final class DeleteController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.users'), 'action' => __('elements.words.deleted')]), 'info');
-        return redirect()->route('users');
+        return redirect()->route('users.index');
     }
 
 }

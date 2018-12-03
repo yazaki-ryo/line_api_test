@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Tags;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tags\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Tag;
 use Domain\Models\User;
 use Domain\UseCases\Tags\UpdateTag;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -36,12 +37,13 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $tagId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $tagId)
+    public function view(Request $request, int $tagId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Tag $tag */
         $tag = $this->useCase->getTag([
@@ -53,18 +55,6 @@ final class UpdateController extends Controller
 
         return view('tags.edit', [
             'row' => $tag,
-
-            /**
-             * TODO XXX configから取得
-             */
-            'labels' => [
-                'default' => 'デフォルト',
-                'primary' => 'プライマリ',
-                'info'    => 'インフォメーション',
-                'success' => 'サクセス',
-                'warning' => 'ワーニング',
-                'danger'  => 'デンジャー',
-            ],
         ]);
     }
 
@@ -76,9 +66,9 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $tagId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Tag $tag */
         $tag = $this->useCase->getTag([
@@ -99,7 +89,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.tags'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('tags');
+        return redirect()->route('tags.index');
     }
 
 }

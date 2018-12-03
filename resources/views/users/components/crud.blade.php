@@ -1,49 +1,38 @@
-<div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.users.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : 'autofocus' }} />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : 'autofocus' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'email') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.users.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6">
-        <input type="email" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : '' }} />
+        <input type="email" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required {{ $mode === 'edit' ? 'disabled' : '' }} />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'company_id') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
-        @lang (sprintf('attributes.users.%s', $attribute))
-    </label>
-
-    <div class="col-md-6 form-control-static">
-        {{ optional($row->company())->name() ?? optional($user->company())->name() }}
-        @include ('components.form.err_msg', ['attribute' => $attribute])
-    </div>
-</div>
-
-<div class="form-group{{ $errors->has($attribute = 'role_id') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'role') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.users.%s', $attribute))
         @if ($mode === 'add' || $mode === 'edit') <span class="label label-danger">@lang ('elements.words.required')</span> @endif
     </label>
 
     <div class="col-md-6">
-        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ ($mode === 'profile') || ($user->id() === $row->id()) || $user->cant('authorize', config('permissions.groups.users.create')) ? 'disabled' : 'required' }}>
+        <select name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" {{ ($mode === 'profile') || $user->cant('change-role', $row) ? 'disabled' : 'required' }}>
             <option value>@lang ('Please select')</option>
             @foreach (config('permissions.roles.general') as $key => $item)
-                <option value="{{ $key }}" {{ old($attribute, empty($row->role()) ? $user->role() : $row->role()) === $key ? 'selected' : '' }}>{{ $item }}</option>
+                <option value="{{ $key }}" {{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->role()) ? $user->role() : $row->role()) === $key ? 'selected' : '' }}>{{ $item }}</option>
             @endforeach
         </select>
 
@@ -55,7 +44,7 @@
 
 @env ('local')
     @if ($mode === 'profile')
-        <div class="form-group{{ $errors->has($attribute = 'avatar') ? ' has-error' : '' }}">
+        <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'avatar') ? ' has-error' : '' }}">
             <label for="{{ $attribute }}" class="col-md-4 control-label">
                 @lang (sprintf('attributes.users.%s', $attribute))
             </label>
@@ -82,7 +71,7 @@
 @endenv
 
 @if ($mode === 'add' || $mode === 'profile')
-    <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
+    <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'password') ? ' has-error' : '' }}">
         <label for="{{ $attribute }}" class="col-md-4 control-label">
             @lang (sprintf('attributes.users.%s', $attribute))
 
@@ -90,12 +79,12 @@
         </label>
 
         <div class="col-md-6">
-            <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please input only when changing.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
+            <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please input only when changing.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
             @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
 
-    <div class="form-group{{ $errors->has($attribute = 'password_confirmation') ? ' has-error' : '' }}">
+    <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'password_confirmation') ? ' has-error' : '' }}">
         <label for="{{ $attribute }}" class="col-md-4 control-label">
             @lang (sprintf('attributes.users.%s', $attribute))
 
@@ -103,7 +92,7 @@
         </label>
 
         <div class="col-md-6">
-            <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please re-enter for confirmation.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
+            <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="form-control" placeholder="{{ $mode === 'edit' || $mode === 'profile' ? __('Please re-enter for confirmation.') : '' }}" {{ $mode === 'add' ? 'required' : '' }} />
             @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>

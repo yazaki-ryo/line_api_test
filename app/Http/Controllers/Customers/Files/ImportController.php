@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customers\Files;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Files\ImportRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Files\ImportFiles;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -49,7 +49,7 @@ final class ImportController extends Controller
     public function import(ImportRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         return $this->useCase->excute($user, $args);

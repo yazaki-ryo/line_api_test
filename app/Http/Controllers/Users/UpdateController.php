@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\UpdateUser;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -35,12 +36,13 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $userId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $userId)
+    public function view(Request $request, int $userId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var User $targetUser */
         $targetUser = $this->useCase->getUser([
@@ -63,9 +65,9 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $userId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var User $targetUser */
         $targetUser = $this->useCase->getUser([

@@ -4,11 +4,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Reservations;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\Reservation;
 use Domain\UseCases\Reservations\DeleteReservation;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class DeleteController extends Controller
 {
@@ -35,15 +36,16 @@ final class DeleteController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $reservationId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(int $reservationId)
+    public function __invoke(Request $request, int $reservationId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Reservation $reservationId */
         $reservation = $this->useCase->getReservation([
@@ -63,7 +65,7 @@ final class DeleteController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.reservation'), 'action' => __('elements.words.deleted')]), 'info');
-        return redirect()->route('reservations');
+        return redirect()->route('reservations.index');
     }
 
 }

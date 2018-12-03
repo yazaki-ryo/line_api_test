@@ -31,50 +31,50 @@
                     <div class="panel-body">
                         {!! Form::open(['url' => route('register'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
-                            <div class="form-group{{ $errors->has($attribute = 'name') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'name') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
                                     @lang (sprintf('attributes.users.%s', $attribute))
                                     <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input type="text" name="{{ $attribute }}" value="{{ old($attribute) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
+                                    <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has($attribute = 'email') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'email') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
                                     @lang (sprintf('attributes.users.%s', $attribute))
                                     <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input type="email" name="{{ $attribute }}" value="{{ old($attribute) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
+                                    <input type="email" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has($attribute = 'password') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'password') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
                                     @lang (sprintf('attributes.users.%s', $attribute))
                                     <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" required />
+                                    <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="form-control" required />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has($attribute = 'password_confirmation') ? ' has-error' : '' }}">
+                            <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'password_confirmation') ? ' has-error' : '' }}">
                                 <label for="{{ $attribute }}" class="col-md-4 control-label">
                                     @lang (sprintf('attributes.users.%s', $attribute))
                                     <span class="label label-danger">@lang ('elements.words.required')</span>
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input name="{{ $attribute }}" type="password" id="{{ $attribute }}" class="form-control" required />
+                                    <input name="{{ $attribute }}" type="password" value="" id="{{ $attribute }}" class="form-control" required />
                                     @include ('components.form.err_msg', ['attribute' => $attribute])
                                 </div>
                             </div>

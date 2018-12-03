@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Reservations\VisitedHistories;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\Reservation;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\Reservations\VisitedHistories\CreateVisitedHistory;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class CreateController extends Controller
 {
@@ -37,15 +38,16 @@ final class CreateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param  int $reservationId
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(VisitedHistory $visitedHistory, int $reservationId)
+    public function __invoke(Request $request, VisitedHistory $visitedHistory, int $reservationId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Reservation $reservation */
         $reservation = $this->useCase->getReservation([
@@ -56,12 +58,12 @@ final class CreateController extends Controller
         /** @var Customer $customer */
         if (is_null($customer = $reservation->customer())) {
             flash(__('Customer information is not associated with reservation information.'), 'info');
-            return redirect()->route('reservations');
+            return redirect()->route('reservations.index');
         }
 
         if (! is_null($reservation->visitedHistory())) {
             flash(__('Visiting information has already been registered.'), 'info');
-            return redirect()->route('reservations');
+            return redirect()->route('reservations.index');
         }
 
         $this->authorize('create', [
@@ -79,7 +81,7 @@ final class CreateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.visit'), 'action' => __('elements.words.created')]), 'success');
-        return redirect()->route('reservations');
+        return redirect()->route('reservations.index');
     }
 
 }

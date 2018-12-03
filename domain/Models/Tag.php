@@ -8,9 +8,6 @@ use App\Services\DomainCollection;
 
 final class Tag extends DomainModel
 {
-    /** @var TagRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 
@@ -112,6 +109,16 @@ final class Tag extends DomainModel
     public function store(): ?Store
     {
         return $this->repo->store();
+    }
+
+    /**
+     * @return void
+     */
+    public function delete(): void
+    {
+        $this->sync('customers', []);
+
+        parent::delete();
     }
 
     /**

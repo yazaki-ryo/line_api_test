@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('systems.layouts.app')
 
 @section('meta')
     <title>@lang ('elements.words.authorization') | {{ config('app.name') }}</title>
@@ -37,8 +37,8 @@
 
                 <div class="tab-content">
                     @foreach ($permissions as $label => $rows)
-                        <div class="tab-pane {{ $loop->first ? 'active' : '' }} fade in pt-5" id="{{ sprintf('%s-tab', $label) }}">
-                            @include ('docs.permissions.components.list', ['rows' => $rows])
+                        <div class="tab-pane {{ $loop->first ? 'active' : '' }} fade in pt-10" id="{{ sprintf('%s-tab', $label) }}">
+                            @include ('systems.docs.permissions.components.list', ['rows' => $rows])
                         </div>
                     @endforeach
                 </div>

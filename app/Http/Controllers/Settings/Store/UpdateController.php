@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Settings\Store;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Stores\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdateStore;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -35,36 +36,16 @@ final class UpdateController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view()
-    {
-        /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
-
-        $storeId = session(config('session.name.current_store'));
-
-        /** @var Store $store */
-        $store = $this->useCase->getStore([
-            'id' => $storeId,
-        ]);
-
-        return view('settings.store', [
-            'row' => $store,
-        ]);
-    }
-
-    /**
      * @param UpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateRequest $request)
+    public function __invoke(UpdateRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Store $store */
         $store = $this->useCase->getStore([
@@ -81,7 +62,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.stores'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('settings.store');
+        return redirect()->route('settings.index');
     }
 
 }

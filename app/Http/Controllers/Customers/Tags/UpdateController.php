@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Customers\Tags;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Tags\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Tags\UpdateTags;
@@ -43,9 +43,9 @@ final class UpdateController extends Controller
     public function __invoke(UpdateRequest $request, int $customerId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */
         $customer = $this->useCase->getCustomer([

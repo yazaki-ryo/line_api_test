@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SearchRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\GetUsers;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -42,9 +42,9 @@ final class IndexController extends Controller
     public function __invoke(SearchRequest $request, User $brankUser)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         $store = $this->useCase->getStore([
             'id' => $storeId,

@@ -189,6 +189,7 @@ return [
         App\Providers\DatabaseServiceProvider::class,
         App\Providers\DomainServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\FacadeServiceProvider::class,
         App\Providers\LocalServiceProvider::class,
         App\Providers\RelationServiceProvider::class,
         App\Providers\ResourceServiceProvider::class,
@@ -246,6 +247,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /*
+         * Added...
+         */
+        'Util' => App\Facades\Util::class,
 
     ],
 

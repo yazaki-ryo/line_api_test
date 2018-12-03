@@ -1,4 +1,4 @@
-<div class="form-group{{ $errors->has('selection') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has('selection') ? ' has-error' : '' }}">
     @include ('components.form.err_msg', ['attribute' => 'selection'])
 </div>
 
@@ -23,7 +23,7 @@
                         </div>
                     </td>
                     <td class="text-center">{{ $row->{$camel = camel_case('name')}() }}</td>
-                    <td class="text-center">{{ optional($row->{$camel = camel_case('role')}())->name() }}</td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('role')}() ? config('permissions.roles.general')[$row->{$camel}()] : null }}</td>
                     <td class="text-center">{{ optional($row->{$camel = camel_case('store')}())->name() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('created_at')}() }}</td>
                     <td class="text-center">

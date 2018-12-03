@@ -2,76 +2,78 @@
     <input type="hidden" name="customer_id" value="{{ $customer->id() }}" />
 @endif
 
-<div class="form-group{{ $errors->has($attribute = 'visited_date') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'visited_date') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-3">
-        <input type="date" name="{{ $attribute }}" value="{{ old($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" required />
+        <input type="date" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->visitedAt()) ? null : $row->visitedAt()->format('Y-m-d')) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'visited_time') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'visited_time') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
 
     <div class="col-md-3">
-        <input type="time" name="{{ $attribute }}" value="{{ old($attribute, empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i')) }}" class="form-control" id="{{ $attribute }}" maxlength="5" placeholder="" />
+        <input type="time" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (empty($row->visitedAt()) ? null : $row->visitedAt()->format('H:i')) }}" class="form-control" id="{{ $attribute }}" maxlength="5" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'amount') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'amount') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
 
     <div class="col-md-3">
-        <input type="tel" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
+        <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'seat') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'seat') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
 
     <div class="col-md-5">
-        <input type="text" name="{{ $attribute }}" value="{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-<div class="form-group{{ $errors->has($attribute = 'note') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'note') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
     </label>
 
     <div class="col-md-6">
-        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ old($attribute, $row->{$camel = camel_case($attribute)}() ?? null) }}</textarea>
+        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
-@if ($mode === 'edit')
-    <div class="form-group">
-        <label for="{{ $attribute = 'reservation' }}" class="col-md-4 control-label">
-            @lang (sprintf('elements.words.%s', $attribute))
-        </label>
+@if (\Route::has('reservations.index'))<!-- TODO -->
+    @if ($mode === 'edit')
+        <div class="form-group">
+            <label for="{{ $attribute = 'reservation' }}" class="col-md-4 control-label">
+                @lang (sprintf('elements.words.%s', $attribute))
+            </label>
 
-        <div class="col-md-6 form-control-static">
-            @if ($row->reservation())
-                <span class="text-success">@lang ('elements.words.yes')</span>
-            @else
-                <span class="text-danger">@lang ('elements.words.no')</span>
-            @endif
+            <div class="col-md-6 form-control-static">
+                @if ($row->reservation())
+                    <span class="text-success">@lang ('elements.words.yes')</span>
+                @else
+                    <span class="text-danger">@lang ('elements.words.no')</span>
+                @endif
+            </div>
         </div>
-    </div>
+    @endif
 @endif
 
 @if ($mode === 'edit')

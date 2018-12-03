@@ -3,10 +3,24 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
+use App\Eloquents\EloquentAvatar;
+use App\Eloquents\EloquentCompany;
+use App\Eloquents\EloquentCustomer;
+use App\Eloquents\EloquentPermission;
+use App\Eloquents\EloquentPlan;
+use App\Eloquents\EloquentPrefecture;
+use App\Eloquents\EloquentPrintSetting;
+use App\Eloquents\EloquentReservation;
+use App\Eloquents\EloquentSex;
+use App\Eloquents\EloquentStore;
+use App\Eloquents\EloquentTag;
+use App\Eloquents\EloquentUser;
+use App\Eloquents\EloquentVisitedHistory;
 use App\Traits\Repositories\Creatable;
 use App\Traits\Repositories\Deletable;
 use App\Traits\Repositories\Findable;
 use App\Traits\Repositories\Restorable;
+use App\Traits\Repositories\Synchronizable;
 use App\Traits\Repositories\Updatable;
 use Domain\Contracts\Model\CreatableContract;
 use Domain\Contracts\Model\DeletableContract;
@@ -17,7 +31,9 @@ use Domain\Contracts\Model\UpdatableContract;
 use Domain\Models\DomainModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 
 abstract class EloquentRepository implements
     CreatableContract,
@@ -31,10 +47,28 @@ abstract class EloquentRepository implements
         Deletable,
         Findable,
         Restorable,
+        Synchronizable,
         Updatable;
 
     /** @var Model */
     protected $eloquent;
+
+    /** @var array */
+    private static $modelMap = [
+        EloquentAvatar::class => AvatarRepository::class,
+        EloquentCompany::class => CompanyRepository::class,
+        EloquentCustomer::class => CustomerRepository::class,
+        EloquentPermission::class => PermissionRepository::class,
+        EloquentPlan::class => PlanRepository::class,
+        EloquentPrefecture::class => PrefectureRepository::class,
+        EloquentPrintSetting::class => PrintSettingRepository::class,
+        EloquentReservation::class => ReservationRepository::class,
+        EloquentSex::class => SexRepository::class,
+        EloquentStore::class => StoreRepository::class,
+        EloquentTag::class => TagRepository::class,
+        EloquentUser::class => UserRepository::class,
+        EloquentVisitedHistory::class => VisitedHistoryRepository::class,
+    ];
 
     /**
      * @param  Model $model
@@ -49,18 +83,54 @@ abstract class EloquentRepository implements
     abstract public static function toModels(Collection $collection): Collection;
 
     /**
-     * @param  mixed $query
-     * @param  array $args
-     * @return mixed
-     */
-    abstract public static function build($query, array $args = []);
-
-    /**
      * @return array
      */
     public function attributesToArray(): array
     {
         return $this->eloquent->attributesToArray();
+    }
+
+    /**
+     * @param  mixed $query
+     * @param  array $args
+     * @return mixed
+     */
+    public static function build($query, array $args = [])
+    {
+        $args = collect($args);
+
+        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
+            $q->id($args->get($key));
+        });
+
+        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->ids($args->get($key));
+        });
+
+        $query->when($args->has($key = 'relations'), function (Builder $q) use ($key, $args) {
+            $q->relations($args->get($key));
+        });
+
+        return $query;
+    }
+
+    /**
+     * @param Authenticatable $model
+     * @param bool $authenticatable
+     * @throws InvalidArgumentException
+     * @return DomainModel
+     */
+    public static function assign(Authenticatable $model, bool $authenticatable = false): DomainModel
+    {
+        if ($authenticatable && ! $model instanceof Authenticatable) {
+            throw new InvalidArgumentException('Only authenticatable user models will be accepted.');
+        }
+
+        if (! is_null($repo = collect(static::$modelMap)->get(get_class($model)))) {
+            return app()->make($repo)->toModel($model);
+        }
+
+        throw new InvalidArgumentException('No assignable model exists.');
     }
 
     /**
@@ -79,4 +149,5 @@ abstract class EloquentRepository implements
     {
         return $this->eloquent->newQuery();
     }
+
 }

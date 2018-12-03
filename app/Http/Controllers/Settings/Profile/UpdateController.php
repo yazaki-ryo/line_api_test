@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Settings\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\SelfUpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Settings\UpdateProfile;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -35,26 +35,13 @@ final class UpdateController extends Controller
     }
 
     /**
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function view()
-    {
-        /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
-
-        return view('settings.profile', [
-            'row' => $user,
-        ]);
-    }
-
-    /**
      * @param SelfUpdateRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(SelfUpdateRequest $request)
+    public function __invoke(SelfUpdateRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         /** @var UploadedFile $file */
@@ -70,7 +57,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.user'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('settings.profile');
+        return redirect()->route('settings.index');
     }
 
 }

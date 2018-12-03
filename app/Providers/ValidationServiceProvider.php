@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\Email;
 use Domain\Models\PostalCode;
@@ -11,6 +11,7 @@ use Domain\Models\Store;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Factory;
+use Lang;
 
 final class ValidationServiceProvider extends ServiceProvider
 {
@@ -23,25 +24,33 @@ final class ValidationServiceProvider extends ServiceProvider
         /** @var Factory $validator */
         $validator = $this->app->make('validator');
 
+        $validator->extend('custom_alpha_dash', function ($attribute, $value) {
+            return preg_match("/^[a-z0-9-]+$/i", $value) > 0;
+        });
+
+        $validator->extend('customer_id', function ($attribute, $value) use ($auth) {
+            return Customer::validateCustomerId(EloquentRepository::assign($auth->user(), true), (int)$value);
+        }, Lang::get('validation.invalid'));
+
         $validator->extend('email', function ($attribute, $value) {
             return Email::validate($value);
-        }, null);// override
+        });
+
+        $validator->extend('invalid', function ($attribute, $value) {
+            return false;
+        });
 
         $validator->extend('postal_code', function ($attribute, $value) {
             return PostalCode::validate($value);
-        }, null);
+        }, Lang::get('validation.format'));
 
         $validator->extend('store_id', function ($attribute, $value) use ($auth) {
-            return Store::validateStoreId(UserRepository::toModel($auth->user()), (int)$value);
-        }, __('The value sent is invalid.'));
+            return Store::validateStoreId(EloquentRepository::assign($auth->user(), true), (int)$value);
+        }, Lang::get('validation.invalid'));
 
-        $validator->extend('customer_id', function ($attribute, $value) use ($auth) {
-            return Customer::validateCustomerId(UserRepository::toModel($auth->user()), (int)$value);
-        }, __('The value sent is invalid.'));
-
-        $validator->extend('customer_ids_from_csv_string_for_output_postcards', function ($attribute, $value) use ($auth) {
-            return Customer::validateCustomerIdsFromCsvStringForOutputPostcards(UserRepository::toModel($auth->user()), $value);
-        }, __('The value sent is invalid.'));
+        $validator->extend('zenkaku_katakana', function ($attribute, $value) {
+            return preg_match("/[^ァ-ヶー]/u", $value) === 0;
+        });
 }
 
     /**

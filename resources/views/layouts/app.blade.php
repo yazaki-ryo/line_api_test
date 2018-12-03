@@ -42,7 +42,7 @@
         @include ('layouts.footer')
     </div>
 
-    {!! form::open(['id' => 'basic-form', 'url' => '', 'method' => 'post', 'style' => 'display: none;']) !!}{!! form::close() !!}
+    {!! Form::open(['id' => 'basic-form', 'url' => '', 'method' => 'post', 'style' => 'display: none;']) !!}{!! Form::close() !!}
 
     <!-- Scripts -->
     @if (file_exists(public_path('mix-manifest.json')))

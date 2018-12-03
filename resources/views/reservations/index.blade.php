@@ -17,13 +17,13 @@
             @lang ('elements.words.reservations')@lang ('elements.words.list')
         </p>
         <ul class="nav nav-tabs">
-            <li class="active">
+            <li class="{{ \Util::activatable($errors, null, true) }}">
                 <a href="#calender-tab" data-toggle="tab">
                     @lang ('elements.words.calender')
                 </a>
             </li>
 
-            <li>
+            <li class="{{ \Util::activatable($errors) }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
                     <span class="badge">{{ $rows->count() }}</span>
@@ -31,13 +31,13 @@
             </li>
 {{--
             @can ('authorize', config('permissions.groups.reservations.select'))
-                <li>
+                <li class="{{ \Util::activatable($errors, 'reservations_search_request') }}">
                     <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                 </li>
             @endcan
 --}}
             @can ('authorize', config('permissions.groups.reservations.create'))
-                <li>
+                <li class="{{ \Util::activatable($errors, 'reservations_create_request') }}">
                     <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                 </li>
             @endcan
@@ -56,18 +56,18 @@
             <div class="col-md-12 col-md-offset-0">
 
                 <div class="tab-content">
-                    <div class="tab-pane active fade in pt-5" id="calender-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="calender-tab">
                         @include ('reservations.components.calender')
                     </div>
 
-                    <div class="tab-pane fade in pt-5" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="result-tab">
                         @include ('reservations.components.list')
                     </div>
 {{--
                     @can ('authorize', config('permissions.groups.reservations.select'))
-                        <div class="tab-pane fade in pt-10" id="search-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'reservations_search_request') }}" id="search-tab">
                             <div class="well">
-                                {!! Form::open(['url' => route('reservations'), 'id' => 'reservations-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
+                                {!! Form::open(['url' => route('reservations.index'), 'id' => 'reservations-search-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
                                     @include ('reservations.components.search')
                                 {!! Form::close() !!}
                             </div>
@@ -75,13 +75,13 @@
                     @endcan
 --}}
                     @can ('authorize', config('permissions.groups.reservations.create'))
-                        <div class="tab-pane fade in pt-10" id="create-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'reservations_create_request') }}" id="create-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
                                     {!! Form::open(['url' => route('reservations.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                                        @include ('reservations.components.crud', ['mode' => 'add'])
+                                        @include ('reservations.components.crud', ['mode' => 'add', 'errorBag' => 'reservations_create_request'])
                                     {!! Form::close() !!}
                                 </div>
                             </div>

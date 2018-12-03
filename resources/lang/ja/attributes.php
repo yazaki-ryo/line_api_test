@@ -41,8 +41,6 @@ return [
         'store_id'              => '店舗',
         'prefecture_id'         => '都道府県',
         'sex_id'                => '性別',
-//         'group_id'              => 'グループ',
-//         'introducer_id'         => '紹介者',
         'last_name'             => '姓',
         'first_name'            => '名',
         'last_name_kana'        => '姓フリガナ',
@@ -88,8 +86,11 @@ return [
             'tags'           => 'タグ',
         ],
 
+        'tags'               => 'タグ',
+
         'postcards' => [
             'mode'      => '出力モード',
+            'setting'   => '印刷設定',
             'selection' => '顧客選択',
         ],
 
@@ -163,7 +164,7 @@ return [
         'avatar'                => 'アイコン',
         'store_id'              => '店舗',
         'company_id'            => '企業',
-        'role_id'               => 'ロール',
+        'role'                  => 'ロール',
         'password'              => 'パスワード',
         'password_confirmation' => 'パスワード(確認)',
         'remember'              => '次回から自動でログインする',
@@ -180,26 +181,27 @@ return [
 
     'settings' => [
         'printings' => [
-            'name'              => '名称',
-            'pc_position'       => '郵便番号出力位置',
-            'pc_frame'          => '郵便番号枠出力',
-            'pc_symbol'         => '〒マーク出力',
-            'pc_x'              => '郵便番号 横（X）座標',
-            'pc_y'              => '郵便番号 縦（Y）座標',
-            'pc_font'           => '郵便番号書体',
-            'pc_font_size'      => '郵便番号文字サイズ',
+            'name'                   => '名称',
+            'pc_position'            => '郵便番号出力位置',
+            'pc_frame'               => '郵便番号枠出力',
+            'pc_symbol'              => '〒マーク出力',
+            'pc_x'                   => '郵便番号 横（X）座標',
+            'pc_y'                   => '郵便番号 縦（Y）座標',
+            'pc_font'                => '郵便番号書体',
+            'pc_font_size'           => '郵便番号文字サイズ',
 
-            'address_x'         => '住所 横（X）座標',
-            'address_y'         => '住所 縦（Y）座標',
-            'address_font'      => '住所書体',
-            'address_font_size' => '住所文字サイズ',
+            'address_x'              => '住所 横（X）座標',
+            'address_y'              => '住所 縦（Y）座標',
+            'address_font'           => '住所書体',
+            'address_font_size'      => '住所文字サイズ',
 
-            'name_x'            => '氏名 横（X）座標',
-            'name_y'            => '氏名 縦（Y）座標',
-            'name_font'         => '氏名書体',
-            'name_font_size'    => '氏名文字サイズ',
+            'name_x'                 => '氏名 横（X）座標',
+            'name_y'                 => '氏名 縦（Y）座標',
+            'name_font'              => '氏名書体',
+            'name_font_size'         => '氏名文字サイズ',
 
             'from_flag'              => '差出人情報出力',
+            'from_pc_position'       => '（差出人）郵便番号出力位置',
             'from_pc_symbol'         => '（差出人）〒マーク出力',
             'from_pc_x'              => '（差出人）郵便番号 横（X）座標',
             'from_pc_y'              => '（差出人）郵便番号 縦（Y）座標',

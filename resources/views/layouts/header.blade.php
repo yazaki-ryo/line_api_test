@@ -18,19 +18,18 @@
             <p class="center">@lang ('Welcome, :name.', ['name' => $user->name()])</p>
           </li>
           <li>
-          <a href="{{ route('logout') }}" onclick="event.preventDefault(); if (confirm('@lang ('Do you want to log out?')')) document.getElementById('logout-form').submit(); return false;">
-            <i class="fa fa-sign-out pull-right"></i>@lang ('elements.words.logout')
-          </a>
-          {{ Form::open(['id' => 'logout-form', 'url' => route('logout'), 'method' => 'post', 'style' => 'display: none;']) }}{{ Form::close() }}
+              <a href="{{ route('logout') }}" onclick="common.submitFormWithConfirm('{{ route('logout') }}', '@lang ('Do you want to log out?')'); return false;">
+                  <i class="fa fa-sign-out pull-right"></i>@lang ('elements.words.logout')
+              </a>
           </li>
           <li>
-            <a href="{{ route('settings.profile') }}">@lang ('elements.words.user')@lang ('elements.words.information')
-              <i class="fas fa-user-cog pull-right"></i>
-            </a>
+              <a href="{{ route('settings.index') }}">@lang ('elements.words.user')@lang ('elements.words.information')
+                  <i class="fas fa-user-cog pull-right"></i>
+              </a>
           </li>
-        </ul> 
+        </ul>
       </li>
-    </ul>    
+    </ul>
   </nav>
 @endauth
 </header>

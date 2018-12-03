@@ -32,33 +32,33 @@ return [
                 'own-company-customers.create',
                 'own-company-customers.update',
                 'own-company-customers.delete',
-                'own-company-customers.restore',
+//                 'own-company-customers.restore',
 
                 'own-company-self-store-customers.select',
                 'own-company-self-store-customers.create',
                 'own-company-self-store-customers.update',
                 'own-company-self-store-customers.delete',
-                'own-company-self-store-customers.restore',
+//                 'own-company-self-store-customers.restore',
 
                 // Reservations
                 'own-company-reservations.select',
                 'own-company-reservations.create',
                 'own-company-reservations.update',
                 'own-company-reservations.delete',
-                'own-company-reservations.restore',
+//                 'own-company-reservations.restore',
 
                 'own-company-self-store-reservations.select',
                 'own-company-self-store-reservations.create',
                 'own-company-self-store-reservations.update',
                 'own-company-self-store-reservations.delete',
-                'own-company-self-store-reservations.restore',
+//                 'own-company-self-store-reservations.restore',
 
                 // Visited Histories
                 'own-company-customers-visited_histories.select',
                 'own-company-customers-visited_histories.create',
                 'own-company-customers-visited_histories.update',
                 'own-company-customers-visited_histories.delete',
-                'own-company-customers-visited_histories.restore',
+//                 'own-company-customers-visited_histories.restore',
 
                 // Postcards
                 'own-company-customers-postcards.export',
@@ -71,38 +71,38 @@ return [
                 'own-company-stores.create',
                 'own-company-stores.update',
                 'own-company-stores.delete',
-                'own-company-stores.restore',
+//                 'own-company-stores.restore',
 
                 'own-company-self-store.select',
                 'own-company-self-store.update',
                 'own-company-self-store.delete',
-                'own-company-self-store.restore',
+//                 'own-company-self-store.restore',
 
                 // Tags
                 'own-company-tags.select',
                 'own-company-tags.create',
                 'own-company-tags.update',
                 'own-company-tags.delete',
-                'own-company-tags.restore',
+//                 'own-company-tags.restore',
 
                 'own-company-self-store-tags.select',
                 'own-company-self-store-tags.create',
                 'own-company-self-store-tags.update',
                 'own-company-self-store-tags.delete',
-                'own-company-self-store-tags.restore',
+//                 'own-company-self-store-tags.restore',
 
                 // Users
                 'own-company-users.select',
                 'own-company-users.create',
                 'own-company-users.update',
                 'own-company-users.delete',
-                'own-company-users.restore',
+//                 'own-company-users.restore',
 
                 'own-company-self-store-users.select',
                 'own-company-self-store-users.create',
                 'own-company-self-store-users.update',
                 'own-company-self-store-users.delete',
-                'own-company-self-store-users.restore',
+//                 'own-company-self-store-users.restore',
             ],
 
             'store-user' => [
@@ -119,7 +119,7 @@ return [
                 'own-company-self-store-customers-visited_histories.create',
                 'own-company-self-store-customers-visited_histories.update',
                 'own-company-self-store-customers-visited_histories.delete',
-                'own-company-self-store-customers-visited_histories.restore',
+//                 'own-company-self-store-customers-visited_histories.restore',
 
                 // Postcards
                 'own-company-self-store-customers-postcards.export',
@@ -156,21 +156,11 @@ return [
                 'companies.restore',
 
                 // Customers
-//                 'customers.select',
-//                 'customers.create',
-//                 'customers.update',
-//                 'customers.delete',
-//                 'customers.restore',
-
-                // Visited Histories
-//                 'customers-visited_histories.select',
-//                 'customers-visited_histories.create',
-//                 'customers-visited_histories.update',
-//                 'customers-visited_histories.delete',
-//                 'customers-visited_histories.restore',
-
-                // Postcards
-//                 'customers-postcards.export',
+                'customers.select',
+                'customers.create',
+                'customers.update',
+                'customers.delete',
+                'customers.restore',
 
                 // Stores
                 'stores.select',

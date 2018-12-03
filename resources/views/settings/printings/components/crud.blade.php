@@ -1,11 +1,10 @@
-<div class="form-group{{ $errors->{$errorBag}->has($attribute = 'name') ? ' has-error' : '' }}">
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'name') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-5 control-label">
         @lang (sprintf('attributes.settings.printings.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
-
     <div class="col-md-6">
-        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag}->any() ? old($attribute) : $row->{$attribute} ?? sprintf('%s%s', __('elements.words.settings'), $key) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : (is_null($row->id()) ? sprintf('%s%s', __('elements.words.settings'), $key) : $row->{$camel = camel_case($attribute)}()) }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         @include ('components.form.err_msg', ['attribute' => $attribute, 'errorBag' => $errorBag])
     </div>
 </div>

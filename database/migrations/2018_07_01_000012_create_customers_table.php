@@ -25,8 +25,6 @@ class CreateCustomersTable extends Migration
                 $table->unsignedInteger('store_id')->nullable()->comment('店舗ID');
                 $table->unsignedInteger('prefecture_id')->nullable()->comment('都道府県ID');
                 $table->unsignedInteger('sex_id')->nullable()->comment('性別ID');
-//                 $table->unsignedInteger('group_id')->nullable()->comment('グループID');
-//                 $table->unsignedInteger('introducer_id')->nullable()->comment('紹介者ID');
 
                 $table->string('last_name')->nullable()->comment('姓');
                 $table->string('first_name')->nullable()->comment('名');
@@ -69,14 +67,6 @@ class CreateCustomersTable extends Migration
                 $table->foreign('sex_id')
                     ->references('id')
                     ->on('sexes');
-
-//                 $table->foreign('group_id')
-//                     ->references('id')
-//                     ->on('groups');
-
-//                 $table->foreign('introducer_id')
-//                     ->references('id')
-//                     ->on('introducers');
             });
 
             DB::statement(sprintf("ALTER TABLE %s%s COMMENT '%s'", DB::getTablePrefix(), $this->table, $this->name));

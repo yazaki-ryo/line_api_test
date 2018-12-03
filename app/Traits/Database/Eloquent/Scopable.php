@@ -35,4 +35,31 @@ trait Scopable
         $field = sprintf('%s.id', $this->getTable());
         return $query->{$not === false ? 'whereIn' : 'whereNotIn'}($field, $ids);
     }
+
+    /**
+     * @param  Builder $query
+     * @param  string|array $args
+     * @param  bool $not
+     * @return Builder
+     */
+    public function scopeNull(Builder $query, $args, bool $not = false): Builder
+    {
+        $args = is_array($args) ? $args : [$args];
+        foreach ($args as $field ) {
+            $query->{$not === false ? 'whereNull' : 'whereNotNull'}(sprintf('%s.%s', $this->getTable(), $field));
+        }
+
+        return $query;
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string|array $args
+     * @return Builder
+     */
+    public function scopeRelations(Builder $query, $args): Builder
+    {
+        $args = is_array($args) ? $args : [$args];
+        return $query->with($args);
+    }
 }

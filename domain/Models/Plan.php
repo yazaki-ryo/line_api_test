@@ -8,9 +8,6 @@ use App\Services\DomainCollection;
 
 final class Plan extends DomainModel
 {
-    /** @var PlanRepository */
-    protected $repo;
-
     /** @var int */
     private $id;
 

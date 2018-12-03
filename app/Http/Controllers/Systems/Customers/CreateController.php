@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Systems\Customers;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\Customers\CreateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\UseCases\Customers\CreateCustomer;
@@ -53,7 +53,7 @@ final class CreateController extends Controller
     public function create(CreateRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         $callback = function () use ($user, $args) {

@@ -24,14 +24,28 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                <div class="panel panel-default">
-                    <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+                <ul class="nav nav-tabs">
+                    <li class="{{ \Util::activatable($errors, 'tags_update_request', true) }}">
+                        <a href="#edit-tab" data-toggle="tab">
+                            @lang ('elements.words.detail')
+                        </a>
+                    </li>
+                </ul>
 
-                    <div class="panel-body">
-                        {!! Form::open(['url' => route('tags.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
-                            @include ('tags.components.crud', ['mode' => 'edit'])
-                        {!! Form::close() !!}
-                    </div>
+                <div class="tab-content">
+                    @can ('select', $row)
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'tags_update_request', true) }}" id="edit-tab">
+                            <div class="panel panel-default">
+                                <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
+
+                                <div class="panel-body">
+                                    {!! Form::open(['url' => route('tags.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                        @include ('tags.components.crud', ['mode' => 'edit', 'errorBag' => 'tags_update_request'])
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
                 </div>
             </div>
         </div>

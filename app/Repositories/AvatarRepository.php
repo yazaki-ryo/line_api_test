@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentAvatar;
-use App\Eloquents\EloquentUser;
 use Domain\Contracts\Model\DomainableContract;
-use Domain\Exceptions\DomainRuleException;
 use Domain\Models\DomainModel;
 use Domain\Models\Avatar;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,9 +13,6 @@ use Illuminate\Support\Collection;
 
 final class AvatarRepository extends EloquentRepository implements DomainableContract
 {
-    /** @var EloquentAvatar */
-    protected $eloquent;
-
     /**
      * @param EloquentAvatar|null $eloquent
      * @return void
@@ -42,24 +37,18 @@ final class AvatarRepository extends EloquentRepository implements DomainableCon
      */
     public static function toModels(Collection $collection): Collection
     {
-        return $collection->transform(function (EloquentAvatar $item) {
-            return self::toModel($item);
+        return $collection->transform(function ($item) {
+            return $item instanceof EloquentAvatar ? self::toModel($item) : $item;
         });
     }
 
     /**
-     * @return mixed DomainModel
-     * @throws DomainRuleException
+     * @return DomainModel
      */
     public function avatarable(): DomainModel
     {
         $resource = $this->eloquent->avatarable;
-
-        if ($resource instanceof EloquentUser) {
-            return UserRepository::toModel($resource);
-        }
-
-        throw new DomainRuleException('Either domain model should be returned.');
+        return EloquentRepository::assign($resource);
     }
 
     /**
@@ -69,15 +58,8 @@ final class AvatarRepository extends EloquentRepository implements DomainableCon
      */
     public static function build($query, array $args = [])
     {
-        $args = collect($args);
-
-        $query->when($args->has($key = 'id'), function (Builder $q) use ($key, $args) {
-            $q->id($args->get($key));
-        });
-
-        $query->when($args->has($key = 'ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
-            $q->ids($args->get($key));
-        });
+        $query = parent::build($query, $args);
+        $args  = collect($args);
 
         return $query;
     }

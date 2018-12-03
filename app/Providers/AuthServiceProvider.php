@@ -8,10 +8,13 @@ use App\Policies\ReservationPolicy;
 use App\Policies\TagPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\VisitedHistoryPolicy;
+use App\Repositories\EloquentRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Domain\Models\Customer;
+use Domain\Models\DomainModel;
+use Domain\Models\Permission;
 use Domain\Models\Reservation;
 use Domain\Models\Tag;
 use Domain\Models\User;
@@ -40,8 +43,13 @@ final class AuthServiceProvider extends ServiceProvider
         Gate::define('authorize', function (Model $user, ...$args): bool {
             $args = is_array($args) ? $args : [$args];
 
+            /** @var DomainModel $user */
+            $user = EloquentRepository::assign($user, true);
+
             foreach ($args as $arg) {
-                if ($user->permissions->containsStrict('slug', $arg)) {
+                if ($user->permissions()->containsStrict(function (Permission $item) use ($arg) {
+                    return $item->slug() === (string)$arg;
+                })) {
                     return true;
                 }
             }

@@ -4,10 +4,11 @@ declare(strict_types=1);
 namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
-use Illuminate\Database\Eloquent\Builder;
 use App\Traits\Database\Eloquent\Scopable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -28,7 +29,6 @@ final class EloquentUser extends Authenticatable
         'name',
         'email',
         'store_id',
-        'role_id',
         'password',
     ];
 
@@ -46,6 +46,14 @@ final class EloquentUser extends Authenticatable
     public function avatars(): MorphMany
     {
         return $this->morphMany(EloquentAvatar::class, 'avatarable', 'avatarable_type', 'avatarable_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function printSettings(): HasMany
+    {
+        return $this->hasMany(EloquentPrintSetting::class, 'user_id', 'id');
     }
 
     /**

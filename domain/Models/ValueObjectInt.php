@@ -12,12 +12,16 @@ trait ValueObjectInt
 
     /**
      * @param int $value
+     * @return void
      */
     private function __construct(int $value)
     {
         $this->value = $value;
     }
 
+    /**
+     * @return int
+     */
     public function asInt(): int
     {
         return $this->value;

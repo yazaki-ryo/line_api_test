@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Systems\Users;
 
 use App\Http\Controllers\Systems\Controller;
 use App\Http\Requests\Users\SearchRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\UseCases\Users\GetUsers;
 use Illuminate\Contracts\Auth\Factory as Auth;
@@ -42,7 +42,7 @@ final class IndexController extends Controller
     public function __invoke(SearchRequest $request)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
         $args = $request->validated();
 
         return view('users.index', [

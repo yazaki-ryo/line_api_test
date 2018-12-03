@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Reservations;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reservations\UpdateRequest;
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use Domain\Models\User;
 use Domain\Models\Reservation;
 use Domain\UseCases\Reservations\UpdateReservation;
 use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
 {
@@ -36,12 +37,13 @@ final class UpdateController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param int $reservationId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(int $reservationId)
+    public function view(Request $request, int $reservationId)
     {
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Reservation $reservationId */
         $reservation = $this->useCase->getReservation([
@@ -64,9 +66,9 @@ final class UpdateController extends Controller
     public function update(UpdateRequest $request, int $reservationId)
     {
         /** @var User $user */
-        $user = UserRepository::toModel($this->auth->user());
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
-        $storeId = session(config('session.name.current_store'));
+        $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Reservation $reservationId */
         $reservation = $this->useCase->getReservation([
@@ -88,7 +90,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.reservation'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('reservations');
+        return redirect()->route('reservations.index');
     }
 
 }

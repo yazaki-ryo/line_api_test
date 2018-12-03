@@ -43,7 +43,7 @@ final class UpdateController extends Controller
         $cookie2 = $request->cookie('settings_printings_2');
         $cookie3 = $request->cookie('settings_printings_3');
 
-        return view('settings.printings.edit', [
+        return view('settings.printings.index', [
             'rows' => [
                 1 => is_null($cookie1) ? $cookie1 : json_decode($cookie1),
                 2 => is_null($cookie2) ? $cookie2 : json_decode($cookie2),

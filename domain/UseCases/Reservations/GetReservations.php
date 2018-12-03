@@ -59,6 +59,12 @@ final class GetReservations
         /** @var Collection $collection */
         $collection = collect($args);
 
+        $collection->put('relations', [
+            'customer',
+            'store',
+            'visitedHistory',
+        ]);
+
         return $collection->all();
     }
 

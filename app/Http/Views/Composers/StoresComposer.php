@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Http\Views\Composers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\EloquentRepository;
 use App\Services\DomainCollection;
+use Cookie;
 use Domain\Models\Company;
 use Domain\Models\Store;
+use Domain\Models\User;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\View\View;
 
@@ -50,7 +52,8 @@ final class StoresComposer
     {
         if (! $this->auth->check()) return;
 
-        $user = UserRepository::toModel($this->auth->user());
+        /** @var User $user */
+        $user = EloquentRepository::assign($this->auth->user(), true);
 
         /** @var Store $store */
         $store = $user->store();
@@ -59,24 +62,21 @@ final class StoresComposer
         $company = $store->company();
 
         /** @var DomainCollection $stores */
-        $collection = new DomainCollection;
+        $stores = new DomainCollection;
 
-        if ($user->can('authorize', 'stores.select') && ! is_null($company)) {
-            // TODO
-        } elseif ($user->can('authorize', 'own-company-stores.select') && ! is_null($company)) {
-            $collection = $company->stores();
+        if ($user->can('authorize', 'own-company-stores.select') && ! is_null($company)) {
+            $stores = $company->stores();
         } elseif ($user->can('authorize', 'own-company-self-store.select') && ! is_null($store)) {
-            $collection = $collection->push($store);
+            $stores = $stores->push($store);
         }
 
-        $view->with('stores', $collection);
+        $view->with('stores', $stores);
 
-        if (session()->has(config('session.name.current_store'))) {
-            $id = session(config('session.name.current_store'));
+        if (is_numeric($value = Cookie::get(config('cookie.name.current_store')))) {
             $view->with(
                 'currentStore',
-                $collection->filter(function (Store $item) use ($id){
-                    return $item->id() === (int)$id;
+                $stores->filter(function (Store $item) use ($value){
+                    return $item->id() === (int)$value;
                 })->first()
             );
         }

@@ -59,6 +59,12 @@ final class GetUsers
         /** @var Collection $collection */
         $collection = collect($args);
 
+        $collection->put('relations', [
+            'avatars',
+            'permissions',
+            'store',
+        ]);
+
         return $collection->all();
     }
 }
