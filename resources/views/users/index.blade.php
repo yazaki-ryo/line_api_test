@@ -11,15 +11,33 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.users')@lang ('elements.words.list')
-                </div>
-            </div>
-        </div>
-
+    <div class="nav-tabs-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.users')@lang ('elements.words.list')
+        </p>
+        <ul class="nav nav-tabs">
+            <li class="{{ \Util::activatable($errors, null, true) }}">
+                <a href="#result-tab" data-toggle="tab">
+                    @lang ('elements.words.list')
+                    <span class="badge">{{ $rows->count() }}</span>
+                </a>
+            </li>
+{{--
+            @can ('authorize', config('permissions.groups.users.select'))
+                <li class="{{ \Util::activatable($errors, 'users_search_request') }}">
+                    <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
+                </li>
+            @endcan
+--}}
+            @can ('authorize', config('permissions.groups.users.create'))
+                <li class="{{ \Util::activatable($errors, 'users_create_request') }}">
+                    <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
+                </li>
+            @endcan
+        </ul>
+    </div>
+    <div class="container pt-150">
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 @include ('components.parts.alerts')
@@ -29,27 +47,6 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors, null, true) }}">
-                        <a href="#result-tab" data-toggle="tab">
-                            @lang ('elements.words.list')
-                            <span class="badge">{{ $rows->count() }}</span>
-                        </a>
-                    </li>
-{{--
-                    @can ('authorize', config('permissions.groups.users.select'))
-                        <li class="{{ \Util::activatable($errors, 'users_search_request') }}">
-                            <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
-                        </li>
-                    @endcan
---}}
-                    @can ('authorize', config('permissions.groups.users.create'))
-                        <li class="{{ \Util::activatable($errors, 'users_create_request') }}">
-                            <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
-                        </li>
-                    @endcan
-                </ul>
-
                 <div class="tab-content">
                     <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="result-tab">
                         @include ('users.components.list')
