@@ -59,6 +59,8 @@
 .navbar-fixed-left {
   top: 50px !important;
   box-shadow: none !important;
+  overflow-y: auto;
+  padding-bottom: 100px;
 }
 .navbar-inverse {
   .navbar-nav {
