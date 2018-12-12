@@ -16,6 +16,7 @@
     @else
         <link href="{{ asset('css/default.css') }}" rel="stylesheet">
     @endif
+    <link href="{{ asset('css/perfect-scrollbar.css') }}" rel="stylesheet">
 
     @yield('styles')
 
@@ -52,6 +53,14 @@
     @else
         <script type="text/javascript" src="{{ asset('js/default.js') }}"></script>
     @endif
+    <script type="text/javascript" src="{{ asset('js/perfect-scrollbar.min.js') }}"></script>
+    <script>
+        var ps = new PerfectScrollbar('.navbar-fixed-left', {
+            wheelSpeed: 3,
+            wheelPropagation: false,
+            minScrollbarLength: 20
+        });
+    </script>
 
     @yield('scripts')
 </body>

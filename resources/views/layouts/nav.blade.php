@@ -27,7 +27,7 @@
 
                     <!-- Customers -->
                     <li>
-                        <a href="#side-nav1" class="dropdown-toggle" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                        <a href="#side-nav1" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                             <i class="fas fa-address-book fa-lg"></i>
                             @lang ('elements.words.customers')@lang ('elements.words.management') <span class="caret"></span>
                         </a>
