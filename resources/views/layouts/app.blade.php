@@ -57,7 +57,7 @@
     <script>
         var ps = new PerfectScrollbar('.navbar-fixed-left', {
             wheelSpeed: 3,
-            wheelPropagation: true,
+            wheelPropagation: false,
             minScrollbarLength: 20
         });
     </script>
