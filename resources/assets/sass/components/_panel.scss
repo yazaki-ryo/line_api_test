@@ -1,6 +1,6 @@
 .panel-default {
   border-color: #ccc;
-  background-color: #f8f8f8;
+  background-color: #fff;
   &> .panel-heading {
     margin-top: 10px;
     padding-bottom: 0;
@@ -12,4 +12,11 @@
 }
 .panel-body {
   padding: 25px;
+}
+.panel {
+  border-radius: 0;
+}
+.panel-login {
+  border-radius: 0;
+  border: 5px solid #ccc;
 }

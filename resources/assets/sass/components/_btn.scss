@@ -1,3 +1,14 @@
 .btn-submit-1 {
   background-color: #337ab7;
 }
+.btn {
+  &:hover,
+   :active,
+   :focus,
+   :visited, {
+    color: #fff;
+  }
+}
+.btn-reset-link {
+  font-size: 1.25rem;
+}

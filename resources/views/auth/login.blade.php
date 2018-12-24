@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="container pt-150">
+    <div class="col-md-12 col-sm-12 col-xs-12 pt-150 mb-100">
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
@@ -18,7 +18,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel-login panel panel-default">
                     <div class="panel-heading"><i class="fas fa-sign-in-alt fa-lg"></i> @lang ('elements.words.login')</div>
                     <div class="panel-body">
                         {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
@@ -61,7 +61,7 @@
                                         @lang ('elements.words.login')
                                     </button>
 
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn-link btn-reset-link" href="{{ route('password.request') }}">
                                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> @lang ('Forgot Your Password?')
                                     </a>
                                 </div>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="panel panel-default">
+                <div class="panel-login panel-default">
                     <div class="panel-body">
                         <P>SNSを表示させる</P>
                     </div>

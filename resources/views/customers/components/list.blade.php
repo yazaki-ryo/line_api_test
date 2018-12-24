@@ -1,6 +1,15 @@
 @if ($rows->count())
 <div class="table-responsive">
-    <table id="customers-table" class="table table-striped table-condensed table-bordered dt-responsive nowrap dataTable dtr-inline">
+    <table id="customers-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid">
+        <colgroup>
+            <col width="3%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="15%">
+            <col width="15%">
+            <col width="25%">
+        </colgroup>
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>

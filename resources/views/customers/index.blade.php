@@ -122,7 +122,8 @@
                 paging: true,
                 scrollX: false,
                 searching: true,
-                stateSave: true
+                stateSave: true,
+                responsive: true,
             });
         });
 
