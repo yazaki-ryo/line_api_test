@@ -1,5 +1,8 @@
 #customers-table {
   width: 100% !important;
+  th, td {
+    white-space: nowrap;
+  }
 }
 .table-responsive {
   .dataTables_wrapper {
@@ -8,10 +11,6 @@
       overflow: auto !important;
     }
   }
-}
-.table-container {
-  width: 100%;
-  display: inline-block;
 }
 @media screen and (max-width: 767px) {
   .table-responsive {

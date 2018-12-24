@@ -1,0 +1,9 @@
+.tab-content {
+  width: 100%;
+  display: inline-block;
+}
+@media screen and (max-width: 414px) {
+  .pt-150 {
+    padding-top: 0;
+  }
+}
