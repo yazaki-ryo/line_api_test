@@ -7,14 +7,20 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <div class="page-header">
-                    	<h1 class="h2">@lang ('elements.words.users')@lang ('elements.words.detail')
-                </div>
-            </div>
-        </div>
+    <div class="nav-tabs-container side-by-side wrap">
+        <p class="page-title">
+            <i class="fas fa-angle-double-right"></i>
+            @lang ('elements.words.users')@lang ('elements.words.detail')
+        </p>
+        <ul class="nav nav-tabs">
+            <li class="{{ \Util::activatable($errors, 'users_update_request', true) }}">
+                <a href="#edit-tab" data-toggle="tab">
+                    @lang ('elements.words.detail')
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container pt-150">
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
@@ -25,14 +31,6 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors, 'users_update_request', true) }}">
-                        <a href="#edit-tab" data-toggle="tab">
-                            @lang ('elements.words.detail')
-                        </a>
-                    </li>
-                </ul>
-
                 <div class="tab-content">
                     @can ('select', $row)
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'users_update_request', true) }}" id="edit-tab">
@@ -51,10 +49,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section ('scripts')
-    <script type="text/javascript">
-        //
-    </script>
 @endsection
