@@ -45,6 +45,7 @@ final class DomainServiceProvider extends ServiceProvider
     public function provides(): array
     {
         return [
+            Customers\CreateCustomer::class,
             Customers\DeleteCustomer::class,
             Customers\GetCustomers::class,
 //             Customers\Files\ImportFiles::class,
