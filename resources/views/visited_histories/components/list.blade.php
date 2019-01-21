@@ -3,7 +3,7 @@
 </div>
 
 @if ($rows->count())
-    <table id="visited-histories-table" class="table table-striped table-hover table-condensed">
+    <table id="visited-histories-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed">
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
