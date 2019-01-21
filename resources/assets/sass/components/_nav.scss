@@ -156,3 +156,37 @@
     }
   }
 }
+@media screen and (max-width: 414px) {
+  .navbar-fixed-left {
+    padding-bottom: 0;
+    &.pt-30 {
+      padding-top: 0;
+    }
+  }
+  .navbar-inverse {
+    border: 0;
+  }
+  .nav-tabs-container {
+    top: 100px;
+  }
+  .nav-tabs {
+    font-size: 3vw;
+  }
+  .navbar-inverse {
+    .navbar-toggle {
+      &:hover {
+        background: none;  
+      }
+    }
+  }
+  .navbar-inverse {
+    .navbar-toggle {
+      border: none;
+    }
+  }
+  .navbar-default {
+    .header-gnav {
+      font-size: 3vw;
+    }
+  }
+}

@@ -3,7 +3,7 @@
 @else
 <header class="navbar-default navbar-fixed-top main-header login-header">
 @endauth
-  <a class="navbar-brand">顧客管理システム</a>
+  <a class="navbar-brand">neeeds 顧客管理</a>
 @auth
   <nav>    
     <ul class="nav navbar-nav navbar-right header-gnav">      
