@@ -3,7 +3,9 @@
   display: inline-block;
 }
 @media screen and (max-width: 414px) {
-  .pt-150 {
-    padding-top: 0;
-  }
+  .container {
+    &.pt-150 {
+      padding-top: 100px;
+    }
+  }  
 }
