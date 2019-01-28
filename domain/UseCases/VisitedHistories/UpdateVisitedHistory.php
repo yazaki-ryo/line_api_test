@@ -51,7 +51,7 @@ final class UpdateVisitedHistory
      * @param User $user
      * @param VisitedHistory $visitedHistory
      * @param array $args
-     * @param  UploadedFile|null $file
+     * @param UploadedFile|null $file
      * @return void
      */
     public function excute(User $user, VisitedHistory $visitedHistory, array $args = [], UploadedFile $file = null): void
@@ -66,6 +66,7 @@ final class UpdateVisitedHistory
             }
 
             if (! is_null($file)) {
+                $this->dropAttachments($visitedHistory);// Maximum number of registrations is 1.
                 $this->addAttachment($visitedHistory, $file);
             }
         });
@@ -101,7 +102,7 @@ final class UpdateVisitedHistory
     private function addAttachment(VisitedHistory $visitedHistory, UploadedFile $file): Attachment
     {
         $attachment = $visitedHistory->addAttachment([
-            'path' => $path = sprintf('images/attachments/customers/visited_histories/%s', $visitedHistory->id()),
+            'path' => $path = sprintf('images/attachments/visited_histories/%s', $visitedHistory->id()),
             'name' => $name = sprintf('%s_%s_%s', time(), str_random(16), $file->getClientOriginalName()),
         ]);
 
@@ -124,7 +125,7 @@ final class UpdateVisitedHistory
         }
 
         // Per directory.
-        $this->filesystem->disk('public')->deleteDirectory(sprintf('images/attachments/customers/visited_histories/%s', $visitedHistory->id()));
+        $this->filesystem->disk('public')->deleteDirectory(sprintf('images/attachments/visited_histories/%s', $visitedHistory->id()));
     }
 
 }

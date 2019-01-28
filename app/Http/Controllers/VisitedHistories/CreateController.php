@@ -53,8 +53,11 @@ final class CreateController extends Controller
 
         $args = $request->validated();
 
-        $callback = function () use ($user, $customer, $args) {
-            return $this->useCase->excute($user, $customer, $args);
+        /** @var UploadedFile $file */
+        $file = $request->file('attachment');
+
+        $callback = function () use ($user, $customer, $args, $file) {
+            return $this->useCase->excute($user, $customer, $args, $file);
         };
 
         if (($result = rescue($callback, false)) === false) {

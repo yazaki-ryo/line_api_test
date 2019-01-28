@@ -248,7 +248,8 @@ final class DomainServiceProvider extends ServiceProvider
          */
         $this->app->singleton(VisitedHistories\CreateVisitedHistory::class, function () {
             return new VisitedHistories\CreateVisitedHistory(
-                app(Services\CustomersService::class)
+                app(Services\CustomersService::class),
+                app(FilesystemFactory::class)
             );
         });
 

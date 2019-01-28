@@ -79,6 +79,7 @@
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'attachment') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
+        <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('Maximum number of registrations is 1')"></span>
     </label>
 
     <div class="col-md-6 form-control-static">
