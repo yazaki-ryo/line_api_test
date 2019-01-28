@@ -104,6 +104,7 @@ return [
             'amount'       => '人数',
             'seat'         => '席',
             'note'         => 'メモ',
+            'attachment'   => '添付画像',
             'created_at'   => '登録日時',
             'updated_at'   => '更新日時',
         ],

@@ -76,6 +76,36 @@
     @endif
 @endif
 
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'attachment') ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        @if (false)
+            @foreach ($row->attachments() as $attachment)
+                @continue (! $attachment->name())
+
+                <img src="{{ asset(str_finish('storage/' . $attachment->path(), '/') . $attachment->name()) }}" class="thumbnail" width="150" height="auto" alt="" />
+            @endforeach
+        @endif
+
+        <input type="hidden" name="MAX_FILE_SIZE" value="2097152" /><!-- TODO from config file. -->
+        {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+
+        @if ($row->attachments()->count())
+            <div class="checkbox">
+                <label>
+                    {!! Form::checkbox($attribute2 = 'drop_attachment', 1, old($attribute2), ['class' => '', 'id' => $attribute2]) !!} @lang ('Delete the current image.')
+                </label>
+
+                @include ('components.form.err_msg', ['attribute' => $attribute2])
+            </div>
+        @endif
+    </div>
+</div>
+
 @if ($mode === 'edit')
     <div class="form-group">
         <label for="{{ $attribute = 'updated_at' }}" class="col-md-4 control-label">
