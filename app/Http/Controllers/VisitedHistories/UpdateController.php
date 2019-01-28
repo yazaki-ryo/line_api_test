@@ -9,6 +9,7 @@ use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 final class UpdateController extends Controller
 {
@@ -72,8 +73,11 @@ final class UpdateController extends Controller
 
         $args = $request->validated();
 
-        $callback = function () use ($user, $visitedHistory, $args) {
-            $this->useCase->excute($user, $visitedHistory, $args);
+        /** @var UploadedFile $file */
+        $file = $request->file('attachment');
+
+        $callback = function () use ($user, $visitedHistory, $args, $file) {
+            $this->useCase->excute($user, $visitedHistory, $args, $file);
         };
 
         if (! is_null($result = rescue($callback, false))) {
@@ -82,7 +86,7 @@ final class UpdateController extends Controller
         }
 
         flash(__('The :name information was :action.', ['name' => __('elements.words.visit'), 'action' => __('elements.words.updated')]), 'success');
-        return redirect()->route('customers.edit', $visitedHistory->customerId());
+        return redirect()->route('visited_histories.edit', $visitedHistory->id());
     }
 
 }

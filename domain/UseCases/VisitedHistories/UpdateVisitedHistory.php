@@ -7,8 +7,11 @@ use App\Traits\Database\Transactionable;
 use Carbon\Carbon;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
+use Domain\Models\Attachment;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
+use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
+use Illuminate\Http\UploadedFile;
 
 final class UpdateVisitedHistory
 {
@@ -17,13 +20,18 @@ final class UpdateVisitedHistory
     /** @var FindableContract */
     private $finder;
 
+    /** @var FilesystemFactory */
+    private $filesystem;
+
     /**
      * @param FindableContract $finder
+     * @param FilesystemFactory $factory
      * @return void
      */
-    public function __construct(FindableContract $finder)
+    public function __construct(FindableContract $finder, FilesystemFactory $factory)
     {
         $this->finder = $finder;
+        $this->filesystem = $factory;
     }
 
     /**
@@ -43,14 +51,23 @@ final class UpdateVisitedHistory
      * @param User $user
      * @param VisitedHistory $visitedHistory
      * @param array $args
-     * @return bool
+     * @param  UploadedFile|null $file
+     * @return void
      */
-    public function excute(User $user, VisitedHistory $visitedHistory, array $args = []): bool
+    public function excute(User $user, VisitedHistory $visitedHistory, array $args = [], UploadedFile $file = null): void
     {
         $args = $this->domainize($user, $args);
 
-        return $this->transaction(function () use ($visitedHistory, $args) {
-            return $visitedHistory->update($args);
+        $this->transaction(function () use ($visitedHistory, $args, $file) {
+            $visitedHistory->update($args);
+
+            if (isset($args['drop_attachment'])) {
+                $this->dropAttachments($visitedHistory);
+            }
+
+            if (! is_null($file)) {
+                $this->addAttachment($visitedHistory, $file);
+            }
         });
     }
 
@@ -74,6 +91,40 @@ final class UpdateVisitedHistory
         }
 
         return $args->all();
+    }
+
+    /**
+     * @param VisitedHistory $visitedHistory
+     * @param UploadedFile $file
+     * @return Attachment
+     */
+    private function addAttachment(VisitedHistory $visitedHistory, UploadedFile $file): Attachment
+    {
+        $attachment = $visitedHistory->addAttachment([
+            'path' => $path = sprintf('images/attachments/customers/visited_histories/%s', $visitedHistory->id()),
+            'name' => $name = sprintf('%s_%s_%s', time(), str_random(16), $file->getClientOriginalName()),
+        ]);
+
+        $this->filesystem->disk('public')->putFileAs($path, $file, $name);
+
+        return $attachment;
+    }
+
+    /**
+     * @param VisitedHistory $visitedHistory
+     * @return void
+     */
+    private function dropAttachments(VisitedHistory $visitedHistory): void
+    {
+        /** @var Attachment $attachment */
+        foreach ($visitedHistory->attachments() as $attachment) {
+            $attachment->delete();
+            // Per file.
+            // $this->filesystem->disk('public')->delete(str_finish($attachment->path(), '/') . $attachment->name());
+        }
+
+        // Per directory.
+        $this->filesystem->disk('public')->deleteDirectory(sprintf('images/attachments/customers/visited_histories/%s', $visitedHistory->id()));
     }
 
 }

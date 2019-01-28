@@ -82,13 +82,11 @@
     </label>
 
     <div class="col-md-6 form-control-static">
-        @if (false)
-            @foreach ($row->attachments() as $attachment)
-                @continue (! $attachment->name())
+        @foreach ($row->attachments() as $attachment)
+            @continue (! $attachment->name())
 
-                <img src="{{ asset(str_finish('storage/' . $attachment->path(), '/') . $attachment->name()) }}" class="thumbnail" width="150" height="auto" alt="" />
-            @endforeach
-        @endif
+            <img src="{{ asset(str_finish('storage/' . $attachment->path(), '/') . $attachment->name()) }}" class="thumbnail" width="150" height="auto" alt="" />
+        @endforeach
 
         <input type="hidden" name="MAX_FILE_SIZE" value="2097152" /><!-- TODO from config file. -->
         {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}

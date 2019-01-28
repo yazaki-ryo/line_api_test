@@ -11,6 +11,7 @@ use Domain\UseCases\Settings;
 use Domain\UseCases\Tags;
 use Domain\UseCases\Users;
 use Domain\UseCases\VisitedHistories;
+use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
 use Illuminate\Support\ServiceProvider;
 
 final class DomainServiceProvider extends ServiceProvider
@@ -259,7 +260,8 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->singleton(VisitedHistories\UpdateVisitedHistory::class, function () {
             return new VisitedHistories\UpdateVisitedHistory(
-                app(Services\VisitedHistoriesService::class)
+                app(Services\VisitedHistoriesService::class),
+                app(FilesystemFactory::class)
             );
         });
     }
