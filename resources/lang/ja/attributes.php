@@ -61,6 +61,8 @@ return [
         'mourning_flag'         => '喪中設定',
         'birthday'              => '誕生日',
         'anniversary'           => '記念日',
+        'visited_date'          => '来店日',
+        'visited_time'          => 'チェックイン',
         'likes_and_dislikes'    => '好き嫌い',
         'note'                  => 'メモ',
 

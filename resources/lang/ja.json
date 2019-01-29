@@ -36,5 +36,6 @@
     "When outputting the postal code to the prescribed position on the upper right, it is possible to select whether or not to output the frame.": "郵便番号を規定位置へ出力する場合に、枠を出力するかどうかを選択出来ます。",
     "You can choose whether to output the postal code to the prescribed position or to the arbitrary position.": "郵便番号を規定の位置へ出力するか、任意の位置へ出力するかどうかを選択出来ます。",
     "You can choose whether to output information of sender such as zip code, address, name etc.": "郵便番号・住所・氏名などの差出人の情報を出力するかどうかを選択出来ます。",
-    "You can choose whether to output the 〒 mark when you want to output the postal code to an arbitrary position.": "郵便番号を任意の位置へ出力する場合に、〒マークを出力するかどうかを選択出来ます。"
+    "You can choose whether to output the 〒 mark when you want to output the postal code to an arbitrary position.": "郵便番号を任意の位置へ出力する場合に、〒マークを出力するかどうかを選択出来ます。",
+    "You can register visited date arbitrarily.": "任意で来店日付を登録する事が出来ます。"
 }

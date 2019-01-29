@@ -212,6 +212,32 @@
     </div>
 </div>
 
+@if ($mode === 'add')
+    <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'visited_date') ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang (sprintf('attributes.customers.%s', $attribute))
+            <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can register visited date arbitrarily.')"></span>
+        </label>
+
+        <div class="col-md-3">
+            <input type="date" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : '' }}" class="form-control" id="{{ $attribute }}" maxlength="10" placeholder="" />
+            @include ('components.form.err_msg', ['attribute' => $attribute])
+        </div>
+    </div>
+
+    <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'visited_time') ? ' has-error' : '' }}">
+        <label for="{{ $attribute }}" class="col-md-4 control-label">
+            @lang (sprintf('attributes.customers.%s', $attribute))
+            <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('You can register visited date arbitrarily.')"></span>
+        </label>
+
+        <div class="col-md-3">
+            <input type="time" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : '' }}" class="form-control" id="{{ $attribute }}" maxlength="5" placeholder="" />
+            @include ('components.form.err_msg', ['attribute' => $attribute])
+        </div>
+    </div>
+@endif
+
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
