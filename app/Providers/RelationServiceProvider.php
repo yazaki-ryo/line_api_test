@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\Eloquents\EloquentCustomer;
 use App\Eloquents\EloquentUser;
+use App\Eloquents\EloquentVisitedHistory;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,6 +35,7 @@ final class RelationServiceProvider extends ServiceProvider
         Relation::morphMap([
             'customers' => EloquentCustomer::class,
             'users'     => EloquentUser::class,
+            'visited_histories' => EloquentVisitedHistory::class,
         ]);
     }
 }

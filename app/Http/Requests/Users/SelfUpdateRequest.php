@@ -24,7 +24,7 @@ final class SelfUpdateRequest extends FormRequest
     public function rules(): array
     {
         /** @var User $user */
-        $user = request()->assign();
+        $user = $this->assign();
 
         return [
             'name' => [

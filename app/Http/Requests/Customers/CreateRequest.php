@@ -128,6 +128,20 @@ final class CreateRequest extends FormRequest
                 'max:10',
                 'date_format:Y-m-d',
             ],
+            'visited_date' => [
+                'nullable',
+                'required_with:visited_time',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                sprintf('before_or_equal:%s', now()->format('Y-m-d')),
+            ],
+            'visited_time' => [
+                'nullable',
+                'string',
+                'max:5',
+                'date_format:H:i',
+            ],
             'likes_and_dislikes' => [
                 'nullable',
                 'string',

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers;
 
 use App\Traits\Database\Transactionable;
+use Carbon\Carbon;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
 use Domain\Models\Customer;
@@ -50,7 +51,15 @@ final class CreateCustomer
         $args = $this->domainize($user, $args);
 
         return $this->transaction(function () use ($store, $args) {
-            return $store->addCustomer($args);
+            $customer = $store->addCustomer($args);
+
+            if (isset($args['visited_at'])) {
+                $customer->addVisitedHistory([
+                    'visited_at' => $args['visited_at'],
+                ]);
+            }
+
+            return $customer;
         });
     }
 
@@ -65,6 +74,14 @@ final class CreateCustomer
 
         if ($args->has($key = 'mourning_flag') && (bool)$args->get($key)) {
             $args['mourned_at'] = now();
+        }
+
+        if ($args->has($key1 = 'visited_date') && ! is_null($date = $args->get($key1))) {
+            if ($args->has($key2 = 'visited_time') && ! is_null($args->get($key2))) {
+                $date = sprintf('%s %s', $date, $args->get($key2));
+            }
+
+            $args->put('visited_at', Carbon::parse($date));
         }
 
         return $args->all();

@@ -64,10 +64,8 @@ final class CreateReservation
     {
         $args = collect($args);
 
-        if ($args->has($key1 = 'reserved_date')) {
-            $date = $args->get($key1);
-
-            if ($args->has($key2 = 'reserved_time') && !is_null($args->get($key2))) {
+        if ($args->has($key1 = 'reserved_date') && ! is_null($date = $args->get($key1))) {
+            if ($args->has($key2 = 'reserved_time') && ! is_null($args->get($key2))) {
                 $date = sprintf('%s %s', $date, $args->get($key2));
             }
 

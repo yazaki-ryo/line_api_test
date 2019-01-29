@@ -51,6 +51,16 @@ final class UpdateRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
+            'attachment' => [
+                'nullable',
+                'file',
+                'image',
+                'mimes:jpg,jpeg,png,gif',
+                'max:2048',
+            ],
+            'drop_attachment' => [
+                'boolean',
+            ],
         ];
     }
 

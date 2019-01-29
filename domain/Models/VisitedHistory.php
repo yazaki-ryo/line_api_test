@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Domain\Models;
 
 use App\Repositories\VisitedHistoryRepository;
+use App\Services\DomainCollection;
 
 final class VisitedHistory extends DomainModel
 {
@@ -140,6 +141,24 @@ final class VisitedHistory extends DomainModel
     public function reservationId(): ?int
     {
         return $this->reservationId;
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function attachments(array $args = []): DomainCollection
+    {
+        return $this->repo->attachments($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return Avatar
+     */
+    public function addAttachment(array $args = []): Attachment
+    {
+        return $this->repo->addAttachment($args);
     }
 
     /**

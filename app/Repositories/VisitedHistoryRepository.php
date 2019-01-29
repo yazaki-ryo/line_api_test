@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentVisitedHistory;
+use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Exceptions\DomainRuleException;
+use Domain\Models\Attachment;
 use Domain\Models\Customer;
 use Domain\Models\DomainModel;
 use Domain\Models\Reservation;
@@ -43,6 +45,26 @@ final class VisitedHistoryRepository extends EloquentRepository implements Domai
         return $collection->transform(function ($item) {
             return $item instanceof EloquentVisitedHistory ? self::toModel($item) : $item;
         });
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function attachments(array $args = []): DomainCollection
+    {
+        $collection = empty($args) ? $this->eloquent->attachments : AttachmentRepository::build($this->eloquent->attachments(), $args)->get();
+        return AttachmentRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return Attachment
+     */
+    public function addAttachment(array $args = []): Attachment
+    {
+        $resource = $this->eloquent->attachments()->create($args);
+        return AttachmentRepository::toModel($resource);
     }
 
     /**
