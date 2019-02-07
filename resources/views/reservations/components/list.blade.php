@@ -3,7 +3,16 @@
 </div>
 
 @if ($rows->count())
-    <table id="reservations-table" class="table table-striped table-hover table-condensed">
+    <table id="reservations-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid">
+        <colgroup>
+            <col width="3%">
+            <col width="10%">
+            <col width="10%">
+            <col width="10%">
+            <col width="15%">
+            <col width="15%">
+            <col width="25%">
+        </colgroup>
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
@@ -28,17 +37,14 @@
                     <td class="text-center">{{ empty($row->{$camel = camel_case('reserved_at')}()) ? '' : $row->{$camel}()->format('H:i') }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('amount')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('seat')}() }}</td>
-                    <td class="text-center dropdown">
-                        <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <span class="glyphicon glyphicon-option-horizontal"></span>
-                        </button>
-                        <ul class="dropdown-menu">
+                    <td class="text-center">
+                        <ul class="side-by-side around wrap">
                             @if (! $row->{$camel = camel_case('deleted_at')}())
                                 @can ('authorize', config('permissions.groups.reservations.select'))
                                     @can ('select', $row)
                                         <li>
                                             <a href="{{ route('reservations.edit', $row->id()) }}">
-                                                @lang ('elements.words.detail')
+                                                <i class="fas fa-pencil-alt icon-edit" title="@lang('elements.words.detail')"></i>
                                             </a>
                                         </li>
                                     @endcan
@@ -47,8 +53,8 @@
                                 @if ($row->{$camel = camel_case('customer_id')}() && is_null($row->visitedHistory()))
                                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                                         <li>
-                                            <a href="{{ route('reservations.visited_histories.add', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('reservations.visited_histories.add', $row->id()) }}', '@lang ('Do you want to register this reservation information as visit information?')'); return false;">
-                                                @lang ('elements.words.visit')@lang ('elements.words.register')
+                                            <a href="{{ route('reservations.visited_histories.add', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('reservations.visited_histories.add', $row->id()) }}', '@lang ('Do you want to register this reservation information as visit information?')'); return false;">                                                
+                                                <i class="fas fa-history" title="@lang ('elements.words.visit')@lang ('elements.words.register')"></i>
                                             </a>
                                         </li>
                                     @endcan
@@ -60,7 +66,7 @@
 
                                         <li>
                                             <a href="{{ route('reservations.delete', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('reservations.delete', $row->id()) }}', '@lang ('Do you really want to delete this?')'); return false;">
-                                                @lang ('elements.words.delete')
+                                                <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
                                             </a>
                                         </li>
                                     @endcan

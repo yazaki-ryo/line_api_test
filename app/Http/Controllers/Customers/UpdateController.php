@@ -9,6 +9,7 @@ use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\UseCases\Customers\UpdateCustomer;
+use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Http\Request;
 
 final class UpdateController extends Controller
@@ -36,7 +37,7 @@ final class UpdateController extends Controller
      * @param int $customerId
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function view(Request $request, VisitedHistory $visitedHistory, int $customerId)
+    public function view(Request $request, VisitedHistory $visitedHistory, UpdateVisitedHistory $updateVisitedHistory, int $customerId)
     {
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
@@ -57,6 +58,7 @@ final class UpdateController extends Controller
             'visitedHistories' => $customer->visitedHistories(),
             'reservations' => $customer->reservations(),
             'brankHistory' => $visitedHistory,
+            'updateVisitedHistory' => $updateVisitedHistory
         ]);
     }
 

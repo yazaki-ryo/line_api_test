@@ -12,6 +12,13 @@
             <i class="fas fa-angle-double-right"></i>
             @lang ('elements.words.reservations')@lang ('elements.words.detail')
         </p>
+        <ul class="nav nav-tabs">
+            <li class="{{ \Util::activatable($errors, 'reservations_update_request', true) }}">
+                <a href="#edit-tab" data-toggle="tab">
+                    @lang ('elements.words.detail')
+                </a>
+            </li>
+        </ul>
     </div>
     <div class="container pt-150">
 
@@ -23,15 +30,14 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12 col-md-offset-0">
-                <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors, 'reservations_update_request', true) }}">
-                        <a href="#edit-tab" data-toggle="tab">
-                            @lang ('elements.words.detail')
-                        </a>
-                    </li>
-                </ul>
-
+            <div class="col-md-12 col-md-offset-0">                
+                @can ('authorize', config('permissions.groups.reservations.select'))
+                    @if (\Route::has('reservations.index'))<!-- TODO -->
+                        <p class="right">
+                            <a href="{{ route('reservations.index') }}" class="btn btn-info">@lang ('elements.words.reservations')@lang ('elements.words.list')へ戻る</a>
+                        </p>
+                    @endif
+                @endcan
                 <div class="tab-content">
                     @can ('select', $row)
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'reservations_update_request', true) }}" id="edit-tab">
