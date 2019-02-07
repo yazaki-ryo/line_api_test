@@ -30,7 +30,7 @@
             @endcan
 
             @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                <li class="">
+                <li>
                     <a href="#histories-tab" data-toggle="tab">
                         @lang ('elements.words.visit')@lang ('elements.words.history')
                         <span class="badge">{{ $visitedHistories->count() }}</span>
@@ -44,7 +44,7 @@
                         @lang ('elements.words.visit')@lang ('elements.words.register')
                     </a>
                 </li>
-            @endcan
+            @endcan            
         </ul>
     </div>
     <div class="container pt-150">
@@ -56,8 +56,11 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row">            
             <div class="col-md-12 col-sm-12 col-xs-12">
+                @can ('authorize', config('permissions.groups.customers.select'))
+                    <p class="right"><a href="{{ route('customers.index') }}" class="btn btn-info">@lang ('elements.words.customers')@lang ('elements.words.list')へ戻る</a></p>
+                @endcan
                 <div class="tab-content">
                     @can ('select', $row)
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_update_request', true) }}" id="edit-tab">

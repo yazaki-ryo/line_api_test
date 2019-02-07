@@ -31,6 +31,9 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
+                @can ('authorize', config('permissions.groups.customers.select'))
+                    <p class="right"><a href="{{ route('customers.edit', $row->customerId()) }}" class="btn btn-info">@lang ('elements.words.customers')@lang ('elements.words.edit')へ戻る</a></p>
+                @endcan
                 <div class="tab-content">
                     @can ('select', $row)
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'visited_histories_update_request', true) }}" id="edit-tab">
