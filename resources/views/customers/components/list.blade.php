@@ -12,7 +12,10 @@
         </colgroup>
         <thead>
             <tr>
-                <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
+                <th class="text-center">
+                    <input id="select-all" type="checkbox" onclick="common.selectAll();">
+                    <!-- <label for="select-all" class="glyphicon glyphicon-check"></label> -->
+                </th>
                 <th class="text-center">@lang ('elements.words.human_name')</th>
                 <th class="text-center">@lang ('attributes.customers.office')</th>
                 <th class="text-center">@lang ('attributes.customers.tel')</th>
@@ -26,11 +29,11 @@
                 <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
                     <td class="text-center">
                         <div class="checkbox">
-                            <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), old($attribute)) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
+                            <label><input type="checkbox" class="selection" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), old($attribute)) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
                     </td>
                     <td class="text-center">{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('office')}() }}</td>
+                    <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('office')}(), 0, 25, '...', 'UTF-8') }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('tel')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                     <td class="text-center"><span class="badge">{{ $row->visitedHistories()->count() }}</span></td>
