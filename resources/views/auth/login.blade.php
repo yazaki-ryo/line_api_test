@@ -17,7 +17,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4 col-md-offset-4 col-sm-12 col-xs-12">
                 <div class="panel-login panel panel-default">
                     <div class="panel-heading"><i class="fas fa-sign-in-alt fa-lg"></i> @lang ('elements.words.login')</div>
                     <div class="panel-body">
@@ -67,13 +67,6 @@
                                 </div>
                             </div>
                         {!! Form::close() !!}
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="panel-login panel-default">
-                    <div class="panel-body">
-                        <P>SNSを表示させる</P>
                     </div>
                 </div>
             </div>
