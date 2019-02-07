@@ -78,6 +78,14 @@ class Common {
             form.submit();
         }
     }
+
+    selectAll() {
+        const isChecked = document.getElementById('select-all').checked;   
+        let selection = document.getElementsByClassName('selection');        
+        for(let i = 0; i < selection.length; i++) {
+            selection[i].checked = isChecked;
+        }
+    }
 }
 
 window.common = new Common();

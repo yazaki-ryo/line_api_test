@@ -4,7 +4,7 @@
 <header class="navbar-default navbar-fixed-top main-header login-header">
 @endauth
   <a class="navbar-brand">
-    <img src="images/logo.png" alt="ロゴ画像">
+    <img src="{{ asset('/images/logo.png') }}" alt="ロゴ画像">
   </a>
 @auth
   <nav>    
