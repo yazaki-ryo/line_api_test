@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Eloquents\EloquentReservation;
+use Carbon\Carbon;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Exceptions\DomainRuleException;
 use Domain\Models\Customer;
@@ -95,6 +96,10 @@ final class ReservationRepository extends EloquentRepository implements Domainab
 
         $query->when($args->has($key = 'store_id'), function (Builder $q) use ($key, $args) {
             $q->storeId((int)$args->get($key));
+        });
+
+        $query->when(($args->has($key = 'reserved_date') && ! is_null($args->get($key))), function (Builder $q) use ($args, $key) {
+            $q->reservedAt(Carbon::parse($args->get($key))->startOfDay(), Carbon::parse($args->get($key))->endOfDay());
         });
 
         return $query;
