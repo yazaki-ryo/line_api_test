@@ -17,7 +17,7 @@
             @lang ('elements.words.customers')@lang ('elements.words.detail')
         </p>
         <ul class="nav nav-tabs">
-            <li class="{{ \Util::activatable($errors, 'customers_update_request', true) }}">
+            <li class="{{ \Util::activatable($errors, 'customers_update_request', 'customers_update_request') }}">
                 <a href="#edit-tab" data-toggle="tab">
                     @lang ('elements.words.detail')
                 </a>
@@ -44,7 +44,7 @@
                         @lang ('elements.words.visit')@lang ('elements.words.register')
                     </a>
                 </li>
-            @endcan            
+            @endcan
         </ul>
     </div>
     <div class="container pt-150">
@@ -56,14 +56,14 @@
             </div>
         </div>
 
-        <div class="row">            
+        <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 @can ('authorize', config('permissions.groups.customers.select'))
                     <p class="right"><a href="{{ route('customers.index') }}" class="btn btn-info">@lang ('elements.words.customers')@lang ('elements.words.list')へ戻る</a></p>
                 @endcan
                 <div class="tab-content">
                     @can ('select', $row)
-                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_update_request', true) }}" id="edit-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_update_request', 'customers_update_request') }}" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 

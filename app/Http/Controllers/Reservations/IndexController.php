@@ -47,7 +47,7 @@ final class IndexController extends Controller
         return view('reservations.index', [
             'rows' => $this->useCase->excute($user, $store, $args),
             'row' => $reservation,
-            'tab' => count($args) ? 'reservations_index' : 'default',
+            'tab' => count($args) ? 'index' : 'calender',
         ]);
     }
 

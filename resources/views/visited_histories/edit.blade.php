@@ -13,7 +13,7 @@
             @lang ('elements.words.visit')@lang ('elements.words.history')@lang ('elements.words.detail')
         </p>
         <ul class="nav nav-tabs">
-            <li class="{{ \Util::activatable($errors, 'visited_histories_update_request', true) }}">
+            <li class="{{ \Util::activatable($errors, 'visited_histories_update_request', 'visited_histories_update_request') }}">
                 <a href="#edit-tab" data-toggle="tab">
                     @lang ('elements.words.detail')
                 </a>
@@ -36,7 +36,7 @@
                 @endcan
                 <div class="tab-content">
                     @can ('select', $row)
-                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'visited_histories_update_request', true) }}" id="edit-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'visited_histories_update_request', 'visited_histories_update_request') }}" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
