@@ -17,13 +17,13 @@
             @lang ('elements.words.reservations')@lang ('elements.words.list')
         </p>
         <ul class="nav nav-tabs">
-            <li class="{{ \Util::activatable($errors, null, true) }}">
+            <li class="{{ \Util::activatable($errors, 'default', $tab) }}">
                 <a href="#calender-tab" data-toggle="tab">
                     @lang ('elements.words.calender')
                 </a>
             </li>
 
-            <li class="{{ \Util::activatable($errors) }}">
+            <li class="{{ \Util::activatable($errors, 'reservations_index', $tab) }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
                     <span class="badge">{{ $rows->count() }}</span>
@@ -56,11 +56,11 @@
             <div class="col-md-12 col-md-offset-0">
 
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="calender-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'default', $tab) }}" id="calender-tab">
                         @include ('reservations.components.calender')
                     </div>
 
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors) }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'reservations_index', $tab) }}" id="result-tab">
                         @include ('reservations.components.list')
                     </div>
 {{--
