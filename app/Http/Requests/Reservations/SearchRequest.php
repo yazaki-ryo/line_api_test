@@ -23,7 +23,12 @@ final class SearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'reserved_date' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+            ],
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Eloquents;
 
 use App\Traits\Collections\Domainable;
 use App\Traits\Database\Eloquent\Scopable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -76,4 +77,24 @@ final class EloquentReservation extends Model
         return $query->where($field, '=', $value);
     }
 
+    /**
+     * @param Builder $query
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     * @return Builder
+     */
+    public function scopeReservedAt(Builder $query, Carbon $start = null, Carbon $end = null): Builder
+    {
+        $field = 'reserved_at';
+
+        $query->when(! is_null($start), function (Builder $q) use ($field, $start) {
+            $q->where($field, '>=', $start->format('Y-m-d H:i:s'));
+        });
+
+        $query->when(! is_null($end), function (Builder $q) use ($field, $end) {
+            $q->where($field, '<=', $end->format('Y-m-d H:i:s'));
+        });
+
+        return $query;
+    }
 }

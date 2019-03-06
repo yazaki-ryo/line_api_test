@@ -13,7 +13,7 @@
             @lang ('elements.words.reservations')@lang ('elements.words.detail')
         </p>
         <ul class="nav nav-tabs">
-            <li class="{{ \Util::activatable($errors, 'reservations_update_request', true) }}">
+            <li class="{{ \Util::activatable($errors, 'reservations_update_request', 'reservations_update_request') }}">
                 <a href="#edit-tab" data-toggle="tab">
                     @lang ('elements.words.detail')
                 </a>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12 col-md-offset-0">                
+            <div class="col-md-12 col-md-offset-0">
                 @can ('authorize', config('permissions.groups.reservations.select'))
                     @if (\Route::has('reservations.index'))<!-- TODO -->
                         <p class="right">
@@ -40,7 +40,7 @@
                 @endcan
                 <div class="tab-content">
                     @can ('select', $row)
-                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'reservations_update_request', true) }}" id="edit-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'reservations_update_request', 'reservations_update_request') }}" id="edit-tab">
                             <div class="panel panel-default">
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 

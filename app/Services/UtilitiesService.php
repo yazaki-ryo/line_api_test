@@ -23,12 +23,11 @@ final class UtilitiesService
 
     /**
      * @param ViewErrorBag $errorBags
-     * @param string|null $name
-     * @param bool $default
-     * @param bool $request
+     * @param string $name
+     * @param string $forceTab
      * @return string
      */
-    public function activatable(ViewErrorBag $errorBags, string $name = null, bool $default = false, bool $request = false): string
+    public function activatable(ViewErrorBag $errorBags, string $name, string $forceTab = ''): string
     {
         /** @var MessageBag $errorBag */
         foreach ($errorBags->getBags() as $key => $errorBag) {
@@ -38,9 +37,13 @@ final class UtilitiesService
         }
 
         if ($this->request->has('tab')) {
-            return $request ? 'active' : '';
-        } else {
-            return $default ? 'active' : '';
+            return $this->request->get('tab') === $name ? 'active' : '';
         }
+
+        if (strlen($forceTab) > 0) {
+            return $forceTab === $name ? 'active' : '';
+        }
+
+        return '';
     }
 }

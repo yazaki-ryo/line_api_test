@@ -17,7 +17,7 @@
             @lang ('elements.words.users')@lang ('elements.words.list')
         </p>
         <ul class="nav nav-tabs">
-            <li class="{{ \Util::activatable($errors, null, true) }}">
+            <li class="{{ \Util::activatable($errors, 'index', 'index') }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
                     <span class="badge">{{ $rows->count() }}</span>
@@ -48,7 +48,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'index', 'index') }}" id="result-tab">
                         @include ('users.components.list')
                     </div>
 {{--
