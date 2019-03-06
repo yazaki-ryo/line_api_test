@@ -17,7 +17,7 @@
             @lang ('elements.words.tags')@lang ('elements.words.list')
         </p>
         <ul class="nav nav-tabs">
-            <li class="active">
+            <li class="{{ \Util::activatable($errors, 'index', 'index') }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
                     <span class="badge">{{ $rows->count() }}</span>
@@ -25,13 +25,13 @@
             </li>
     {{--
             @can ('authorize', config('permissions.groups.tags.select'))
-                <li>
+                <li class="{{ \Util::activatable($errors, 'tags_search_request') }}">
                     <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                 </li>
             @endcan
     --}}
             @can ('authorize', config('permissions.groups.tags.create'))
-                <li>
+                <li class="{{ \Util::activatable($errors, 'tags_create_request') }}">
                     <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                 </li>
             @endcan
@@ -49,7 +49,7 @@
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'index', 'index') }}" id="result-tab">
                         @include ('tags.components.list')
                     </div>
 {{--

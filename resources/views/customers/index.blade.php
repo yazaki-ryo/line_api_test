@@ -17,7 +17,7 @@
             @lang ('elements.words.customers')@lang ('elements.words.list')
         </p>
         <ul class="nav nav-tabs">
-            <li class="{{ \Util::activatable($errors, null, true) }}">
+            <li class="{{ \Util::activatable($errors, 'index', 'index') }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
                     <span class="badge">{{ $rows->count() }}</span>
@@ -31,7 +31,7 @@
             @endcan
 
             @can ('authorize', config('permissions.groups.customers.create'))
-                <li class="{{ \Util::activatable($errors, 'customers_create_request', request('tab') === 'test') }}">
+                <li class="{{ \Util::activatable($errors, 'customers_create_request') }}">
                     <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                 </li>
             @endcan
@@ -53,7 +53,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, null, true) }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'index', 'index') }}" id="result-tab">
                         @include ('customers.components.list')
                     </div>
 
