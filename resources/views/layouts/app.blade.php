@@ -17,6 +17,7 @@
         <link href="{{ asset('css/default.css') }}" rel="stylesheet">
     @endif
     <link href="{{ asset('css/perfect-scrollbar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fullcalendar.min.css') }}" rel="stylesheet">
 
     @yield('styles')
 

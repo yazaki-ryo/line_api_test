@@ -80,6 +80,8 @@ Route::prefix('/')->group(function () {
             Route::get('/', \App\Http\Controllers\Reservations\IndexController::class)->name('index');
             Route::post($name = 'add', \App\Http\Controllers\Reservations\CreateController::class)->name($name);
 
+            Route::get($name = 'day_list/{reservedAt}', sprintf('%s@view', \App\Http\Controllers\Reservations\ListController::class))->name($name);
+
             Route::prefix('{reservationId}')->group(function () {
                 Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Reservations\UpdateController::class))->name($name);
                 Route::post($name, sprintf('%s@update', \App\Http\Controllers\Reservations\UpdateController::class));

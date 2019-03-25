@@ -94,14 +94,20 @@
 @endsection
 
 @section ('scripts')
-    <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
-    <script type="text/javascript">
-        jQuery(function($){
+    <script src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+    <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('js/ja.js') }}"></script>
+    <script src="{{ asset('js/calendar.js') }}"></script>
+    <script>
+        jQuery(function($){            
+            
             $.extend( $.fn.dataTable.defaults, {
                 language: {
                     url: "{{ asset('vendor/DataTables/ja.json') }}"
                 }
             });
+
             $("#reservations-table").DataTable({
                 columnDefs: [
                     {
