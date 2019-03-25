@@ -75,24 +75,20 @@ Route::prefix('/')->group(function () {
     /**
      * Reservations
      */
-    if (app()->isLocal()) {// TODO
-        Route::prefix($prefix = 'reservations')->name(sprintf('%s.', $prefix))->group(function () {
-            Route::get('/', \App\Http\Controllers\Reservations\IndexController::class)->name('index');
-            Route::post($name = 'add', \App\Http\Controllers\Reservations\CreateController::class)->name($name);
+    Route::prefix($prefix = 'reservations')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get('/', \App\Http\Controllers\Reservations\IndexController::class)->name('index');
+        Route::post($name = 'add', \App\Http\Controllers\Reservations\CreateController::class)->name($name);
 
-            Route::get($name = 'day_list/{reservedAt}', sprintf('%s@view', \App\Http\Controllers\Reservations\ListController::class))->name($name);
+        Route::prefix('{reservationId}')->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Reservations\UpdateController::class))->name($name);
+            Route::post($name, sprintf('%s@update', \App\Http\Controllers\Reservations\UpdateController::class));
+            Route::post($name = 'delete', \App\Http\Controllers\Reservations\DeleteController::class)->name($name);
 
-            Route::prefix('{reservationId}')->group(function () {
-                Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Reservations\UpdateController::class))->name($name);
-                Route::post($name, sprintf('%s@update', \App\Http\Controllers\Reservations\UpdateController::class));
-                Route::post($name = 'delete', \App\Http\Controllers\Reservations\DeleteController::class)->name($name);
-
-                Route::prefix($prefix = 'visited_histories')->name(sprintf('%s.', $prefix))->group(function () {
-                    Route::post($name = 'add', \App\Http\Controllers\Reservations\VisitedHistories\CreateController::class)->name($name);
-                });
+            Route::prefix($prefix = 'visited_histories')->name(sprintf('%s.', $prefix))->group(function () {
+                Route::post($name = 'add', \App\Http\Controllers\Reservations\VisitedHistories\CreateController::class)->name($name);
             });
         });
-    }
+    });
 
     /**
      * Settings
