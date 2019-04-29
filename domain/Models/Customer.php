@@ -513,7 +513,7 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'email')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
+          $this->{$camel = camel_case($key)} = is_null($args->get($key)) || $args->get($key) === "" ? null : Email::of($args->get($key));
         }
 
         if ($args->has($key = 'mobile_phone')) {

@@ -82,6 +82,21 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
         $collection = empty($args) ? $this->eloquent->customers : CustomerRepository::build($this->eloquent->customers(), $args)->get();
         return CustomerRepository::toModels($collection);
     }
+    
+    public function numCustomers(array $args = []): int
+    {
+        if (empty($args)) {
+            return $this->eloquent->customers->count();
+        } else {
+            $options = [];
+            foreach ($args as $key => $value) {
+              if ($key !== 'page') {
+                $options[$key] = $value;
+              }
+            }
+            return CustomerRepository::build($this->eloquent->customers(), $options)->count();
+        }
+    }
 
     /**
      * @param  array $args

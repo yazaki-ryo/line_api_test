@@ -43,10 +43,40 @@ final class IndexController extends Controller
         $store = $this->useCase->getStore([
             'id' => $storeId,
         ]);
-
+        
+        $session = $request->session();
+        
+        $keyRowsInPage = 'rows_in_page';
+        $keyPage = 'page';
+        $keySorting = 'sort';
+        
+        $rowsInPage = $request->get($keyRowsInPage, $session->get($keyRowsInPage, 25));
+        $page = $request->get($keyPage, 1);
+        $sorting = $request->get($keySorting, $session->get($keySorting, 0));
+        
+        $args[$keyRowsInPage] = $rowsInPage;
+        $args[$keyPage] = $page;
+        $args[$keySorting] = $sorting;
+        
+        $session->put($keyPage, $rowsInPage);
+        $session->put($keySorting, $sorting);
+        
+        $customers = $this->useCase->excute($user, $store, $args);
+        $numCustomers = $this->useCase->count($user, $store, $args);
+        
+        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
+                $customers, 
+                $numCustomers, 
+                $rowsInPage, 
+                $page);
+        $paginator->withPath('')
+                ->appends('rows_in_page', $rowsInPage);
+        
         return view('customers.index', [
-            'rows' => $this->useCase->excute($user, $store, $args),
+            'rows' => $customers,
             'row'  => $customer,
+            'paginator' => $paginator,
+            'sorting' => $sorting,
             'printSettings' => $user->printSettings()->domainizePrintSettings(true),
             'tags' => $user->company()->tags([
                 'store_id' => $storeId,

@@ -8,6 +8,7 @@
 require('./bootstrap');
 require('./common');
 require('./components/tooltip');
+require('./components/customer');
 
 window.Vue = require('vue');
 

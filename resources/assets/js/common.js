@@ -86,6 +86,10 @@ class Common {
             selection[i].checked = isChecked;
         }
     }
+    
+    pageLengthChange(elem, keyRowsInPage = 'rows_in_page') {
+      window.location.search = keyRowsInPage + '=' + elem.value;
+    }
 }
 
 window.common = new Common();

@@ -195,6 +195,15 @@ final class Store extends DomainModel
     {
         return $this->repo->customers($args);
     }
+    
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function numCustomers(array $args = []): int
+    {
+        return $this->repo->numCustomers($args);
+    }
 
     /**
      * @param  array $args

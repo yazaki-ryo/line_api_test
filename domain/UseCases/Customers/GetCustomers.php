@@ -45,10 +45,17 @@ final class GetCustomers
     public function excute(User $user, Store $store, array $args = []): DomainCollection
     {
         $args = $this->domainize($user, $args);
-
+        
         return $store->customers($args);
     }
 
+    public function count(User $user, Store $store, array $args = []): int
+    {
+        $args = $this->domainize($user, $args);
+        
+        return $store->numCustomers($args);
+    }
+    
     /**
      * @param User $user
      * @param array $args
