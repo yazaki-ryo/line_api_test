@@ -58,6 +58,8 @@ RUN usermod -u 1000 apache
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+RUN yum -y install nasm libpng-devel
+
 # npm, nodejs
 RUN yum -y install npm nodejs
 
@@ -75,4 +77,10 @@ EXPOSE 80
 
 ENTRYPOINT ["/usr/sbin/apachectl"]
 WORKDIR /var/www/html
+
+RUN npm install
+RUN npm run watch
+RUN composer instsall
+RUN php artisan migrate:fresh --seed
+
 CMD ["-DFOREGROUND"]

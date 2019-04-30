@@ -1,5 +1,21 @@
 @if ($rows->count())
 <div class="table-responsive">
+    <div class="row">
+        <div class="col-md-6">
+            @include ('components.parts.page_length_menu')
+        </div>
+        <div class="col-md-6 text-right form-inline">
+          <span>
+              @lang('Sort')
+          </span>
+          <select class="form-control" onchange="customer.sortChange(this)">
+              <option value="0" @empty($sorting) selected="selected" @endempty></option>
+              <option value="1" @if($sorting == 1) selected="selected" @endif>@lang('Order by visiting count descending')</option>
+              <option value="2" @if($sorting == 2) selected="selected" @endif>@lang('Order by visiting count ascending')</option>
+          </select>
+        </div>
+    </div>
+    
     <table id="customers-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid">
         <colgroup>
             <col width="3%">
@@ -79,6 +95,7 @@
             @endforeach
         </tbody>
     </table>
+    @include ('components.parts.page_buttons')
 </div>
 @else
     <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.customers'), __('elements.words.data'))])</p>

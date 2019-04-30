@@ -188,6 +188,34 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             $q->null($args->get($key), true);
         });
 
+        $query->when($args->has($key = 'page') && $args->get($key) > 0, function (Builder $q) use ($key, $args) {
+            $rows_in_page = $args->get('rows_in_page', 25);
+            $page = $args->get($key, 1);
+            $offset = ($page - 1) * $rows_in_page;
+            $q->limit($rows_in_page)->offset($offset);
+        });
+
+        $query->when($args->has($key = 'sort') && $args->get($key) > 0, function (Builder $q) use ($key, $args) {
+            $subquery = \App\Eloquents\EloquentVisitedHistory::query();
+            $subquery->selectRaw('customer_id, COUNT(id) AS visited_count');
+            $subquery->groupBy('customer_id');
+
+            $q->leftJoin(
+                    \DB::raw("({$subquery->toSql()}) AS V"), 
+                            'customers.id', '=', 'V.customer_id');
+            $sorting = $args->get('sort');
+            switch ($sorting) {
+                case '1':
+                  $q->orderByDesc('visited_count');
+                  break;
+                case '2':
+                  $q->orderBy('visited_count');
+                  break;
+                default:
+                  break;
+            }
+        });
+
         return $query;
     }
 }
