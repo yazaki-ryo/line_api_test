@@ -48,7 +48,7 @@ Route::prefix('/')->group(function () {
      * Customers
      */
     Route::prefix($prefix = 'customers')->name(sprintf('%s.', $prefix))->group(function () {
-        Route::get('/', \App\Http\Controllers\Customers\IndexController::class)->name('index');
+        Route::match(['post', 'get'], '/', \App\Http\Controllers\Customers\IndexController::class)->name('index');
         Route::post($name = 'add', \App\Http\Controllers\Customers\CreateController::class)->name($name);
 
         Route::prefix('{customerId}')->group(function () {

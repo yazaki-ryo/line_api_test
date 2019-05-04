@@ -90,6 +90,18 @@ class Common {
     pageLengthChange(elem, keyRowsInPage = 'rows_in_page') {
       window.location.search = keyRowsInPage + '=' + elem.value;
     }
+    
+    clearForm(form) {
+        jQuery(form)
+            .find("input, select, textarea")
+            .not(":button, :submit, :reset, :hidden")
+            .val("")
+            .prop("checked", false)
+            .prop("selected", false)
+        ;
+
+        jQuery(form).find(":radio").filter("[data-default]").prop("checked", true);
+    }
 }
 
 window.common = new Common();
