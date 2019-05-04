@@ -28,23 +28,27 @@ final class IndexController extends Controller
         $this->useCase = $useCase;
     }
 
-    /**
-     * @param SearchRequest $request
-     * @param Customer $customer
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
-     */
-    public function __invoke(SearchRequest $request, Customer $customer)
-    {
-        /** @var User $user */
-        $user = $request->assign();
+    private function mergeParameter(SearchRequest $request) {
         $args = $request->validated();
-        $storeId = $request->cookie(config('cookie.name.current_store'));
-
-        $store = $this->useCase->getStore([
-            'id' => $storeId,
-        ]);
-        
+      
         $session = $request->session();
+        
+        if ($request->isMethod('get')) {
+            $sessionData = collect($session->all());
+            foreach ($sessionData as $sessionKey => $sessionValue) {
+                $args[$sessionKey] = $sessionValue;
+            }
+        } else if ($request->isMethod('post')) {
+            $session->forget('tags');
+            foreach (['free_word', 'visited_date_s', 'visited_date_e', 'mourning_flag', 'tags',] as $key) {
+                if (array_key_exists($key, $args)) {
+                    $session->put($key, $args[$key]);
+                }
+            }
+        }
+        
+        $ret = $session->all();
+        debug($ret);
         
         $keyRowsInPage = 'rows_in_page';
         $keyPage = 'page';
@@ -54,12 +58,35 @@ final class IndexController extends Controller
         $page = $request->get($keyPage, 1);
         $sorting = $request->get($keySorting, $session->get($keySorting, 0));
         
-        $args[$keyRowsInPage] = $rowsInPage;
-        $args[$keyPage] = $page;
-        $args[$keySorting] = $sorting;
+        $ret[$keyRowsInPage] = $rowsInPage;
+        $ret[$keyPage] = $page;
+        $ret[$keySorting] = $sorting;
         
-        $session->put($keyPage, $rowsInPage);
+        $session->put($keyRowsInPage, $rowsInPage);
         $session->put($keySorting, $sorting);
+        
+        return $ret;
+    }
+    
+    /**
+     * @param SearchRequest $request
+     * @param Customer $customer
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function __invoke(SearchRequest $request, Customer $customer)
+    {
+        /** @var User $user */
+        $user = $request->assign();
+        $args = $this->mergeParameter($request);
+        $storeId = $request->cookie(config('cookie.name.current_store'));
+
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+        
+        $rowsInPage = $args['rows_in_page'];
+        $page = $args['page'];
+        $sorting = $args['sort'];
         
         $customers = $this->useCase->excute($user, $store, $args);
         $numCustomers = $this->useCase->count($user, $store, $args);
@@ -70,6 +97,7 @@ final class IndexController extends Controller
                 $rowsInPage, 
                 $page);
         $paginator->withPath('')
+                ->appends('tab', 'index')
                 ->appends('rows_in_page', $rowsInPage);
         
         return view('customers.index', [
