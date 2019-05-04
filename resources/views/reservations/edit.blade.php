@@ -33,7 +33,7 @@
             <div class="col-md-12 col-md-offset-0">
                 @can ('authorize', config('permissions.groups.reservations.select'))
                     @if (\Route::has('reservations.index'))<!-- TODO -->
-                        <p class="right">
+                        <p class="left">
                             <a href="{{ route('reservations.index') }}" class="btn btn-info">@lang ('elements.words.reservations')@lang ('elements.words.list')へ戻る</a>
                         </p>
                     @endif

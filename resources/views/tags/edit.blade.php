@@ -12,6 +12,13 @@
             <i class="fas fa-angle-double-right"></i>
             @lang ('elements.words.tags')@lang ('elements.words.detail')
         </p>
+        <ul class="nav nav-tabs">
+            <li class="{{ \Util::activatable($errors, 'tags_update_request', 'tags_update_request') }}">
+                <a href="#edit-tab" data-toggle="tab">
+                    @lang ('elements.words.detail')
+                </a>
+            </li>
+        </ul>
     </div>
     <div class="container pt-150">
 
@@ -24,14 +31,9 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
-                <ul class="nav nav-tabs">
-                    <li class="{{ \Util::activatable($errors, 'tags_update_request', 'tags_update_request') }}">
-                        <a href="#edit-tab" data-toggle="tab">
-                            @lang ('elements.words.detail')
-                        </a>
-                    </li>
-                </ul>
-
+                <p class="left">
+                    <a href="{{ route('tags.index') }}" class="btn btn-info">@lang ('elements.words.tags')@lang ('elements.words.list')へ戻る</a>
+                </p>
                 <div class="tab-content">
                     @can ('select', $row)
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'tags_update_request', 'tags_update_request') }}" id="edit-tab">
