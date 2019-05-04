@@ -59,7 +59,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 @can ('authorize', config('permissions.groups.customers.select'))
-                    <p class="right"><a href="{{ route('customers.index') }}" class="btn btn-info">@lang ('elements.words.customers')@lang ('elements.words.list')へ戻る</a></p>
+                    <p class="left"><a href="{{ route('customers.index') }}" class="btn btn-info">@lang ('elements.words.customers')@lang ('elements.words.list')へ戻る</a></p>
                 @endcan
                 <div class="tab-content">
                     @can ('select', $row)

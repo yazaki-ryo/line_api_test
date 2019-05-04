@@ -31,6 +31,9 @@
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
+                <p class="left">
+                    <a href="{{ route('users.index') }}" class="btn btn-info">@lang ('elements.words.users')@lang ('elements.words.list')へ戻る</a>
+                </p>
                 <div class="tab-content">
                     @can ('select', $row)
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'users_update_request', 'users_update_request') }}" id="edit-tab">
