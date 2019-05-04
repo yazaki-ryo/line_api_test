@@ -2,7 +2,7 @@
 <div class="table-responsive">
     <div class="row">
         <div class="col-md-6">
-            @include ('components.parts.page_length_menu')
+            @include ('customers.components.page_length_menu')
         </div>
         <div class="col-md-6 text-right form-inline">
           <span>
