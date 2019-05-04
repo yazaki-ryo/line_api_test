@@ -16,7 +16,7 @@
             <i class="fas fa-angle-double-right"></i>
             @lang ('elements.words.customers')@lang ('elements.words.list')
         </p>
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" id="customers-navigation-tab">
             <li class="{{ \Util::activatable($errors, 'index') }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
@@ -37,8 +37,8 @@
             @endcan
 
             @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                <li class="{{ \Util::activatable($errors, 'customers_postcards_export_request') }}">
-                    <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
+                <li id="print-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_postcards_export_request') }}">
+                    <a id="print-tab-link" href="#" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
                 </li>
             @endcan
         </ul>
@@ -131,9 +131,30 @@
 
             document.getElementById('setting').addEventListener('change', replaceHref, false);
             document.getElementsByName('selection').forEach(function (item) {
-                item.addEventListener('change', replaceHref, false);
+                item.addEventListener('change', selectionChanged, false);
             });
         })();
+        
+        function selectionChanged() {
+            toggleActionButtons();
+            replaceHref();
+        }
+        
+        function toggleActionButtons() {
+            var isRowSelected = window.common.selectedValues().length > 0;
+            var handle = jQuery("#print-tab-handle");
+            var wrapper = jQuery("#customers-action-button-wrapper");
+            var link = jQuery("#print-tab-link");
+            if (isRowSelected) {
+                handle.removeClass("disabled");
+                wrapper.removeClass("invisible");
+                link.attr("href", "#print-tab");
+            } else {
+                handle.addClass("disabled");
+                wrapper.addClass("invisible");
+                link.attr("href", "#");
+            }
+        }
 
         /**
          * @return void
@@ -153,6 +174,10 @@
                 'setting': setting[setting.selectedIndex].value,
                 'selection': selection
             });
+        }
+        
+        function showPrintTab() {
+            $('#customers-navigation-tab a[href="#print-tab"]').tab('show');
         }
     </script>
 @endsection

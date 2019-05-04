@@ -1,18 +1,23 @@
 @if ($rows->count())
 <div class="table-responsive">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-3">
             @include ('customers.components.page_length_menu')
         </div>
-        <div class="col-md-6 text-right form-inline">
-          <span>
-              @lang('Sort')
-          </span>
-          <select class="form-control" onchange="customer.sortChange(this)">
-              <option value="0" @empty($sorting) selected="selected" @endempty></option>
-              <option value="1" @if($sorting == 1) selected="selected" @endif>@lang('Order by visiting count descending')</option>
-              <option value="2" @if($sorting == 2) selected="selected" @endif>@lang('Order by visiting count ascending')</option>
-          </select>
+        <div class="col-md-9 text-right form-inline">
+            <span id="customers-action-button-wrapper" class="invisible" style="margin-right: 1em;">
+              @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                  <span class="btn btn-success" style="margin-right: 1em;" onclick="showPrintTab()">@lang('Print postcard')</span>
+              @endcan
+            </span>
+            <span>
+                @lang('Sort')
+            </span>
+            <select class="form-control" onchange="customer.sortChange(this)">
+                <option value="0" @empty($sorting) selected="selected" @endempty></option>
+                <option value="1" @if($sorting == 1) selected="selected" @endif>@lang('Order by visiting count descending')</option>
+                <option value="2" @if($sorting == 2) selected="selected" @endif>@lang('Order by visiting count ascending')</option>
+            </select>
         </div>
     </div>
     
@@ -29,7 +34,7 @@
         <thead>
             <tr>
                 <th class="text-center">
-                    <input id="select-all" type="checkbox" onclick="common.selectAll();">
+                    <input id="select-all" type="checkbox" onclick="common.selectAll(); selectionChanged();">
                     <!-- <label for="select-all" class="glyphicon glyphicon-check"></label> -->
                 </th>
                 <th class="text-center">@lang ('elements.words.human_name')</th>
