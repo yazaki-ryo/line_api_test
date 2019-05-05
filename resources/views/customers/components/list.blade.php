@@ -62,7 +62,24 @@
                     <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('office')}(), 0, 25, '...', 'UTF-8') }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('tel')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
-                    <td class="text-center"><span class="badge">{{ $row->visitedHistories()->count() }}</span></td>
+                    <td class="text-center">
+                        <ul class="side-by-side around wrap">
+                            <li>
+                                @can ('authorize', config('permissions.groups.customers.update')) 
+                                    <a href="{{ route('customers.edit', [$row->id(), 'tab' => 'customers_histories']) }}">
+                                        <span class="badge">{{ $row->visitedHistories()->count() }}</span>
+                                    </a>
+                                @else
+                                    <span class="badge">{{ $row->visitedHistories()->count() }}</span>
+                                @endcan
+                            </li>
+                            <li>
+                                <a href="{{ route('customers.edit', [$row->id(), 'tab' => 'visited_histories_create_request']) }}">
+                                    <i class="fas fa-pencil-alt icon-edit" title="@lang ('elements.words.visit')@lang ('elements.words.register')"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
                     <td class="text-center">
                         <ul class="side-by-side around wrap">
                             @if ($row->{$camel = camel_case('deleted_at')}())
