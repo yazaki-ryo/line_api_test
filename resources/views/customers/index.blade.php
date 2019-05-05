@@ -155,6 +155,18 @@
                 link.attr("href", "#");
             }
         }
+        
+        function deleteSelectedCustomers() {
+            jQuery("input[name='target_customers[]']").remove();
+            
+            var form = window.customers_delete_form;
+            var selectedCustomers = window.common.selectedValues();
+            for (var i = 0; i < selectedCustomers.length; i++) {
+              var id = selectedCustomers[i];
+              jQuery(form).append("<input type='hidden' name='target_customers[]' value='" + id + "' />");
+            }
+            form.submit();
+        }
 
         /**
          * @return void
