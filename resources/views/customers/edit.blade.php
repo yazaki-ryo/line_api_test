@@ -30,7 +30,7 @@
             @endcan
 
             @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                <li>
+                <li class="{{ \Util::activatable($errors, 'customers_histories') }}">
                     <a href="#histories-tab" data-toggle="tab">
                         @lang ('elements.words.visit')@lang ('elements.words.history')
                         <span class="badge">{{ $visitedHistories->count() }}</span>
@@ -87,7 +87,7 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
-                        <div class="tab-pane fade in pt-10" id="histories-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_histories') }}" id="histories-tab">
                             @include ('visited_histories.components.list', ['rows' => $visitedHistories])
                         </div>
                     @endcan

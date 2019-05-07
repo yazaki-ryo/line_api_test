@@ -34,7 +34,7 @@
                         <div id="side-nav1" class="panel-collapse collapse">
                             <ul class="nav nav-child">
                                 @can ('authorize', config('permissions.groups.customers.select'))
-                                    <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers.index') }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
+                                    <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers.index', ['tab' => 'customers_search_request']) }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
                                 @endcan
 
                                 @can ('authorize', config('permissions.groups.customers.create'))
