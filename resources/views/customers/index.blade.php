@@ -16,8 +16,8 @@
             <i class="fas fa-angle-double-right"></i>
             @lang ('elements.words.customers')@lang ('elements.words.list')
         </p>
-        <ul class="nav nav-tabs">
-            <li class="{{ \Util::activatable($errors, 'index') }}">
+        <ul class="nav nav-tabs" id="customers-navigation-tab">
+            <li class="{{ \Util::activatable($errors, 'index', 'index') }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
                     <span class="badge">{{ $paginator->total() }}</span>
@@ -25,7 +25,7 @@
             </li>
 
             @can ('authorize', config('permissions.groups.customers.select'))
-                <li class="{{ \Util::activatable($errors, 'customers_search_request', 'customers_search_request') }}">
+                <li class="{{ \Util::activatable($errors, 'customers_search_request') }}">
                     <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                 </li>
             @endcan
@@ -37,8 +37,8 @@
             @endcan
 
             @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                <li class="{{ \Util::activatable($errors, 'customers_postcards_export_request') }}">
-                    <a href="#print-tab" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
+                <li id="print-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_postcards_export_request') }}">
+                    <a id="print-tab-link" href="#" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
                 </li>
             @endcan
         </ul>
@@ -53,12 +53,12 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'index') }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'index', 'index') }}" id="result-tab">
                         @include ('customers.components.list')
                     </div>
 
                     @can ('authorize', config('permissions.groups.customers.select'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_search_request', 'customers_search_request') }}" id="search-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_search_request') }}" id="search-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.index'), 'id' => 'customers-search-form', 'method' => 'post', 'class' => 'form-horizontal', 'name' => 'customers_search_form']) !!}
                                     @include ('customers.components.search', ['errorBag' => 'customers_search_request'])
@@ -131,9 +131,42 @@
 
             document.getElementById('setting').addEventListener('change', replaceHref, false);
             document.getElementsByName('selection').forEach(function (item) {
-                item.addEventListener('change', replaceHref, false);
+                item.addEventListener('change', selectionChanged, false);
             });
         })();
+        
+        function selectionChanged() {
+            toggleActionButtons();
+            replaceHref();
+        }
+        
+        function toggleActionButtons() {
+            var isRowSelected = window.common.selectedValues().length > 0;
+            var handle = jQuery("#print-tab-handle");
+            var wrapper = jQuery("#customers-action-button-wrapper");
+            var link = jQuery("#print-tab-link");
+            if (isRowSelected) {
+                handle.removeClass("disabled");
+                wrapper.removeClass("invisible");
+                link.attr("href", "#print-tab");
+            } else {
+                handle.addClass("disabled");
+                wrapper.addClass("invisible");
+                link.attr("href", "#");
+            }
+        }
+        
+        function deleteSelectedCustomers() {
+            jQuery("input[name='target_customers[]']").remove();
+            
+            var form = window.customers_delete_form;
+            var selectedCustomers = window.common.selectedValues();
+            for (var i = 0; i < selectedCustomers.length; i++) {
+              var id = selectedCustomers[i];
+              jQuery(form).append("<input type='hidden' name='target_customers[]' value='" + id + "' />");
+            }
+            form.submit();
+        }
 
         /**
          * @return void
@@ -153,6 +186,10 @@
                 'setting': setting[setting.selectedIndex].value,
                 'selection': selection
             });
+        }
+        
+        function showPrintTab() {
+            $('#customers-navigation-tab a[href="#print-tab"]').tab('show');
         }
     </script>
 @endsection

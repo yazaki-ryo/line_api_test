@@ -87,6 +87,12 @@ class Common {
         }
     }
     
+    selectedValues() {
+        return jQuery('.selection:checked').map(function() {
+            return jQuery(this).val();
+        });
+    }
+    
     pageLengthChange(elem, keyRowsInPage = 'rows_in_page') {
       window.location.search = keyRowsInPage + '=' + elem.value;
     }

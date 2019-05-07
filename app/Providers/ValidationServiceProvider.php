@@ -67,5 +67,14 @@ final class ValidationServiceProvider extends ServiceProvider
         $validator->extend('zenkaku_katakana', function ($attribute, $value) {
             return preg_match("/[^ァ-ヶー]/u", $value) === 0;
         });
+        
+        $validator->extend('numeric_array', function ($attribute, $value) use ($request) {
+            foreach($value as $v) {
+                if(!is_numeric($v)) {
+                    return false;
+                }
+            }
+            return true;
+        });
     }
 }

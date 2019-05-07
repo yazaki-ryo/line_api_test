@@ -50,6 +50,7 @@ Route::prefix('/')->group(function () {
     Route::prefix($prefix = 'customers')->name(sprintf('%s.', $prefix))->group(function () {
         Route::match(['post', 'get'], '/', \App\Http\Controllers\Customers\IndexController::class)->name('index');
         Route::post($name = 'add', \App\Http\Controllers\Customers\CreateController::class)->name($name);
+        Route::post($name = 'delete', sprintf('%s@deleteMultiple', \App\Http\Controllers\Customers\DeleteController::class))->name('deleteMultiple');
 
         Route::prefix('{customerId}')->group(function () {
             Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Customers\UpdateController::class))->name($name);
