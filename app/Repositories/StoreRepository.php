@@ -79,7 +79,13 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
      */
     public function customers(array $args = []): DomainCollection
     {
-        $collection = empty($args) ? $this->eloquent->customers : CustomerRepository::build($this->eloquent->customers(), $args)->get();
+//        $collection = empty($args) ? $this->eloquent->customers : CustomerRepository::build($this->eloquent->customers(), $args)->get();
+        if (empty($args)) {
+          $collection = $this->eloquent->customers;
+        } else {
+          $query = CustomerRepository::build($this->eloquent->customers(), $args);
+          $collection = $query->get();
+        }
         return CustomerRepository::toModels($collection);
     }
     

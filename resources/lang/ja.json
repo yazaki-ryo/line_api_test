@@ -17,6 +17,8 @@
     "Maximum number of registrations is 1": "画像登録数は1枚までです。",
     "Name, office name, features, etc.": "氏名、会社名、特徴など",
     "No hyphen, 7 numeric digits": "ハイフン無し、半角数字7桁",
+    "Order by created date descending": "登録日の新しい順",
+    "Order by kana ascending": "フリガナ順",
     "Order by visiting count ascending": "来店数の少ない順",
     "Order by visiting count descending": "来店数の多い順",
     "Please enter necessary items.": "必要項目を入力してください。",
