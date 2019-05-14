@@ -20,8 +20,10 @@
             </span>
             <select class="form-control" onchange="customer.sortChange(this)">
                 <option value="0" @empty($sorting) selected="selected" @endempty></option>
+                <option value="-1" @if($sorting == -1) selected="selected" @endempty>@lang('Order by created date descending')</option>
                 <option value="1" @if($sorting == 1) selected="selected" @endif>@lang('Order by visiting count descending')</option>
                 <option value="2" @if($sorting == 2) selected="selected" @endif>@lang('Order by visiting count ascending')</option>
+                <option value="3" @if($sorting == 3) selected="selected" @endif>@lang('Order by kana ascending')</option>
             </select>
         </div>
     </div>

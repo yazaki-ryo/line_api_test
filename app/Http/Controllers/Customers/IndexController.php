@@ -48,14 +48,13 @@ final class IndexController extends Controller
         }
         
         $ret = $session->all();
-        debug($ret);
         
         $keyRowsInPage = 'rows_in_page';
         $keyPage = 'page';
         $keySorting = 'sort';
         
         $rowsInPage = $request->get($keyRowsInPage, $session->get($keyRowsInPage, 25));
-        $page = $request->get($keyPage, 1);
+        $page = $request->get($keyPage, 1); // use 1 for default, does not use session value
         $sorting = $request->get($keySorting, $session->get($keySorting, 0));
         
         $ret[$keyRowsInPage] = $rowsInPage;
@@ -63,6 +62,7 @@ final class IndexController extends Controller
         $ret[$keySorting] = $sorting;
         
         $session->put($keyRowsInPage, $rowsInPage);
+        $session->put($keyPage, $page);
         $session->put($keySorting, $sorting);
         
         return $ret;

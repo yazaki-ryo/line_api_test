@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Domain\UseCases\Users;
 
+use App\Eloquents\EloquentUser;
+use App\Eloquents\EloquentPermission;
 use App\Traits\Database\Transactionable;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
@@ -50,7 +52,11 @@ final class CreateUser
         $args = $this->domainize($user, $args);
 
         return $this->transaction(function () use ($store, $args) {
-            return $store->addUser($args);
+            $user = $store->addUser($args);
+            $slugs = config('permissions.default.general.' . $args['role']);
+            $ids = EloquentPermission::slugs($slugs)->pluck('id');
+            EloquentUser::find($user->id())->permissions()->sync($ids->all());
+            return $user;
         });
     }
 
