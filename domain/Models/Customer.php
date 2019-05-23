@@ -493,7 +493,11 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'postal_code')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : PostalCode::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : PostalCode::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'address')) {
@@ -513,7 +517,11 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'email')) {
-          $this->{$camel = camel_case($key)} = is_null($args->get($key)) || $args->get($key) === "" ? null : Email::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'mobile_phone')) {
@@ -521,15 +529,27 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'mourned_at')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'birthday')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'anniversary')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'likes_and_dislikes')) {
@@ -541,23 +561,43 @@ final class Customer extends DomainModel
         }
 
         if ($args->has($key = 'cancel_cnt')) {
-            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = Count::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'noshow_cnt')) {
-            $this->{$camel = camel_case($key)} = Count::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = Count::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'created_at')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'updated_at')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'deleted_at')) {
-            $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            try {
+                $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Datetime::of($args->get($key));
+            } catch (\Throwable $th) {
+                debug($th);
+            }
         }
 
         if ($args->has($key = 'prefecture_id')) {
