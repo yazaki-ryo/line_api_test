@@ -38,7 +38,6 @@
                                         </li>
                                         @if(!empty($updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()))
                                         <li>
-                                                                                
                                             <a href="{{ asset(str_finish('storage/' . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->path(), '/') . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->name()) }}" target="_blank">
                                                 <i class="far fa-file-image" title="@lang('elements.words.image')@lang('elements.words.detail')"></i>
                                             </a>

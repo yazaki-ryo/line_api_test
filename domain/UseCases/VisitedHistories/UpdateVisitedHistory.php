@@ -100,7 +100,7 @@ final class UpdateVisitedHistory
     private function addAttachment(VisitedHistory $visitedHistory, UploadedFile $file): Attachment
     {
         $attachment = $visitedHistory->addAttachment([
-            'path' => $path = sprintf('images/attachments/visited_histories/%s', $visitedHistory->id()),
+            'path' => $path = sprintf('images/attachments/visited_histories/%s', $visitedHistory->customerId()),
             'name' => $name = sprintf('%s_%s_%s', time(), str_random(16), $file->getClientOriginalName()),
         ]);
 
