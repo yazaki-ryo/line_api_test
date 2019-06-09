@@ -106,6 +106,7 @@ final class Customer extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function id(): ?int
     {
@@ -114,6 +115,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function lastName(): ?string
     {
@@ -122,6 +124,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function firstName(): ?string
     {
@@ -130,6 +133,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function lastNameKana(): ?string
     {
@@ -138,6 +142,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function firstNameKana(): ?string
     {
@@ -146,6 +151,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function office(): ?string
     {
@@ -154,6 +160,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function officeKana(): ?string
     {
@@ -162,6 +169,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function department(): ?string
     {
@@ -170,6 +178,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function position(): ?string
     {
@@ -178,6 +187,7 @@ final class Customer extends DomainModel
 
     /**
      * @return PostalCode|null
+     * @export
      */
     public function postalCode(): ?PostalCode
     {
@@ -186,6 +196,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function address(): ?string
     {
@@ -194,6 +205,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function building(): ?string
     {
@@ -202,6 +214,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function tel(): ?string
     {
@@ -210,6 +223,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function fax(): ?string
     {
@@ -218,6 +232,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Email|null
+     * @export
      */
     public function email(): ?Email
     {
@@ -226,6 +241,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function mobilePhone(): ?string
     {
@@ -234,6 +250,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function mournedAt(): ?Datetime
     {
@@ -242,6 +259,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function birthday(): ?Datetime
     {
@@ -250,6 +268,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function anniversary(): ?Datetime
     {
@@ -258,6 +277,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function likesAndDislikes(): ?string
     {
@@ -266,6 +286,7 @@ final class Customer extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function note(): ?string
     {
@@ -274,6 +295,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Count|null
+     * @export
      */
     public function cancelCnt(): ?Count
     {
@@ -282,6 +304,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Count|null
+     * @export
      */
     public function noshowCnt(): ?Count
     {
@@ -290,6 +313,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function createdAt(): ?Datetime
     {
@@ -298,6 +322,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function updatedAt(): ?Datetime
     {
@@ -306,6 +331,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function deletedAt(): ?Datetime
     {
@@ -322,6 +348,7 @@ final class Customer extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function prefectureId(): ?int
     {
@@ -330,6 +357,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Prefecture|null
+     * @export
      */
     public function prefecture(): ?Prefecture
     {
@@ -338,6 +366,7 @@ final class Customer extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function sexId(): ?int
     {
@@ -346,6 +375,7 @@ final class Customer extends DomainModel
 
     /**
      * @return Sex|null
+     * @export
      */
     public function sex(): ?Sex
     {
@@ -354,6 +384,7 @@ final class Customer extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function storeId(): ?int
     {
@@ -447,7 +478,7 @@ final class Customer extends DomainModel
     {
         return (new self(new CustomerRepository))->propertiesByArray($args);
     }
-
+    
     /**
      * @param array $args
      * @return self

@@ -60,6 +60,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function id(): ?int
     {
@@ -68,6 +69,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function reservedAt(): ?Datetime
     {
@@ -76,6 +78,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function name(): ?string
     {
@@ -84,6 +87,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function seat(): ?string
     {
@@ -92,6 +96,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function amount(): ?int
     {
@@ -100,6 +105,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function reservationCode(): ?string
     {
@@ -108,6 +114,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function floor(): ?int
     {
@@ -116,6 +123,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function status(): ?int
     {
@@ -124,6 +132,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function note(): ?string
     {
@@ -132,6 +141,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function createdAt(): ?Datetime
     {
@@ -140,6 +150,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function updatedAt(): ?Datetime
     {
@@ -148,6 +159,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function deletedAt(): ?Datetime
     {
@@ -164,6 +176,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function storeId(): ?int
     {
@@ -180,6 +193,7 @@ final class Reservation extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function customerId(): ?int
     {

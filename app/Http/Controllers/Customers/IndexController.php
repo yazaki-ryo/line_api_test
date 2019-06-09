@@ -114,4 +114,27 @@ final class IndexController extends Controller
         ]);
     }
 
+    /**
+     * @param SearchRequest $request
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function listAjax(SearchRequest $request)
+    {
+        /** @var User $user */
+        $user = $request->assign();
+        $args = $request->validated();
+        $storeId = $request->cookie(config('cookie.name.current_store'));
+
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+        
+        $customers = $this->useCase->excute($user, $store, $args);
+        $totalCustomers = $this->useCase->count($user, $store, $args);
+        
+        return response()->json([
+            'customers' => $customers->toPlainObject(),
+            'totalCustomers' => $totalCustomers,
+        ]);
+    }
 }

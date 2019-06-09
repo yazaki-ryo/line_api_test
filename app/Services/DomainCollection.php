@@ -42,4 +42,12 @@ final class DomainCollection extends Collection
             ]));
         });
     }
+    
+    public function toPlainObject() {
+        $plainObjects = [];
+        foreach ($this->items as $item) {
+            $plainObjects[] = $item->toPlainObject();
+        }
+        return $plainObjects;
+    }
 }

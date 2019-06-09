@@ -51,6 +51,16 @@ final class CreateReservation
         $args = $this->domainize($user, $args);
 
         return $this->transaction(function () use ($store, $args) {
+            if (!array_key_exists('customer_id', $args) || !$args['customer_id']) {
+                $customer = $store->addCustomer(['last_name' => $args['name']]);
+                debug($customer);
+                if ($customer && $customer->id() > 0) {
+                    $args['customer_id'] = $customer->id();
+                } else {
+                    throw new \Exception('failed to create customer');
+                }
+            }
+            
             return $store->addReservation($args);
         });
     }

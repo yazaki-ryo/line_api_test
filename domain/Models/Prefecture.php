@@ -34,6 +34,7 @@ final class Prefecture extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function id(): ?int
     {
@@ -42,6 +43,7 @@ final class Prefecture extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function name(): ?string
     {

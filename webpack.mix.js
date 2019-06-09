@@ -14,7 +14,7 @@ let mix = require('laravel-mix');
 // Js
 mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/systems.js', 'public/js')
-    .extract(['vue']);
+    .extract(['vue', 'vuetify']);
 
 // Sass
 mix.sass('resources/assets/sass/app.scss', 'public/css')
