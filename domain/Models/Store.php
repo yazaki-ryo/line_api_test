@@ -61,6 +61,7 @@ final class Store extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function id(): ?int
     {
@@ -69,6 +70,7 @@ final class Store extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function name(): ?string
     {
@@ -77,6 +79,7 @@ final class Store extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function kana(): ?string
     {
@@ -85,6 +88,7 @@ final class Store extends DomainModel
 
     /**
      * @return PostalCode|null
+     * @export
      */
     public function postalCode(): ?PostalCode
     {
@@ -93,6 +97,7 @@ final class Store extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function address(): ?string
     {
@@ -101,6 +106,7 @@ final class Store extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function building(): ?string
     {
@@ -109,6 +115,7 @@ final class Store extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function tel(): ?string
     {
@@ -117,6 +124,7 @@ final class Store extends DomainModel
 
     /**
      * @return string|null
+     * @export
      */
     public function fax(): ?string
     {
@@ -125,6 +133,7 @@ final class Store extends DomainModel
 
     /**
      * @return Email|null
+     * @export
      */
     public function email(): ?Email
     {
@@ -133,6 +142,7 @@ final class Store extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function createdAt(): ?Datetime
     {
@@ -141,6 +151,7 @@ final class Store extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function updatedAt(): ?Datetime
     {
@@ -149,6 +160,7 @@ final class Store extends DomainModel
 
     /**
      * @return Datetime|null
+     * @export
      */
     public function deletedAt(): ?Datetime
     {
@@ -157,6 +169,7 @@ final class Store extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function companyId(): ?int
     {
@@ -165,6 +178,7 @@ final class Store extends DomainModel
 
     /**
      * @return Company|null
+     * @export
      */
     public function company(): ?Company
     {
@@ -173,6 +187,7 @@ final class Store extends DomainModel
 
     /**
      * @return int|null
+     * @export
      */
     public function prefectureId(): ?int
     {
@@ -181,6 +196,7 @@ final class Store extends DomainModel
 
     /**
      * @return Prefecture|null
+     * @export
      */
     public function prefecture(): ?Prefecture
     {

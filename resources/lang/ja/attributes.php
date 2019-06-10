@@ -115,6 +115,7 @@ return [
     'reservations' => [
         'store_id'              => '店舗',
         'customer_id'           => '顧客',
+        'customer_search'       => '顧客検索',
 
         'reserved_date'         => '予約日',
         'reserved_time'         => '予約時間',

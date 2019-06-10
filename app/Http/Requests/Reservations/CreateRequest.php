@@ -76,6 +76,10 @@ final class CreateRequest extends FormRequest
                 Rule::exists('customers', 'id'),
                 'customer_id',
             ],
+            'create_customer' => [
+                'nullable',
+                'boolean',
+            ],
         ];
     }
 

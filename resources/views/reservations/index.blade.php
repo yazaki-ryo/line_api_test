@@ -80,7 +80,7 @@
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
-                                    {!! Form::open(['url' => route('reservations.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                    {!! Form::open(['url' => route('reservations.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal', 'name' => 'reservations_create_form']) !!}
                                         @include ('reservations.components.crud', ['mode' => 'add', 'errorBag' => 'reservations_create_request'])
                                     {!! Form::close() !!}
                                 </div>
@@ -100,7 +100,11 @@
     <script src="{{ asset('js/ja.js') }}"></script>
     <script src="{{ asset('js/calendar.js') }}"></script>
     <script>
-        jQuery(function($){            
+        var selectedCustomerId = {{ empty($customer_id) ? '0' : $customer_id }};
+        var reservationForm = new ReservationForm(appvm, selectedCustomerId, window.reservations_create_form);
+    </script>
+    <script>
+        jQuery(function($){
             
             $.extend( $.fn.dataTable.defaults, {
                 language: {

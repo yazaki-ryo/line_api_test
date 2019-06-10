@@ -9,8 +9,12 @@ require('./bootstrap');
 require('./common');
 require('./components/tooltip');
 require('./components/customer');
+require('./components/reservation');
+require('babel-polyfill');
 
 window.Vue = require('vue');
+window.Vue.use(require('vuetify'));
+Vue.component('n-customer-chooser', require('./components/vue/CustomerChooser.vue'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -20,6 +24,15 @@ window.Vue = require('vue');
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-const app = new Vue({
-    el: '#app'
+app = new Vue({
+    el: '#app',
+    data: {
+      callback: {}
+    },
+    methods: {
+      registerCallback(name, func) {
+        this.$set(this.callback, name, func);
+      }
+    }
 });
+appvm = app;

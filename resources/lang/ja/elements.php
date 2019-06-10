@@ -29,6 +29,7 @@ return [
          */
         'calender'       => 'カレンダー',
         'cancel'         => 'キャンセル',
+        'close'          => '閉じる',
         'company'        => '企業',
         'companies'      => '企業',
         'conditions'     => '条件',

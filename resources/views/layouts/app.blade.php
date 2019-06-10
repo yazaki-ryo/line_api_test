@@ -34,7 +34,7 @@
 @else
 <body class="login-page">
 @endauth
-    <div id="app">
+    <v-app id="app">
         @include ('layouts.header')
 
         @include ('layouts.nav')
@@ -42,10 +42,10 @@
         @yield('content')
 
         @include ('layouts.footer')
-    </div>
 
     {!! Form::open(['id' => 'basic-form', 'url' => '', 'method' => 'post', 'style' => 'display: none;']) !!}{!! Form::close() !!}
 
+    </v-app>
     <!-- Scripts -->
     @if (file_exists(public_path('mix-manifest.json')))
         <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>

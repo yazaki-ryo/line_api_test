@@ -47,6 +47,7 @@ final class UpdateController extends Controller
         $this->authorize('select', $reservation);
 
         return view('reservations.edit', [
+            'customer_id' => $reservation->customerId(),
             'row' => $reservation,
         ]);
     }

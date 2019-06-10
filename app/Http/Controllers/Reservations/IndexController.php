@@ -44,7 +44,11 @@ final class IndexController extends Controller
             'id' => $storeId,
         ]);
 
+        $session = $request->session();
+        $postdata = $session->get('_old_input');
+        $customer_id = is_array($postdata) ? (array_key_exists('customer_id', $postdata) ? $postdata['customer_id'] : 0) : 0;
         return view('reservations.index', [
+            'customer_id' => $customer_id,
             'rows' => $this->useCase->excute($user, $store, $args),
             'row' => $reservation,
             'tab' => count($args) ? 'index' : 'calender',
