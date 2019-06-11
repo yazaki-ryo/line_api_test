@@ -32,7 +32,7 @@
   });
 
   function requestVisitorData(date) {
-    location.href = '/reservations/day_list/' + date;
+    location.href = '/reservations/?reserved_date=' + date;
   }
 
   function setSelectDate(date) {
