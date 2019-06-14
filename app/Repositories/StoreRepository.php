@@ -126,6 +126,16 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
 
     /**
      * @param  array $args
+     * @return DomainCollection
+     */
+    public function seats(array $args = []): DomainCollection
+    {
+        $collection = empty($args) ? $this->eloquent->seats : SeatRepository::build($this->eloquent->seats(), $args)->get();
+        return SeatRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
      * @return Customer
      */
     public function addCustomer(array $args = []): Customer

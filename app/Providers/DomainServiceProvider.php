@@ -9,6 +9,7 @@ use Domain\UseCases\Customers;
 use Domain\UseCases\Reservations;
 use Domain\UseCases\Settings;
 use Domain\UseCases\Tags;
+use Domain\UseCases\Seats;
 use Domain\UseCases\Users;
 use Domain\UseCases\VisitedHistories;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
@@ -67,6 +68,8 @@ final class DomainServiceProvider extends ServiceProvider
             Tags\DeleteTag::class,
             Tags\GetTags::class,
             Tags\UpdateTag::class,
+
+            Seats\GetSeats::class,
 
             Users\CreateUser::class,
             Users\DeleteUser::class,
@@ -207,6 +210,15 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->singleton(Tags\UpdateTag::class, function () {
             return new Tags\UpdateTag(
                 app(Services\TagsService::class)
+            );
+        });
+
+        /**
+         * Seats
+         */
+        $this->app->singleton(Seats\GetSeats::class, function () {
+            return new Seats\GetSeats(
+                app(Services\StoresService::class)
             );
         });
 

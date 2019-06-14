@@ -241,6 +241,15 @@ final class Store extends DomainModel
 
     /**
      * @param  array $args
+     * @return DomainCollection
+     */
+    public function seats(array $args = []): DomainCollection
+    {
+        return $this->repo->seats($args);
+    }
+
+    /**
+     * @param  array $args
      * @return Customer
      */
     public function addCustomer(array $args = []): Customer
