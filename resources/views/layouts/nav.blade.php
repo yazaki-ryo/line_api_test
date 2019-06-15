@@ -104,6 +104,19 @@
                                     </div>
                                 </li>
 
+                                <!-- Seats -->
+                                <li>
+                                    <a href="#side-nav2-child3" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                        @lang ('elements.words.seats')@lang ('elements.words.management') <span class="caret"></span>
+                                    </a>
+
+                                    <div id="side-nav2-child3" class="panel-collapse collapse">
+                                        <ul class="nav nav-child">
+                                            <li class="{{ request()->route()->named('seats') ? 'active' : '' }}"><a href="{{ route('seats.index') }}">@lang ('elements.words.seats')@lang ('elements.words.list')</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
                                 <!-- Menus -->
                                 <li class="disabled">
                                     <a href="#" class="disabled" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -128,10 +141,10 @@
                                 <!-- Switch selected stores -->
                                 @can ('authorize', ['stores.select', 'own-company-stores.select'])
                                     <li>
-                                        <a href="#side-nav2-child3" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                        <a href="#side-nav2-child4" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                             @lang ('elements.words.stores')@lang ('elements.words.toggle') <span class="caret"></span>
                                         </a>
-                                        <div id="side-nav2-child3" class="panel-collapse collapse">
+                                        <div id="side-nav2-child4" class="panel-collapse collapse">
                                             <ul class="nav nav-child">
                                                 @foreach ($stores as $store)
                                                     <li><a href="{{ route('home', ['store_id' => $store->id()]) }}">{{ $store->name() }}</a></li>

@@ -67,6 +67,7 @@ return [
          */
         'fixed'          => '固定',
         'free'           => '任意',
+        'floor'          => '階',
 
         /**
          * G
@@ -178,6 +179,7 @@ return [
         'set'            => '設置',
         'setting'        => '設定',
         'settings'       => '設定',
+        'seats'           => '座席',
         'start'          => '開始',
         'state'          => '状態',
         'status'         => 'ステータス',
