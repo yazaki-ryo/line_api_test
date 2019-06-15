@@ -103,6 +103,14 @@ final class Seat extends DomainModel
     }
 
     /**
+     * @return void
+     */
+    public function delete(): void
+    {
+        parent::delete();
+    }
+
+    /**
      * @param SeatRepository $repo
      * @return self
      */

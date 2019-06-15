@@ -179,7 +179,7 @@ return [
         'set'            => '設置',
         'setting'        => '設定',
         'settings'       => '設定',
-        'seat'           => '座席',
+        'seats'           => '座席',
         'start'          => '開始',
         'state'          => '状態',
         'status'         => 'ステータス',

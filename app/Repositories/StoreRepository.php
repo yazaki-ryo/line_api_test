@@ -13,6 +13,7 @@ use Domain\Models\Prefecture;
 use Domain\Models\Reservation;
 use Domain\Models\Store;
 use Domain\Models\Tag;
+use Domain\Models\Seat;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -162,6 +163,16 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
     {
         $resource = $this->eloquent->tags()->create($args);
         return TagRepository::toModel($resource);
+    }
+
+    /**
+     * @param  array $args
+     * @return Seat
+     */
+    public function addSeat(array $args = []): Seat
+    { 
+        $resource = $this->eloquent->seats()->create($args);
+        return SeatRepository::toModel($resource);
     }
 
    /**

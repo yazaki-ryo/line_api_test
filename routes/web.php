@@ -137,7 +137,13 @@ Route::prefix('/')->group(function () {
      */
     Route::prefix($prefix = 'seats')->name(sprintf('%s.', $prefix))->group(function () {
         Route::get('/', \App\Http\Controllers\Seats\IndexController::class)->name('index');
-        //Route::post($name = 'add', \App\Http\Controllers\Settings\Seats\CreateController::class)->name($name);
+        Route::post($name = 'add', \App\Http\Controllers\Seats\CreateController::class)->name($name);
+
+        Route::prefix('{seatId}')->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Seats\UpdateController::class))->name($name);
+            Route::post($name, sprintf('%s@update', \App\Http\Controllers\Seats\UpdateController::class));
+            Route::post($name = 'delete', \App\Http\Controllers\Seats\DeleteController::class)->name($name);
+        });
     });
 
     /**

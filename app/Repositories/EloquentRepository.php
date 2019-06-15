@@ -66,6 +66,7 @@ abstract class EloquentRepository implements
         EloquentSex::class => SexRepository::class,
         EloquentStore::class => StoreRepository::class,
         EloquentTag::class => TagRepository::class,
+        EloquentSeat::class => SeatRepository::class,
         EloquentUser::class => UserRepository::class,
         EloquentVisitedHistory::class => VisitedHistoryRepository::class,
     ];

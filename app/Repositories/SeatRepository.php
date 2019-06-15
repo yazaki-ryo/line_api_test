@@ -30,7 +30,7 @@ final class SeatRepository extends EloquentRepository implements DomainableContr
      */
     public static function toModel(Model $model): DomainModel
     {
-        return Tag::of(self::of($model));
+        return Seat::of(self::of($model));
     }
 
     /**

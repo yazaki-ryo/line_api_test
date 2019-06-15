@@ -69,7 +69,10 @@ final class DomainServiceProvider extends ServiceProvider
             Tags\GetTags::class,
             Tags\UpdateTag::class,
 
+            Seats\CreateSeat::class,
+            Seats\DeleteSeat::class,
             Seats\GetSeats::class,
+            Seats\UpdateSeat::class,
 
             Users\CreateUser::class,
             Users\DeleteUser::class,
@@ -216,9 +219,27 @@ final class DomainServiceProvider extends ServiceProvider
         /**
          * Seats
          */
+        $this->app->singleton(Seats\CreateSeat::class, function () {
+            return new Seats\CreateSeat(
+                app(Services\StoresService::class)
+            );
+        });
+
+        $this->app->singleton(Seats\DeleteSeat::class, function () {
+            return new Seats\DeleteSeat(
+                app(Services\SeatsService::class)
+            );
+        });
+
         $this->app->singleton(Seats\GetSeats::class, function () {
             return new Seats\GetSeats(
                 app(Services\StoresService::class)
+            );
+        });
+
+        $this->app->singleton(Seats\UpdateSeat::class, function () {
+            return new Seats\UpdateSeat(
+                app(Services\SeatsService::class)
             );
         });
 

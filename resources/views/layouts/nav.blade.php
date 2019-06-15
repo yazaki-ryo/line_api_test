@@ -107,14 +107,12 @@
                                 <!-- Seats -->
                                 <li>
                                     <a href="#side-nav2-child3" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
-                                        @lang ('elements.words.seat')@lang ('elements.words.management') <span class="caret"></span>
+                                        @lang ('elements.words.seats')@lang ('elements.words.management') <span class="caret"></span>
                                     </a>
 
                                     <div id="side-nav2-child3" class="panel-collapse collapse">
                                         <ul class="nav nav-child">
-                                            @can ('authorize', config('permissions.groups.store.select'))
-                                                <li class="{{ request()->route()->named('seats') ? 'active' : '' }}"><a href="{{ route('seats.index') }}">@lang ('elements.words.seat')@lang ('elements.words.list')</a></li>
-                                            @endcan
+                                            <li class="{{ request()->route()->named('seats') ? 'active' : '' }}"><a href="{{ route('seats.index') }}">@lang ('elements.words.seats')@lang ('elements.words.list')</a></li>
                                         </ul>
                                     </div>
                                 </li>
