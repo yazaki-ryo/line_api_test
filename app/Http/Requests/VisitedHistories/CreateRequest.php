@@ -56,7 +56,7 @@ final class CreateRequest extends FormRequest
                 'file',
                 'image',
                 'mimes:jpg,jpeg,png,gif',
-                'max:2048',
+                'max:8192',
             ],
             'customer_id' => [
                 'required',
