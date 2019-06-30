@@ -149,19 +149,17 @@ Route::prefix('/')->group(function () {
     /**
      * Users
      */
-    if (app()->isLocal()) {// TODO
-        Route::prefix($prefix = 'users')->name(sprintf('%s.', $prefix))->group(function () {
-            Route::get('/', \App\Http\Controllers\Users\IndexController::class)->name('index');
-            Route::post($name = 'add', \App\Http\Controllers\Users\CreateController::class)->name($name);
+    Route::prefix($prefix = 'users')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get('/', \App\Http\Controllers\Users\IndexController::class)->name('index');
+        Route::post($name = 'add', \App\Http\Controllers\Users\CreateController::class)->name($name);
 
-            Route::prefix('{userId}')->group(function () {
-                Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Users\UpdateController::class))->name($name);
-                Route::post($name, sprintf('%s@update', \App\Http\Controllers\Users\UpdateController::class));
-                Route::post($name = 'delete', \App\Http\Controllers\Users\DeleteController::class)->name($name);
-                Route::post($name = 'restore', \App\Http\Controllers\Users\RestoreController::class)->name($name);
-            });
+        Route::prefix('{userId}')->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Users\UpdateController::class))->name($name);
+            Route::post($name, sprintf('%s@update', \App\Http\Controllers\Users\UpdateController::class));
+            Route::post($name = 'delete', \App\Http\Controllers\Users\DeleteController::class)->name($name);
+            Route::post($name = 'restore', \App\Http\Controllers\Users\RestoreController::class)->name($name);
         });
-    }
+    });
 
     /**
      * Visited histories
