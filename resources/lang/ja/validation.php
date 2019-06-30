@@ -81,6 +81,7 @@ return [
     'string'               => ':attributeは、文字を指定してください。',
     'timezone'             => ':attributeは、有効なタイムゾーンを指定してください。',
     'unique'               => '指定の :attributeは既に使用されています。',
+    'uploaded'             => '選択した :attributeはアップロードできませんでした。',
     'url'                  => ':attributeは、有効なURL形式で指定してください。',
 
     /*
