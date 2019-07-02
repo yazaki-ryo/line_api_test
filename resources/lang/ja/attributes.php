@@ -101,6 +101,7 @@ return [
         ],
 
         'visited_histories' => [
+            'image'        => '画像',
             'visited_date' => '来店日',
             'visited_time' => 'チェックイン',
             'amount'       => '人数',

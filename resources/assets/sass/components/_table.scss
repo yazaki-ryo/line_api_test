@@ -1,3 +1,14 @@
+table {
+  &.table-bordered {
+    &.dataTable {
+      tbody {
+        td {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
 #customers-table {
   th, td {
     white-space: nowrap;
