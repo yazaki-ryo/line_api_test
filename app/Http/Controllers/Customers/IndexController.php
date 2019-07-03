@@ -106,6 +106,7 @@ final class IndexController extends Controller
             'paginator' => $paginator,
             'sorting' => $sorting,
             'printSettings' => $user->printSettings()->domainizePrintSettings(true),
+            'tab' => $request->get('tab') == 'customers_search_request' ? 'index' : 'customers_search_request',
             'tags' => $user->company()->tags([
                 'store_id' => $storeId,
             ])->groupBy(function ($item) {
