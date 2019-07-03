@@ -96,7 +96,7 @@
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @can ('authorize', config('permissions.groups.customers.select'))
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" name="search_customers" value="searching" class="btn btn-primary">
                 @lang ('elements.words.search')
             </button>
 
