@@ -143,15 +143,15 @@
         function toggleActionButtons() {
             var isRowSelected = window.common.selectedValues().length > 0;
             var handle = jQuery("#print-tab-handle");
-            var wrapper = jQuery("#customers-action-button-wrapper");
+            var actionBtn = jQuery(".action-btn");
             var link = jQuery("#print-tab-link");
             if (isRowSelected) {
                 handle.removeClass("disabled");
-                wrapper.removeClass("invisible");
+                actionBtn.css("display", "inline-block");
                 link.attr("href", "#print-tab");
             } else {
                 handle.addClass("disabled");
-                wrapper.addClass("invisible");
+                actionBtn.css("display", "none");
                 link.attr("href", "#");
             }
         }
