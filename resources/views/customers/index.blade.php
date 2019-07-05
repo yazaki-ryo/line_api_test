@@ -100,6 +100,7 @@
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
     <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
+        
         jQuery(function($){
             $.extend( $.fn.dataTable.defaults, {
                 language: {
@@ -123,6 +124,8 @@
                 responsive: true,
             });
         });
+
+        common.selectedListTransition();
 
         (function () {
             'use strict';

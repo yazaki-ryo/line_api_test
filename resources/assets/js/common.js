@@ -108,6 +108,13 @@ class Common {
 
         jQuery(form).find(":radio").filter("[data-default]").prop("checked", true);
     }
+
+    selectedListTransition() {
+        jQuery(".transition").on('click', function() {
+            var url = jQuery(this).attr('data-url');
+            window.location.href = url;
+        });
+    }
 }
 
 window.common = new Common();
