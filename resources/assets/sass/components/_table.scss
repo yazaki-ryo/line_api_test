@@ -15,12 +15,15 @@ table {
   }
 }
 .table-responsive {
-  .dataTables_wrapper {
-    .row {
-      margin: 0;
-      overflow: auto !important;
-    }
+  width: 100%;
+}
+.dataTables_wrapper {
+  .row {
+    margin: 0;
   }
+}
+.transition {
+  cursor: pointer; 
 }
 @media screen and (max-width: 767px) {
   .table-responsive {

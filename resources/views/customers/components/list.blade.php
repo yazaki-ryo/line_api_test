@@ -1,34 +1,31 @@
 @if ($rows->count())
-<div class="table-responsive">
-    {!! Form::open(['url' => route('customers.deleteMultiple'), 'id' => 'customers-delete-form', 'method' => 'post', 'class' => 'form-horizontal hidden', 'name' => 'customers_delete_form']) !!}
-    {!! Form::close() !!}
-    <div class="row">
-        <div class="col-md-3">
-            @include ('customers.components.page_length_menu')
-        </div>
-        <div class="col-md-9 text-right form-inline">
-            <span id="customers-action-button-wrapper" class="invisible" style="margin-right: 1em;">
-              @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                  <span class="btn btn-success" style="margin-right: 1em;" onclick="showPrintTab()">@lang('Print postcard')</span>
-              @endcan
-              @can ('authorize', config('permissions.groups.customers.delete'))
-                  <span class="btn btn-danger" onclick="if (confirm('@lang ('Are you sure delete selected customer(s)?')')) { deleteSelectedCustomers(); }">@lang('Delete selected customers')</span>
-              @endcan
-            </span>
-            <span>
-                @lang('Sort')
-            </span>
-            <select class="form-control" onchange="customer.sortChange(this)">
-                <option value="0" @empty($sorting) selected="selected" @endempty></option>
-                <option value="-1" @if($sorting == -1) selected="selected" @endempty>@lang('Order by created date descending')</option>
-                <option value="1" @if($sorting == 1) selected="selected" @endif>@lang('Order by visiting count descending')</option>
-                <option value="2" @if($sorting == 2) selected="selected" @endif>@lang('Order by visiting count ascending')</option>
-                <option value="3" @if($sorting == 3) selected="selected" @endif>@lang('Order by kana ascending')</option>
-            </select>
-        </div>
+{!! Form::open(['url' => route('customers.deleteMultiple'), 'id' => 'customers-delete-form', 'method' => 'post', 'class' => 'form-horizontal hidden', 'name' => 'customers_delete_form']) !!}
+{!! Form::close() !!}
+<div class="col-md-12">
+    <div class="col-md-3 page-length-box">
+        @include ('customers.components.page_length_menu')
     </div>
-    
-    <table id="customers-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid">
+    <div class="col-md-9 text-right form-inline bottom">
+        <span id="customers-action-button-wrapper" class="action-btn" style="margin-right: 1em;">
+            @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                <span class="btn btn-success" style="margin-right: 1em;" onclick="showPrintTab()">@lang('Print postcard')</span>
+            @endcan
+            @can ('authorize', config('permissions.groups.customers.delete'))
+                <span class="btn btn-danger" onclick="if (confirm('@lang ('Are you sure delete selected customer(s)?')')) { deleteSelectedCustomers(); }">@lang('Delete selected customers')</span>
+            @endcan
+        </span>
+        <select class="form-control" onchange="customer.sortChange(this)">
+            <option value="0" @empty($sorting) selected="selected" @endempty>@lang('Sort')</option>
+            <option value="-1" @if($sorting == -1) selected="selected" @endempty>@lang('Order by created date descending')</option>
+            <option value="1" @if($sorting == 1) selected="selected" @endif>@lang('Order by visiting count descending')</option>
+            <option value="2" @if($sorting == 2) selected="selected" @endif>@lang('Order by visiting count ascending')</option>
+            <option value="3" @if($sorting == 3) selected="selected" @endif>@lang('Order by kana ascending')</option>
+        </select>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table id="customers-table" class="table table-striped table-bordered dt-responsive dataTables nowrap no-footer dtr-inline collapsed" role="grid">
         <colgroup>
             <col width="3%">
             <col width="10%">
@@ -54,16 +51,16 @@
         </thead>
         <tbody>
             @foreach ($rows as $row)
-                <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
+                <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger ' : '' }}">
                     <td class="text-center">
                         <div class="checkbox">
                             <label><input type="checkbox" class="selection" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), old($attribute)) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
                     </td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
-                    <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('office')}(), 0, 25, '...', 'UTF-8') }}</td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('tel')}() }}</td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
+                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
+                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ mb_strimwidth($row->{$camel = camel_case('office')}(), 0, 25, '...', 'UTF-8') }}</td>
+                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('tel')}() }}</td>
+                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                     <td class="text-center">
                         <ul class="side-by-side around wrap">
                             <li>
@@ -124,8 +121,8 @@
             @endforeach
         </tbody>
     </table>
-    @include ('components.parts.page_buttons')
 </div>
+@include ('components.parts.page_buttons')
 @else
     <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.customers'), __('elements.words.data'))])</p>
 @endif
