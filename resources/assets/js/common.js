@@ -109,6 +109,9 @@ class Common {
         jQuery(form).find(":radio").filter("[data-default]").prop("checked", true);
     }
 
+    /**
+     * urlを取得して画面遷移
+     */
     selectedListTransition() {
         jQuery(".transition").on('click', function() {
             var url = jQuery(this).attr('data-url');
