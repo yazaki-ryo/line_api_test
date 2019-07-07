@@ -43,7 +43,7 @@
             @endcan
         </ul>
     </div>
-    <div class="container pt-150">
+    <div class="container mb-150 pt-150">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 @include ('components.parts.alerts')
@@ -126,6 +126,9 @@
         });
 
         common.selectedListTransition();
+        
+        // ナビゲーション開閉
+        common.navgationToggle();
 
         (function () {
             'use strict';

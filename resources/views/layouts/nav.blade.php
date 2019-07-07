@@ -1,7 +1,7 @@
 @auth
-<nav class="navbar navbar-inverse navbar-fixed-left pt-30">
+<nav id="nav-sidebar" class="navbar navbar-inverse navbar-fixed-left drawer-nav pt-30">
     <div class="container">
-        <div class="navbar-header">
+        {{-- <div class="navbar-header">
 
             <!-- Collapsed Hamburger -->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        </div>
+        </div> --}}
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Right Side Of Navbar -->
@@ -192,7 +192,7 @@
 
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="common.submitFormWithConfirm('{{ route('logout') }}', '@lang ('Do you want to log out?')'); return false;">
-                                        <i class="fa fa-sign-out pull-right"></i>@lang ('elements.words.logout')
+                                        @lang ('elements.words.logout')
                                     </a>
                                 </li>
                             </ul>

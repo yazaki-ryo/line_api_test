@@ -25,7 +25,7 @@
 </div>
 
 <div class="table-responsive">
-    <table id="customers-table" class="table table-striped table-bordered dt-responsive dataTables nowrap no-footer dtr-inline collapsed" role="grid">
+    <table id="customers-table" class="table table-striped table-bordered dt-responsive dataTable nowrap no-footer dtr-inline collapsed" role="grid">
         <colgroup>
             <col width="3%">
             <col width="10%">

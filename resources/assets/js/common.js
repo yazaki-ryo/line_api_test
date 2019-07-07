@@ -118,6 +118,16 @@ class Common {
             window.location.href = url;
         });
     }
+
+    /**
+     * ナビゲーション開閉
+     */
+    navgationToggle() {
+        jQuery(".navbar-toggle-org").on('click', function() {
+            $(this).toggleClass('open');
+            $('.drawer-nav').toggleClass('open');
+        });
+    }
 }
 
 window.common = new Common();
