@@ -113,7 +113,8 @@ class Common {
      * urlを取得して画面遷移
      */
     selectedListTransition() {
-        jQuery(".transition").on('click', function() {
+        var event = 'ontouchstart' in window ? 'touchend' : 'click';
+        jQuery(".transition").on(event, function() {
             var url = jQuery(this).attr('data-url');
             window.location.href = url;
         });
@@ -123,7 +124,8 @@ class Common {
      * ナビゲーション開閉
      */
     navgationToggle() {
-        jQuery(".navbar-toggle-org").on('click', function() {
+        var event = 'ontouchstart' in window ? 'touchstart' : 'click';
+        jQuery(".navbar-toggle-org").on(event, function() {
             $(this).toggleClass('open');
             $('.drawer-nav').toggleClass('open');
         });
