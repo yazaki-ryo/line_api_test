@@ -37,9 +37,11 @@
                                     <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers.index', ['tab' => 'customers_search_request']) }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
                                 @endcan
 
+                                {{--
                                 @can ('authorize', config('permissions.groups.customers.create'))
-                                    <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.words.import')</a></li>
+                                    <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="# route('customers.files.import')">@lang ('elements.words.import')</a></li>
                                 @endcan
+                                --}}
                             </ul>
                         </div>
                     </li>
@@ -118,6 +120,7 @@
                                 </li>
 
                                 <!-- Menus -->
+                                {{--
                                 <li class="disabled">
                                     <a href="#" class="disabled" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                         @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
@@ -137,6 +140,7 @@
                                         @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
                                     </a>
                                 </li>
+                                --}}
 
                                 <!-- Switch selected stores -->
                                 @can ('authorize', ['stores.select', 'own-company-stores.select'])

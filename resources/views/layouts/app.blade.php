@@ -62,5 +62,9 @@
     </script>
 
     @yield('scripts')
+    <script>
+        // ナビゲーション開閉
+        common.navgationToggle();
+    </script>
 </body>
 </html>

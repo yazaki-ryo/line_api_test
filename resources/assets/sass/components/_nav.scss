@@ -58,6 +58,7 @@
   z-index: 1031 !important;
 }
 .navbar-fixed-left {
+  height: 100%;
   top: 50px !important;
   box-shadow: none !important;
   overflow-y: auto;
@@ -240,9 +241,6 @@
       padding-top: 0;
     }
   }
-  .nav-tabs-container {
-    top: 58px;
-  }
   .nav-tabs {
     font-size: 3vw;
   }
@@ -251,17 +249,14 @@
       color: #fff;
       padding-left: 35px;
     }
-    li {
-      padding-left: 20px;
     }
-  }
   .navbar-inverse {
     border: 0;
     .navbar-nav {
       li {
         a {
           font-size: 2rem;
-          padding: 20px;
+          padding: 20px 0 10px 25px;
         }
       }
     }
@@ -269,6 +264,21 @@
   .navbar-default {
     .header-gnav {
       font-size: 3vw;
+      display: none;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .navbar-nav {
+    .open {
+      .dropdown-menu {
+        position: absolute;
+        float: right;
+        width: 100%;
+        margin-top: 9px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+      }
     }
   }
 }

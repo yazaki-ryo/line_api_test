@@ -37,7 +37,7 @@
             @endcan
         </ul>
     </div>
-    <div class="container pt-150">
+    <div class="container content-wrapper">
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">

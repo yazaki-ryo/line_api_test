@@ -3,6 +3,7 @@
 </div>
 
 @if ($rows->count())
+<div class="table-responsive">
     <table id="reservations-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid">
         <colgroup>
             <col width="3%">
@@ -88,6 +89,7 @@
             @endforeach
         </tbody>
     </table>
+</div>
 @else
     <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.reservations'), __('elements.words.data'))])</p>
 @endif
