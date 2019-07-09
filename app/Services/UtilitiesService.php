@@ -36,12 +36,12 @@ final class UtilitiesService
             }
         }
 
-        if (strlen($forceTab) > 0) {
-            return $forceTab === $name ? 'active' : '';
-        }
-
         if ($this->request->has('tab')) {
             return $this->request->get('tab') === $name ? 'active' : '';
+        }
+
+        if (strlen($forceTab) > 0) {
+            return $forceTab === $name ? 'active' : '';
         }
 
         return '';

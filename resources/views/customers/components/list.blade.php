@@ -25,15 +25,15 @@
 </div>
 
 <div class="table-responsive">
-    <table id="customers-table" class="table table-striped table-bordered dt-responsive dataTables nowrap no-footer dtr-inline collapsed" role="grid">
+    <table id="customers-table" class="table table-striped table-bordered dt-responsive dataTable nowrap no-footer dtr-inline collapsed" role="grid">
         <colgroup>
             <col width="3%">
             <col width="10%">
             <col width="10%">
             <col width="10%">
+            <col width="10%">
+            <col width="10%">
             <col width="15%">
-            <col width="15%">
-            <col width="25%">
         </colgroup>
         <thead>
             <tr>
@@ -41,12 +41,12 @@
                     <input id="select-all" type="checkbox" onclick="common.selectAll(); selectionChanged();">
                     <!-- <label for="select-all" class="glyphicon glyphicon-check"></label> -->
                 </th>
+                <th class="text-center">@lang ('elements.words.visited')@lang ('elements.words.num')</th>
+                <th class="text-center">@lang ('elements.words.action')</th>
                 <th class="text-center">@lang ('elements.words.human_name')</th>
                 <th class="text-center">@lang ('attributes.customers.office')</th>
                 <th class="text-center">@lang ('attributes.customers.tel')</th>
                 <th class="text-center">@lang ('attributes.customers.mobile_phone')</th>
-                <th class="text-center">@lang ('elements.words.visited')@lang ('elements.words.num')</th>
-                <th class="text-center">@lang ('elements.words.action')</th>
             </tr>
         </thead>
         <tbody>
@@ -57,10 +57,6 @@
                             <label><input type="checkbox" class="selection" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), old($attribute)) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
                     </td>
-                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
-                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ mb_strimwidth($row->{$camel = camel_case('office')}(), 0, 25, '...', 'UTF-8') }}</td>
-                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('tel')}() }}</td>
-                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                     <td class="text-center">
                         <ul class="side-by-side around wrap">
                             <li>
@@ -80,7 +76,7 @@
                         </ul>
                     </td>
                     <td class="text-center">
-                        <ul class="side-by-side around wrap">
+                        <ul class="side-by-side wrap">
                             @if ($row->{$camel = camel_case('deleted_at')}())
                                 @can ('authorize', config('permissions.groups.customers.restore'))
                                     @can ('restore', $row)
@@ -117,6 +113,10 @@
                             @endif
                         </ul>
                     </td>
+                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
+                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ mb_strimwidth($row->{$camel = camel_case('office')}(), 0, 25, '...', 'UTF-8') }}</td>
+                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('tel')}() }}</td>
+                    <td class="text-center transition" @can ('authorize', config('permissions.groups.customers.update')) @can ('select', $row) data-url="{{ route('customers.edit', $row->id()) }}" @endcan @endcan>{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                 </tr>
             @endforeach
         </tbody>

@@ -58,6 +58,7 @@
   z-index: 1031 !important;
 }
 .navbar-fixed-left {
+  height: 100%;
   top: 50px !important;
   box-shadow: none !important;
   overflow-y: auto;
@@ -162,15 +163,83 @@
     padding:0;
   }
 }
+.navbar-toggle-org {
+  position: relative;
+  float: left;
+  padding: 9px 10px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.navbar-toggle-org {
+  .navbar-toggle-org-icon {
+    position: relative;
+    display: block;
+    height: 2px;
+    width: 30px;
+    background: #fff;
+    -webkit-transition: ease .5s;
+    transition: ease .5s;
+  }
+}
+.navbar-toggle-org-icon {
+  &:nth-child(1) {
+    top: 0;
+  }
+}
+.navbar-toggle-org-icon {
+  &:nth-child(2) {
+    margin: 8px 0;
+  }
+}
+.navbar-toggle-org-icon {
+  &:nth-child(3) {
+    top: 0;
+  }
+}
+.navbar-toggle-org {
+  &.open {
+    .navbar-toggle-org-icon {
+      &:nth-child(1) {
+        top: 10px;
+        transform: rotate(45deg);
+      }
+      &:nth-child(2) {
+        transform: translateY(-50%);
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        top: -10px;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+.drawer-nav {
+  transform: translateX(-100%);
+  transition:ease .5s;
+  z-index: 9999;
+}
+.drawer-nav {
+  &.open {
+    transform:translateX(0);
+    overflow-y: auto;
+  }
+}
 @media screen and (max-width: 700px) {
+  .navbar-collapse{
+    &.collapse {
+      display: block;
+      padding-top: 50px;
+    }
+  }
   .navbar-fixed-left {
+    width: 60% !important;
     padding-bottom: 0;
     &.pt-30 {
       padding-top: 0;
     }
-  }
-  .nav-tabs-container {
-    top: 100px;
   }
   .nav-tabs {
     font-size: 3vw;
@@ -180,22 +249,36 @@
       color: #fff;
       padding-left: 35px;
     }
-    li {
-      padding-left: 20px;
     }
-  }
   .navbar-inverse {
     border: 0;
-    .navbar-toggle {
-      border: none;
-      &:hover {
-        background: none;  
+    .navbar-nav {
+      li {
+        a {
+          font-size: 2rem;
+          padding: 20px 0 10px 25px;
+        }
       }
     }
   }
   .navbar-default {
     .header-gnav {
       font-size: 3vw;
+      display: none;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .navbar-nav {
+    .open {
+      .dropdown-menu {
+        position: absolute;
+        float: right;
+        width: 100%;
+        margin-top: 9px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+      }
     }
   }
 }
