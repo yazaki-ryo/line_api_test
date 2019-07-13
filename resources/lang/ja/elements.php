@@ -29,6 +29,7 @@ return [
          */
         'calender'       => 'カレンダー',
         'cancel'         => 'キャンセル',
+        'close'          => '閉じる',
         'company'        => '企業',
         'companies'      => '企業',
         'conditions'     => '条件',
@@ -66,6 +67,7 @@ return [
          */
         'fixed'          => '固定',
         'free'           => '任意',
+        'floor'          => '階',
 
         /**
          * G
@@ -177,6 +179,7 @@ return [
         'set'            => '設置',
         'setting'        => '設定',
         'settings'       => '設定',
+        'seats'          => '座席',
         'start'          => '開始',
         'state'          => '状態',
         'status'         => 'ステータス',

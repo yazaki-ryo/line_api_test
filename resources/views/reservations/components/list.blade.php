@@ -3,6 +3,7 @@
 </div>
 
 @if ($rows->count())
+<div class="table-responsive">
     <table id="reservations-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid">
         <colgroup>
             <col width="3%">
@@ -32,7 +33,17 @@
                             <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
                     </td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('name')}() }}</td>
+                    <td class="text-center">
+                        @if ($row->{$camel = camel_case('customer_id')}() && is_null($row->visitedHistory()))
+                            @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
+                                <a href="{{ route('reservations.visited_histories.add', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('reservations.visited_histories.add', $row->id()) }}', '@lang ('Do you want to register this reservation information as visit information?')'); return false;" title="@lang ('elements.words.visit')@lang ('elements.words.register')">
+                                    {{ $row->{$camel = camel_case('name')}() }}
+                                </a>
+                            @endcan
+                        @else
+                          {{ $row->{$camel = camel_case('name')}() }}
+                        @endif
+                    </td>
                     <td class="text-center">{{ empty($row->{$camel = camel_case('reserved_at')}()) ? '' : $row->{$camel}()->format('Y-m-d') }}</td>
                     <td class="text-center">{{ empty($row->{$camel = camel_case('reserved_at')}()) ? '' : $row->{$camel}()->format('H:i') }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('amount')}() }}</td>
@@ -54,7 +65,7 @@
                                     @can ('authorize', config('permissions.groups.customers.visited_histories.create'))
                                         <li>
                                             <a href="{{ route('reservations.visited_histories.add', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('reservations.visited_histories.add', $row->id()) }}', '@lang ('Do you want to register this reservation information as visit information?')'); return false;">                                                
-                                                <i class="fas fa-history" title="@lang ('elements.words.visit')@lang ('elements.words.register')"></i>
+                                                <i class="fas fa-store-alt icon-register" title="@lang ('elements.words.visit')@lang ('elements.words.register')"></i>
                                             </a>
                                         </li>
                                     @endcan
@@ -78,6 +89,7 @@
             @endforeach
         </tbody>
     </table>
+</div>
 @else
     <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.reservations'), __('elements.words.data'))])</p>
 @endif

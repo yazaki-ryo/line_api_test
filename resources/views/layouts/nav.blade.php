@@ -1,7 +1,7 @@
 @auth
-<nav class="navbar navbar-inverse navbar-fixed-left pt-30">
+<nav id="nav-sidebar" class="navbar navbar-inverse navbar-fixed-left drawer-nav pt-30">
     <div class="container">
-        <div class="navbar-header">
+        {{-- <div class="navbar-header">
 
             <!-- Collapsed Hamburger -->
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
@@ -10,7 +10,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        </div>
+        </div> --}}
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Right Side Of Navbar -->
@@ -37,9 +37,11 @@
                                     <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers.index', ['tab' => 'customers_search_request']) }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
                                 @endcan
 
+                                {{--
                                 @can ('authorize', config('permissions.groups.customers.create'))
-                                    <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="#{{-- route('customers.files.import') --}}">@lang ('elements.words.import')</a></li>
+                                    <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="# route('customers.files.import')">@lang ('elements.words.import')</a></li>
                                 @endcan
+                                --}}
                             </ul>
                         </div>
                     </li>
@@ -104,7 +106,21 @@
                                     </div>
                                 </li>
 
+                                <!-- Seats -->
+                                <li>
+                                    <a href="#side-nav2-child3" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                        @lang ('elements.words.seats')@lang ('elements.words.management') <span class="caret"></span>
+                                    </a>
+
+                                    <div id="side-nav2-child3" class="panel-collapse collapse">
+                                        <ul class="nav nav-child">
+                                            <li class="{{ request()->route()->named('seats') ? 'active' : '' }}"><a href="{{ route('seats.index') }}">@lang ('elements.words.seats')@lang ('elements.words.list')</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
                                 <!-- Menus -->
+                                {{--
                                 <li class="disabled">
                                     <a href="#" class="disabled" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                         @lang ('elements.words.menus')@lang ('elements.words.management') <span class="caret"></span>
@@ -124,14 +140,15 @@
                                         @lang ('elements.words.coupons')@lang ('elements.words.management') <span class="caret"></span>
                                     </a>
                                 </li>
+                                --}}
 
                                 <!-- Switch selected stores -->
                                 @can ('authorize', ['stores.select', 'own-company-stores.select'])
                                     <li>
-                                        <a href="#side-nav2-child3" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                        <a href="#side-nav2-child4" data-toggle="collapse" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                             @lang ('elements.words.stores')@lang ('elements.words.toggle') <span class="caret"></span>
                                         </a>
-                                        <div id="side-nav2-child3" class="panel-collapse collapse">
+                                        <div id="side-nav2-child4" class="panel-collapse collapse">
                                             <ul class="nav nav-child">
                                                 @foreach ($stores as $store)
                                                     <li><a href="{{ route('home', ['store_id' => $store->id()]) }}">{{ $store->name() }}</a></li>
@@ -179,7 +196,7 @@
 
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="common.submitFormWithConfirm('{{ route('logout') }}', '@lang ('Do you want to log out?')'); return false;">
-                                        <i class="fa fa-sign-out pull-right"></i>@lang ('elements.words.logout')
+                                        @lang ('elements.words.logout')
                                     </a>
                                 </li>
                             </ul>

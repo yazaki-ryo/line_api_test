@@ -1,16 +1,29 @@
+table {
+  &.table-bordered {
+    &.dataTable {
+      tbody {
+        td {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
 #customers-table {
-  width: 100% !important;
   th, td {
     white-space: nowrap;
   }
 }
 .table-responsive {
-  .dataTables_wrapper {
-    .row {
-      margin: 0;
-      overflow: auto !important;
-    }
+  width: 100%;
+}
+.dataTables_wrapper {
+  .row {
+    margin: 0;
   }
+}
+.transition {
+  cursor: pointer; 
 }
 @media screen and (max-width: 767px) {
   .table-responsive {

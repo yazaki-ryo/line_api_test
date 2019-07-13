@@ -1,12 +1,21 @@
 @auth
 <header class="navbar-default navbar-fixed-top main-header">
+  <!-- Collapsed Hamburger -->
+  <button type="button" class="navbar-toggle-org" aria-expanded="false">
+      <span class="navbar-toggle-org-icon"></span>
+      <span class="navbar-toggle-org-icon"></span>
+      <span class="navbar-toggle-org-icon"></span>
+  </button>
 @else
 <header class="navbar-default navbar-fixed-top main-header login-header">
 @endauth
+
   <a class="navbar-brand">
     <img src="{{ asset('/images/logo.png') }}" alt="ロゴ画像">
   </a>
+
 @auth
+  @include ('layouts.nav')
   <nav>    
     <ul class="nav navbar-nav navbar-right header-gnav">      
       <li>

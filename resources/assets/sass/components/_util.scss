@@ -1,0 +1,14 @@
+.action-btn {
+    display: none;
+}
+@media screen and (max-width: 415px) {
+    .action-btn {
+        margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .action-btn {
+        margin-right: 0; 
+    }
+}

@@ -109,15 +109,13 @@ Route::prefix('/')->group(function () {
             Route::post($name = 'edit', \App\Http\Controllers\Settings\Store\UpdateController::class)->name($name);
         });
 
-        if (app()->isLocal()) {// TODO
-            Route::prefix($prefix = 'printings')->name(sprintf('%s.', $prefix))->group(function () {
-                Route::get('/', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name('index');
+        Route::prefix($prefix = 'printings')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::get('/', sprintf('%s@view', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name('index');
 
-                Route::prefix('{settingId}')->group(function () {
-                    Route::post($name = 'edit', sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
-                });
+            Route::prefix('{settingId}')->group(function () {
+                Route::post($name = 'edit', sprintf('%s@update', \App\Http\Controllers\Settings\Printings\UpdateController::class))->name($name);
             });
-        }
+        });
     });
 
     /**
@@ -135,21 +133,33 @@ Route::prefix('/')->group(function () {
     });
 
     /**
+     * Seats
+     */
+    Route::prefix($prefix = 'seats')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get('/', \App\Http\Controllers\Seats\IndexController::class)->name('index');
+        Route::post($name = 'add', \App\Http\Controllers\Seats\CreateController::class)->name($name);
+
+        Route::prefix('{seatId}')->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Seats\UpdateController::class))->name($name);
+            Route::post($name, sprintf('%s@update', \App\Http\Controllers\Seats\UpdateController::class));
+            Route::post($name = 'delete', \App\Http\Controllers\Seats\DeleteController::class)->name($name);
+        });
+    });
+
+    /**
      * Users
      */
-    if (app()->isLocal()) {// TODO
-        Route::prefix($prefix = 'users')->name(sprintf('%s.', $prefix))->group(function () {
-            Route::get('/', \App\Http\Controllers\Users\IndexController::class)->name('index');
-            Route::post($name = 'add', \App\Http\Controllers\Users\CreateController::class)->name($name);
+    Route::prefix($prefix = 'users')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::get('/', \App\Http\Controllers\Users\IndexController::class)->name('index');
+        Route::post($name = 'add', \App\Http\Controllers\Users\CreateController::class)->name($name);
 
-            Route::prefix('{userId}')->group(function () {
-                Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Users\UpdateController::class))->name($name);
-                Route::post($name, sprintf('%s@update', \App\Http\Controllers\Users\UpdateController::class));
-                Route::post($name = 'delete', \App\Http\Controllers\Users\DeleteController::class)->name($name);
-                Route::post($name = 'restore', \App\Http\Controllers\Users\RestoreController::class)->name($name);
-            });
+        Route::prefix('{userId}')->group(function () {
+            Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\Users\UpdateController::class))->name($name);
+            Route::post($name, sprintf('%s@update', \App\Http\Controllers\Users\UpdateController::class));
+            Route::post($name = 'delete', \App\Http\Controllers\Users\DeleteController::class)->name($name);
+            Route::post($name = 'restore', \App\Http\Controllers\Users\RestoreController::class)->name($name);
         });
-    }
+    });
 
     /**
      * Visited histories
@@ -169,6 +179,18 @@ Route::prefix('/')->group(function () {
      */
     Route::prefix($prefix = 'notifications')->name(sprintf('%s.', $prefix))->group(function () {
         Route::get($name = 'test', \App\Http\Controllers\Notifications\TestController::class)->name($name);
+    });
+    
+    /**
+     * Ajax
+     */
+    Route::prefix($prefix = 'ajax')->name(sprintf('%s.', $prefix))->group(function () {
+        /**
+         * Customers
+         */
+        Route::prefix($prefix = 'customers')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::match(['post', 'get'], 'list', sprintf('%s@listAjax', \App\Http\Controllers\Customers\IndexController::class));
+        });
     });
 });
 

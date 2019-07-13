@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th class="text-center"><span class="glyphicon glyphicon-check"></span></th>
+                <th class="text-center">@lang ('attributes.customers.visited_histories.image')</th>
                 <th class="text-center">@lang ('attributes.customers.visited_histories.visited_date')</th>
                 <th class="text-center">@lang ('attributes.customers.visited_histories.visited_time')</th>
                 <th class="text-center">@lang ('attributes.customers.visited_histories.amount')</th>
@@ -21,6 +22,17 @@
                         <div class="checkbox">
                             <label><input type="checkbox" name="{{ $attribute = 'selection' }}" value="{{ $row->{$camel = camel_case('id')}() }}" {{ !empty(old($attribute)) && in_array($row->{$camel = camel_case('id')}(), explode(',', old($attribute))) ? 'checked' : '' }} {{ $row->{$camel = camel_case('deleted_at')}() ? 'disabled' : '' }} /></label>
                         </div>
+                    </td>
+                    <td class="text-center">
+                        @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                            @can ('select', $row)
+                                @if(!empty($updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()))
+                                    <p class="list-image"><img src="{{ asset(str_finish('storage/' . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->path(), '/') . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->name()) }}" width="100" alt=""></p>
+                                @else
+                                    <p>画像なし</p>
+                                @endif
+                            @endcan
+                        @endcan
                     </td>
                     <td class="text-center">{{ empty($row->{$camel = camel_case('visited_at')}()) ? '' : $row->{$camel}()->format('Y-m-d') }}</td>
                     <td class="text-center">{{ empty($row->{$camel = camel_case('visited_at')}()) ? '' : $row->{$camel}()->format('H:i') }}</td>
@@ -38,7 +50,6 @@
                                         </li>
                                         @if(!empty($updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()))
                                         <li>
-                                                                                
                                             <a href="{{ asset(str_finish('storage/' . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->path(), '/') . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->name()) }}" target="_blank">
                                                 <i class="far fa-file-image" title="@lang('elements.words.image')@lang('elements.words.detail')"></i>
                                             </a>

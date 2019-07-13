@@ -6,7 +6,27 @@
 
     <div class="col-md-6">
         <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
+        <v-btn flat icon color="dark" @click="function(event) { callback.textClearButtonTapped(event); }" v-bind:style="{position:'absolute', top: 0, right:0, margin:'0 1em 0 0', }">
+          <v-icon>cancel</v-icon>
+        </v-btn>
         @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+    <div id="customer-chooser">
+      <n-customer-chooser 
+        v-on:select="function(selectedCustomer) { callback.customerSelected(selectedCustomer); }"
+        linked_value_element="#{{ $attribute }}"
+        title="{{ __('attributes.reservations.customer_search') }}"
+        caption_button_trigger="{{ __('elements.words.search') }}"
+        caption_button_search="{{ __('elements.words.search') }}"
+        caption_button_close="{{ __('elements.words.close') }}"
+        caption_button_done="{{ __('elements.words.select') }}"
+        caption_text_free_word="{{ __('attributes.customers.search.free_word') }}"
+        caption_label_tel="{{ __('attributes.customers.tel') }}"
+        caption_label_mobile_phone="{{ __('attributes.customers.mobile_phone') }}"
+        caption_label_email="{{ __('attributes.customers.email') }}"
+        caption_label_data_empty="{{ __('Search result is empty.') }}"
+        placeholder_free_word="{{ __('Name, office name, features, etc.') }}"
+      ></n-customer-chooser>
     </div>
 </div>
 
@@ -121,7 +141,7 @@
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
             @can ('authorize', config('permissions.groups.reservations.create'))
-                <button type="submit" class="btn btn-primary">@lang ('elements.words.register')</button>
+                <button type="submit" class="btn btn-primary" onclick="reservationForm.confirmCreateCustomer(); return false;">@lang ('elements.words.register')</button>
             @endcan
         @elseif ($mode === 'edit')
             @can ('authorize', config('permissions.groups.reservations.update'))

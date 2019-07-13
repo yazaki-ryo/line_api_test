@@ -101,6 +101,7 @@ return [
         ],
 
         'visited_histories' => [
+            'image'        => '画像',
             'visited_date' => '来店日',
             'visited_time' => 'チェックイン',
             'amount'       => '人数',
@@ -115,6 +116,7 @@ return [
     'reservations' => [
         'store_id'              => '店舗',
         'customer_id'           => '顧客',
+        'customer_search'       => '顧客検索',
 
         'reserved_date'         => '予約日',
         'reserved_time'         => '予約時間',
@@ -158,6 +160,14 @@ return [
 
 //         'search' => [
 //         ],
+    ],
+
+    'seats' => [
+        'name'                  => '座席名',
+        'floor'                 => '階',
+        'created_at'            => '登録日時',
+        'updated_at'            => '更新日時',
+        'deleted_at'            => '削除日時',
     ],
 
     'users' => [

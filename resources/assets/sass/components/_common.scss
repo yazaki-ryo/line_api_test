@@ -1,15 +1,22 @@
+:after,:before{
+  text-decoration: inherit;
+  vertical-align: middle;
+}
 html, body {
   height: 100%;
+}
+body {
+  margin-left: 0 !important;
 }
 a {
   color: #000;
 }
 ul {
   list-style: none;
+  padding-left: 0;
 }
 #app {
   min-height: 100%;
-  padding-bottom: 100px;
   box-sizing: border-box;
   position: relative;
 }
@@ -27,4 +34,17 @@ ul {
 }
 .right {
   text-align: right;
+}
+.list-image {
+  height: 100px;
+  overflow-y: hidden;
+}
+.content-wrapper {
+  padding-top: 150px;
+  margin-bottom: 100px;
+}
+@media (max-width: 600px) {
+  .content-wrapper {
+    padding-top: 50px;
+  }
 }

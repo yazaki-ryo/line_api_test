@@ -157,9 +157,127 @@ final class EloquentCustomer extends Model
      * @param  string $operator
      * @return Builder
      */
+    public function scopeLastNameKana(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.last_name_kana', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            // ひらがなをカタカナに変換
+            $value = mb_convert_kana($value, 'KC');
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
+        }, function(Builder $q) use ($value, $field, $operator) {
+            // ひらがなをカタカナに変換
+            $value = mb_convert_kana($value, 'KC');
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeFirstNameKana(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.first_name_kana', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            // ひらがなをカタカナに変換
+            $value = mb_convert_kana($value, 'KC');
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
+        }, function(Builder $q) use ($value, $field, $operator) {
+            // ひらがなをカタカナに変換
+            $value = mb_convert_kana($value, 'KC');
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
     public function scopeOffice(Builder $query, string $value, string $operator = '='): Builder
     {
         $field = sprintf('%s.office', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
+        }, function(Builder $q) use ($value, $field, $operator) {
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeTel(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.tel', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            // 「全角」数字を「半角」に変換します。
+            $value = mb_convert_kana($value, 'n');
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
+        }, function(Builder $q) use ($value, $field, $operator) {
+            // 「全角」数字を「半角」に変換します。
+            $value = mb_convert_kana($value, 'n');
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeMobilePhone(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.mobile_phone', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            // 「全角」数字を「半角」に変換します。
+            $value = mb_convert_kana($value, 'n');
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
+        }, function(Builder $q) use ($value, $field, $operator) {
+            // 「全角」数字を「半角」に変換します。
+            $value = mb_convert_kana($value, 'n');
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeNote(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.note', $this->getTable());
+
+        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+            $q->where($field, 'like', sprintf('%%%s%%', $value));
+        }, function(Builder $q) use ($value, $field, $operator) {
+            $q->where($field, $operator, $value);
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
+    public function scopeLikesAndDislikes(Builder $query, string $value, string $operator = '='): Builder
+    {
+        $field = sprintf('%s.likes_and_dislikes', $this->getTable());
 
         return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
             $q->where($field, 'like', sprintf('%%%s%%', $value));
@@ -184,7 +302,25 @@ final class EloquentCustomer extends Model
                 $q2->firstName($value, 'like');
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->lastNameKana($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->firstNameKana($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
                 $q2->office($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->tel($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->mobilePhone($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->likesAndDislikes($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->note($value, 'like');
             });
         });
     }

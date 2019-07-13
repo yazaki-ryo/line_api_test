@@ -20,7 +20,7 @@
             </li>
         </ul>
     </div>
-    <div class="container pt-150">
+    <div class="container content-wrapper">
 
         <div class="row">
             <div class="col-md-12 col-md-offset-0">
@@ -45,7 +45,7 @@
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
-                                    {!! Form::open(['url' => route('reservations.edit', $row->id()), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                                    {!! Form::open(['url' => route('reservations.edit', $row->id()), 'name' => 'reservations_create_form', 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
                                         @include ('reservations.components.crud', ['mode' => 'edit', 'errorBag' => 'reservations_update_request'])
                                     {!! Form::close() !!}
                                 </div>
@@ -60,6 +60,7 @@
 
 @section ('scripts')
     <script type="text/javascript">
-        //
+        var selectedCustomerId = {{ empty($customer_id) ? '0' : $customer_id }};
+        var reservationForm = new ReservationForm(appvm, selectedCustomerId, window.reservations_create_form);
     </script>
 @endsection

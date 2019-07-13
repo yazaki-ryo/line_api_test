@@ -17,7 +17,7 @@
             @lang ('elements.words.customers')@lang ('elements.words.list')
         </p>
         <ul class="nav nav-tabs" id="customers-navigation-tab">
-            <li class="{{ \Util::activatable($errors, 'index', 'index') }}">
+            <li class="{{ \Util::activatable($errors, 'index', $tab) }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
                     <span class="badge">{{ $paginator->total() }}</span>
@@ -25,7 +25,7 @@
             </li>
 
             @can ('authorize', config('permissions.groups.customers.select'))
-                <li class="{{ \Util::activatable($errors, 'customers_search_request') }}">
+                <li class="{{ \Util::activatable($errors, 'customers_search_request', $tab) }}">
                     <a href="#search-tab" data-toggle="tab">@lang ('elements.words.search')</a>
                 </li>
             @endcan
@@ -43,7 +43,7 @@
             @endcan
         </ul>
     </div>
-    <div class="container pt-150">
+    <div class="container content-wrapper">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 @include ('components.parts.alerts')
@@ -53,12 +53,12 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="tab-content">
-                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'index', 'index') }}" id="result-tab">
+                    <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'index', $tab) }}" id="result-tab">
                         @include ('customers.components.list')
                     </div>
 
                     @can ('authorize', config('permissions.groups.customers.select'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_search_request') }}" id="search-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_search_request', $tab) }}" id="search-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.index'), 'id' => 'customers-search-form', 'method' => 'post', 'class' => 'form-horizontal', 'name' => 'customers_search_form']) !!}
                                     @include ('customers.components.search', ['errorBag' => 'customers_search_request'])
@@ -100,6 +100,7 @@
     <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
     <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
+        
         jQuery(function($){
             $.extend( $.fn.dataTable.defaults, {
                 language: {
@@ -143,15 +144,15 @@
         function toggleActionButtons() {
             var isRowSelected = window.common.selectedValues().length > 0;
             var handle = jQuery("#print-tab-handle");
-            var wrapper = jQuery("#customers-action-button-wrapper");
+            var actionBtn = jQuery(".action-btn");
             var link = jQuery("#print-tab-link");
             if (isRowSelected) {
                 handle.removeClass("disabled");
-                wrapper.removeClass("invisible");
+                actionBtn.css("display", "inline-block");
                 link.attr("href", "#print-tab");
             } else {
                 handle.addClass("disabled");
-                wrapper.addClass("invisible");
+                actionBtn.css("display", "none");
                 link.attr("href", "#");
             }
         }

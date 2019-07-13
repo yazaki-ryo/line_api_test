@@ -78,6 +78,14 @@ final class EloquentStore extends Model
     /**
      * @return HasMany
      */
+    public function seats(): HasMany
+    {
+        return $this->hasMany(EloquentSeat::class, 'store_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
     public function users(): HasMany
     {
         return $this->hasMany(EloquentUser::class, 'store_id', 'id');

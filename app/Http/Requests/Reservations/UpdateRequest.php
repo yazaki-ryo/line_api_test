@@ -70,6 +70,12 @@ final class UpdateRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
+            'customer_id' => [
+                'nullable',
+                'numeric',
+                Rule::exists('customers', 'id'),
+                'customer_id',
+            ],
         ];
     }
 

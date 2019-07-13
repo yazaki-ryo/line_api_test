@@ -108,6 +108,28 @@ class Common {
 
         jQuery(form).find(":radio").filter("[data-default]").prop("checked", true);
     }
+
+    /**
+     * urlを取得して画面遷移
+     */
+    selectedListTransition() {
+        var event = 'ontouchstart' in window ? 'touchend' : 'click';
+        jQuery(".transition").on(event, function() {
+            var url = jQuery(this).attr('data-url');
+            window.location.href = url;
+        });
+    }
+
+    /**
+     * ナビゲーション開閉
+     */
+    navgationToggle() {
+        var event = 'ontouchstart' in window ? 'touchstart' : 'click';
+        jQuery(".navbar-toggle-org").on(event, function() {
+            $(this).toggleClass('open');
+            $('.drawer-nav').toggleClass('open');
+        });
+    }
 }
 
 window.common = new Common();

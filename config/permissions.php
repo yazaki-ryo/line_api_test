@@ -121,8 +121,9 @@ return [
                 'own-company-self-store-customers-visited_histories.delete',
 //                 'own-company-self-store-customers-visited_histories.restore',
 
-                // Postcards
-                'own-company-self-store-customers-postcards.export',
+                // Postcards 
+                // Store user is not output postcards
+                // 'own-company-self-store-customers-postcards.export',
 
                 // Reservations
                 'own-company-self-store-reservations.select',
