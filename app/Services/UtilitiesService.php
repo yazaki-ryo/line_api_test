@@ -37,6 +37,11 @@ final class UtilitiesService
         }
 
         if ($this->request->has('tab')) {
+            /** 検索後のタブを一覧にする処理 **/
+            if(!empty($this->request->get('searched'))) {
+                $this->request->request->add(['tab' => 'index']);
+            }
+
             return $this->request->get('tab') === $name ? 'active' : '';
         }
 
