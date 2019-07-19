@@ -2,18 +2,18 @@
 {!! Form::open(['url' => route('customers.deleteMultiple'), 'id' => 'customers-delete-form', 'method' => 'post', 'class' => 'form-horizontal hidden', 'name' => 'customers_delete_form']) !!}
 {!! Form::close() !!}
 <div class="col-md-12">
+    <span id="customers-action-button-wrapper" class="action-btn">
+        @can ('authorize', config('permissions.groups.customers.postcards.export'))
+            <span class="btn btn-success" style="margin-right: 1em;" onclick="showPrintTab()">@lang('Print postcard')</span>
+        @endcan
+        @can ('authorize', config('permissions.groups.customers.delete'))
+            <span class="btn btn-danger" onclick="if (confirm('@lang ('Are you sure delete selected customer(s)?')')) { deleteSelectedCustomers(); }">@lang('Delete selected customers')</span>
+        @endcan
+    </span>
     <div class="col-md-3 page-length-box">
         @include ('customers.components.page_length_menu')
     </div>
     <div class="col-md-9 text-right form-inline bottom">
-        <span id="customers-action-button-wrapper" class="action-btn" style="margin-right: 1em;">
-            @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                <span class="btn btn-success" style="margin-right: 1em;" onclick="showPrintTab()">@lang('Print postcard')</span>
-            @endcan
-            @can ('authorize', config('permissions.groups.customers.delete'))
-                <span class="btn btn-danger" onclick="if (confirm('@lang ('Are you sure delete selected customer(s)?')')) { deleteSelectedCustomers(); }">@lang('Delete selected customers')</span>
-            @endcan
-        </span>
         <select class="form-control" onchange="customer.sortChange(this)">
             <option value="0" @empty($sorting) selected="selected" @endempty>@lang('Sort')</option>
             <option value="-1" @if($sorting == -1) selected="selected" @endempty>@lang('Order by created date descending')</option>
