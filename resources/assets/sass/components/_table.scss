@@ -16,6 +16,7 @@ table {
 }
 .table-responsive {
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 .dataTables_wrapper {
   .row {
