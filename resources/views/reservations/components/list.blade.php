@@ -2,6 +2,21 @@
     @include ('components.form.err_msg', ['attribute' => 'selection'])
 </div>
 
+<div class="col-md-12">
+    <div class="col-md-3 page-length-box">
+        @include ('components.parts.page_length_menu')
+    </div>
+    <div class="col-md-9 text-right form-inline bottom">
+        <span id="reservations-action-button-wrapper" class="action-button-wrapper text-left" style="margin-right: 1em; @if(is_null($reserved_date)) visibility: hidden; @endif">
+              <span class="btn btn-success" style="margin-right: 1em;" onclick="window.location.search='reserved_date='; return false;">@lang('Whole date span')</span>
+        </span>
+        <select class="form-control" onchange="common.sortChange(this)">
+            <option value="1" @if($sorting == 1) selected="selected" @endif>@lang('Order by visiting date ascending')</option>
+            <option value="2" @if($sorting == 2) selected="selected" @endif>@lang('Order by visiting date descending')</option>
+        </select>
+    </div>
+</div>
+
 @if ($rows->count())
 <div class="table-responsive">
     <table id="reservations-table" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" role="grid">
@@ -90,6 +105,7 @@
         </tbody>
     </table>
 </div>
+@include ('components.parts.page_buttons')
 @else
     <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.reservations'), __('elements.words.data'))])</p>
 @endif

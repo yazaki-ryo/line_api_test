@@ -49,6 +49,13 @@ final class GetReservations
         return $store->reservations($args);
     }
 
+    public function count(User $user, Store $store, array $args = []): int
+    {
+        $args = $this->domainize($user, $args);
+        
+        return $store->numReservations($args);
+    }
+
     /**
      * @param User $user
      * @param array $args

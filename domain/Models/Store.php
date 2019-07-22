@@ -214,7 +214,7 @@ final class Store extends DomainModel
     
     /**
      * @param  array $args
-     * @return DomainCollection
+     * @return int
      */
     public function numCustomers(array $args = []): int
     {
@@ -230,6 +230,15 @@ final class Store extends DomainModel
         return $this->repo->reservations($args);
     }
 
+    /**
+     * @param  array $args
+     * @return int
+     */
+    public function numReservations(array $args = []): int
+    {
+        return $this->repo->numReservations($args);
+    }
+    
     /**
      * @param  array $args
      * @return DomainCollection
