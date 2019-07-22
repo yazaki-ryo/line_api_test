@@ -97,33 +97,8 @@
 @endsection
 
 @section ('scripts')
-    <script type="text/javascript" src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
     <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
     <script type="text/javascript">
-        
-        jQuery(function($){
-            $.extend( $.fn.dataTable.defaults, {
-                language: {
-                    url: "{{ asset('vendor/DataTables/ja.json') }}"
-                }
-            });
-            $("#customers-table").DataTable({
-                columnDefs: [
-                    {
-                        targets: [0, 6],
-                        orderable: false
-                    }
-                ],
-                info: false,
-                order: [],
-                ordering: false,
-                paging: false,
-                scrollX: false,
-                searching: false,
-                stateSave: true,
-                responsive: true,
-            });
-        });
 
         (function () {
             'use strict';

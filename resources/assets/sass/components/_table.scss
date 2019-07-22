@@ -16,6 +16,7 @@ table {
 }
 .table-responsive {
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 .dataTables_wrapper {
   .row {
@@ -25,9 +26,18 @@ table {
 .transition {
   cursor: pointer; 
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .table-responsive {
       border: 0;
+      table {
+        td {
+          ul {
+            .mobile-hidden {
+              display: none;
+            }
+          }
+        }
+      }
   }
   div.dataTables_wrapper {
     div.dataTables_length {
