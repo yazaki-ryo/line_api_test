@@ -105,7 +105,7 @@
                                     @can ('delete', $row)
                                         <li role="separator" class="divider"></li>
 
-                                        <li>
+                                        <li class="mobile-hidden">
                                             <a href="{{ route('customers.delete', $row->id()) }}" onclick="common.submitFormWithConfirm('{{ route('customers.delete', $row->id()) }}', '@lang ('Do you really want to delete this?')'); return false;">
                                                 <i class="fas fa-trash-alt icon-delete" title="@lang('elements.words.delete')"></i>
                                             </a>
