@@ -103,32 +103,4 @@
         var selectedCustomerId = {{ empty($customer_id) ? '0' : $customer_id }};
         var reservationForm = new ReservationForm(appvm, selectedCustomerId, window.reservations_create_form);
     </script>
-    <script>
-        jQuery(function($){
-            
-            $.extend( $.fn.dataTable.defaults, {
-                language: {
-                    url: "{{ asset('vendor/DataTables/ja.json') }}"
-                }
-            });
-
-            $("#reservations-table").DataTable({
-                columnDefs: [
-                    {
-                        targets: [0, 6],
-                        orderable: false
-                    }
-                ],
-                info: false,
-                order: [],
-                ordering: false,
-                paging: false,
-                scrollX: false,
-                // order: [0, "asc"],
-                searching: false,
-                stateSave: true,
-                responsive: true
-            });
-        });
-    </script>
 @endsection
