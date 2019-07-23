@@ -97,6 +97,10 @@ class Common {
       window.location.search = keyRowsInPage + '=' + elem.value;
     }
     
+    sortChange(elem) {
+      window.location.search = 'sort=' + elem.value;
+    }
+    
     clearForm(form) {
         jQuery(form)
             .find("input, select, textarea")

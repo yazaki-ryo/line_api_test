@@ -99,9 +99,29 @@ final class ReservationRepository extends EloquentRepository implements Domainab
         });
 
         $query->when(($args->has($key = 'reserved_date') && ! is_null($args->get($key))), function (Builder $q) use ($args, $key) {
+//            debug($key, $args->get($key));
             $q->reservedAt(Carbon::parse($args->get($key))->startOfDay(), Carbon::parse($args->get($key))->endOfDay());
         });
 
+        $query->when($args->has($key = 'page') && $args->get($key) > 0, function (Builder $q) use ($key, $args) {
+            $rows_in_page = $args->get('rows_in_page', 25);
+            $page = $args->get($key, 1);
+            $offset = ($page - 1) * $rows_in_page;
+            $q->limit($rows_in_page)->offset($offset);
+        });
+
+        $query->when($args->has($key = 'sort') && is_numeric($args->get($key)), function (Builder $q) use ($key, $args) {
+            $sorting = $args->get('sort');
+            switch ($sorting) {
+                case '2': // 予約日が遠い順 予約日時 降順
+                    $q->orderByDesc('reserved_at');
+                    break;
+                default: // 予約日が近い順 予約日時 昇順
+                    $q->orderBy('reserved_at');
+                    break;
+            }
+        });
+        
         return $query;
     }
 

@@ -8,6 +8,7 @@ use App\Http\Requests\Reservations\SearchRequest;
 use Domain\Models\Reservation;
 use Domain\Models\User;
 use Domain\UseCases\Reservations\GetReservations;
+use Illuminate\Support\Facades\Log;
 
 final class IndexController extends Controller
 {
@@ -28,6 +29,39 @@ final class IndexController extends Controller
         $this->useCase = $useCase;
     }
 
+    private function mergeParameter(SearchRequest $request) {
+        $args = $request->validated();
+      
+        $session = $request->session();
+        $sessionData = collect($session->all());
+        
+        foreach ($args as $key => $value) {
+            $session->put($key, $value);
+        }
+        
+        $ret = $session->all();
+        Log::debug($ret);
+        
+        $keyRowsInPage = 'rows_in_page';
+        $keyPage = 'page';
+        $keySorting = 'sort';
+        
+        $rowsInPage = $request->get($keyRowsInPage, $session->get($keyRowsInPage, 25));
+        $page = $request->get($keyPage, 1); // use 1 for default, does not use session value
+        $sorting = $request->get($keySorting, $session->get($keySorting, 0));
+        
+        $ret[$keyRowsInPage] = $rowsInPage;
+        $ret[$keyPage] = $page;
+        $ret[$keySorting] = $sorting;
+        
+        $session->put($keyRowsInPage, $rowsInPage);
+        $session->put($keyPage, $page);
+        $session->put($keySorting, $sorting);
+        
+        Log::debug($ret);
+        return $ret;
+    }
+    
     /**
      * @param SearchRequest $request
      * @param Reservation $reservation
@@ -37,20 +71,39 @@ final class IndexController extends Controller
     {
         /** @var User $user */
         $user = $request->assign();
-        $args = $request->validated();
+        $args = $this->mergeParameter($request);
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         $store = $this->useCase->getStore([
             'id' => $storeId,
         ]);
 
+        $rowsInPage = $args['rows_in_page'];
+        $page = $args['page'];
+        $sorting = $args['sort'];
+        
         $session = $request->session();
         $postdata = $session->get('_old_input');
         $customer_id = is_array($postdata) ? (array_key_exists('customer_id', $postdata) ? $postdata['customer_id'] : 0) : 0;
+        
+        $reservations = $this->useCase->excute($user, $store, $args);
+        $totalReservations = $this->useCase->count($user, $store, $args);
+        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
+                $reservations, 
+                $totalReservations, 
+                $rowsInPage, 
+                $page);
+        $paginator->withPath('')
+                ->appends('tab', 'index')
+                ->appends('rows_in_page', $rowsInPage);
+        
         return view('reservations.index', [
             'customer_id' => $customer_id,
-            'rows' => $this->useCase->excute($user, $store, $args),
+            'reserved_date' => array_key_exists('reserved_date', $args) ? $args['reserved_date'] : null,
+            'rows' => $reservations,
             'row' => $reservation,
+            'paginator' => $paginator,
+            'sorting' => $sorting,
             'tab' => count($args) ? 'index' : 'calender',
         ]);
     }

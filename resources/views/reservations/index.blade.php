@@ -26,7 +26,7 @@
             <li class="{{ \Util::activatable($errors, 'index', $tab) }}">
                 <a href="#result-tab" data-toggle="tab">
                     @lang ('elements.words.list')
-                    <span class="badge">{{ $rows->count() }}</span>
+                    <span class="badge">{{ $paginator->total() }}</span>
                 </a>
             </li>
 {{--
@@ -119,15 +119,15 @@
                         orderable: false
                     }
                 ],
-                displayLength: 25,
-                info: true,
-                lengthChange: true,
-                lengthMenu: [10, 25, 50, 100],
-                ordering: true,
-                paging: true,
+                info: false,
+                order: [],
+                ordering: false,
+                paging: false,
+                scrollX: false,
                 // order: [0, "asc"],
-                searching: true,
-                stateSave: true
+                searching: false,
+                stateSave: true,
+                responsive: true
             });
         });
     </script>

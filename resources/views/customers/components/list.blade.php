@@ -2,7 +2,7 @@
 {!! Form::open(['url' => route('customers.deleteMultiple'), 'id' => 'customers-delete-form', 'method' => 'post', 'class' => 'form-horizontal hidden', 'name' => 'customers_delete_form']) !!}
 {!! Form::close() !!}
 <div class="col-md-12">
-    <span id="customers-action-button-wrapper" class="action-btn">
+    <span id="customers-action-button-wrapper" class="action-btn action-button-wrapper">
         @can ('authorize', config('permissions.groups.customers.postcards.export'))
             <span class="btn btn-success" style="margin-right: 1em;" onclick="showPrintTab()">@lang('Print postcard')</span>
         @endcan

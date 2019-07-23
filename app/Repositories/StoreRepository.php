@@ -114,6 +114,21 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
         $collection = empty($args) ? $this->eloquent->reservations : ReservationRepository::build($this->eloquent->reservations(), $args)->get();
         return ReservationRepository::toModels($collection);
     }
+    
+    public function numReservations(array $args = []): int
+    {
+        if (empty($args)) {
+            return $this->eloquent->reservations->count();
+        } else {
+            $options = [];
+            foreach ($args as $key => $value) {
+              if ($key !== 'page') {
+                $options[$key] = $value;
+              }
+            }
+            return ReservationRepository::build($this->eloquent->reservations(), $options)->count();
+        }
+    }
 
     /**
      * @param  array $args
