@@ -13,13 +13,16 @@
 
 (function($) {
 
-  var endpoint = "";
+  // データ取得URL
+  var endpoint = "/ajax/reservations/list";
+
   $('#calendar').fullCalendar({    
     header: {
         right: 'month,agendaWeek,agendaDay,listWeek',
         center: 'prev,next today',
     },
     events: endpoint,
+    editable: false,
     eventClick: function(event) {
       // イベントをクリックしたときに実行
       setSelectDate(event.start._i);
@@ -27,7 +30,20 @@
     dayClick: function(date){
       // 日をクリックしたときに実行
       setSelectDate(date._d);
-    }
+    },
+    eventDragStart: function(info) {
+      // ドラッグ開始
+      console.log(info);
+    },
+    eventDrop: function(info) {
+      // ドラッグ終了
+      console.log(info);
+      if (!confirm("予約日時を変更してもよろしいですか？")) {
+        $.ajax({
+
+        })
+      }
+  }
 
   });
 
@@ -36,7 +52,6 @@
   }
 
   function setSelectDate(date) {
-      console.log(date)
       var selectDate = new Date(date);
       var year = selectDate.getFullYear();
       var month = toDoubleDigits(selectDate.getMonth() + 1);
