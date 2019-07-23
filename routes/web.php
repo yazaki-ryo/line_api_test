@@ -191,6 +191,13 @@ Route::prefix('/')->group(function () {
         Route::prefix($prefix = 'customers')->name(sprintf('%s.', $prefix))->group(function () {
             Route::match(['post', 'get'], 'list', sprintf('%s@listAjax', \App\Http\Controllers\Customers\IndexController::class));
         });
+
+        /**
+         * Customers
+         */
+        Route::prefix($prefix = 'reservations')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::match(['post', 'get'], 'list', sprintf('%s@listAjax', \App\Http\Controllers\Reservations\IndexController::class));
+        });
     });
 });
 

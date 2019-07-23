@@ -108,4 +108,44 @@ final class IndexController extends Controller
         ]);
     }
 
+    /**
+     * @param SearchRequest $request
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function listAjax(SearchRequest $request)
+    {
+        /** @var User $user */
+        $user = $request->assign();
+        $args = $request->validated();
+        $storeId = $request->cookie(config('cookie.name.current_store'));
+
+        $store = $this->useCase->getStore([
+            'id' => $storeId,
+        ]);
+        
+        $reservations = $this->useCase->excute($user, $store, $args);
+        
+        /*
+        予約数合計をまとめる処理 
+        
+        $tmp = [];
+        foreach($reservations as $reservation) {
+            $date = $reservation->reservedAt();
+            $tmp[$date->format('Y-m-d')][] = $date->format('Y-m-d H:i:s');
+        }
+        "予約数:" . count($tmp[$date->format('Y-m-d')]);
+        */
+
+        $data = [];
+        foreach($reservations as $key => $reservation) {
+            $date = $reservation->reservedAt();
+            $data[$key]['id'] = $reservation->id();
+            $data[$key]['title'] = $reservation->name();
+            $data[$key]['start'] = $date->format('Y-m-d H:i:s');
+            $data[$key]['color'] = 'red';
+        }
+
+        return response()->json($data);
+    }
+
 }
