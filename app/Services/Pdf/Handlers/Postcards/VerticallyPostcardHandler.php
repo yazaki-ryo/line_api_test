@@ -65,6 +65,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $this->fromPostalCode($this->from->postalCode()->asString());
             $this->fromAddress($this->from->address(), $this->from->building());
             $this->fromName($this->from->name());
+            // 以下に差出人名を追加
+            $this->fromPersonalName($this->from->personalName());
         }
     }
 
@@ -150,7 +152,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $y = (float)$this->settings->nameY();
 
         if (! is_null($company)) {
-            $this->processor->SetFont($this->font, '', 13.0, '', true);// TODO company font and size
+            $this->processor->SetFont($this->font, '', (float)$this->settings->storeNameFontSize(), '', true);// TODO company font and size
             $this->processor->setFontSpacing(2.0);
             $this->processor->MultiCell(70.0, 5.0, $company, 0, 'C', 0, 0, 20.0, $y, true, 0, false, true, 10.0, 'T', true);
             $y += 10.0;
@@ -160,7 +162,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
                     $department = sprintf('%s　%s', $department, $position);
                 }
 
-                $this->processor->SetFont($this->font, '', 11.0, '', true);// TODO department font and size
+                $this->processor->SetFont($this->font, '', (float)$this->settings->departmentNameFontSize(), '', true);// TODO department font and size
                 $this->processor->setFontSpacing(0.5);
                 $this->processor->MultiCell(60.0, 5.0, $department, 0, 'C', 0, 0, 25.0, $y, true, 0, false, true, 10.0, 'T', true);
                 $y += 10.0;
@@ -226,6 +228,20 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->processor->SetFont($this->font, '', (float)$this->settings->fromNameFontSize(), '', true);
         $this->processor->setFontSpacing(1.0);
         $this->processor->MultiCell(50.0, 10.0, $value, 0, 'R', 0, 0, (float)$this->settings->fromNameX(), (float)$this->settings->fromNameY(), true, 0, false, true, 10.0, 'T', true);
+    }
+
+    /**
+     * @param string $value
+     * @return void
+     */
+    private function fromPersonalName(string $value): void
+    {
+        if (! $this->settings->fromFlag()->asBoolean()) return;
+
+        $this->fonts($this->settings->fromPersonalNameFont());
+        $this->processor->SetFont($this->font, '', (float)$this->settings->fromPersonalNameFontSize(), '', true);
+        $this->processor->setFontSpacing(1.0);
+        $this->processor->MultiCell(50.0, 10.0, $value, 0, 'R', 0, 0, (float)$this->settings->fromPersonalNameX(), (float)$this->settings->fromPersonalNameY(), true, 0, false, true, 10.0, 'T', true);
     }
 
 }

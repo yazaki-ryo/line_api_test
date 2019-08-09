@@ -17,6 +17,9 @@ final class Store extends DomainModel
     /** @var string */
     private $kana;
 
+    /** @var string */
+    private $personalName;
+
     /** @var PostalCode */
     private $postalCode;
 
@@ -84,6 +87,15 @@ final class Store extends DomainModel
     public function kana(): ?string
     {
         return $this->kana;
+    }
+
+    /**
+     * @return string|null
+     * @export
+     */
+    public function personalName(): ?string
+    {
+        return $this->personalName;
     }
 
     /**
@@ -361,6 +373,10 @@ final class Store extends DomainModel
         }
 
         if ($args->has($key = 'kana')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'personal_name')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

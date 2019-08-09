@@ -1,6 +1,7 @@
 {
     "An internal error occurred. Please contact the administrator.": "内部エラーが発生しました。管理者へお問い合わせください。",
     "Are you sure delete selected customer(s)?": "選択した顧客を削除しますか？",
+    "This is the senders name that is displayed during postcard printing.": "ハガキ印刷の際に表示される差出人名です。",
     "By entering the postal code, the prefecture city, town, village address is automatically entered.": "郵便番号を入力する事で、都道府県市区町村番地までが自動で入力されます。",
     "Customer information is not associated with reservation information.": "予約情報に顧客情報が紐付いていません。",
     "Data that does not satisfy the output condition is automatically excluded.": "出力条件に満たないデータは、自動的に対象外となります。",

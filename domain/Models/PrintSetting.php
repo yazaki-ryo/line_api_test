@@ -58,6 +58,12 @@ final class PrintSetting extends DomainModel
     /** @var int */
     private $nameFontSize;
 
+    /** @var int */
+    private $storeNameFontSize;
+
+    /** @var int */
+    private $departmentNameFontSize;
+
     /** @var Flag */
     private $fromFlag;
 
@@ -102,6 +108,18 @@ final class PrintSetting extends DomainModel
 
     /** @var int */
     private $fromNameFontSize;
+
+    /** @var int */
+    private $fromPersonalNameX;
+
+    /** @var int */
+    private $fromPersonalNameY;
+
+    /** @var string */
+    private $fromPersonalNameFont;
+
+    /** @var int */
+    private $fromPersonalNameFontSize;
 
     /** @var Datetime */
     private $createdAt;
@@ -255,6 +273,22 @@ final class PrintSetting extends DomainModel
     }
 
     /**
+     * @return int|null
+     */
+    public function storeNameFontSize(): ?int
+    {
+        return $this->storeNameFontSize;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function departmentNameFontSize(): ?int
+    {
+        return $this->departmentNameFontSize;
+    }
+
+    /**
      * @return Flag|null
      */
     public function fromFlag(): ?Flag
@@ -372,6 +406,38 @@ final class PrintSetting extends DomainModel
     public function fromNameFontSize(): ?int
     {
         return $this->fromNameFontSize;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function fromPersonalNameX(): ?int
+    {
+        return $this->fromPersonalNameX;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function fromPersonalNameY(): ?int
+    {
+        return $this->fromPersonalNameY;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function fromPersonalNameFont(): ?string
+    {
+        return $this->fromPersonalNameFont;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function fromPersonalNameFontSize(): ?int
+    {
+        return $this->fromPersonalNameFontSize;
     }
 
     /**
@@ -530,6 +596,14 @@ final class PrintSetting extends DomainModel
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
         }
 
+        if ($args->has($key = 'store_name_font_size')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
+        if ($args->has($key = 'department_name_font_size')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
         if ($args->has($key = 'from_flag')) {
             $this->{$camel = camel_case($key)} = Flag::of((bool)$args->get($key));
         }
@@ -587,6 +661,22 @@ final class PrintSetting extends DomainModel
         }
 
         if ($args->has($key = 'from_name_font_size')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
+        if ($args->has($key = 'from_personal_name_x')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
+        if ($args->has($key = 'from_personal_name_y')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
+        if ($args->has($key = 'from_personal_name_font')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'from_personal_name_font_size')) {
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
         }
 

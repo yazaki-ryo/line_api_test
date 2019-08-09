@@ -27,6 +27,7 @@ final class EloquentStore extends Model
         'prefecture_id',
         'name',
         'kana',
+        'personal_name',
         'postal_code',
         'address',
         'building',

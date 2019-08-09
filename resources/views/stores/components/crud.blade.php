@@ -24,6 +24,19 @@
     </div>
 </div>
 
+<!-- ハガキ差出人名(個人名) -->
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'personal_name') ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang (sprintf('attributes.stores.%s', $attribute))
+        <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('This is the senders name that is displayed during postcard printing.')"></span>
+    </label>
+
+    <div class="col-md-6">
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required autofocus />
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+</div>
+
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'postal_code') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.stores.%s', $attribute))
