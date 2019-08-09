@@ -34,6 +34,10 @@ final class UpdateRequest extends FormRequest
                 'zenkaku_katakana',
                 'max:191',
             ],
+            'personal_name' => [
+                'string',
+                'max:191',
+            ],
             'postal_code' => [
                 'required',
                 'postal_code',
