@@ -22,7 +22,7 @@ Route::prefix('/')->group(function () {
     /**
      * Authentication
      */
-    Route::get($name = 'login', sprintf('%s@showLoginForm', \App\Http\Controllers\Auth\LoginController::class))->name($name);
+    Route::get($name = 'eka45iPLCVNEw4EANEMFh8sU', sprintf('%s@showLoginForm', \App\Http\Controllers\Auth\LoginController::class))->name($name);
     Route::post($name,  sprintf('%s@%s', \App\Http\Controllers\Auth\LoginController::class, $name));
     Route::post($name = 'logout', sprintf('%s@%s', \App\Http\Controllers\Auth\LoginController::class, $name))->name($name);
 

@@ -21,7 +21,7 @@
                 <div class="panel-login panel panel-default">
                     <div class="panel-heading"><i class="fas fa-sign-in-alt fa-lg"></i> @lang ('elements.words.login')</div>
                     <div class="panel-body">
-                        {!! Form::open(['url' => route('login'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('eka45iPLCVNEw4EANEMFh8sU'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal']) !!}
 
                             <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'email') ? ' has-error' : '' }}">
                                 <div class="col-md-12">

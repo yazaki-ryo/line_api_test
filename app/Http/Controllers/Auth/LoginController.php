@@ -76,7 +76,7 @@ final class LoginController extends Controller
 
 //         $request->session()->invalidate();
 
-        return redirect()->route('login');
+        return redirect()->route('eka45iPLCVNEw4EANEMFh8sU');
     }
 
     /**
