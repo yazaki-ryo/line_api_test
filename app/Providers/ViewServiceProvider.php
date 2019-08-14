@@ -45,6 +45,10 @@ final class ViewServiceProvider extends ServiceProvider
         ], Composers\PrefecturesComposer::class);
 
         View::creator([
+            'visited_histories.edit',
+        ], Composers\SeatsComposer::class);
+
+        View::creator([
             'settings.printings.index',
         ], Composers\PrintSettingsComposer::class);
 

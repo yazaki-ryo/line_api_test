@@ -86,6 +86,7 @@ final class DomainServiceProvider extends ServiceProvider
 
             Composers\PrefecturesComposer::class,
             Composers\SexesComposer::class,
+            Composers\SeatsComposer::class,
         ];
     }
 
@@ -314,6 +315,12 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->singleton(Composers\SexesComposer::class, function () {
             return new Composers\SexesComposer(
                 app(Services\SexesService::class)
+            );
+        });
+
+        $this->app->singleton(Composers\SeatsComposer::class, function () {
+            return new Composers\SeatsComposer(
+                app(Services\SeatsService::class)
             );
         });
     }
