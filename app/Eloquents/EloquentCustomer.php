@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 final class EloquentCustomer extends Model
 {
@@ -68,6 +69,14 @@ final class EloquentCustomer extends Model
         'cancel_cnt'  => 'int',
         'noshow_cnt'  => 'int',
     ];
+
+    /**
+     * @return MorphMany
+     */
+    public function attachments(): MorphMany
+    {
+        return $this->morphMany(EloquentAttachment::class, 'attachmentable', 'attachmentable_type', 'attachmentable_id', 'id');
+    }
 
     /**
      * @return HasOne
