@@ -105,7 +105,10 @@
 
             replaceHref();
 
-            document.getElementById('setting').addEventListener('change', replaceHref, false);
+            if(document.getElementById('setting') != null) {
+                document.getElementById('setting').addEventListener('change', replaceHref, false);
+            }
+
             document.getElementsByName('selection').forEach(function (item) {
                 item.addEventListener('change', selectionChanged, false);
             });
@@ -151,17 +154,21 @@
             var setting = document.getElementById('setting');
             var selection = window.common.elementsByName('selection');
 
-            document.getElementById('export-link').search = window.common.serialize({
-                'mode': 'export',
-                'setting': setting[setting.selectedIndex].value,
-                'selection': selection
-            });
+            if(document.getElementById('export-link') != null && document.getElementById('preview-link') != null) {
 
-            document.getElementById('preview-link').search = window.common.serialize({
-                'mode': 'preview',
-                'setting': setting[setting.selectedIndex].value,
-                'selection': selection
-            });
+                document.getElementById('export-link').search = window.common.serialize({
+                    'mode': 'export',
+                    'setting': setting[setting.selectedIndex].value,
+                    'selection': selection
+                });
+
+                document.getElementById('preview-link').search = window.common.serialize({
+                    'mode': 'preview',
+                    'setting': setting[setting.selectedIndex].value,
+                    'selection': selection
+                });
+
+            }
         }
         
         function showPrintTab() {
