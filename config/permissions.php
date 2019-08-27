@@ -113,6 +113,7 @@ return [
                 'own-company-self-store-customers.select',
                 'own-company-self-store-customers.create',
                 'own-company-self-store-customers.update',
+                'own-company-self-store-customers.delete',
 
                 // Visited Histories
                 'own-company-self-store-customers-visited_histories.select',
@@ -233,7 +234,8 @@ return [
                 'export' => [
                     'customers-postcards.export',
                     'own-company-customers-postcards.export',
-                    'own-company-self-store-customers-postcards.export',
+                    /* 店舗権限は印刷不可 */
+                    //'own-company-self-store-customers-postcards.export',
                 ],
             ],
             'visited_histories' => [
