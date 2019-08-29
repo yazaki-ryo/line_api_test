@@ -3,6 +3,11 @@
   border: 0;
   border-radius: 0;
 }
+@media screen and (max-width: 768px) {
+  .form-bottom {
+    margin-bottom: 15px;
+  }
+}
 @media screen and (max-width: 415px) {
   .page-length-box {
     margin-bottom: 20px;
