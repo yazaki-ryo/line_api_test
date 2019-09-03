@@ -32,6 +32,39 @@
 
 <hr>
 
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'attachment') ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang (sprintf('attributes.customers.visited_histories.%s', $attribute))
+        <span class="glyphicon glyphicon-question-sign text-warning" data-toggle="popover" data-content="@lang ('Maximum number of registrations is 1')"></span>
+    </label>
+
+    <div class="col-md-6 form-control-static">
+        @if ($mode === 'edit')
+            @foreach ($row->attachments() as $attachment)
+                @continue (! $attachment->name())
+
+            <a href="{{ asset(str_finish('storage/' . $attachment->path(), '/') . $attachment->name()) }}" target="_blank">
+                <img src="{{ asset(str_finish('storage/' . $attachment->path(), '/') . $attachment->name()) }}" class="thumbnail" width="350" height="auto" alt="" />
+            </a>
+            @endforeach
+        @endif
+        
+        <input type="hidden" name="MAX_FILE_SIZE" value="8388608" /><!-- TODO from config file. -->
+        {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+
+        @if ($row->attachments()->count())
+            <div class="checkbox">
+                <label>
+                    {!! Form::checkbox($attribute2 = 'drop_attachment', 1, old($attribute2), ['class' => '', 'id' => $attribute2]) !!} @lang ('Delete the current image.')
+                </label>
+
+                @include ('components.form.err_msg', ['attribute' => $attribute2])
+            </div>
+        @endif
+    </div>
+</div>
+
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'last_name') ? ' has-error' : '' }}{{ $errors->{$errorBag ?? 'default'}->has($attribute2 = 'first_name') ? ' has-error' : '' }}">
     <label for="{{ $attribute1 }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute1))@lang (sprintf('attributes.customers.%s', $attribute2))

@@ -73,7 +73,7 @@
                                 <div class="panel-heading"> @lang ('Please enter necessary items.') </div>
 
                                 <div class="panel-body">
-                                    {!! Form::open(['url' => route('customers.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr']) !!}
+                                    {!! Form::open(['url' => route('customers.add'), 'id' => '', 'method' => 'post', 'class' => 'form-horizontal h-adr', 'files' => true]) !!}
                                         @include ('customers.components.crud', ['mode' => 'add', 'errorBag' => 'customers_create_request'])
                                     {!! Form::close() !!}
                                 </div>

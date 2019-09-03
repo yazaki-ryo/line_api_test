@@ -428,11 +428,29 @@ final class Customer extends DomainModel
 
     /**
      * @param  array $args
+     * @return DomainCollection
+     */
+    public function attachments(array $args = []): DomainCollection
+    {
+        return $this->repo->attachments($args);
+    }
+
+    /**
+     * @param  array $args
      * @return VisitedHistory
      */
     public function addVisitedHistory(array $args = []): VisitedHistory
     {
         return $this->repo->addVisitedHistory($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return Avatar
+     */
+    public function addAttachment(array $args = []): Attachment
+    {
+        return $this->repo->addAttachment($args);
     }
 
     /**

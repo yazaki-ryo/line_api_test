@@ -23,6 +23,16 @@ final class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'attachment' => [
+                'nullable',
+                'file',
+                'image',
+                'mimes:jpg,jpeg,png,gif',
+                'max:8192',
+            ],
+            'drop_attachment' => [
+                'boolean',
+            ],
             'last_name' => [
                 'required',
                 'string',
