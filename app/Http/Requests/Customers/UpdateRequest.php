@@ -101,7 +101,7 @@ final class UpdateRequest extends FormRequest
                 'max:1000',
             ],
             'tel' => [
-                'required',
+                'nullable',
                 'numeric',
                 'digits_between:1,11',
             ],
