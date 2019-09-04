@@ -75,7 +75,7 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'reservation_code') ? ' has-error' : '' }}">
+{{-- <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'reservation_code') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
     </label>
@@ -84,7 +84,7 @@
         <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
-</div>
+</div> --}}
 
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'floor') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
@@ -97,20 +97,20 @@
     </div>
 </div>
 
-<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'status') ? ' has-error' : '' }}">
+{{-- <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'status') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.reservations.%s', $attribute))
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
     <div class="col-md-6 form-control-static">
-{{--
+
         <input type="tel" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
---}}
+
         TODO status
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
-</div>
+</div> --}}
 
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'note') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
