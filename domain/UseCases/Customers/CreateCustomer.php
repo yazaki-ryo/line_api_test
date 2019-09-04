@@ -7,9 +7,12 @@ use App\Traits\Database\Transactionable;
 use Carbon\Carbon;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
+use Domain\Models\Attachment;
 use Domain\Models\Customer;
 use Domain\Models\Store;
 use Domain\Models\User;
+use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
+use Illuminate\Http\UploadedFile;
 
 final class CreateCustomer
 {
@@ -18,13 +21,17 @@ final class CreateCustomer
     /** @var FindableContract */
     private $finder;
 
+    /** @var FilesystemFactory */
+    private $filesystem;
+
      /**
      * @param FindableContract $finder
      * @return void
      */
-    public function __construct(FindableContract $finder)
+    public function __construct(FindableContract $finder, FilesystemFactory $factory)
     {
         $this->finder = $finder;
+        $this->filesystem = $factory;
     }
 
     /**
@@ -46,17 +53,21 @@ final class CreateCustomer
      * @param array $args
      * @return Customer
      */
-    public function excute(User $user, Store $store, array $args = []): Customer
+    public function excute(User $user, Store $store, array $args = [], UploadedFile $file = null): Customer
     {
         $args = $this->domainize($user, $args);
 
-        return $this->transaction(function () use ($store, $args) {
+        return $this->transaction(function () use ($store, $args, $file) {
             $customer = $store->addCustomer($args);
 
             if (isset($args['visited_at'])) {
                 $customer->addVisitedHistory([
                     'visited_at' => $args['visited_at'],
                 ]);
+            }
+
+            if (! is_null($file)) {
+                $this->addAttachment($customer, $file);
             }
 
             return $customer;
@@ -85,6 +96,23 @@ final class CreateCustomer
         }
 
         return $args->all();
+    }
+
+    /**
+     * @param Customer $customer
+     * @param UploadedFile $file
+     * @return Attachment
+     */
+    private function addAttachment(Customer $customer, UploadedFile $file): Attachment
+    {
+        $attachment = $customer->addAttachment([
+            'path' => $path = sprintf('images/attachments/customers/%s', $customer->id()),
+            'name' => $name = sprintf('%s_%s_%s', time(), str_random(16), $file->getClientOriginalName()),
+        ]);
+
+        $this->filesystem->disk('public')->putFileAs($path, $file, $name);
+
+        return $attachment;
     }
 
 }

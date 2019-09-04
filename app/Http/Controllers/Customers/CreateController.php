@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\CreateRequest;
 use Domain\Models\User;
 use Domain\UseCases\Customers\CreateCustomer;
+use Illuminate\Http\UploadedFile;
 
 final class CreateController extends Controller
 {
@@ -44,8 +45,11 @@ final class CreateController extends Controller
 
         $args = $request->validated();
 
-        $callback = function () use ($user, $store, $args) {
-            return $this->useCase->excute($user, $store, $args);
+        /** @var UploadedFile $file */
+        $file = $request->file('attachment');
+
+        $callback = function () use ($user, $store, $args, $file) {
+            return $this->useCase->excute($user, $store, $args, $file);
         };
 
         if (($result = rescue($callback, false)) === false) {

@@ -13,6 +13,7 @@ use Domain\Models\Prefecture;
 use Domain\Models\Sex;
 use Domain\Models\Store;
 use Domain\Models\VisitedHistory;
+use Domain\Models\Attachment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -128,12 +129,32 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
 
     /**
      * @param  array $args
+     * @return DomainCollection
+     */
+    public function attachments(array $args = []): DomainCollection
+    {
+        $collection = empty($args) ? $this->eloquent->attachments : AttachmentRepository::build($this->eloquent->attachments(), $args)->get();
+        return AttachmentRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
      * @return VisitedHistory
      */
     public function addVisitedHistory(array $args = []): VisitedHistory
     {
         $resource = $this->eloquent->visitedHistories()->create($args);
         return VisitedHistoryRepository::toModel($resource);
+    }
+
+    /**
+     * @param  array $args
+     * @return Attachment
+     */
+    public function addAttachment(array $args = []): Attachment
+    {
+        $resource = $this->eloquent->attachments()->create($args);
+        return AttachmentRepository::toModel($resource);
     }
 
     /**

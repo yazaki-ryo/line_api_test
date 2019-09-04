@@ -11,6 +11,7 @@ use Domain\Models\VisitedHistory;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 final class UpdateController extends Controller
 {
@@ -80,10 +81,13 @@ final class UpdateController extends Controller
         ]);
         $args = $request->validated();
 
+        /** @var UploadedFile $file */
+        $file = $request->file('attachment');
+
         $this->authorize('update', $customer);
 
-        $callback = function () use ($user, $customer, $args) {
-            $this->useCase->excute($user, $customer, $args);
+        $callback = function () use ($user, $customer, $args, $file) {
+            $this->useCase->excute($user, $customer, $args, $file);
         };
 
         if (! is_null(rescue($callback, false))) {

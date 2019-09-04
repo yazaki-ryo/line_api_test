@@ -100,7 +100,8 @@ final class DomainServiceProvider extends ServiceProvider
          */
         $this->app->singleton(Customers\CreateCustomer::class, function () {
             return new Customers\CreateCustomer(
-                app(Services\StoresService::class)
+                app(Services\StoresService::class),
+                app(FilesystemFactory::class)
             );
         });
 
@@ -138,7 +139,8 @@ final class DomainServiceProvider extends ServiceProvider
 
         $this->app->singleton(Customers\UpdateCustomer::class, function () {
             return new Customers\UpdateCustomer(
-                app(Services\CustomersService::class)
+                app(Services\CustomersService::class),
+                app(FilesystemFactory::class)
             );
         });
 

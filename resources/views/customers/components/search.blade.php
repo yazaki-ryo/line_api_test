@@ -15,12 +15,12 @@
         @lang ('attributes.customers.visited_histories.visited_date')
     </label>
 
-    <div class="col-md-3">
+    <div class="col-md-3 form-bottom">
         {!! Form::date($attribute1, Session::get($attribute1), ['class' => 'form-control', 'id' => $attribute1, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.start'), __('elements.words.day'))]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute1])
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 form-bottom">
         {!! Form::date($attribute2, Session::get($attribute2), ['class' => 'form-control', 'id' => $attribute2, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.end'), __('elements.words.day'))]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute2])
     </div>
