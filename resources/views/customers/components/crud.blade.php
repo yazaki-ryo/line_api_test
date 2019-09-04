@@ -393,7 +393,7 @@
         @endif
     @endif
 
-    @if ($mode === 'edit')
+    {{-- @if ($mode === 'edit')
         <div class="form-group">
             <label for="{{ $attribute = 'cancel_cnt' }}" class="col-md-4 control-label">
                 @lang (sprintf('attributes.customers.%s', $attribute))
@@ -415,7 +415,7 @@
                 <span class="badge">{{ optional($row->{$camel = camel_case($attribute)}())->asInt() ?? null }}</span>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     @if ($mode === 'edit')
         <div class="form-group">
