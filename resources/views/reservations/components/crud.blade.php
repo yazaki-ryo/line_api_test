@@ -4,14 +4,14 @@
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
-    <div class="col-md-6">
+    <div class="col-md-6 form-bottom">
         <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         <v-btn flat icon color="dark" @click="function(event) { callback.textClearButtonTapped(event); }" v-bind:style="{position:'absolute', top: 0, right:0, margin:'0 1em 0 0', }">
           <v-icon>cancel</v-icon>
         </v-btn>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
-    <div id="customer-chooser">
+    <div id="customer-chooser" class="col-md-6">
       <n-customer-chooser 
         v-on:select="function(selectedCustomer) { callback.customerSelected(selectedCustomer); }"
         linked_value_element="#{{ $attribute }}"
