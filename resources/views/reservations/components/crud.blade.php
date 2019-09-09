@@ -4,7 +4,7 @@
         <span class="label label-danger">@lang ('elements.words.required')</span>
     </label>
 
-    <div class="col-md-6">
+    <div class="col-md-6 form-bottom">
         <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="" required />
         <v-btn flat icon color="dark" @click="function(event) { callback.textClearButtonTapped(event); }" v-bind:style="{position:'absolute', top: 0, right:0, margin:'0 1em 0 0', }">
           <v-icon>cancel</v-icon>

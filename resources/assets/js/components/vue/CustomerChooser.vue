@@ -10,9 +10,7 @@
         </v-card-title>
 
         <v-container fluid grid-list-md text-xs-center>
-          <v-layout row>
-
-            <v-flex xs4 v-bind:class="['customer-search-form']">
+            <v-container v-bind:class="['customer-search-form']">
               <v-card flat>
                 <v-card-text>
                   <v-layout row>
@@ -26,10 +24,15 @@
                     </v-layout>
                   </v-layout>
                 </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn class="btn btn-default" color="darken-1" flat @click="dialog = false">{{ caption_button_close }}</v-btn>
+                  <v-btn class="btn btn-default" color="darken-1" flat @click="customerSelected()">{{ caption_button_done }}</v-btn>
+                </v-card-actions>
               </v-card>
-            </v-flex>
+            </v-container>
 
-            <v-flex xs8>
+            <v-container>
               
               <v-radio-group v-model="selectedCustomerId">
                 <v-data-table
@@ -87,15 +90,13 @@
                   </template>
                 </v-data-table>
               </v-radio-group>
-            </v-flex>
-          </v-layout>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn class="btn btn-default" color="darken-1" flat @click="dialog = false">{{ caption_button_close }}</v-btn>
+                <v-btn class="btn btn-default" color="darken-1" flat @click="customerSelected()">{{ caption_button_done }}</v-btn>
+              </v-card-actions>
+            </v-container>
         </v-container>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click="dialog = false">{{ caption_button_close }}</v-btn>
-          <v-btn color="blue darken-1" flat @click="customerSelected()">{{ caption_button_done }}</v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-layout>
