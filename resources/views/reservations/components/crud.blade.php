@@ -11,7 +11,7 @@
         </v-btn>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
-    <div id="customer-chooser" class="col-md-6">
+    <div id="customer-chooser">
       <n-customer-chooser 
         v-on:select="function(selectedCustomer) { callback.customerSelected(selectedCustomer); }"
         linked_value_element="#{{ $attribute }}"
