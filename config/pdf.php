@@ -76,17 +76,17 @@ return [
             'from_address_x'               => 40,
             'from_address_y'               => 110,
             'from_address_font'            => 'gothic',
-            'from_address_font_size'       => 9,
+            'from_address_font_size'       => 7,
 
             'from_name_x'                  => 40,
             'from_name_y'                  => 125,
             'from_name_font'               => 'gothic',
-            'from_name_font_size'          => 9,
+            'from_name_font_size'          => 7,
             
             'from_personal_name_x'         => 39,
             'from_personal_name_y'         => 135,
             'from_personal_name_font'      => 'gothic',
-            'from_personal_name_font_size' => 8,
+            'from_personal_name_font_size' => 7,
         ],
 
         'new_year' => [
@@ -125,17 +125,17 @@ return [
             'from_address_x'               => 40,
             'from_address_y'               => 94,
             'from_address_font'            => 'gothic',
-            'from_address_font_size'       => 9,
+            'from_address_font_size'       => 7,
 
             'from_name_x'                  => 40,
             'from_name_y'                  => 104,
             'from_name_font'               => 'gothic',
-            'from_name_font_size'          => 9,
+            'from_name_font_size'          => 7,
 
             'from_personal_name_x'         => 39,
             'from_personal_name_y'         => 110,
             'from_personal_name_font'      => 'gothic',
-            'from_personal_name_font_size' => 8,
+            'from_personal_name_font_size' => 7,
         ],
     ],
 

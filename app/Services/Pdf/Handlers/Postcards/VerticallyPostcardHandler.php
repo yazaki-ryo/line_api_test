@@ -66,7 +66,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $this->fromAddress($this->from->address(), $this->from->building());
             $this->fromName($this->from->name());
             // 以下に差出人名を追加
-            $this->fromPersonalName($this->from->personalName());
+            $personalName = !empty($this->from->personalName()) ? $this->from->personalName() : "";
+            $this->fromPersonalName($personalName);
         }
     }
 
@@ -164,7 +165,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
 
                 $this->processor->SetFont($this->font, '', (float)$this->settings->departmentNameFontSize(), '', true);// TODO department font and size
                 $this->processor->setFontSpacing(0.5);
-                $this->processor->MultiCell(60.0, 5.0, $department, 0, 'C', 0, 0, 25.0, $y, true, 0, false, true, 10.0, 'T', true);
+                $this->processor->MultiCell(70.0, 5.0, $department, 0, 'C', 0, 0, 18.0, $y, true, 0, false, true, 10.0, 'T', true);
                 $y += 10.0;
             }
         }
@@ -213,7 +214,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->fonts($this->settings->fromAddressFont());
         $this->processor->SetFont($this->font, '', (float)$this->settings->fromAddressFontSize(), '', true);
         $this->processor->setFontSpacing(0);
-        $this->processor->MultiCell(50.0, 15.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, (float)$this->settings->fromAddressX(), (float)$this->settings->fromAddressY(), true, 0, false, true, 15.0, 'T', true);
+        $this->processor->MultiCell(85.0, 15.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, (float)$this->settings->fromAddressX(), (float)$this->settings->fromAddressY(), true, 0, false, true, 15.0, 'T', true);
     }
 
     /**
