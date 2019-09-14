@@ -40,7 +40,7 @@ final class ExportRequest extends FormRequest
             'selection' => [
                 'required',
                 'array',
-                'customer_id',
+                // 'customer_id', // バグがあるため無効化
             ],
         ];
     }
