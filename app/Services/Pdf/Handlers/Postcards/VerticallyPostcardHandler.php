@@ -66,7 +66,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $this->fromAddress($this->from->address(), $this->from->building());
             $this->fromName($this->from->name());
             // 以下に差出人名を追加
-            $this->fromPersonalName($this->from->personalName());
+            $personalName = !empty($this->from->personalName()) ? $this->from->personalName() : "";
+            $this->fromPersonalName($personalName);
         }
     }
 
