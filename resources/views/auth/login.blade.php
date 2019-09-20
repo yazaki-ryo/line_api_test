@@ -56,14 +56,14 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-12">
+                                <div class="col-md-12 center">
                                     <button type="submit" class="btn btn-submit-1 none-radius write">
                                         @lang ('elements.words.login')
                                     </button>
 
-                                    <a class="btn-link btn-reset-link" href="{{ route('password.request') }}">
+                                    {{-- <a class="btn-link btn-reset-link" href="{{ route('password.request') }}">
                                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> @lang ('Forgot Your Password?')
-                                    </a>
+                                    </a> --}}
                                 </div>
                             </div>
                         {!! Form::close() !!}
