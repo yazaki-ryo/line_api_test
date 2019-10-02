@@ -40,7 +40,15 @@ final class IndexController extends Controller
             }
         } else if ($request->isMethod('post')) {
             $session->forget('tags');
-            foreach (['free_word', 'visited_date_s', 'visited_date_e', 'mourning_flag', 'tags',] as $key) {
+            $params = [
+                'free_word',
+                'visited_date_s',
+                'visited_date_e',
+                'birthday_s',
+                'birthday_e',
+                'mourning_flag',
+                'tags'];
+            foreach ($params as $key) {
                 if (array_key_exists($key, $args)) {
                     $session->put($key, $args[$key]);
                 }

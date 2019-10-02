@@ -34,7 +34,7 @@ final class SearchRequest extends FormRequest
                 'string',
                 'max:10',
                 'date_format:Y-m-d',
-//                 'before_or_equal:visited_date_e',
+//              'before_or_equal:visited_date_e',
                 sprintf('before_or_equal:%s', now()->format('Y-m-d')),
             ],
             'visited_date_e' => [
@@ -42,7 +42,20 @@ final class SearchRequest extends FormRequest
                 'string',
                 'max:10',
                 'date_format:Y-m-d',
-//                 'after_or_equal:visited_date_s',
+//              'after_or_equal:visited_date_s',
+            ],
+            'birthday_s' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                sprintf('before_or_equal:%s', now()->format('Y-m-d')),
+            ],
+            'birthday_e' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
             ],
             'mourning_flag' => [
                 'nullable',
