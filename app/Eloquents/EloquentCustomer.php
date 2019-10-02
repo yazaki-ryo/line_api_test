@@ -367,6 +367,52 @@ final class EloquentCustomer extends Model
     }
 
     /**
+     * @param Builder $query
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     * @return Builder
+     */
+    public function scopeBirthday(Builder $query, Carbon $start = null, Carbon $end = null): Builder
+    {
+        $field = sprintf('%s.birthday', $this->getTable());
+
+        return $query->where(function(Builder $q1) use ($field, $start, $end) {
+            $q1->when(! is_null($start), function (Builder $q2) use ($field, $start) {
+                $q2->whereMonth($field, '>=', $start->format('m'));
+                $q2->whereDay($field, '>=', $start->format('d'));
+            });
+
+            $q1->when(! is_null($end), function (Builder $q2) use ($field, $end) {
+                $q2->whereMonth($field, '<=', $end->format('m'));
+                $q2->whereDay($field, '<=', $end->format('d'));
+            });
+        });
+    }
+
+    /**
+     * @param Builder $query
+     * @param Carbon|null $start
+     * @param Carbon|null $end
+     * @return Builder
+     */
+    public function scopeAnniversary(Builder $query, Carbon $start = null, Carbon $end = null): Builder
+    {
+        $field = sprintf('%s.anniversary', $this->getTable());
+
+        return $query->where(function(Builder $q1) use ($field, $start, $end) {
+            $q1->when(! is_null($start), function (Builder $q2) use ($field, $start) {
+                $q2->whereMonth($field, '>=', $start->format('m'));
+                $q2->whereDay($field, '>=', $start->format('d'));
+            });
+
+            $q1->when(! is_null($end), function (Builder $q2) use ($field, $end) {
+                $q2->whereMonth($field, '<=', $end->format('m'));
+                $q2->whereDay($field, '<=', $end->format('d'));
+            });
+        });
+    }
+
+    /**
      * @param  Builder $query
      * @param  int $value
      * @return Builder
@@ -400,29 +446,6 @@ final class EloquentCustomer extends Model
     {
         return $query->whereHas('tags', function(Builder $q) use ($ids, $not) {
             $q->{$not === false ? 'whereIn' : 'whereNotIn'}('tag_id', $ids);
-        });
-    }
-
-    /**
-     * @param Builder $query
-     * @param Carbon|null $start
-     * @param Carbon|null $end
-     * @return Builder
-     */
-    public function scopeBirthday(Builder $query, Carbon $start = null, Carbon $end = null): Builder
-    {
-        $field = sprintf('%s.birthday', $this->getTable());
-
-        return $query->where(function(Builder $q1) use ($field, $start, $end) {
-            $q1->when(! is_null($start), function (Builder $q2) use ($field, $start) {
-                $q2->whereMonth($field, '>=', $start->format('m'));
-                $q2->whereDay($field, '>=', $start->format('d'));
-            });
-
-            $q1->when(! is_null($end), function (Builder $q2) use ($field, $end) {
-                $q2->whereMonth($field, '<=', $end->format('m'));
-                $q2->whereDay($field, '<=', $end->format('d'));
-            });
         });
     }
 

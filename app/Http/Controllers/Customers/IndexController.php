@@ -46,6 +46,8 @@ final class IndexController extends Controller
                 'visited_date_e',
                 'birthday_s',
                 'birthday_e',
+                'anniversary_s',
+                'anniversary_e',
                 'mourning_flag',
                 'tags'];
             foreach ($params as $key) {
