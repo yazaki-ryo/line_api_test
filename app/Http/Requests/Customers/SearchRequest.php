@@ -57,6 +57,19 @@ final class SearchRequest extends FormRequest
                 'max:10',
                 'date_format:Y-m-d',
             ],
+            'anniversary_s' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+                sprintf('before_or_equal:%s', now()->format('Y-m-d')),
+            ],
+            'anniversary_e' => [
+                'nullable',
+                'string',
+                'max:10',
+                'date_format:Y-m-d',
+            ],
             'mourning_flag' => [
                 'nullable',
                 'boolean',
