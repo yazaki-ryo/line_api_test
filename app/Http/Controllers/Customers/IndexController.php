@@ -113,6 +113,7 @@ final class IndexController extends Controller
         return view('customers.index', [
             'rows' => $customers,
             'row'  => $customer,
+            'month' => config('date.month'),
             'paginator' => $paginator,
             'sorting' => $sorting,
             'printSettings' => $user->printSettings()->domainizePrintSettings(true),

@@ -197,8 +197,8 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
         $query->when(($args->has($start = 'birthday_s') && ! is_null($args->get($start)))
             || ($args->has($end) && ! is_null($args->get($end))), function (Builder $q) use ($args, $start, $end) {
             $q->Birthday(
-                $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start))->startOfDay() : null,
-                $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end))->endOfDay() : null
+                $args->has($start) && ! is_null($args->get($start)) ? (int)$args->get($start) : null,
+                $args->has($end) && ! is_null($args->get($end)) ? (int)$args->get($end) : null
             );
         });
 
@@ -207,8 +207,8 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
         $query->when(($args->has($start = 'anniversary_s') && ! is_null($args->get($start)))
             || ($args->has($end) && ! is_null($args->get($end))), function (Builder $q) use ($args, $start, $end) {
             $q->Anniversary(
-                $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start))->startOfDay() : null,
-                $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end))->endOfDay() : null
+                $args->has($start) && ! is_null($args->get($start)) ? (int)$args->get($start) : null,
+                $args->has($end) && ! is_null($args->get($end)) ? (int)$args->get($end) : null
             );
         });
 
