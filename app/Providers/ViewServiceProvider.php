@@ -47,6 +47,7 @@ final class ViewServiceProvider extends ServiceProvider
         View::creator([
             'customers.edit',
             'visited_histories.edit',
+            'visited_histories.components.list',
         ], Composers\SeatsComposer::class);
 
         View::creator([

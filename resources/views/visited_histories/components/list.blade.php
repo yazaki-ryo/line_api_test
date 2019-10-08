@@ -27,7 +27,11 @@
                         @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
                             @can ('select', $row)
                                 @if(!empty($updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()))
-                                    <p class="list-image"><img src="{{ asset(str_finish('storage/' . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->path(), '/') . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->name()) }}" width="100" alt=""></p>
+                                    <p class="list-image">
+                                        <a href="{{ asset(str_finish('storage/' . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->path(), '/') . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->name()) }}">
+                                            <img src="{{ asset(str_finish('storage/' . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->path(), '/') . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->name()) }}" width="100" alt="">
+                                        </a>
+                                    </p>
                                 @else
                                     <p>画像なし</p>
                                 @endif
@@ -37,7 +41,13 @@
                     <td class="text-center">{{ empty($row->{$camel = camel_case('visited_at')}()) ? '' : $row->{$camel}()->format('Y-m-d') }}</td>
                     <td class="text-center">{{ empty($row->{$camel = camel_case('visited_at')}()) ? '' : $row->{$camel}()->format('H:i') }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('amount')}() }}</td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('seat')}() }}</td>
+                    <td class="text-center">
+                    @if(!empty($seats))
+                        @foreach ($seats as $item)
+                            {{ (int)$row->{$camel = camel_case('seat')}() === $item->id() ? $item->name() : null }}
+                        @endforeach
+                    @endif
+                    </td>
                     <td class="text-center">
                         <ul class="side-by-side around wrap">
                             @if (! $row->{$camel = camel_case('deleted_at')}())
@@ -50,7 +60,7 @@
                                         </li>
                                         @if(!empty($updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()))
                                         <li>
-                                            <a href="{{ asset(str_finish('storage/' . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->path(), '/') . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->name()) }}" target="_blank">
+                                            <a href="{{ asset(str_finish('storage/' . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->path(), '/') . $updateVisitedHistory->getVisitedHistory(['id' => $row->id()])->attachments()->first()->name()) }}">
                                                 <i class="far fa-file-image" title="@lang('elements.words.image')@lang('elements.words.detail')"></i>
                                             </a>
                                         </li>
