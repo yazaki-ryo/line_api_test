@@ -163,7 +163,7 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
      * @return mixed
      */
     public static function build($query, array $args = [])
-    {
+    {       
         $query = parent::build($query, $args);
         $args  = collect($args);
 
@@ -189,6 +189,26 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             $q->visitedAt(
                 $args->has($start) && ! is_null($args->get($start)) ? Carbon::parse($args->get($start))->startOfDay() : null,
                 $args->has($end) && ! is_null($args->get($end)) ? Carbon::parse($args->get($end))->endOfDay() : null
+            );
+        });
+
+        // 誕生日検索
+        $end = 'birthday_e';
+        $query->when(($args->has($start = 'birthday_s') && ! is_null($args->get($start)))
+            || ($args->has($end) && ! is_null($args->get($end))), function (Builder $q) use ($args, $start, $end) {
+            $q->Birthday(
+                $args->has($start) && ! is_null($args->get($start)) ? (int)$args->get($start) : null,
+                $args->has($end) && ! is_null($args->get($end)) ? (int)$args->get($end) : null
+            );
+        });
+
+        // 記念日検索
+        $end = 'anniversary_e';
+        $query->when(($args->has($start = 'anniversary_s') && ! is_null($args->get($start)))
+            || ($args->has($end) && ! is_null($args->get($end))), function (Builder $q) use ($args, $start, $end) {
+            $q->Anniversary(
+                $args->has($start) && ! is_null($args->get($start)) ? (int)$args->get($start) : null,
+                $args->has($end) && ! is_null($args->get($end)) ? (int)$args->get($end) : null
             );
         });
 

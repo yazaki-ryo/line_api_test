@@ -26,6 +26,38 @@
     </div>
 </div>
 
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'birthday_s') ? ' has-error' : '' }}{{ $errors->{$errorBag ?? 'default'}->has($attribute2 = 'birthday_e') ? ' has-error' : '' }}">
+    <label for="{{ $attribute1 }}" class="col-md-4 control-label">
+        @lang ('attributes.customers.birthday')
+    </label>
+
+    <div class="col-md-3 form-bottom">
+        {!! Form::select($attribute1, $month, Session::get($attribute1), ['class' => 'form-control', 'id' => $attribute1, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.start'), __('elements.words.day'))]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute1])
+    </div>
+
+    <div class="col-md-3 form-bottom">
+        {!! Form::select($attribute2, $month, Session::get($attribute2), ['class' => 'form-control', 'id' => $attribute2, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.end'), __('elements.words.day'))]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute2])
+    </div>
+</div>
+
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute1 = 'anniversary_s') ? ' has-error' : '' }}{{ $errors->{$errorBag ?? 'default'}->has($attribute2 = 'anniversary_e') ? ' has-error' : '' }}">
+    <label for="{{ $attribute1 }}" class="col-md-4 control-label">
+        @lang ('attributes.customers.anniversary')
+    </label>
+
+    <div class="col-md-3 form-bottom">
+        {!! Form::select($attribute1, $month, Session::get($attribute1), ['class' => 'form-control', 'id' => $attribute1, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.start'), __('elements.words.day'))]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute1])
+    </div>
+
+    <div class="col-md-3 form-bottom">
+        {!! Form::select($attribute2, $month, Session::get($attribute2), ['class' => 'form-control', 'id' => $attribute2, 'maxlength' => 10, 'placeholder' => sprintf('%s%s%s', __('elements.words.search'), __('elements.words.end'), __('elements.words.day'))]) !!}
+        @include ('components.form.err_msg', ['attribute' => $attribute2])
+    </div>
+</div>
+
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'mourning_flag') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
         @lang (sprintf('attributes.customers.search.%s', $attribute))

@@ -367,6 +367,48 @@ final class EloquentCustomer extends Model
     }
 
     /**
+     * @param Builder $query
+     * @param int|null $start
+     * @param int|null $end
+     * @return Builder
+     */
+    public function scopeBirthday(Builder $query, int $start = null, int $end = null): Builder
+    {
+        $field = sprintf('%s.birthday', $this->getTable());
+
+        return $query->where(function(Builder $q1) use ($field, $start, $end) {
+            $q1->when(! is_null($start), function (Builder $q2) use ($field, $start) {
+                $q2->whereMonth($field, '>=', $start);
+            });
+
+            $q1->when(! is_null($end), function (Builder $q2) use ($field, $end) {
+                $q2->whereMonth($field, '<=', $end);
+            });
+        });
+    }
+
+    /**
+     * @param Builder $query
+     * @param int|null $start
+     * @param int|null $end
+     * @return Builder
+     */
+    public function scopeAnniversary(Builder $query, int $start = null, int $end = null): Builder
+    {
+        $field = sprintf('%s.anniversary', $this->getTable());
+
+        return $query->where(function(Builder $q1) use ($field, $start, $end) {
+            $q1->when(! is_null($start), function (Builder $q2) use ($field, $start) {
+                $q2->whereMonth($field, '>=', $start);
+            });
+
+            $q1->when(! is_null($end), function (Builder $q2) use ($field, $end) {
+                $q2->whereMonth($field, '<=', $end);
+            });
+        });
+    }
+
+    /**
      * @param  Builder $query
      * @param  int $value
      * @return Builder
