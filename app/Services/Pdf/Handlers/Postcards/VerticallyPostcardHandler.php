@@ -58,11 +58,19 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $this->processor->AddPage();
             $this->processor->useTemplate($this->tpl, 0, 0, null, null, true);
 
-            $this->postalCode($item->postalCode()->asString());
+            // 郵便番号がない場合は何もしない
+            if(!empty($item->postalCode())) {
+                $this->postalCode($item->postalCode()->asString());
+            }
+
             $this->address($item->address(), $item->building());
             $this->name($item->lastName(), $item->firstName(), $item->office(), $item->department(), $item->position());
 
-            $this->fromPostalCode($this->from->postalCode()->asString());
+            // 郵便番号がない場合は何もしない
+            if(!empty($this->from->postalCode())) {
+                $this->fromPostalCode($this->from->postalCode()->asString());
+            }
+
             $this->fromAddress($this->from->address(), $this->from->building());
             $this->fromName($this->from->name());
             // 以下に差出人名を追加
