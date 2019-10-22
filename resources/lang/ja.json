@@ -1,6 +1,7 @@
 {
     "An internal error occurred. Please contact the administrator.": "内部エラーが発生しました。管理者へお問い合わせください。",
     "Are you sure delete selected customer(s)?": "選択した顧客を削除しますか？",
+    "Are you sure send mail selected customer(s)?": "選択した顧客にメールを送信しますか？",
     "This is the senders name that is displayed during postcard printing.": "ハガキ印刷の際に表示される差出人名です。",
     "By entering the postal code, the prefecture city, town, village address is automatically entered.": "郵便番号を入力する事で、都道府県市区町村番地までが自動で入力されます。",
     "Customer information is not associated with reservation information.": "予約情報に顧客情報が紐付いていません。",
@@ -33,6 +34,7 @@
     "Please select the setting registered by print setting.": "印刷設定で登録した設定を選択してください。",
     "Preview can be displayed with a postcard background.": "はがきの背景を付けて、プレビュー表示出来ます。",
     "Print postcard": "はがき印刷",
+    "Send Mail": "メール送信",
     "Rows per page": "件表示",
     "Search result is empty.": "検索結果が空です。",
     "Test text...": "text...",

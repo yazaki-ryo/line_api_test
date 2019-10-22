@@ -6,6 +6,9 @@
         @can ('authorize', config('permissions.groups.customers.postcards.export'))
             <span class="btn btn-success" style="margin-right: 1em;" onclick="showPrintTab()">@lang('Print postcard')</span>
         @endcan
+        @can ('authorize', config('permissions.groups.customers.postcards.export'))
+            <span class="btn btn-success" style="margin-right: 1em;" onclick="showMailTab()">@lang('Send Mail')</span>
+        @endcan
         @can ('authorize', config('permissions.groups.customers.delete'))
             <span class="btn btn-danger" onclick="if (confirm('@lang ('Are you sure delete selected customer(s)?')')) { deleteSelectedCustomers(); }">@lang('Delete selected customers')</span>
         @endcan

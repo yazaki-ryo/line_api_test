@@ -116,6 +116,7 @@ return [
         'menu'           => 'メニュー',
         'menus'          => 'メニュー',
         'mode'           => 'モード',
+        'mail'           => 'メール',
 
         /**
          * N
@@ -180,6 +181,7 @@ return [
         'setting'        => '設定',
         'settings'       => '設定',
         'seats'          => '座席',
+        'send'           => '送信',
         'start'          => '開始',
         'state'          => '状態',
         'status'         => 'ステータス',

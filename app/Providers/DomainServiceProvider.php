@@ -55,6 +55,7 @@ final class DomainServiceProvider extends ServiceProvider
             Customers\RestoreCustomer::class,
             Customers\UpdateCustomer::class,
             Customers\Tags\UpdateTags::class,
+            Customers\Magazines\SendMail::class,
 
             Reservations\CreateReservation::class,
             Reservations\DeleteReservation::class,
@@ -147,6 +148,12 @@ final class DomainServiceProvider extends ServiceProvider
         $this->app->singleton(Customers\Tags\UpdateTags::class, function () {
             return new Customers\Tags\UpdateTags(
                 app(Services\CustomersService::class)
+            );
+        });
+
+        $this->app->singleton(Customers\Magazines\SendMail::class, function () {
+            return new Customers\Magazines\SendMail(
+                app(Services\StoresService::class)
             );
         });
 

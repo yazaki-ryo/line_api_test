@@ -63,6 +63,10 @@ Route::prefix('/')->group(function () {
             });
         });
 
+        Route::prefix($prefix = 'magazines')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::post($name = 'mail', \App\Http\Controllers\Customers\Magazines\MailController::class)->name($name);
+        });        
+
         Route::prefix($prefix = 'postcards')->name(sprintf('%s.', $prefix))->group(function () {
             Route::get($name = 'export', \App\Http\Controllers\Customers\Postcards\ExportController::class)->name($name);
         });

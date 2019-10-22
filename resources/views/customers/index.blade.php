@@ -37,6 +37,12 @@
             @endcan
 
             @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                <li id="mail-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_mail_request') }}">
+                    <a id="mail-tab-link" href="#" data-toggle="tab">@lang ('elements.words.mail')@lang ('elements.words.send')</a>
+                </li>
+            @endcan
+
+            @can ('authorize', config('permissions.groups.customers.postcards.export'))
                 <li id="print-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_postcards_export_request') }}">
                     <a id="print-tab-link" href="#" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
                 </li>
@@ -82,6 +88,16 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_postcards_export_request') }}" id="mail-tab">
+                            <div class="well">
+                                {!! Form::open(['url' => route('customers.magazines.mail'), 'id' => 'customers-magazines-mail-form', 'method' => 'post', 'class' => 'form-horizontal', 'name' => 'customers_magazines_mail_form']) !!}
+                                    @include ('customers.components.magazine_mail', ['errorBag' => 'customers_postcards_export_request'])
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.postcards.export'))
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_postcards_export_request') }}" id="print-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
@@ -121,17 +137,20 @@
         
         function toggleActionButtons() {
             var isRowSelected = window.common.selectedValues().length > 0;
-            var handle = jQuery("#print-tab-handle");
+            var handle = jQuery("#print-tab-handle, #mail-tab-handle");
             var actionBtn = jQuery(".action-btn");
-            var link = jQuery("#print-tab-link");
+            var linkPrint = jQuery("#print-tab-link");
+            var linkMail = jQuery("#mail-tab-link");
             if (isRowSelected) {
                 handle.removeClass("disabled");
                 actionBtn.css("display", "inline-block");
-                link.attr("href", "#print-tab");
+                linkPrint.attr("href", "#print-tab");
+                linkMail.attr("href", "#mail-tab");
             } else {
                 handle.addClass("disabled");
                 actionBtn.css("display", "none");
-                link.attr("href", "#");
+                linkPrint.attr("href", "#");
+                linkMail.attr("href", "#");
             }
         }
         
@@ -139,6 +158,18 @@
             jQuery("input[name='target_customers[]']").remove();
             
             var form = window.customers_delete_form;
+            var selectedCustomers = window.common.selectedValues();
+            for (var i = 0; i < selectedCustomers.length; i++) {
+              var id = selectedCustomers[i];
+              jQuery(form).append("<input type='hidden' name='target_customers[]' value='" + id + "' />");
+            }
+            form.submit();
+        }
+
+        function mailSelectedCustomers() {
+            jQuery("input[name='target_customers[]']").remove();
+            
+            var form = window.customers_magazines_mail_form;
             var selectedCustomers = window.common.selectedValues();
             for (var i = 0; i < selectedCustomers.length; i++) {
               var id = selectedCustomers[i];
@@ -174,5 +205,10 @@
         function showPrintTab() {
             $('#customers-navigation-tab a[href="#print-tab"]').tab('show');
         }
+
+        function showMailTab() {
+            $('#customers-navigation-tab a[href="#mail-tab"]').tab('show');
+        }
+
     </script>
 @endsection
