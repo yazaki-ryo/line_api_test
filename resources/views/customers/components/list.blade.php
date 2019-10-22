@@ -45,9 +45,8 @@
                 <th class="text-center">@lang ('elements.words.visited')@lang ('elements.words.num')</th>
                 <th class="text-center">@lang ('elements.words.action')</th>
                 <th class="text-center">@lang ('elements.words.human_name')</th>
-                <th class="text-center">@lang ('attributes.customers.likes_and_dislikes')</th>
-                <th class="text-center">@lang ('attributes.customers.note')</th>
                 <th class="text-center">@lang ('attributes.customers.office')</th>
+                <th class="text-center">@lang ('attributes.customers.note')</th>
                 <th class="text-center">@lang ('attributes.customers.tel')</th>
                 <th class="text-center">@lang ('attributes.customers.mobile_phone')</th>
             </tr>
@@ -117,9 +116,8 @@
                         </ul>
                     </td>
                     <td class="text-center">{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
-                    <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('likes_and_dislikes')}(), 0, 20, '...', 'UTF-8') }}</td>
-                    <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('note')}(), 0, 20, '...', 'UTF-8') }}</td>
                     <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('office')}(), 0, 20, '...', 'UTF-8') }}</td>
+                    <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('note')}(), 0, 20, '...', 'UTF-8') }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('tel')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('mobile_phone')}() }}</td>
                 </tr>
