@@ -251,6 +251,8 @@ return [
             'email'           => 'example@example.com',
             'mobile_phone'    => '09000000000',
             'note'            => 'パーソナルメモとしてご利用ください',
+            'title'           => 'メールのタイトル',
+            'content'         => 'メールの内容',
         ],
     ],
 

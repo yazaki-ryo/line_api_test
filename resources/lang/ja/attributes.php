@@ -79,6 +79,9 @@ return [
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
 
+        'title'                 => 'タイトル',
+        'content'               => '内容',
+
         'search' => [
             'free_word'      => 'フリーワード',
             'mourning_flag'  => '喪中フラグ',
