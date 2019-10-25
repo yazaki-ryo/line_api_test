@@ -49,40 +49,60 @@ final class SendMail
     public function excute(User $user, Store $store, array $args = [])
     {
         $args = $this->domainize($user, $args);
-
-        $email = new \SendGrid\Mail\Mail();
-        $email->setFrom((string)$user->email(), $store->name());
-        $email->setSubject("Sending with SendGrid is Fun");
-        // 送信先
-        $sendTos = [
-            "tsf@togei-sf.co.jp" => "株式会社東迎システムファクトリー",
-            "granbashynetmail@gmail.com" => "Granbashy Sound"
-        ];
-
-        $email->addTos($sendTos);
-        $email->addContent("text/plain", "and easy to do anywhere, even with PHP");
-        $email->addContent(
-            "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-        );
         
-        // APIキーをセット
-        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        $ids = [];
+        $title = "";
+        $content = "";
 
-        try {
-            $response = $sendgrid->send($email);
-            print $response->statusCode() . "\n";
-            print_r($response->headers());
-            print $response->body() . "\n";
-        } catch (Exception $e) {
-            echo 'Caught exception: '. $e->getMessage() ."\n";
+        if(!empty($args['target_customers'])) {
+            $ids['customer_ids'] = $args['target_customers'];
+        } 
+
+        if(!empty($args['title'])) {
+            $title = $args['title'];
         }
 
-        /*
-        $this->transaction(function () use ($store, $args) {
-            // 以下にはメールの送信内容を登録する処理を記述
-            // $customer = $store->addCustomer($args);
-        });
-        */
+        if(!empty($args['content'])) {
+            $content = $args['content'];
+        }
+
+        $customers = $store->customers($ids);
+
+        if(!empty($customers)) {
+
+            $tos = [];
+            foreach($customers as $key => $customer) {
+                $name = $customer->lastName() . " " . $customer->firstName();
+                $tos[] = new \SendGrid\Mail\To((string)$customer->email(), $name, ["%name%" => $name]);
+                // ${"personalization_".$key} = new \SendGrid\Mail\Personalization();
+                // ${"personalization_".$key}->addTo(new \SendGrid\Mail\To((string)$customer->email(), $name));
+                // ${"personalization_".$key}->addSubstitution("%name%", $name);
+                // 配信停止タグ： 配信停止は <% こちら %>
+                // $email->addPersonalization(${"personalization_".$key});
+            }
+            
+            $plain = new \SendGrid\Mail\Content("text/plain", "%name%様\n" . $content . "\n" . "配信停止は <% こちら %>");
+            $html = new \SendGrid\Mail\Content("text/html", "<strong>" . "%name%様<br>" . $content . "</strong><br>配信停止は <% こちら %>");
+            $from = new \SendGrid\Mail\From((string)$user->email(), $store->name());
+
+            $email = new \SendGrid\Mail\Mail($from, $tos, $title, $plain, $html);
+
+            try {
+                // APIキーをセット
+                $sendGrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+                $response = $sendGrid->send($email);
+                // print $response->statusCode() . "\n";
+                // print_r($response->headers());
+                // print $response->body() . "\n";
+                $this->transaction(function () use ($store, $args) {
+                    // 以下にはメールの送信内容を登録する処理を記述
+                    // $customer = $store->customer($args);
+                });
+            } catch (Exception $e) {
+                echo 'Caught exception: '. $e->getMessage() ."\n";
+            }
+        }
+
     }
 
     /**

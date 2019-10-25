@@ -24,7 +24,20 @@ final class MailRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
+            'title' => [
+                'required',
+                'string',
+                'max:191',
+            ],
+            'content' => [
+                'nullable',
+                'string',
+                'max:1000',
+            ],
+            'target_customers' => [
+                'required',
+                'array',
+            ]
         ];
     }
 

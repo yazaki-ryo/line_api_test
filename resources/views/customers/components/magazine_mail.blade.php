@@ -1,7 +1,21 @@
-<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'selection') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label"></label>
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'title') ? ' has-error' : null }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang (sprintf('attributes.customers.%s', $attribute))
+    </label>
 
-    <div class="col-md-5">
+    <div class="col-md-6">
+        <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : '' }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+        @include ('components.form.err_msg', ['attribute' => $attribute])
+    </div>
+</div>
+
+<div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'content') ? ' has-error' : '' }}">
+    <label for="{{ $attribute }}" class="col-md-4 control-label">
+        @lang (sprintf('attributes.customers.%s', $attribute))
+    </label>
+
+    <div class="col-md-6">
+        <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="7" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : null }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>

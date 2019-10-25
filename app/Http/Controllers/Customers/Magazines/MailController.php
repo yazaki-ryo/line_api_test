@@ -43,8 +43,7 @@ final class MailController extends Controller
             'id' => $storeId,
         ]);
 
-        // $args = $request->validated();
-        $args = $request->all();
+        $args = $request->validated();
 
         $callback = function () use ($user, $store, $args) {
             return $this->useCase->excute($user, $store, $args);
