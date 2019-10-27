@@ -88,10 +88,10 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_postcards_export_request') }}" id="mail-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_mail_request') }}" id="mail-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.magazines.mail'), 'id' => 'customers-magazines-mail-form', 'method' => 'post', 'class' => 'form-horizontal', 'name' => 'customers_magazines_mail_form']) !!}
-                                    @include ('customers.components.magazine_mail', ['errorBag' => 'customers_postcards_export_request'])
+                                    @include ('customers.components.magazine_mail', ['errorBag' => 'customers_mail_request'])
                                 {!! Form::close() !!}
                             </div>
                         </div>
@@ -114,7 +114,16 @@
 
 @section ('scripts')
     <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
+
+        // エディタ設定
+        CKEDITOR.replace('content',{
+            extraPlugins:'codesnippet',
+            codeSnippet_theme:'dark',
+            height:'200px',
+            //removeButtons:'Unlink,Anchor, NewPage,DocProps,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,RemoveFormat,Outdent,Indent,Blockquote,Styles,About'
+        });
 
         (function () {
             'use strict';

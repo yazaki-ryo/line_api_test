@@ -81,8 +81,13 @@ final class SendMail
                 // $email->addPersonalization(${"personalization_".$key});
             }
             
-            $plain = new \SendGrid\Mail\Content("text/plain", "%name%様\n" . $content . "\n" . "配信停止は <% こちら %>");
-            $html = new \SendGrid\Mail\Content("text/html", "<strong>" . "%name%様<br>" . $content . "</strong><br>配信停止は <% こちら %>");
+            $plain = new \SendGrid\Mail\Content("text/plain", "%name%様\n" . $content);
+            $html = new \SendGrid\Mail\Content(
+                "text/html",
+                "<p style='text-align: center;'><img src='https://neeeds.me/images/logo.png' alt='neeeds'></p><br>" . 
+                "<p>%name%様</p>" .
+                "<p>" . $content . "</p>"
+            );
             $from = new \SendGrid\Mail\From((string)$user->email(), $store->name());
 
             $email = new \SendGrid\Mail\Mail($from, $tos, $title, $plain, $html);

@@ -30,7 +30,7 @@ final class MailRequest extends FormRequest
                 'max:191',
             ],
             'content' => [
-                'nullable',
+                'required',
                 'string',
                 'max:1000',
             ],
