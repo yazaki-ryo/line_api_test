@@ -23,4 +23,5 @@ mix-manifest.json
 /public/js/manifest.js
 /public/js/vendor.js
 /public/storage
+/public/vendor
 /nbproject/private/

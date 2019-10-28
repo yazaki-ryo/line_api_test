@@ -225,6 +225,23 @@ final class EloquentCustomer extends Model
      * @param  string $operator
      * @return Builder
      */
+    public function scopeAddress(Builder $query, string $value, string $operator = 'like'): Builder
+    {
+        $field = sprintf('%s.address', $this->getTable());
+
+        return $query->when($operator === 'regexp', function(Builder $q) use ($field, $value) {
+            $q->where($field, 'regexp', $value);
+        }, function(Builder $q) use ($value, $field, $operator) {
+            $q->where($field, $operator, sprintf('%%%s%%', $value));
+        });
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  string $value
+     * @param  string $operator
+     * @return Builder
+     */
     public function scopeTel(Builder $query, string $value, string $operator = '='): Builder
     {
         $field = sprintf('%s.tel', $this->getTable());
