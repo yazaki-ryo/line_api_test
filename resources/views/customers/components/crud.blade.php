@@ -326,7 +326,7 @@
         </label>
 
         <div class="col-md-6">
-            <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}</textarea>
+            <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="3" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null }}</textarea>
             @include ('components.form.err_msg', ['attribute' => $attribute])
         </div>
     </div>
