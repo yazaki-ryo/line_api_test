@@ -334,6 +334,9 @@ final class EloquentCustomer extends Model
                 $q2->firstNameKana($value, 'like');
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
+                $q2->address($value, 'like');
+            });
+            $q1->orWhere(function(Builder $q2) use ($value) {
                 $q2->office($value, 'like');
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
