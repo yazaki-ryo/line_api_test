@@ -133,7 +133,7 @@
                 info: true,
                 lengthChange: true,
                 lengthMenu: [10, 25, 50, 100],
-                order: [],
+                order: [[0, 'desc']],
                 ordering: true,
                 paging: true,
                 scrollX: false,
