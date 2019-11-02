@@ -51,12 +51,12 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
-            'address_x'                    => 30,
+            'address_x'                    => 20,
             'address_y'                    => 40,
             'address_font'                 => 'gothic',
-            'address_font_size'            => 10,
+            'address_font_size'            => 9,
 
-            'name_x'                       => 25,
+            'name_x'                       => 23,
             'name_y'                       => 60,
             'name_font'                    => 'gothic',
             'name_font_size'               => 10,
