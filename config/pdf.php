@@ -51,19 +51,19 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
-            'address_x'                    => 23,
+            'address_x'                    => 20,
             'address_y'                    => 40,
             'address_font'                 => 'gothic',
-            'address_font_size'            => 10,
+            'address_font_size'            => 9,
 
-            'name_x'                       => 25,
+            'name_x'                       => 20,
             'name_y'                       => 60,
             'name_font'                    => 'gothic',
             'name_font_size'               => 10,
 
-            'store_name_font_size'         => 10,
+            'store_name_font_size'         => 9,
 
-            'department_name_font_size'    => 10, 
+            'department_name_font_size'    => 9, 
 
             'from_flag'                    => true,
             'from_pc_position'             => 'free',
@@ -71,7 +71,7 @@ return [
             'from_pc_x'                    => 40,
             'from_pc_y'                    => 105,
             'from_pc_font'                 => 'gothic',
-            'from_pc_font_size'            => 10,
+            'from_pc_font_size'            => 9,
 
             'from_address_x'               => 40,
             'from_address_y'               => 110,
@@ -100,19 +100,19 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
-            'address_x'                    => 23,
+            'address_x'                    => 20,
             'address_y'                    => 40,
             'address_font'                 => 'gothic',
-            'address_font_size'            => 10,
+            'address_font_size'            => 9,
 
-            'name_x'                       => 25,
+            'name_x'                       => 20,
             'name_y'                       => 55,
             'name_font'                    => 'gothic',
             'name_font_size'               => 10,
 
-            'store_name_font_size'         => 10,
+            'store_name_font_size'         => 9,
 
-            'department_name_font_size'    => 10, 
+            'department_name_font_size'    => 9, 
 
             'from_flag'                    => true,
             'from_pc_position'             => 'fixed',
