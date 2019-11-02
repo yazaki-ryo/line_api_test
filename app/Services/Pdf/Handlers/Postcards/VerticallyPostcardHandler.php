@@ -15,6 +15,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
     /** @var string */
     private $filename = 'postcard.pdf';
 
+    private $previousFontSize = 10;
+
     /**
      * @param DomainModel[] $data
      * @return void
@@ -66,7 +68,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $this->address($item->address(), $item->building());
 
             // 氏名がNULLの場合は空文字にする
-            $this->name($item->lastName(), !empty($item->firstName()) ? $item->firstName() : "", $item->office(), $item->department(), $item->position());
+            $this->name($item->lastName(), !is_null($item->firstName()) ? $item->firstName() : "", $item->office(), $item->department(), $item->position());
 
             // 郵便番号がある場合のみセット
             if(!empty($this->from->postalCode())) {
@@ -144,10 +146,12 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
      */
     private function address(string $address, string $building = null): void
     {
+        $address = mb_convert_kana($address, 'rn', 'UTF-8');
         $this->fonts($this->settings->addressFont());
         $this->processor->SetFont($this->font, '', (float)$this->settings->addressFontSize(), '', true);
         $this->processor->setFontSpacing(0);
-        $this->processor->MultiCell(65.0, 20.0, sprintf("%s%s%s", $address, PHP_EOL, $building), 0, 'L', 0, 0, (float)$this->settings->addressX(), (float)$this->settings->addressY(), true, 0, false, true, 20.0, 'T', true);
+        $this->variableMultiCell(73.0, 20.0, sprintf("%s", $address), 0, 'L', 0, 0, (float)$this->settings->addressX(), (float)$this->settings->addressY(), true, 0, false, true, 20.0, 'T', true, (float)$this->settings->addressFontSize());
+        $this->variableMultiCell(65.0, 20.0, sprintf("%s", $building), 0, 'L', 0, 0, (float)$this->settings->addressX(), 45.0, true, 0, false, true, 20.0, 'T', true, (float)$this->previousFontSize);
     }
 
     /**
@@ -165,8 +169,8 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
 
         if (! is_null($company)) {
             $this->processor->SetFont($this->font, '', (float)$this->settings->storeNameFontSize(), '', true);// TODO company font and size
-            $this->processor->setFontSpacing(2.0);
-            $this->processor->MultiCell(70.0, 5.0, $company, 0, 'C', 0, 0, 20.0, $y, true, 0, false, true, 10.0, 'T', true);
+            $this->processor->setFontSpacing(1.0);
+            $this->variableMultiCell(75.0, 5.0, $company, 0, 'L', 0, 0, 20.0, $y, true, 0, false, true, 10.0, 'T', true, (float)$this->settings->storeNameFontSize());
             $y += 10.0;
 
             if (! is_null($department)) {
@@ -176,14 +180,14 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
 
                 $this->processor->SetFont($this->font, '', (float)$this->settings->departmentNameFontSize(), '', true);// TODO department font and size
                 $this->processor->setFontSpacing(0.5);
-                $this->processor->MultiCell(70.0, 5.0, $department, 0, 'C', 0, 0, 18.0, $y, true, 0, false, true, 10.0, 'T', true);
+                $this->variableMultiCell(70.0, 5.0, $department, 0, 'L', 0, 0, 18.0, $y, true, 0, false, true, 10.0, 'T', true, (float)$this->previousFontSize);
                 $y += 10.0;
             }
         }
 
         $this->processor->SetFont($this->font, '', (float)$this->settings->nameFontSize(), '', true);
-        $this->processor->setFontSpacing(2.0);
-        $this->processor->MultiCell(60.0, 15.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'C', 0, 0, (float)$this->settings->nameX(), $y, true, 0, false, true, 15.0, 'T', true);
+        $this->processor->setFontSpacing(1.0);
+        $this->processor->MultiCell(60.0, 15.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'L', 0, 0, (float)$this->settings->nameX(), $y, true, 0, false, true, 15.0, 'T', true);
     }
 
     /**
@@ -254,6 +258,21 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->processor->SetFont($this->font, '', (float)$this->settings->fromPersonalNameFontSize(), '', true);
         $this->processor->setFontSpacing(1.0);
         $this->processor->MultiCell(50.0, 10.0, $value, 0, 'R', 0, 0, (float)$this->settings->fromPersonalNameX(), (float)$this->settings->fromPersonalNameY(), true, 0, false, true, 10.0, 'T', true);
+    }
+
+    private function variableMultiCell($w, $h, $txt, $border, $align, $fill, $ln, $x, $y, $reseth, $stretch, $ishtml, $autopadding, $maxh, $valign, $fitcell, $fontSize)
+    {
+        for ($i = 0; $i < 5; $i++ ) {
+            // 文字列の幅を取得
+            $strWidth = $this->processor->GetStringWidth($txt, $this->font, '', $fontSize);
+            // $w >= ( mb_strlen(trim($txt), 'UTF-8')) * ($fontSize - $i) * 0.35
+            if ( $w <= $strWidth ){
+                $fontSize = $fontSize - $i;
+            }
+        }
+        $this->processor->SetFontSize($fontSize, true);
+        $this->previousFontSize = $fontSize;
+        $this->processor->MultiCell($w, $h, $txt, $border, $align, $fill, $ln, $x, $y, $reseth, $stretch, $ishtml, $autopadding, $maxh, $valign, $fitcell);
     }
 
 }
