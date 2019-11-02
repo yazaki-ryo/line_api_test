@@ -432,6 +432,8 @@
 
 <hr>
 
+<a href="#customer-other-info" class="btn btn-info mb-15" data-toggle="collapse">@lang ('Show other information.')</a>
+
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @if ($mode === 'add')
