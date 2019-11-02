@@ -99,10 +99,11 @@ final class ExportPostcards
                 'mourning_flag' => true,
                 'notNull'       => [
                     'last_name',
-                    'first_name',
-                    'postal_code',
+                    //'first_name',
+                    //'postal_code',
                     'address',
                 ],
+                'address' => '[0-9０－９]+',
             ])->toArray());
         }
 
