@@ -51,7 +51,7 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
-            'address_x'                    => 30,
+            'address_x'                    => 23,
             'address_y'                    => 40,
             'address_font'                 => 'gothic',
             'address_font_size'            => 10,
@@ -79,12 +79,12 @@ return [
             'from_address_font_size'       => 7,
 
             'from_name_x'                  => 40,
-            'from_name_y'                  => 125,
+            'from_name_y'                  => 123,
             'from_name_font'               => 'gothic',
             'from_name_font_size'          => 7,
             
-            'from_personal_name_x'         => 39,
-            'from_personal_name_y'         => 135,
+            'from_personal_name_x'         => 40,
+            'from_personal_name_y'         => 130,
             'from_personal_name_font'      => 'gothic',
             'from_personal_name_font_size' => 7,
         ],
@@ -100,8 +100,8 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
-            'address_x'                    => 30,
-            'address_y'                    => 35,
+            'address_x'                    => 23,
+            'address_y'                    => 40,
             'address_font'                 => 'gothic',
             'address_font_size'            => 10,
 
