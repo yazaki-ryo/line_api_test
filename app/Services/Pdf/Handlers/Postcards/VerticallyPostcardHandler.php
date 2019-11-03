@@ -267,10 +267,10 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $strWidth = $this->processor->GetStringWidth($txt, $this->font, '', $fontSize);
             // $w >= ( mb_strlen(trim($txt), 'UTF-8')) * ($fontSize - $i) * 0.35
             if ( $w <= $strWidth ){
-                $fontSize = $fontSize - $i;
+                $fontSize = $fontSize - 0.75;
             }
         }
-        $this->processor->SetFontSize($fontSize, true);
+        $this->processor->SetFontSize((float)$fontSize, true);
         $this->previousFontSize = $fontSize;
         $this->processor->MultiCell($w, $h, $txt, $border, $align, $fill, $ln, $x, $y, $reseth, $stretch, $ishtml, $autopadding, $maxh, $valign, $fitcell);
     }
