@@ -122,6 +122,8 @@
             extraPlugins:'codesnippet',
             codeSnippet_theme:'dark',
             height:'200px',
+            // filebrowserUploadUrl: '{{ route("customers.index", ['_token' => csrf_token() ]) }}',
+            // filebrowserUploadMethod: 'form'
             //removeButtons:'Unlink,Anchor, NewPage,DocProps,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,RemoveFormat,Outdent,Indent,Blockquote,Styles,About'
         });
 
