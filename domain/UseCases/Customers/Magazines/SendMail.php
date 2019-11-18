@@ -65,7 +65,7 @@ final class SendMail
         if(!empty($args['content'])) {
             $content = $args['content'];
         }
-
+        $storeName = $store->name();
         $customers = $store->customers($ids);
 
         if(!empty($customers)) {
@@ -73,7 +73,7 @@ final class SendMail
             $tos = [];
             foreach($customers as $key => $customer) {
                 $name = $customer->lastName() . " " . $customer->firstName();
-                $tos[] = new \SendGrid\Mail\To((string)$customer->email(), $name, ["%name%" => $name]);
+                $tos[] = new \SendGrid\Mail\To((string)$customer->email(), $name, ["%name%" => $name, "%storeName%" => $storeName]);
                 // ${"personalization_".$key} = new \SendGrid\Mail\Personalization();
                 // ${"personalization_".$key}->addTo(new \SendGrid\Mail\To((string)$customer->email(), $name));
                 // ${"personalization_".$key}->addSubstitution("%name%", $name);
@@ -84,8 +84,8 @@ final class SendMail
             $plain = new \SendGrid\Mail\Content("text/plain", "%name%様\n" . $content);
             $html = new \SendGrid\Mail\Content(
                 "text/html",
-                "<p style='text-align: center;'><img src='https://neeeds.me/images/logo.png' alt='neeeds'></p><br>" . 
                 "<p>%name%様</p>" .
+                "<p>%storeName%からのお知らせです。</p>" . 
                 "<p>" . $content . "</p>"
             );
             $from = new \SendGrid\Mail\From((string)$user->email(), $store->name());
