@@ -54,18 +54,24 @@ final class SendMail
         $title = "";
         $content = "";
 
+        // 店舗名を取得
+        $storeName = $store->name();
+
         if(!empty($args['target_customers'])) {
             $ids['customer_ids'] = $args['target_customers'];
         } 
 
+        $title = "【" . $storeName . "からのお知らせ】";
+
         if(!empty($args['title'])) {
-            $title = $args['title'];
+            $title .= " " . $args['title'];
         }
 
         if(!empty($args['content'])) {
             $content = $args['content'];
         }
-        $storeName = $store->name();
+
+        // 顧客情報を取得
         $customers = $store->customers($ids);
 
         if(!empty($customers)) {
@@ -80,14 +86,18 @@ final class SendMail
                 // 配信停止タグ： 配信停止は <% こちら %>
                 // $email->addPersonalization(${"personalization_".$key});
             }
+
+            $mailDetail = <<<EOL
+            <p>%name%様</p>
+            <p>%storeName%からのお知らせです。</p><br> 
+            <p>$content</p><br><br>
+            <p> ------------------------------------------------------------------------ </p>
+            <p>配信停止は下記リンクをクリックしてください</p>" .
+            <p>↓↓↓</p>
+EOL;
             
             $plain = new \SendGrid\Mail\Content("text/plain", "%name%様\n" . $content);
-            $html = new \SendGrid\Mail\Content(
-                "text/html",
-                "<p>%name%様</p>" .
-                "<p>%storeName%からのお知らせです。</p>" . 
-                "<p>" . $content . "</p>"
-            );
+            $html = new \SendGrid\Mail\Content("text/html", $mailDetail);
             $from = new \SendGrid\Mail\From((string)$user->email(), $store->name());
 
             $email = new \SendGrid\Mail\Mail($from, $tos, $title, $plain, $html);
