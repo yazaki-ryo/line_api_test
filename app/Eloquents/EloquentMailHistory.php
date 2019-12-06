@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 final class EloquentMailHistory extends Model
 {
@@ -24,6 +25,14 @@ final class EloquentMailHistory extends Model
         'title',
         'content',
     ];
+
+    /**
+     * @return MorphMany
+     */
+    public function attachments(): MorphMany
+    {
+        return $this->morphMany(EloquentAttachment::class, 'attachmentable', 'attachmentable_type', 'attachmentable_id', 'id');
+    }
 
     /**
      * @return BelongsTo

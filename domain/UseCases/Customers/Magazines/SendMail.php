@@ -4,12 +4,17 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers\Magazines;
 
 use App\Traits\Database\Transactionable;
+use App\Services\DomainCollection;
 use Carbon\Carbon;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
+use Domain\Models\MailHistory;
+use Domain\Models\Attachment;
 use Domain\Models\Customer;
 use Domain\Models\Store;
 use Domain\Models\User;
+use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
+use Illuminate\Http\UploadedFile;
 
 final class SendMail
 {
@@ -61,15 +66,18 @@ final class SendMail
             $ids['customer_ids'] = $args['target_customers'];
         } 
 
+        // タイトルを設定
         $title = "【" . $storeName . "からのお知らせ】";
-
         if(!empty($args['title'])) {
             $title .= " " . $args['title'];
         }
 
+        // 本文を設定
         if(!empty($args['content'])) {
             $content = $args['content'];
         }
+
+        $mailHistories = $store->mailHistories();
 
         // 顧客情報を取得
         $customers = $store->customers($ids);
@@ -83,7 +91,6 @@ final class SendMail
                 // ${"personalization_".$key} = new \SendGrid\Mail\Personalization();
                 // ${"personalization_".$key}->addTo(new \SendGrid\Mail\To((string)$customer->email(), $name));
                 // ${"personalization_".$key}->addSubstitution("%name%", $name);
-                // 配信停止タグ： 配信停止は <% こちら %>
                 // $email->addPersonalization(${"personalization_".$key});
             }
 
@@ -107,11 +114,16 @@ EOL;
                 $sendGrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
                 $response = $sendGrid->send($email);
                 // print $response->statusCode() . "\n";
+
                 // print_r($response->headers());
                 // print $response->body() . "\n";
-                $this->transaction(function () use ($store, $args) {
-                    // 以下にはメールの送信内容を登録する処理を記述
-                    // $customer = $store->customer($args);
+                $this->transaction(function () use ($store, $mailHistories, $args) {
+                    // メール送信内容を登録
+                    $result = $store->addMailHistory($args);
+                    // 画像情報を登録
+                    // if(!empty($result)) {
+                    //     $this->addAttachment($store, $mailHistories);
+                    // }
                 });
             } catch (Exception $e) {
                 echo 'Caught exception: '. $e->getMessage() ."\n";
@@ -128,25 +140,20 @@ EOL;
     private function domainize(User $user, array $args = []): array
     {
         $args = collect($args);
-
         // 
-
         return $args->all();
     }
 
     /**
-     * @param Customer $customer
-     * @param UploadedFile $file
+     * @param Store $store
      * @return Attachment
      */
-    private function addAttachment(Customer $customer, UploadedFile $file): Attachment
+    private function addAttachment(Store $store, DomainCollection $mailHistories): Attachment
     {
-        $attachment = $customer->addAttachment([
-            'path' => $path = sprintf('images/attachments/customers/%s', $customer->id()),
+        $attachment = $mailHistories->addAttachment([
+            'path' => $path = sprintf('images/attachments/customers/%s', $store->id()),
             'name' => $name = sprintf('%s_%s_%s', time(), str_random(16), $file->getClientOriginalName()),
         ]);
-
-        $this->filesystem->disk('public')->putFileAs($path, $file, $name);
 
         return $attachment;
     }

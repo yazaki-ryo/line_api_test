@@ -36,6 +36,7 @@ final class RelationServiceProvider extends ServiceProvider
             'customers' => EloquentCustomer::class,
             'users'     => EloquentUser::class,
             'visited_histories' => EloquentVisitedHistory::class,
+            'mail_histories' => EloquentMailHistory::class,
         ]);
     }
 }

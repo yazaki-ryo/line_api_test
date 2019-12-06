@@ -1,16 +1,16 @@
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'title') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
+    <label for="{{ $attribute }}" class="col-md-2 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <input type="text" name="{{ $attribute }}" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : '' }}" class="form-control" id="{{ $attribute }}" maxlength="191" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
 </div>
 
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'content') ? ' has-error' : '' }}">
-    <label for="{{ $attribute }}" class="col-md-4 control-label">
+    <label for="{{ $attribute }}" class="col-md-2 control-label">
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
 

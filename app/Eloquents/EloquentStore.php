@@ -93,6 +93,14 @@ final class EloquentStore extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function mailHistories(): HasMany
+    {
+        return $this->hasMany(EloquentMailHistory::class, 'store_id', 'id');
+    }
+
+    /**
      * @return HasOne
      */
     public function prefecture(): HasOne

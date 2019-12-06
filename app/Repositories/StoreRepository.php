@@ -14,6 +14,7 @@ use Domain\Models\Reservation;
 use Domain\Models\Store;
 use Domain\Models\Tag;
 use Domain\Models\Seat;
+use Domain\Models\MailHistory;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -202,12 +203,34 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
 
     /**
      * @param  array $args
+     * @return MailHistory
+     */
+    public function addMailHistory(array $args = []): MailHistory
+    {
+        $resource = $this->eloquent->mailHistories()->create($args);
+        return MailHistoryRepository::toModel($resource);
+    }
+
+    /**
+     * @param  array $args
      * @return DomainCollection
      */
     public function users(array $args = []): DomainCollection
     {
         $collection = empty($args) ? $this->eloquent->users : UserRepository::build($this->eloquent->users(), $args)->get();
         return UserRepository::toModels($collection);
+    }
+
+
+    public function mailHistories(array $args = []): DomainCollection
+    {
+        if (empty($args)) {
+            $collection = $this->eloquent->mailHistories;
+          } else {
+            $query = MailHistoryRepository::build($this->eloquent->mailHistories(), $args);
+            $collection = $query->get();
+          }
+          return MailHistoryRepository::toModels($collection);
     }
 
     /**
