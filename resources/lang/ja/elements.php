@@ -42,6 +42,7 @@ return [
         'csv'            => 'CSV',
         'customer'       => '顧客',
         'customers'      => '顧客',
+        'content'        => '内容',
 
         /**
          * D
@@ -53,6 +54,7 @@ return [
         'delete'         => '削除',
         'deleted'        => '削除',
         'detail'         => '詳細',
+        'destination'    => '送信先',
 
         /**
          * E
@@ -117,6 +119,7 @@ return [
         'menus'          => 'メニュー',
         'mode'           => 'モード',
         'mail'           => 'メール',
+        'mail_history'   => 'メール履歴',
 
         /**
          * N
@@ -190,6 +193,7 @@ return [
         'submit'         => '送信',
         'survey'         => '調査',
         'surveys'        => 'アンケート',
+        'send'           => '送信',
 
 
         /**
@@ -200,6 +204,7 @@ return [
         'test'           => 'テスト',
         'toggle'         => '切り替え',
         'trashed'        => '削除データ',
+        'title'          => 'タイトル',
 
         /**
          * U

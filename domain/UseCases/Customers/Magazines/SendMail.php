@@ -111,13 +111,12 @@ EOL;
                 // APIキーをセット
                 $sendGrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
                 $response = $sendGrid->send($email);
-                $this->transaction(function () use ($store, $mailHistories, $args) {
+                $this->transaction(function () use ($store, $mailHistories, $ids, $args) {
                     // メール送信内容を登録
-                    $result = $store->addMailHistory($args);
-                    // 画像情報を登録
-                    // if(!empty($result)) {
-                    //     $this->addAttachment($store, $mailHistories);
-                    // }
+                    foreach($ids as $customerId) {
+                        $args['customer_id'] = $customerId;
+                        $result = $store->addMailHistory($args);
+                    }
                 });
             } catch (Exception $e) {
                 echo 'Caught exception: '. $e->getMessage() ."\n";

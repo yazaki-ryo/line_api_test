@@ -8,6 +8,7 @@ use App\Services\DomainCollection;
 use Domain\Contracts\Model\DomainableContract;
 use Domain\Models\DomainModel;
 use Domain\Models\Store;
+use Domain\Models\Customer;
 use Domain\Models\MailHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -55,6 +56,17 @@ final class MailHistoryRepository extends EloquentRepository implements Domainab
         return StoreRepository::toModel($resource);
     }
 
+    /**
+     * @return Customer|null
+     */
+    public function customer(): ?Customer
+    {
+        if (is_null($resource = $this->eloquent->customer)) {
+            return null;
+        }
+        return CustomerRepository::toModel($resource);
+    }
+
 
     /**
      * @param  array $args
@@ -78,6 +90,28 @@ final class MailHistoryRepository extends EloquentRepository implements Domainab
 
         $query->when($args->has($key = 'store_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->storeId($args->get($key));
+        });
+
+        $query->when($args->has($key = 'customer_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->customerId($args->get($key));
+        });
+
+        $query->when($args->has($key = 'sort') && is_numeric($args->get($key)), function (Builder $q) use ($key, $args) {
+            $sorting = $args->get('sort');
+            switch ($sorting) {
+                case '3': // タイトル 昇順 > 登録日 昇順
+                    $q->orderBy('title')
+                        ->orderBy('created_at');
+                    break;
+                case '-1': // 送信日 降順 > タイトル 昇順
+                    $q->orderByDesc('created_at')
+                        ->orderBy('title');
+                    break;
+                default: // 送信日 昇順 > タイトル 昇順
+                    $q->orderBy('created_at')
+                        ->orderBy('title');
+                    break;
+            }
         });
 
         return $query;

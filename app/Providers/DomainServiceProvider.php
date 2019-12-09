@@ -57,6 +57,7 @@ final class DomainServiceProvider extends ServiceProvider
             Customers\Tags\UpdateTags::class,
             Customers\Magazines\SendMail::class,
             Customers\Magazines\Upload::class,
+            Customers\Magazines\GetMailHistory::class,
 
             Reservations\CreateReservation::class,
             Reservations\DeleteReservation::class,
@@ -162,6 +163,12 @@ final class DomainServiceProvider extends ServiceProvider
             return new Customers\Magazines\Upload(
                 app(Services\StoresService::class),
                 app(FilesystemFactory::class)
+            );
+        });
+
+        $this->app->singleton(Customers\Magazines\GetMailHistory::class, function () {
+            return new Customers\Magazines\GetMailHistory(
+                app(Services\StoresService::class)
             );
         });
 

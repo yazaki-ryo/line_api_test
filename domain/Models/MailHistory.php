@@ -77,6 +77,22 @@ final class MailHistory extends DomainModel
     }
 
     /**
+     * @return string|null
+     */
+    public function content(): ?string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function status(): ?string
+    {
+        return $this->status;
+    }
+
+    /**
      * @return Datetime|null
      */
     public function createdAt(): ?Datetime
@@ -106,6 +122,14 @@ final class MailHistory extends DomainModel
     public function store(): ?Store
     {
         return $this->repo->store();
+    }
+
+    /**
+     * @return Customer|null
+     */
+    public function customer(): ?Customer
+    {
+        return $this->repo->customer();
     }
 
     /**
@@ -174,6 +198,10 @@ final class MailHistory extends DomainModel
         }
 
         if ($args->has($key = 'content')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'status')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

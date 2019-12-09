@@ -64,6 +64,7 @@ Route::prefix('/')->group(function () {
         });
 
         Route::prefix($prefix = 'magazines')->name(sprintf('%s.', $prefix))->group(function () {
+            Route::get($name = '/', \App\Http\Controllers\Customers\Magazines\IndexController::class)->name($name);
             Route::post($name = 'mail', \App\Http\Controllers\Customers\Magazines\MailController::class)->name($name);
             Route::post($name = 'image', \App\Http\Controllers\Customers\Magazines\ImageController::class)->name($name);
         });        

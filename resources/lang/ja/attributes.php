@@ -114,6 +114,14 @@ return [
             'created_at'   => '登録日時',
             'updated_at'   => '更新日時',
         ],
+
+        'magazines' => [
+            'title' => 'タイトル',
+            'content' => '本文',
+            'status' => 'ステータス',
+            'created_at'   => '送信日時',
+        ],
+
     ],
 
     'reservations' => [

@@ -280,6 +280,15 @@ final class Store extends DomainModel
 
     /**
      * @param  array $args
+     * @return int
+     */
+    public function numMailHistories(array $args = []): int
+    {
+        return $this->repo->numMailHistories($args);
+    }
+
+    /**
+     * @param  array $args
      * @return Customer
      */
     public function addCustomer(array $args = []): Customer

@@ -233,6 +233,21 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
           return MailHistoryRepository::toModels($collection);
     }
 
+    public function numMailHistories(array $args = []): int
+    {
+        if (empty($args)) {
+            return $this->eloquent->mailHistories->count();
+        } else {
+            $options = [];
+            foreach ($args as $key => $value) {
+              if ($key !== 'page') {
+                $options[$key] = $value;
+              }
+            }
+            return MailHistoryRepository::build($this->eloquent->mailHistories(), $options)->count();
+        }
+    }
+
     /**
      * @param  mixed $query
      * @param  array $args
