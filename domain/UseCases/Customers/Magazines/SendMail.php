@@ -70,11 +70,13 @@ final class SendMail
         $title = "【" . $storeName . "からのお知らせ】";
         if(!empty($args['title'])) {
             $title .= " " . $args['title'];
+            $title = strip_tags($title, '<script>');
         }
 
         // 本文を設定
         if(!empty($args['content'])) {
             $content = $args['content'];
+            $content = strip_tags($content, '<script>');
         }
 
         $mailHistories = $store->mailHistories();
@@ -88,10 +90,6 @@ final class SendMail
             foreach($customers as $key => $customer) {
                 $name = $customer->lastName() . " " . $customer->firstName();
                 $tos[] = new \SendGrid\Mail\To((string)$customer->email(), $name, ["%name%" => $name, "%storeName%" => $storeName]);
-                // ${"personalization_".$key} = new \SendGrid\Mail\Personalization();
-                // ${"personalization_".$key}->addTo(new \SendGrid\Mail\To((string)$customer->email(), $name));
-                // ${"personalization_".$key}->addSubstitution("%name%", $name);
-                // $email->addPersonalization(${"personalization_".$key});
             }
 
             $mailDetail = <<<EOL
@@ -99,7 +97,7 @@ final class SendMail
             <p>%storeName%からのお知らせです。</p><br> 
             <p>$content</p><br><br>
             <p> ------------------------------------------------------------------------ </p>
-            <p>配信停止は下記リンクをクリックしてください</p>" .
+            <p>配信停止は下記リンクをクリックしてください</p>
             <p>↓↓↓</p>
 EOL;
             
@@ -113,10 +111,6 @@ EOL;
                 // APIキーをセット
                 $sendGrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
                 $response = $sendGrid->send($email);
-                // print $response->statusCode() . "\n";
-
-                // print_r($response->headers());
-                // print $response->body() . "\n";
                 $this->transaction(function () use ($store, $mailHistories, $args) {
                     // メール送信内容を登録
                     $result = $store->addMailHistory($args);
