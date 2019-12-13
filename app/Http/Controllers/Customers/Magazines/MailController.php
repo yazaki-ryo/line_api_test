@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\Magazines\MailRequest;
 use Domain\Models\User;
 use Domain\UseCases\Customers\Magazines\SendMail;
-use Illuminate\Http\UploadedFile;
 
 final class MailController extends Controller
 {

@@ -117,6 +117,7 @@
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
 
+        @can ('authorize', config('permissions.groups.customers.postcards.export'))
         // エディタ設定
         CKEDITOR.replace('content',{
             extraPlugins:'codesnippet',
@@ -124,9 +125,11 @@
             width: '650px',
             height:'350px',
             filebrowserUploadUrl: '{{ route("customers.magazines.image", ['_token' => csrf_token() ]) }}',
-            filebrowserUploadMethod: 'form'
-            //removeButtons:'Unlink,Anchor, NewPage,DocProps,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,RemoveFormat,Outdent,Indent,Blockquote,Styles,About'
+            filebrowserUploadMethod: 'form',
+            // removeButtons:'Unlink,Anchor, NewPage,DocProps,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,RemoveFormat,Outdent,Indent,Blockquote,Styles,About,Source'
+            removeButtons:'Source'
         });
+        @endcan
 
         (function () {
             'use strict';

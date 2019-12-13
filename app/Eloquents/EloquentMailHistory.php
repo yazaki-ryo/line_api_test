@@ -23,8 +23,10 @@ final class EloquentMailHistory extends Model
      */
     protected $fillable = [
         'customer_id',
+        'message_id',
         'title',
         'content',
+        'status'
     ];
 
     /**
@@ -59,6 +61,30 @@ final class EloquentMailHistory extends Model
     public function scopeStoreId(Builder $query, int $value): Builder
     {
         $field = sprintf('%s.store_id', $this->getTable());
+
+        return $query->where($field, '=', $value);
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  int $value
+     * @return Builder
+     */
+    public function scopeCustomerId(Builder $query, int $value): Builder
+    {
+        $field = sprintf('%s.customer_id', $this->getTable());
+
+        return $query->where($field, '=', $value);
+    }
+
+    /**
+     * @param  Builder $query
+     * @param  int $value
+     * @return Builder
+     */
+    public function scopeMessageId(Builder $query, string $value): Builder
+    {
+        $field = sprintf('%s.message_id', $this->getTable());
 
         return $query->where($field, '=', $value);
     }

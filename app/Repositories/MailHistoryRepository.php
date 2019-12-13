@@ -96,6 +96,10 @@ final class MailHistoryRepository extends EloquentRepository implements Domainab
             $q->customerId($args->get($key));
         });
 
+        $query->when($args->has($key = 'message_id') && ! is_null($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->messageId($args->get($key));
+        });
+
         $query->when($args->has($key = 'sort') && is_numeric($args->get($key)), function (Builder $q) use ($key, $args) {
             $sorting = $args->get('sort');
             switch ($sorting) {

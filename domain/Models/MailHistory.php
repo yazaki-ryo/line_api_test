@@ -18,6 +18,9 @@ final class MailHistory extends DomainModel
     private $customerId;
 
     /** @var string */
+    private $messageId;
+
+    /** @var string */
     private $title;
 
     /** @var string */
@@ -66,6 +69,14 @@ final class MailHistory extends DomainModel
     public function customerId(): ?int
     {
         return $this->customerId;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function messageId(): ?string
+    {
+        return $this->messageId;
     }
 
     /**
@@ -190,6 +201,10 @@ final class MailHistory extends DomainModel
         }
 
         if ($args->has($key = 'customer_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
+        }
+
+        if ($args->has($key = 'message_id')) {
             $this->{$camel = camel_case($key)} = $args->get($key);
         }
 

@@ -15,13 +15,16 @@
 <div class="table-responsive">
     <table class="table table-striped table-hover table-condensed table-bordered dt-responsive nowrap dataTable dtr-inline">
         <colgroup>
-            <col width="3%">
+            <col width="5%">
+            <col width="10%">
+            <col width="10%">
             <col width="10%">
             <col width="10%">
             <col width="10%">
         </colgroup>
         <thead>
             <tr>
+                <th class="text-center">@lang ('elements.words.number')</th>
                 <th class="text-center">@lang ('elements.words.title')</th>
                 <th class="text-center">@lang ('elements.words.content')</th>
                 <th class="text-center">@lang ('elements.words.customer')</th>
@@ -32,9 +35,10 @@
         <tbody>
             @foreach ($rows as $row)
                 <tr class="{{ $row->{$camel = camel_case('deleted_at')}() ? 'danger' : '' }}">
-                    <td class="text-left">{{ mb_strimwidth($row->{$camel = camel_case('title')}(), 0, 20, '...', 'UTF-8') }}</td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('id')}() }}</td>
+                    <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('title')}(), 0, 20, '...', 'UTF-8') }}</td>
                     <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('content')}(), 0, 20, '...', 'UTF-8') }}</td>
-                    <td class="text-center">{{ $row->customer()->lastName() }} {{ $row->customer()->firstName() }}</td>
+                    <td class="text-center">{{ !empty($row->customer()) ? $row->customer()->lastName() : null }} {{ !empty($row->customer()) ? $row->customer()->firstName() : null }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('status')}() }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('created_at')}() }}</td>
                 </tr>

@@ -49,7 +49,7 @@ final class SendMail
      * @param User $user
      * @param Store $store
      * @param array $args
-     * @return Customer
+     * @return MailHistory
      */
     public function excute(User $user, Store $store, array $args = [])
     {
@@ -70,16 +70,12 @@ final class SendMail
         $title = "【" . $storeName . "からのお知らせ】";
         if(!empty($args['title'])) {
             $title .= " " . $args['title'];
-            $title = strip_tags($title, '<script>');
         }
 
         // 本文を設定
         if(!empty($args['content'])) {
             $content = $args['content'];
-            $content = strip_tags($content, '<script>');
         }
-
-        $mailHistories = $store->mailHistories();
 
         // 顧客情報を取得
         $customers = $store->customers($ids);
@@ -92,31 +88,27 @@ final class SendMail
                 $tos[] = new \SendGrid\Mail\To((string)$customer->email(), $name, ["%name%" => $name, "%storeName%" => $storeName]);
             }
 
-            $mailDetail = <<<EOL
-            <p>%name%様</p>
-            <p>%storeName%からのお知らせです。</p><br> 
-            <p>$content</p><br><br>
-            <p> ------------------------------------------------------------------------ </p>
-            <p>配信停止は下記リンクをクリックしてください</p>
-            <p>↓↓↓</p>
-EOL;
+            $mailDetail = $this->mailDetail($content);
             
             $plain = new \SendGrid\Mail\Content("text/plain", "%name%様\n" . $content);
             $html = new \SendGrid\Mail\Content("text/html", $mailDetail);
             $from = new \SendGrid\Mail\From((string)$user->email(), $store->name());
-
             $email = new \SendGrid\Mail\Mail($from, $tos, $title, $plain, $html);
 
             try {
                 // APIキーをセット
                 $sendGrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
                 $response = $sendGrid->send($email);
-                $this->transaction(function () use ($store, $mailHistories, $ids, $args) {
+                $messageId = explode(' ', $response->headers()[7]);
+                $args['message_id'] = $messageId[1];
+                return $this->transaction(function () use ($store, $ids, $args) {
                     // メール送信内容を登録
-                    foreach($ids as $customerId) {
+                    foreach($ids['customer_ids'] as $customerId) {
                         $args['customer_id'] = $customerId;
-                        $result = $store->addMailHistory($args);
+                        $args['status'] = "送信済";
+                        $store->addMailHistory($args);
                     }
+                    return true;
                 });
             } catch (Exception $e) {
                 echo 'Caught exception: '. $e->getMessage() ."\n";
@@ -135,6 +127,22 @@ EOL;
         $args = collect($args);
         // 
         return $args->all();
+    }
+
+    /**
+     * @param string $content
+     * @return string
+     */
+    private function mailDetail(string $content) {
+        $mailDetail = <<<EOL
+            <p>%name%様</p>
+            <p>%storeName%からのお知らせです。</p><br> 
+            <p>$content</p><br><br>
+            <p> ------------------------------------------------------------------------ </p>
+            <p>配信停止は下記リンクをクリックしてください</p>
+            <p>↓↓↓</p>
+EOL;
+        return $mailDetail;
     }
 
     /**
