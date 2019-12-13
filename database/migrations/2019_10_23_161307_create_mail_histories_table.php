@@ -25,6 +25,7 @@ class CreateMailHistoriesTable extends Migration
                 $table->increments('id');
                 $table->unsignedInteger('store_id')->nullable()->comment('店舗ID');
                 $table->unsignedInteger('customer_id')->nullable()->comment('顧客ID');
+                $table->string('message_id')->nullable()->comment('メッセージID');
                 $table->string('title')->nullable()->comment('タイトル');
                 $table->text('content')->nullable()->comment('内容');
                 $table->string('status')->nullable()->comment('状態');
