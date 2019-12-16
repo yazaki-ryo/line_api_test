@@ -46,10 +46,10 @@ final class Event
                 $sgMessageId = $event->sg_message_id;
                 if(!empty($sgMessageId)) {
                     $sgMessageIds = explode('.', $sgMessageId); // preg_matchにしたほうがいいかも
-                    \Log::debug(print_r($sgMessageIds[0], true));
                     $mailHistories = $this->finder->findAll(['message_id' => $sgMessageIds[0]])->first();
                     \Log::debug(print_r($mailHistories, true));
-                    $status = $event->event;
+                    $mailStatus = config('mailstatus');
+                    $status = isset($mailStatus[$event->event]) ? $mailStatus[$event->event] : $event->event;
                     $this->finder->update($mailHistories->id(), ['status' => $status]);
                 }
                 return true;
