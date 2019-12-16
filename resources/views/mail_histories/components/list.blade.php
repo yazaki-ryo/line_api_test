@@ -12,6 +12,7 @@
     </div>
 </div>
 
+@include ('components.parts.page_buttons')
 <div class="table-responsive">
     <table class="table table-striped table-hover table-bordered dt-responsive nowrap dataTable dtr-inline">
         <colgroup>
@@ -46,6 +47,7 @@
         </tbody>
     </table>
 </div>
+@include ('components.parts.page_buttons')
 @else
     <p>@lang ('There is no :name.', ['name' => sprintf('%s%s', __('elements.words.mail_history'), __('elements.words.data'))])</p>
 @endif
