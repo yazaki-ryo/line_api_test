@@ -10,7 +10,7 @@
             <span class="btn btn-info" style="margin-right: 1em;" onclick="showMailTab()">@lang('Send Mail')</span>
         @endcan
         @can ('authorize', config('permissions.groups.customers.delete'))
-            <span class="btn btn-danger" onclick="if (confirm('@lang ('Are you sure delete selected customer(s)?')')) { deleteSelectedCustomers(); }">@lang('Delete selected customers')</span>
+            <span class="btn btn-danger delete-btn" onclick="if (confirm('@lang ('Are you sure delete selected customer(s)?')')) { deleteSelectedCustomers(); }">@lang('Delete selected customers')</span>
         @endcan
     </span>
     <div class="col-md-3 page-length-box">

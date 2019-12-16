@@ -122,7 +122,7 @@
         CKEDITOR.replace('content',{
             extraPlugins:'codesnippet',
             codeSnippet_theme:'dark',
-            width: '650px',
+            // width: '650px',
             height:'350px',
             filebrowserUploadUrl: '{{ route("customers.magazines.image", ['_token' => csrf_token() ]) }}',
             filebrowserUploadMethod: 'form',
