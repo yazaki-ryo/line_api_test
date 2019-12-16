@@ -13,7 +13,7 @@
 </div>
 
 <div class="table-responsive">
-    <table class="table table-striped table-hover table-condensed table-bordered dt-responsive nowrap dataTable dtr-inline">
+    <table class="table table-striped table-hover table-bordered dt-responsive nowrap dataTable dtr-inline">
         <colgroup>
             <col width="5%">
             <col width="10%">
