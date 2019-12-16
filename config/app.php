@@ -175,11 +175,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * Package Service Providers...
-         */
-        Unisharp\Ckeditor\ServiceProvider::class,
-
-        /*
          * Application Service Providers...
          */
         App\Providers\AuthServiceProvider::class,
