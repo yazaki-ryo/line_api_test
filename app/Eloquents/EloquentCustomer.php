@@ -330,16 +330,16 @@ final class EloquentCustomer extends Model
     {
         return $query->where(function(Builder $q1) use ($value) {
             $q1->orWhere(function(Builder $q2) use ($value) {
-                $q2->lastName($value, 'like');
+                $value = mb_convert_kana($value, 's', 'UTF-8');
+                $values = explode(' ', $value);
+                $q2->lastName(isset($values[0]) ? $values[0] : "", 'like');
+                $q2->firstName(isset($values[1]) ? $values[1] : "", 'like');
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
-                $q2->firstName($value, 'like');
-            });
-            $q1->orWhere(function(Builder $q2) use ($value) {
-                $q2->lastNameKana($value, 'like');
-            });
-            $q1->orWhere(function(Builder $q2) use ($value) {
-                $q2->firstNameKana($value, 'like');
+                $value = mb_convert_kana($value, 's', 'UTF-8');
+                $values = explode(' ', $value);
+                $q2->lastNameKana(isset($values[0]) ? $values[0] : "", 'like');
+                $q2->firstNameKana(isset($values[1]) ? $values[1] : "", 'like');
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
                 $q2->address($value, 'like');

@@ -5,8 +5,9 @@
     </label>
 
     <div class="col-md-6">
-        {!! Form::textarea($attribute, Session::get($attribute), ['class' => 'form-control', 'id' => $attribute, 'maxlength' => 1000, 'rows' => 2, 'placeholder' => __('Name, office name, features, etc.')]) !!}
+        {!! Form::textarea($attribute, Session::get($attribute), ['class' => 'form-control bottom-sm', 'id' => $attribute, 'maxlength' => 1000, 'rows' => 2, 'placeholder' => __('Name, office name, features, etc.')]) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
+        <p class="search-attention">@lang('When searching for full names, please put a space between the first and last names.')</p>
     </div>
 </div>
 

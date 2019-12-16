@@ -29,6 +29,9 @@ ul {
 .bottom {
   margin-bottom: 25px;
 }
+.bottom-sm {
+  margin-bottom: 10px;
+}
 .center {
   text-align: center;
 }
@@ -42,6 +45,9 @@ ul {
 .content-wrapper {
   padding-top: 150px;
   margin-bottom: 100px;
+}
+.search-attention {
+  font-size: 12px;
 }
 @media (max-width: 600px) {
   .content-wrapper {
