@@ -24,7 +24,7 @@ final class ImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'attachment' => [
+            'files' => [
                 'nullable',
                 'file',
                 'image',

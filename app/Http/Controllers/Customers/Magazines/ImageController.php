@@ -44,17 +44,10 @@ final class ImageController extends Controller
             'id' => $storeId,
         ]);
 
-        $args = $request->validated();
-
         /** @var UploadedFile $file */
-        $file = $request->file('upload');
-
-        $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-
-        $response = $this->useCase->excute($user, $store, $args, $file, $CKEditorFuncNum);
- 
-        @header('Content-type: text/html; charset=utf-8');
-        echo $response;
+        $file = $request->file('file');
+        $url = $this->useCase->excute($store, $file);
+        echo $url;
     }
 
 }

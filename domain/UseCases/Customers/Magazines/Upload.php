@@ -7,10 +7,7 @@ use App\Traits\Database\Transactionable;
 use Carbon\Carbon;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Exceptions\NotFoundException;
-use Domain\Models\Attachment;
-use Domain\Models\Customer;
 use Domain\Models\Store;
-use Domain\Models\User;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
 use Illuminate\Http\UploadedFile;
 
@@ -51,33 +48,19 @@ final class Upload
      * @param User $user
      * @param Store $store
      * @param array $args
-     * @return Customer
+     * @return mixed
      */
-    public function excute(User $user, Store $store, array $args = [], UploadedFile $file = null, $CKEditorFuncNum)
+    public function excute(Store $store, UploadedFile $file = null)
     {
         $response = null;
-        $args = $this->domainize($user, $args);
         $path = sprintf('images/attachments/magazines/%s', $store->id());
         $name = sprintf('%s_%s_%s', time(), str_random(16), $file->getClientOriginalName());
         $url = asset(sprintf('storage/images/attachments/magazines/%s/%s', $store->id(), $name));
         $result = $this->filesystem->disk('public')->putFileAs($path, $file, $name);
         if(!empty($result)) {
-            $msg = '画像をアップロードしました。'; 
-            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+            return $url;
         }
-        return $response;
-    }
-
-    /**
-     * @param User $user
-     * @param array $args
-     * @return array
-     */
-    private function domainize(User $user, array $args = []): array
-    {
-        $args = collect($args);
-        // 
-        return $args->all();
+        return false;
     }
 
 }

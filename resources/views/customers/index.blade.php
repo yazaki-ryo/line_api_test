@@ -113,22 +113,46 @@
 @endsection
 
 @section ('scripts')
+    <link href="{{ asset('css/summernote.css') }}" rel="stylesheet">
     <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="{{ asset('js/summernote.min.js') }}"></script>
+    <script src="{{ asset('js/summernote-ja-JP.js') }}"></script>
     <script type="text/javascript">
 
         @can ('authorize', config('permissions.groups.customers.postcards.export'))
-        // エディタ設定
-        CKEDITOR.replace('content',{
-            extraPlugins:'codesnippet',
-            codeSnippet_theme:'dark',
-            // width: '650px',
-            height:'350px',
-            filebrowserUploadUrl: '{{ route("customers.magazines.image", ['_token' => csrf_token() ]) }}',
-            filebrowserUploadMethod: 'form',
-            // removeButtons:'Unlink,Anchor, NewPage,DocProps,Preview,Print,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Undo,Redo,Find,Replace,SelectAll,Scayt,RemoveFormat,Outdent,Indent,Blockquote,Styles,About,Source'
-            removeButtons:'Source'
+ 
+        jQuery(document).ready(function() {
+            jQuery('#content').summernote({
+                height: 300,
+                lang: 'ja-JP',
+                callbacks: {
+                    // 画像がアップロードされた時の動作
+                    onImageUpload: function(files) {
+                        upload(files[0]);
+                    }
+                }
+            });
+
+            function upload(file){
+                var data = new FormData();
+                data.append('file', file);
+                data.append('_token', '{{ csrf_token() }}');
+                jQuery.ajax({
+                    data: data,
+                    type: 'POST',
+                    url: '/ajax/magazines/image',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(url) {
+                        console.log(url);
+                        jQuery('#content').summernote('insertImage' , url);
+                    }
+                });
+            }
+
         });
+
         @endcan
 
         (function () {

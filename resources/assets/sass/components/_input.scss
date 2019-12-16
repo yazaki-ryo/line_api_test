@@ -3,6 +3,10 @@
   border: 0;
   border-radius: 0;
 }
+.input-mail-content {
+  position: relative;
+  z-index: 1051;
+}
 @media screen and (max-width: 768px) {
   .form-bottom {
     margin-bottom: 15px;

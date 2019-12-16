@@ -49,6 +49,9 @@ ul {
 .search-attention {
   font-size: 12px;
 }
+.modal-content {
+  z-index: 9999;
+}
 @media (max-width: 600px) {
   .content-wrapper {
     padding-top: 50px;

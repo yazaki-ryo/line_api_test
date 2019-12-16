@@ -14,7 +14,7 @@
         @lang (sprintf('attributes.customers.%s', $attribute))
     </label>
 
-    <div class="col-md-8">
+    <div class="col-md-8 input-mail-content">
         <textarea name="{{ $attribute }}" class="form-control" id="{{ $attribute }}" maxlength="1000" rows="7" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))">{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : null }}</textarea>
         @include ('components.form.err_msg', ['attribute' => $attribute])
     </div>
