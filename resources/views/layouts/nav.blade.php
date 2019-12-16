@@ -36,7 +36,9 @@
                                 @can ('authorize', config('permissions.groups.customers.select'))
                                     <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers.index', ['tab' => 'customers_search_request']) }}">@lang ('elements.words.customers')@lang ('elements.words.list')</a></li>
                                 @endcan
-
+                                @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                                    <li class="{{ request()->route()->named('customers') ? 'active' : '' }}"><a href="{{ route('customers.magazines.index') }}">@lang ('elements.words.customers')@lang ('elements.words.mail_history')</a></li>
+                                @endcan
                                 {{--
                                 @can ('authorize', config('permissions.groups.customers.create'))
                                     <li class="{{ request()->route()->named('customers.files.import') ? 'active' : '' }} disabled"><a href="# route('customers.files.import')">@lang ('elements.words.import')</a></li>

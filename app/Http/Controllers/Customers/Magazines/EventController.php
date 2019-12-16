@@ -35,8 +35,8 @@ final class EventController extends Controller
     {   
         \Log::debug("【コントローラー受信確認】" );
         if($request->isMethod('post')) {
-            \Log::debug("【キー】" . print_r($request->all()) . "です" );
             $response = $this->useCase->excute();
+            \Log::debug(print_r($response));
         }
     }
 
