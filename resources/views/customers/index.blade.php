@@ -163,7 +163,8 @@
             if(document.getElementById('setting') != null) {
                 document.getElementById('setting').addEventListener('change', replaceHref, false);
             }
-
+            // TODO: IEではエラーになる
+            // 参考: https://qiita.com/snjssk/items/8d179566b023703c0663
             document.getElementsByName('selection').forEach(function (item) {
                 item.addEventListener('change', selectionChanged, false);
             });
