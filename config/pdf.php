@@ -57,6 +57,7 @@ return [
             'address_font'                 => 'gothic',
             'address_font_size'            => 9,
 
+            'company_w'                    => 75,
             'company_x'                    => 20,
 
             'name_x'                       => 20,
@@ -110,6 +111,7 @@ return [
             'address_font'                 => 'gothic',
             'address_font_size'            => 9,
 
+            'company_w'                    => 69,
             'company_x'                    => 29,
 
             'name_x'                       => 29,

@@ -50,6 +50,9 @@ final class PrintSetting extends DomainModel
     private $addressFontSize;
 
     /** @var int */
+    private $companyW;
+
+    /** @var int */
     private $companyX;
 
     /** @var int */
@@ -255,6 +258,14 @@ final class PrintSetting extends DomainModel
     public function addressFontSize(): ?int
     {
         return $this->addressFontSize;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function companyW(): ?int
+    {
+        return $this->companyW;
     }
 
     /**
@@ -614,6 +625,10 @@ final class PrintSetting extends DomainModel
         }
 
         if ($args->has($key = 'address_font_size')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
+        if ($args->has($key = 'company_w')) {
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
         }
 
