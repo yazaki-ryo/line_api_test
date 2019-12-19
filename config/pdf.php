@@ -51,10 +51,13 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
+            'address_w'                    => 73,
             'address_x'                    => 20,
             'address_y'                    => 40,
             'address_font'                 => 'gothic',
             'address_font_size'            => 9,
+
+            'company_x'                    => 20,
 
             'name_x'                       => 20,
             'name_y'                       => 60,
@@ -63,6 +66,7 @@ return [
 
             'store_name_font_size'         => 9,
 
+            'department_x'                 => 20,
             'department_name_font_size'    => 9, 
 
             'from_flag'                    => true,
@@ -100,10 +104,13 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
+            'address_w'                    => 68,
             'address_x'                    => 29,
             'address_y'                    => 40,
             'address_font'                 => 'gothic',
             'address_font_size'            => 9,
+
+            'company_x'                    => 29,
 
             'name_x'                       => 29,
             'name_y'                       => 55,
@@ -112,6 +119,7 @@ return [
 
             'store_name_font_size'         => 9,
 
+            'department_x'                 => 29,
             'department_name_font_size'    => 9, 
 
             'from_flag'                    => true,
@@ -122,12 +130,12 @@ return [
             'from_pc_font'                 => 'gothic',
             'from_pc_font_size'            => 10,
 
-            'from_address_x'               => 53,
+            'from_address_x'               => 40,
             'from_address_y'               => 94,
             'from_address_font'            => 'gothic',
             'from_address_font_size'       => 7,
 
-            'from_name_x'                  => 35,
+            'from_name_x'                  => 40,
             'from_name_y'                  => 104,
             'from_name_font'               => 'gothic',
             'from_name_font_size'          => 7,

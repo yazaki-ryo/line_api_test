@@ -35,6 +35,9 @@ final class PrintSetting extends DomainModel
     private $pcFontSize;
 
     /** @var int */
+    private $addressW;
+
+    /** @var int */
     private $addressX;
 
     /** @var int */
@@ -45,6 +48,9 @@ final class PrintSetting extends DomainModel
 
     /** @var int */
     private $addressFontSize;
+
+    /** @var int */
+    private $companyX;
 
     /** @var int */
     private $nameX;
@@ -60,6 +66,9 @@ final class PrintSetting extends DomainModel
 
     /** @var int */
     private $storeNameFontSize;
+
+    /** @var int */
+    private $departmentX;
 
     /** @var int */
     private $departmentNameFontSize;
@@ -211,6 +220,14 @@ final class PrintSetting extends DomainModel
     /**
      * @return int|null
      */
+    public function addressW(): ?int
+    {
+        return $this->addressW;
+    }
+
+    /**
+     * @return int|null
+     */
     public function addressX(): ?int
     {
         return $this->addressX;
@@ -238,6 +255,14 @@ final class PrintSetting extends DomainModel
     public function addressFontSize(): ?int
     {
         return $this->addressFontSize;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function companyX(): ?int
+    {
+        return $this->companyX;
     }
 
     /**
@@ -278,6 +303,14 @@ final class PrintSetting extends DomainModel
     public function storeNameFontSize(): ?int
     {
         return $this->storeNameFontSize;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function departmentX(): ?int
+    {
+        return $this->departmentX;
     }
 
     /**
@@ -564,6 +597,10 @@ final class PrintSetting extends DomainModel
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
         }
 
+        if ($args->has($key = 'address_w')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
         if ($args->has($key = 'address_x')) {
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
         }
@@ -577,6 +614,10 @@ final class PrintSetting extends DomainModel
         }
 
         if ($args->has($key = 'address_font_size')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
+        if ($args->has($key = 'company_x')) {
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
         }
 
@@ -598,7 +639,11 @@ final class PrintSetting extends DomainModel
 
         if ($args->has($key = 'store_name_font_size')) {
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
-        }
+        
+        
+        if ($args->has($key = 'department_x')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }}
 
         if ($args->has($key = 'department_name_font_size')) {
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
