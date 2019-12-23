@@ -49,7 +49,7 @@ final class MailRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'mode.in' => __('validation.invalid'),
+
         ];
     }
 
@@ -60,7 +60,7 @@ final class MailRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return \Lang::get('attributes.customers.postcards');
+        return \Lang::get('attributes.customers.magazines');
     }
 
     /**
