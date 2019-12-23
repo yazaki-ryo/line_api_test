@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'title') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-2 control-label">
-        @lang (sprintf('attributes.customers.%s', $attribute))
+        @lang (sprintf('attributes.customers.magazines.%s', $attribute))
     </label>
 
     <div class="col-md-8">
@@ -11,7 +11,7 @@
 
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'content') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-2 control-label">
-        @lang (sprintf('attributes.customers.%s', $attribute))
+        @lang (sprintf('attributes.customers.magazines.%s', $attribute))
     </label>
 
     <div class="col-md-8 input-mail-content">
