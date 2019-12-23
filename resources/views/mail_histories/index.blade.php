@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('meta')
-    <title>@lang ('elements.words.seats')@lang ('elements.words.list') | {{ config('app.name') }}</title>
+    <title>@lang ('elements.words.mail_history')@lang ('elements.words.list') | {{ config('app.name') }}</title>
     <meta name="description" content="@lang ('Test text...')" />
     <meta name="keywords" content="@lang ('Test text...')" />
 @endsection
@@ -14,7 +14,7 @@
     <div class="nav-tabs-container side-by-side wrap">
         <p class="page-title">
             <i class="fas fa-angle-double-right"></i>
-            @lang ('elements.words.seats')@lang ('elements.words.list')
+            @lang ('elements.words.mail_history')@lang ('elements.words.list')
         </p>
         <ul class="nav nav-tabs">
             <li class="{{ \Util::activatable($errors, 'index', 'index') }}">
