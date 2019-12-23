@@ -51,10 +51,14 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
+            'address_w'                    => 73,
             'address_x'                    => 20,
             'address_y'                    => 40,
             'address_font'                 => 'gothic',
             'address_font_size'            => 9,
+
+            'company_w'                    => 75,
+            'company_x'                    => 20,
 
             'name_x'                       => 20,
             'name_y'                       => 60,
@@ -63,6 +67,7 @@ return [
 
             'store_name_font_size'         => 9,
 
+            'department_x'                 => 20,
             'department_name_font_size'    => 9, 
 
             'from_flag'                    => true,
@@ -100,24 +105,29 @@ return [
             'pc_font'                      => 'gothic',
             'pc_font_size'                 => 12,
 
-            'address_x'                    => 20,
+            'address_w'                    => 68,
+            'address_x'                    => 29,
             'address_y'                    => 40,
             'address_font'                 => 'gothic',
             'address_font_size'            => 9,
 
-            'name_x'                       => 20,
+            'company_w'                    => 69,
+            'company_x'                    => 29,
+
+            'name_x'                       => 29,
             'name_y'                       => 55,
             'name_font'                    => 'gothic',
             'name_font_size'               => 10,
 
             'store_name_font_size'         => 9,
 
+            'department_x'                 => 29,
             'department_name_font_size'    => 9, 
 
             'from_flag'                    => true,
             'from_pc_position'             => 'fixed',
             'from_pc_symbol'               => false,
-            'from_pc_x'                    => 40,
+            'from_pc_x'                    => 50,
             'from_pc_y'                    => 95,
             'from_pc_font'                 => 'gothic',
             'from_pc_font_size'            => 10,
@@ -132,7 +142,7 @@ return [
             'from_name_font'               => 'gothic',
             'from_name_font_size'          => 7,
 
-            'from_personal_name_x'         => 39,
+            'from_personal_name_x'         => 40,
             'from_personal_name_y'         => 110,
             'from_personal_name_font'      => 'gothic',
             'from_personal_name_font_size' => 7,
