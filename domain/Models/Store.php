@@ -271,6 +271,24 @@ final class Store extends DomainModel
 
     /**
      * @param  array $args
+     * @return DomainCollection
+     */
+    public function mailHistories(array $args = []): DomainCollection
+    {
+        return $this->repo->mailHistories($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return int
+     */
+    public function numMailHistories(array $args = []): int
+    {
+        return $this->repo->numMailHistories($args);
+    }
+
+    /**
+     * @param  array $args
      * @return Customer
      */
     public function addCustomer(array $args = []): Customer
@@ -312,6 +330,15 @@ final class Store extends DomainModel
     public function addUser(array $args = []): User
     {
         return $this->repo->addUser($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return MailHistory
+     */
+    public function addMailHistory(array $args = []): MailHistory
+    {
+        return $this->repo->addMailHistory($args);
     }
 
     /**

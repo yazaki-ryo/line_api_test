@@ -79,6 +79,9 @@ return [
         'updated_at'            => '更新日時',
         'deleted_at'            => '削除日時',
 
+        'title'                 => 'タイトル',
+        'content'               => '本文',
+
         'search' => [
             'free_word'      => 'フリーワード',
             'mourning_flag'  => '喪中フラグ',
@@ -111,6 +114,14 @@ return [
             'created_at'   => '登録日時',
             'updated_at'   => '更新日時',
         ],
+
+        'magazines' => [
+            'title' => 'タイトル',
+            'content' => '本文',
+            'status' => 'ステータス',
+            'created_at'   => '送信日時',
+        ],
+
     ],
 
     'reservations' => [

@@ -12,3 +12,8 @@
 .btn-reset-link {
   font-size: 1.25rem;
 }
+@media (max-width: 414px) {
+  .delete-btn {
+    margin-top: 10px;
+  }
+}

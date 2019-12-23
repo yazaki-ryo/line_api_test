@@ -42,6 +42,7 @@ return [
         'csv'            => 'CSV',
         'customer'       => '顧客',
         'customers'      => '顧客',
+        'content'        => '本文',
 
         /**
          * D
@@ -53,6 +54,7 @@ return [
         'delete'         => '削除',
         'deleted'        => '削除',
         'detail'         => '詳細',
+        'destination'    => '送信先',
 
         /**
          * E
@@ -116,6 +118,8 @@ return [
         'menu'           => 'メニュー',
         'menus'          => 'メニュー',
         'mode'           => 'モード',
+        'mail'           => 'メール',
+        'mail_history'   => 'メール履歴',
 
         /**
          * N
@@ -180,6 +184,7 @@ return [
         'setting'        => '設定',
         'settings'       => '設定',
         'seats'          => '座席',
+        'send'           => '送信',
         'start'          => '開始',
         'state'          => '状態',
         'status'         => 'ステータス',
@@ -188,6 +193,7 @@ return [
         'submit'         => '送信',
         'survey'         => '調査',
         'surveys'        => 'アンケート',
+        'send'           => '送信',
 
 
         /**
@@ -198,6 +204,7 @@ return [
         'test'           => 'テスト',
         'toggle'         => '切り替え',
         'trashed'        => '削除データ',
+        'title'          => 'タイトル',
 
         /**
          * U
@@ -250,6 +257,7 @@ return [
             'mobile_phone'       => '例）09000000000',
             'likes_and_dislikes' => '例）お酒が苦手',
             'note'               => 'パーソナルメモとしてご利用ください',
+            'title'              => 'メールタイトル',
         ],
     ],
 

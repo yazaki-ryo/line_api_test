@@ -37,6 +37,12 @@
             @endcan
 
             @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                <li id="mail-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_magazines_mail_request') }}">
+                    <a id="mail-tab-link" href="#" data-toggle="tab">@lang ('elements.words.mail')@lang ('elements.words.send')</a>
+                </li>
+            @endcan
+
+            @can ('authorize', config('permissions.groups.customers.postcards.export'))
                 <li id="print-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_postcards_export_request') }}">
                     <a id="print-tab-link" href="#" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
                 </li>
@@ -82,6 +88,16 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_magazines_mail_request') }}" id="mail-tab">
+                            <div class="well pt-50 pb-30">
+                                {!! Form::open(['url' => route('customers.magazines.mail'), 'id' => 'customers-magazines-mail-form', 'method' => 'post', 'class' => 'form-horizontal', 'name' => 'customers_magazines_mail_form']) !!}
+                                    @include ('customers.components.magazine_mail', ['errorBag' => 'customers_magazines_mail_request'])
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.postcards.export'))
                         <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_postcards_export_request') }}" id="print-tab">
                             <div class="well">
                                 {!! Form::open(['url' => route('customers.postcards.export'), 'id' => 'customers-postcards-form', 'method' => 'get', 'class' => 'form-horizontal']) !!}
@@ -97,8 +113,48 @@
 @endsection
 
 @section ('scripts')
+    <link href="{{ asset('css/summernote.css') }}" rel="stylesheet">
     <script type="text/javascript" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
+    <script src="{{ asset('js/summernote.min.js') }}"></script>
+    <script src="{{ asset('js/summernote-ja-JP.js') }}"></script>
     <script type="text/javascript">
+
+        @can ('authorize', config('permissions.groups.customers.postcards.export'))
+ 
+        jQuery(document).ready(function() {
+            jQuery('#content').summernote({
+                height: 300,
+                lang: 'ja-JP',
+                codeviewFilter: true,
+                callbacks: {
+                    // 画像がアップロードされた時の動作
+                    onImageUpload: function(files) {
+                        upload(files[0]);
+                    }
+                }
+            });
+
+            function upload(file){
+                var data = new FormData();
+                data.append('file', file);
+                data.append('_token', '{{ csrf_token() }}');
+                jQuery.ajax({
+                    data: data,
+                    type: 'POST',
+                    url: '/ajax/magazines/image',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(url) {
+                        console.log(url);
+                        jQuery('#content').summernote('insertImage' , url);
+                    }
+                });
+            }
+
+        });
+
+        @endcan
 
         (function () {
             'use strict';
@@ -108,7 +164,8 @@
             if(document.getElementById('setting') != null) {
                 document.getElementById('setting').addEventListener('change', replaceHref, false);
             }
-
+            // TODO: IEではエラーになる
+            // 参考: https://qiita.com/snjssk/items/8d179566b023703c0663
             document.getElementsByName('selection').forEach(function (item) {
                 item.addEventListener('change', selectionChanged, false);
             });
@@ -121,17 +178,20 @@
         
         function toggleActionButtons() {
             var isRowSelected = window.common.selectedValues().length > 0;
-            var handle = jQuery("#print-tab-handle");
+            var handle = jQuery("#print-tab-handle, #mail-tab-handle");
             var actionBtn = jQuery(".action-btn");
-            var link = jQuery("#print-tab-link");
+            var linkPrint = jQuery("#print-tab-link");
+            var linkMail = jQuery("#mail-tab-link");
             if (isRowSelected) {
                 handle.removeClass("disabled");
                 actionBtn.css("display", "inline-block");
-                link.attr("href", "#print-tab");
+                linkPrint.attr("href", "#print-tab");
+                linkMail.attr("href", "#mail-tab");
             } else {
                 handle.addClass("disabled");
                 actionBtn.css("display", "none");
-                link.attr("href", "#");
+                linkPrint.attr("href", "#");
+                linkMail.attr("href", "#");
             }
         }
         
@@ -139,6 +199,18 @@
             jQuery("input[name='target_customers[]']").remove();
             
             var form = window.customers_delete_form;
+            var selectedCustomers = window.common.selectedValues();
+            for (var i = 0; i < selectedCustomers.length; i++) {
+              var id = selectedCustomers[i];
+              jQuery(form).append("<input type='hidden' name='target_customers[]' value='" + id + "' />");
+            }
+            form.submit();
+        }
+
+        function mailSelectedCustomers() {
+            jQuery("input[name='target_customers[]']").remove();
+            
+            var form = window.customers_magazines_mail_form;
             var selectedCustomers = window.common.selectedValues();
             for (var i = 0; i < selectedCustomers.length; i++) {
               var id = selectedCustomers[i];
@@ -174,5 +246,10 @@
         function showPrintTab() {
             $('#customers-navigation-tab a[href="#print-tab"]').tab('show');
         }
+
+        function showMailTab() {
+            $('#customers-navigation-tab a[href="#mail-tab"]').tab('show');
+        }
+
     </script>
 @endsection

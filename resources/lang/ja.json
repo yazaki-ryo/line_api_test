@@ -1,6 +1,7 @@
 {
     "An internal error occurred. Please contact the administrator.": "内部エラーが発生しました。管理者へお問い合わせください。",
     "Are you sure delete selected customer(s)?": "選択した顧客を削除しますか？",
+    "Are you sure send mail selected customer(s)?": "選択した顧客にメールを送信しますか？",
     "This is the senders name that is displayed during postcard printing.": "ハガキ印刷の際に表示される差出人名です。",
     "By entering the postal code, the prefecture city, town, village address is automatically entered.": "郵便番号を入力する事で、都道府県市区町村番地までが自動で入力されます。",
     "Customer information is not associated with reservation information.": "予約情報に顧客情報が紐付いていません。",
@@ -33,6 +34,7 @@
     "Please select the setting registered by print setting.": "印刷設定で登録した設定を選択してください。",
     "Preview can be displayed with a postcard background.": "はがきの背景を付けて、プレビュー表示出来ます。",
     "Print postcard": "はがき印刷",
+    "Send Mail": "メール送信",
     "Rows per page": "件表示",
     "Search result is empty.": "検索結果が空です。",
     "Test text...": "text...",
@@ -50,6 +52,7 @@
     "Welcome, :name.": "ようこそ :name さん",
     "When outputting the postal code to the prescribed position on the upper right, it is possible to select whether or not to output the frame.": "郵便番号を規定位置へ出力する場合に、枠を出力するかどうかを選択出来ます。",
     "Whole date span": "予約日指定を外す",
+    "When searching for full names, please put a space between the first and last names.": "※氏名検索する場合は姓名の間にスペースを入れて下さい。",
     "You can choose whether to output the postal code to the prescribed position or to the arbitrary position.": "郵便番号を規定の位置へ出力するか、任意の位置へ出力するかどうかを選択出来ます。",
     "You can choose whether to output information of sender such as zip code, address, name etc.": "郵便番号・住所・氏名などの差出人の情報を出力するかどうかを選択出来ます。",
     "You can choose whether to output the 〒 mark when you want to output the postal code to an arbitrary position.": "郵便番号を任意の位置へ出力する場合に、〒マークを出力するかどうかを選択出来ます。",
