@@ -42,7 +42,7 @@ return [
         'csv'            => 'CSV',
         'customer'       => '顧客',
         'customers'      => '顧客',
-        'content'        => '内容',
+        'content'        => '本文',
 
         /**
          * D

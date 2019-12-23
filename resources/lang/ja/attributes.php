@@ -80,7 +80,7 @@ return [
         'deleted_at'            => '削除日時',
 
         'title'                 => 'タイトル',
-        'content'               => '内容',
+        'content'               => '本文',
 
         'search' => [
             'free_word'      => 'フリーワード',
