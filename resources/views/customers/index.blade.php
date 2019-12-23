@@ -37,7 +37,7 @@
             @endcan
 
             @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                <li id="mail-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_mail_request') }}">
+                <li id="mail-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_magazines_mail_request') }}">
                     <a id="mail-tab-link" href="#" data-toggle="tab">@lang ('elements.words.mail')@lang ('elements.words.send')</a>
                 </li>
             @endcan
@@ -88,10 +88,10 @@
                     @endcan
 
                     @can ('authorize', config('permissions.groups.customers.postcards.export'))
-                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_mail_request') }}" id="mail-tab">
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_magazines_mail_request') }}" id="mail-tab">
                             <div class="well pt-50 pb-30">
                                 {!! Form::open(['url' => route('customers.magazines.mail'), 'id' => 'customers-magazines-mail-form', 'method' => 'post', 'class' => 'form-horizontal', 'name' => 'customers_magazines_mail_form']) !!}
-                                    @include ('customers.components.magazine_mail', ['errorBag' => 'customers_mail_request'])
+                                    @include ('customers.components.magazine_mail', ['errorBag' => 'customers_magazines_mail_request'])
                                 {!! Form::close() !!}
                             </div>
                         </div>
@@ -125,6 +125,7 @@
             jQuery('#content').summernote({
                 height: 300,
                 lang: 'ja-JP',
+                codeviewFilter: true,
                 callbacks: {
                     // 画像がアップロードされた時の動作
                     onImageUpload: function(files) {
