@@ -91,6 +91,10 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
         return CustomerRepository::toModels($collection);
     }
     
+    /**
+     * @param  array $args
+     * @return int
+     */
     public function numCustomers(array $args = []): int
     {
         if (empty($args)) {

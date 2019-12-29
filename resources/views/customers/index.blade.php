@@ -44,7 +44,10 @@
 
             @can ('authorize', config('permissions.groups.customers.postcards.export'))
                 <li id="print-tab-handle" class="disabled {{ \Util::activatable($errors, 'customers_postcards_export_request') }}">
-                    <a id="print-tab-link" href="#" data-toggle="tab">@lang ('elements.words.postcard')@lang ('elements.words.print')</a>
+                    <a id="print-tab-link" href="#" data-toggle="tab">
+                        @lang ('elements.words.postcard')@lang ('elements.words.print')
+                        <span class="badge">{{ $printCount }}</span>
+                    </a>
                 </li>
             @endcan
         </ul>

@@ -97,9 +97,12 @@ final class IndexController extends Controller
         $rowsInPage = $args['rows_in_page'];
         $page = $args['page'];
         $sorting = $args['sort'];
-        
+        // 顧客情報を取得
         $customers = $this->useCase->excute($user, $store, $args);
+        // 顧客総数を取得
         $numCustomers = $this->useCase->count($user, $store, $args);
+        // 印刷可能なハガキ総数を取得
+        $numPrints = $this->useCase->printCount($store);
         
         $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
                 $customers, 
@@ -116,6 +119,7 @@ final class IndexController extends Controller
             'month' => config('date.month'),
             'paginator' => $paginator,
             'sorting' => $sorting,
+            'printCount' => $numPrints,
             'printSettings' => $user->printSettings()->domainizePrintSettings(true),
             'tab' => (!empty($request->get('search_customers')) || $request->get('tab') == 'index') ? 'index' : 'customers_search_request',
             'tags' => $user->company()->tags([

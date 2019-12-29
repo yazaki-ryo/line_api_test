@@ -37,6 +37,25 @@ final class GetCustomers
     }
 
     /**
+     * @param  Store $store
+     * @return int
+     * @throws NotFoundException
+     */
+    public function printCount(Store $store): int
+    {
+        $results = $store->customers([
+            'mourning_flag' => true,
+            'notNull'       => [
+                'last_name',
+                'address',
+            ],
+            'address' => '[0-9０－９]+',
+        ])->toArray();
+
+        return count($results);
+    }
+
+    /**
      * @param User $user
      * @param Store $store
      * @param array $args
