@@ -243,7 +243,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
         $this->fonts($this->settings->fromNameFont());
         $this->processor->SetFont($this->font, '', (float)$this->settings->fromNameFontSize(), '', true);
         $this->processor->setFontSpacing(1.0);
-        $this->processor->MultiCell(50.0, 10.0, $value, 0, 'R', 0, 0, (float)$this->settings->fromNameX(), (float)$this->settings->fromNameY(), true, 0, false, true, 10.0, 'T', true);
+        $this->processor->MultiCell(60.0, 10.0, $value, 0, 'R', 0, 0, (float)$this->settings->fromNameX(), (float)$this->settings->fromNameY(), true, 0, false, true, 10.0, 'T', true);
     }
 
     /**
