@@ -137,7 +137,7 @@ return [
             'from_address_font'            => 'gothic',
             'from_address_font_size'       => 7,
 
-            'from_name_x'                  => 40,
+            'from_name_x'                  => 37,
             'from_name_y'                  => 104,
             'from_name_font'               => 'gothic',
             'from_name_font_size'          => 7,
