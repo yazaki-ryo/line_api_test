@@ -6,6 +6,7 @@ namespace App\Eloquents;
 use App\Traits\Collections\Domainable;
 use App\Traits\Database\Eloquent\Scopable;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -140,14 +141,12 @@ final class EloquentCustomer extends Model
      * @param  string $operator
      * @return Builder
      */
-    public function scopeLastName(Builder $query, string $value, string $operator = '='): Builder
+    public function scopeName(Builder $query, string $value, string $operator = '='): Builder
     {
-        $field = sprintf('%s.last_name', $this->getTable());
-
-        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', sprintf('%%%s%%', $value));
-        }, function(Builder $q) use ($value, $field, $operator) {
-            $q->where($field, $operator, $value);
+        return $query->when($operator === 'like', function(Builder $q) use ($value) {
+            $q->where(DB::raw(sprintf('CONCAT(IFNULL(%s.last_name, ""), IFNULL(%s.first_name, ""))', $this->getTable(), $this->getTable())), 'like', sprintf('%%%s%%', $value));
+        }, function(Builder $q) use ($value, $operator) {
+            $q->where(DB::raw(sprintf('CONCAT(IFNULL(%s.last_name, ""), IFNULL(%s.first_name, ""))', $this->getTable(), $this->getTable())), $operator, $value);
         });
     }
 
@@ -157,56 +156,16 @@ final class EloquentCustomer extends Model
      * @param  string $operator
      * @return Builder
      */
-    public function scopeFirstName(Builder $query, string $value, string $operator = '='): Builder
+    public function scopeNameKana(Builder $query, string $value, string $operator = '='): Builder
     {
-        $field = sprintf('%s.first_name', $this->getTable());
-
-        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            $q->where($field, 'like', sprintf('%%%s%%', $value));
-        }, function(Builder $q) use ($value, $field, $operator) {
-            $q->where($field, $operator, $value);
-        });
-    }
-
-    /**
-     * @param  Builder $query
-     * @param  string $value
-     * @param  string $operator
-     * @return Builder
-     */
-    public function scopeLastNameKana(Builder $query, string $value, string $operator = '='): Builder
-    {
-        $field = sprintf('%s.last_name_kana', $this->getTable());
-
-        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
+        return $query->when($operator === 'like', function(Builder $q) use ($value) {
             // ひらがなをカタカナに変換
             $value = mb_convert_kana($value, 'KC');
-            $q->where($field, 'like', sprintf('%%%s%%', $value));
-        }, function(Builder $q) use ($value, $field, $operator) {
+            $q->where(DB::raw(sprintf('CONCAT(IFNULL(%s.last_name_kana, ""), IFNULL(%s.first_name_kana, ""))', $this->getTable(), $this->getTable())), 'like', sprintf('%%%s%%', $value));
+        }, function(Builder $q) use ($value, $operator) {
             // ひらがなをカタカナに変換
             $value = mb_convert_kana($value, 'KC');
-            $q->where($field, $operator, $value);
-        });
-    }
-
-    /**
-     * @param  Builder $query
-     * @param  string $value
-     * @param  string $operator
-     * @return Builder
-     */
-    public function scopeFirstNameKana(Builder $query, string $value, string $operator = '='): Builder
-    {
-        $field = sprintf('%s.first_name_kana', $this->getTable());
-
-        return $query->when($operator === 'like', function(Builder $q) use ($field, $value) {
-            // ひらがなをカタカナに変換
-            $value = mb_convert_kana($value, 'KC');
-            $q->where($field, 'like', sprintf('%%%s%%', $value));
-        }, function(Builder $q) use ($value, $field, $operator) {
-            // ひらがなをカタカナに変換
-            $value = mb_convert_kana($value, 'KC');
-            $q->where($field, $operator, $value);
+            $q->where(DB::raw(sprintf('CONCAT(IFNULL(%s.last_name_kana, ""), IFNULL(%s.first_name_kana, ""))', $this->getTable(), $this->getTable())), $operator, $value);
         });
     }
 
@@ -329,17 +288,13 @@ final class EloquentCustomer extends Model
     public function scopeFreeWord(Builder $query, string $value): Builder
     {
         return $query->where(function(Builder $q1) use ($value) {
-            $q1->orWhere(function(Builder $q2) use ($value) {
-                $value = mb_convert_kana($value, 's', 'UTF-8');
-                $values = explode(' ', $value);
-                $q2->lastName(isset($values[0]) ? $values[0] : "", 'like');
-                $q2->firstName(isset($values[1]) ? $values[1] : "", 'like');
+            $q1->orWhere(function(Builder $q2) use ($value) {   
+                $value = str_replace(array(' ', '　'), '', $value);
+                $q2->name($value, 'like');
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
-                $value = mb_convert_kana($value, 's', 'UTF-8');
-                $values = explode(' ', $value);
-                $q2->lastNameKana(isset($values[0]) ? $values[0] : "", 'like');
-                $q2->firstNameKana(isset($values[1]) ? $values[1] : "", 'like');
+                $value = str_replace(array(' ', '　'), '', $value);
+                $q2->nameKana($value, 'like');
             });
             $q1->orWhere(function(Builder $q2) use ($value) {
                 $q2->address($value, 'like');
