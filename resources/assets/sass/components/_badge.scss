@@ -2,3 +2,8 @@
   color: #fff;
   background-color: #e0492e !important;
 }
+@media (max-width: 414px) {
+  .badge {
+    display: block;
+  }
+}
