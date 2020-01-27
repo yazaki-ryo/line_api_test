@@ -1,3 +1,19 @@
+<!-- 上部検索ボタン -->
+<div class="form-group">
+    <div class="col-md-6 col-md-offset-4">
+        @can ('authorize', config('permissions.groups.customers.select'))
+            <button type="submit" name="searched" value="searched" class="btn btn-primary">
+                @lang ('elements.words.search')
+            </button>
+
+            <span class="btn btn-default" onclick="if (confirm('@lang ('Do you want to reset the search conditions?')')) { common.clearForm(window.customers_search_form); window.customers_search_form.submit(); }">
+                @lang ('elements.words.conditions')@lang ('elements.words.reset')
+            </span>
+        @endcan
+    </div>
+</div>
+<hr>
+
 {{Form::hidden('tab', 'index')}}
 <div class="form-group{{ $errors->{$errorBag ?? 'default'}->has($attribute = 'free_word') ? ' has-error' : '' }}">
     <label for="{{ $attribute }}" class="col-md-4 control-label">
@@ -125,7 +141,7 @@
 </div>
 
 <hr>
-
+<!-- 下部検索ボタン -->
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">
         @can ('authorize', config('permissions.groups.customers.select'))
