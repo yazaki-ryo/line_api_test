@@ -50,7 +50,7 @@
         @endif
         
         <input type="hidden" name="MAX_FILE_SIZE" value="8388608" /><!-- TODO from config file. -->
-        {!! Form::file($attribute, null, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
+        {!! Form::file($attribute, ['class' => 'form-control', 'id' => $attribute, 'placeholder' => '']) !!}
         @include ('components.form.err_msg', ['attribute' => $attribute])
 
         @if ($row->attachments()->count())
