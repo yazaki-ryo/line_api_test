@@ -148,6 +148,14 @@ final class UpdateRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
+            'cancel_cnt' => [
+                'nullable',
+                'numeric',
+            ],
+            'noshow_cnt' => [
+                'nullable',
+                'numeric',
+            ],
         ];
     }
 
