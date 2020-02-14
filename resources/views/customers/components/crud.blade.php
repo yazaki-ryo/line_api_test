@@ -393,14 +393,14 @@
         @endif
     @endif
 
-    {{-- @if ($mode === 'edit')
+    @if ($mode === 'edit')
         <div class="form-group">
             <label for="{{ $attribute = 'cancel_cnt' }}" class="col-md-4 control-label">
                 @lang (sprintf('attributes.customers.%s', $attribute))
             </label>
-
-            <div class="col-md-6 form-control-static">
-                <span class="badge">{{ optional($row->{$camel = camel_case($attribute)}())->asInt() ?? null }}</span>
+            <div class="col-md-6">
+                <input type="number" name="{{ $attribute }}" min="0" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : optional($row->{$camel = camel_case($attribute)}())->asInt() ?? null }}" class="form-control" id="{{ $attribute }}" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+                @include ('components.form.err_msg', ['attribute' => $attribute])
             </div>
         </div>
     @endif
@@ -410,12 +410,12 @@
             <label for="{{ $attribute = 'noshow_cnt' }}" class="col-md-4 control-label">
                 @lang (sprintf('attributes.customers.%s', $attribute))
             </label>
-
-            <div class="col-md-6 form-control-static">
-                <span class="badge">{{ optional($row->{$camel = camel_case($attribute)}())->asInt() ?? null }}</span>
+            <div class="col-md-6">
+                <input type="number" name="{{ $attribute }}" min="0" value="{{ $errors->{$errorBag ?? 'default'}->any() ? old($attribute) : optional($row->{$camel = camel_case($attribute)}())->asInt() ?? null }}" class="form-control" id="{{ $attribute }}" placeholder="@lang (sprintf('elements.placeholders.customers.%s', $attribute))" />
+                @include ('components.form.err_msg', ['attribute' => $attribute])
             </div>
         </div>
-    @endif --}}
+    @endif
 
     @if ($mode === 'edit')
         <div class="form-group">

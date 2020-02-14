@@ -52,6 +52,8 @@ final class EloquentCustomer extends Model
         'anniversary',
         'likes_and_dislikes',
         'note',
+        'cancel_cnt',
+        'noshow_cnt'
     ];
 
     /**
