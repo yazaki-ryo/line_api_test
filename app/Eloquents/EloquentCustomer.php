@@ -320,6 +320,36 @@ final class EloquentCustomer extends Model
     }
 
     /**
+     * @param Builder $query
+     * @param array $flags
+     * @return Builder
+     */
+    public function scopeWithAddress(Builder $query): Builder
+    {
+        $field = sprintf('%s.address', $this->getTable());
+        $value = '[0-9０－９]+';
+        return $query->where(function(Builder $q1) use ($value, $field) {
+            $q1->where(function(Builder $q2) use ($value, $field) {
+                $q2->address($value, 'regexp');
+            });
+            $q1->whereNotNull($field);
+        });
+    }
+
+    /**
+     * @param Builder $query
+     * @param array $flags
+     * @return Builder
+     */
+    public function scopeNoAddress(Builder $query): Builder
+    {
+        $field = sprintf('%s.address', $this->getTable());
+        return $query->where(function(Builder $q1) use ($field) {
+            $q1->whereNull($field);
+        });
+    }
+
+    /**
      * @param  Builder $query
      * @param  bool $isNull
      * @return Builder

@@ -29,6 +29,9 @@ final class SearchRequest extends FormRequest
                 'string',
                 'max:1000',
             ],
+            'address_flag' => [
+                'nullable',
+            ],
             'visited_date_s' => [
                 'nullable',
                 'string',

@@ -233,6 +233,15 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             $q->Address($args->get($key), 'regexp');
         });
 
+        $query->when(($args->has($key = 'address_flag') && ! is_null($args->get($key))), function (Builder $q1) use ($key, $args) {
+            $q1->when($args->get($key) === 'with_address', function (Builder $q2) {
+                $q2->WithAddress();
+            });
+            $q1->when($args->get($key) === 'no_address', function (Builder $q2) {
+                $q2->NoAddress();
+            });
+        });        
+
         $query->when($args->has($key = 'page') && $args->get($key) > 0, function (Builder $q) use ($key, $args) {
             $rows_in_page = $args->get('rows_in_page', 25);
             $page = $args->get($key, 1);
