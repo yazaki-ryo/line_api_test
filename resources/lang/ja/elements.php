@@ -18,6 +18,7 @@ return [
         'actions'        => '操作',
         'authentication' => '認証',
         'authorization'  => '認可',
+        'address_flag'   => '住所有無',
 
         /**
          * B

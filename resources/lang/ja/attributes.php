@@ -258,4 +258,9 @@ return [
         0 => 'いいえ',
     ],
 
+    'address_exists' => [
+        'with_address'   => '住所あり',
+        'no_address'     => '住所なし',
+    ]
+
 ];

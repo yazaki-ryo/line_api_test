@@ -42,6 +42,7 @@ final class IndexController extends Controller
             $session->forget('tags');
             $params = [
                 'free_word',
+                'address_flag',
                 'visited_date_s',
                 'visited_date_e',
                 'birthday_s',
