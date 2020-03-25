@@ -212,8 +212,14 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             );
         });
 
+        // タグ検索
         $query->when($args->has($key = 'tags') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
             $q->tagIds($args->get($key));
+        });
+
+        // タグなし検索
+        $query->when($args->has($key = 'not_tags') && $args->get($key) === "1", function (Builder $q) use ($key, $args) {
+            $q->notTags();
         });
 
         $query->when($args->has($key = 'trashed'), function (Builder $q1) use ($key, $args) {
@@ -261,28 +267,28 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
             switch ($sorting) {
                 case '1': // 来店数 降順 > フリガナ 昇順
                     $q->orderByDesc('visited_count')
-                        ->orderBy('last_name_kana')
-                        ->orderBy('first_name_kana');
+                        ->orderBy('customers.last_name_kana')
+                        ->orderBy('customers.first_name_kana');
                     break;
                 case '2': // 来店数 昇順 > フリガナ 昇順
                     $q->orderBy('visited_count')
-                        ->orderBy('last_name_kana')
-                        ->orderBy('first_name_kana');
+                        ->orderBy('customers.last_name_kana')
+                        ->orderBy('customers.first_name_kana');
                     break;
                 case '3': // フリガナ 昇順 > 登録日 昇順
-                    $q->orderBy('last_name_kana')
-                        ->orderBy('first_name_kana')
-                        ->orderBy('created_at');
+                    $q->orderBy('customers.last_name_kana')
+                        ->orderBy('customers.first_name_kana')
+                        ->orderBy('customers.created_at');
                     break;
                 case '-1': // 登録日 降順 > フリガナ 昇順
-                    $q->orderByDesc('created_at')
-                        ->orderBy('last_name_kana')
-                        ->orderBy('first_name_kana');
+                    $q->orderByDesc('customers.created_at')
+                        ->orderBy('customers.last_name_kana')
+                        ->orderBy('customers.first_name_kana');
                     break;
                 default: // 登録日 昇順 > フリガナ 昇順
-                    $q->orderBy('created_at')
-                        ->orderBy('last_name_kana')
-                        ->orderBy('first_name_kana');
+                    $q->orderBy('customers.created_at')
+                        ->orderBy('customers.last_name_kana')
+                        ->orderBy('customers.first_name_kana');
                     break;
             }
         });

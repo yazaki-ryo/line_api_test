@@ -83,12 +83,13 @@ return [
         'content'               => '本文',
 
         'search' => [
-            'free_word'      => 'フリーワード',
-            'mourning_flag'  => '喪中フラグ',
-            'trashed'        => '削除データ',
-            'visited_date_s' => '来店日（開始）',
-            'visited_date_e' => '来店日（終了）',
-            'tags'           => 'タグ',
+            'free_word'         => 'フリーワード',
+            'mourning_flag'     => '喪中フラグ',
+            'trashed'           => '削除データ',
+            'visited_date_s'    => '来店日（開始）',
+            'visited_date_e'    => '来店日（終了）',
+            'tags'              => 'タグ',
+            'search_not_tags'   => 'タグなしを検索',
         ],
 
         'tags'               => 'タグ',
