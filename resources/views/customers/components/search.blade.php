@@ -147,10 +147,31 @@
         @endforelse
 
         @include ('components.form.err_msg', ['attribute' => $attribute])
+
     </div>
 </div>
 
 <hr>
+
+<div class="col-md-6 col-md-offset-4 mb-15">
+    <label>
+        <input type="checkbox" name="not_tags" value="1" {{ 
+        !empty(old('not_tags'))
+            ? (old('not_tags') === "1" ? 'checked' : '') 
+            : (
+                !empty(request('not_tags')) 
+                    && request('not_tags') === "1" 
+                ? 'checked' 
+                : (
+                    Session::has('not_tags') 
+                            && Session::get('not_tags') === "1"
+                        ? 'checked' : ''
+                )
+             ) }} />
+        <span>@lang (sprintf('attributes.customers.search.%s', 'search_not_tags'))</span>
+    </label>
+</div>
+
 <!-- 下部検索ボタン -->
 <div class="form-group">
     <div class="col-md-6 col-md-offset-4">

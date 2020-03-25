@@ -460,4 +460,15 @@ final class EloquentCustomer extends Model
         });
     }
 
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeNotTags(Builder $query): Builder
+    {
+        return $query->leftJoin('taggables',  'customers.id', '=', 'taggables.taggable_id')
+                     ->select('customers.*')
+                     ->whereNull('taggables.taggable_id');
+    }
+
 }

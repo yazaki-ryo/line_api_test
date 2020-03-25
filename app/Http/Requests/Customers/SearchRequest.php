@@ -31,6 +31,7 @@ final class SearchRequest extends FormRequest
             ],
             'address_flag' => [
                 'nullable',
+                'string',
             ],
             'visited_date_s' => [
                 'nullable',
@@ -88,6 +89,10 @@ final class SearchRequest extends FormRequest
                     ->where(function (Builder $query) {
                         return $query->where('store_id', $this->cookie(config('cookie.name.current_store')));
                     }),
+            ],
+            'not_tags' => [
+                'nullable',
+                'boolean',
             ],
         ];
     }

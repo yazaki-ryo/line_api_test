@@ -40,6 +40,7 @@ final class IndexController extends Controller
             }
         } else if ($request->isMethod('post')) {
             $session->forget('tags');
+            $session->forget('not_tags');
             $params = [
                 'free_word',
                 'address_flag',
@@ -50,7 +51,8 @@ final class IndexController extends Controller
                 'anniversary_s',
                 'anniversary_e',
                 'mourning_flag',
-                'tags'];
+                'tags',
+                'not_tags'];
             foreach ($params as $key) {
                 if (array_key_exists($key, $args)) {
                     $session->put($key, $args[$key]);
