@@ -92,7 +92,8 @@ return [
             'search_not_tags'   => 'タグなしを検索',
         ],
 
-        'tags'               => 'タグ',
+        'tags'                  => 'タグ',
+        'feature'               => '特徴',
 
         'postcards' => [
             'mode'      => '出力モード',

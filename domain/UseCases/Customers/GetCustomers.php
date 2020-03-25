@@ -99,6 +99,7 @@ final class GetCustomers
         $collection->put('relations', [
             'store',
             'visitedHistories',
+            'tags',
         ]);
 
         return $collection->all();
