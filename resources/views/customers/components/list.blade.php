@@ -50,6 +50,7 @@
                 <th class="text-center">@lang ('elements.words.action')</th>
                 <th class="text-center">@lang ('elements.words.human_name')</th>
                 <th class="text-center">@lang ('attributes.customers.office')</th>
+                <th class="text-center">@lang ('attributes.customers.address')</th>
                 <th class="text-center">@lang ('attributes.customers.note')</th>
                 <th class="text-center">@lang ('attributes.customers.tags')</th>
                 <th class="text-center">@lang ('attributes.customers.tel')</th>
@@ -122,6 +123,7 @@
                     </td>
                     <td class="text-center">{{ $row->{$camel = camel_case('last_name')}() }} {{ $row->{$camel = camel_case('first_name')}() }}</td>
                     <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('office')}(), 0, 20, '...', 'UTF-8') }}</td>
+                    <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('address')}(), 0, 50, '...', 'UTF-8') }}</td>
                     <td class="text-center">{{ mb_strimwidth($row->{$camel = camel_case('note')}(), 0, 20, '...', 'UTF-8') }}</td>
                     <td class="text-center">
                         @if(!empty($row->tags()))
