@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Customers;
 
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -158,6 +159,13 @@ final class CreateRequest extends FormRequest
                 'nullable',
                 'string',
                 'max:1000',
+            ],
+            'tags' => [
+                'array',
+                Rule::exists('tags', 'id')
+                    ->where(function (Builder $query) {
+                        return $query->where('store_id', $this->cookie(config('cookie.name.current_store')));
+                    }),
             ],
         ];
     }

@@ -67,6 +67,7 @@ final class UpdateCustomer
                 $this->addAttachment($customer, $file);
             }
 
+            $customer->sync('tags', $args['tags']);
             return $customer->update($args);
         });
     }
@@ -82,6 +83,10 @@ final class UpdateCustomer
 
         if ($args->has($key = '')) {
             //
+        }
+
+        if (! $args->has($key = 'tags')) {
+            $args->put($key, []);
         }
 
         return $args->all();

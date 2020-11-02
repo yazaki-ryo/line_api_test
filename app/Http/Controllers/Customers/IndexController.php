@@ -20,6 +20,8 @@ final class IndexController extends Controller
      */
     public function __construct(GetCustomers $useCase)
     {
+        \Log::debug("Customers::Index");
+        //ini_set("memory_limit", "500M");
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.select'))),
@@ -125,6 +127,7 @@ final class IndexController extends Controller
             'printCount' => $numPrints,
             'printSettings' => $user->printSettings()->domainizePrintSettings(true),
             'tab' => (!empty($request->get('search_customers')) || $request->get('tab') == 'index') ? 'index' : 'customers_search_request',
+            'tagIds' => $customer->tags(),
             'tags' => $user->company()->tags([
                 'store_id' => $storeId,
             ])->groupBy(function ($item) {
