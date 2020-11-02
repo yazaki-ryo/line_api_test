@@ -20,8 +20,6 @@ final class IndexController extends Controller
      */
     public function __construct(GetCustomers $useCase)
     {
-        \Log::debug("Customers::Index");
-        //ini_set("memory_limit", "500M");
         $this->middleware([
             sprintf('authenticate:%s', $this->guard),
             sprintf('authorize:%s', implode('|', config('permissions.groups.customers.select'))),
