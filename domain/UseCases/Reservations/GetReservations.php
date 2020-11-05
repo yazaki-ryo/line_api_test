@@ -69,6 +69,7 @@ final class GetReservations
         $collection->put('relations', [
             'customer',
             'store',
+            'seat',
             'visitedHistory',
         ]);
 

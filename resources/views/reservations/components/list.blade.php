@@ -25,8 +25,10 @@
             <col width="10%">
             <col width="10%">
             <col width="10%">
-            <col width="15%">
-            <col width="15%">
+            <col width="5%">
+            <col width="10%">
+            <col width="5%">
+            <col width="25%">
             <col width="25%">
         </colgroup>
         <thead>
@@ -37,6 +39,8 @@
                 <th class="text-center">@lang ('attributes.reservations.reserved_time')</th>
                 <th class="text-center">@lang ('attributes.reservations.amount')</th>
                 <th class="text-center">@lang ('attributes.reservations.seat')</th>
+                <th class="text-center">@lang ('attributes.reservations.floor')</th>
+                <th class="text-center">@lang ('attributes.reservations.note')</th>
                 <th class="text-center">@lang ('elements.words.action')</th>
             </tr>
         </thead>
@@ -62,7 +66,15 @@
                     <td class="text-center">{{ empty($row->{$camel = camel_case('reserved_at')}()) ? '' : $row->{$camel}()->format('Y-m-d') }}</td>
                     <td class="text-center">{{ empty($row->{$camel = camel_case('reserved_at')}()) ? '' : $row->{$camel}()->format('H:i') }}</td>
                     <td class="text-center">{{ $row->{$camel = camel_case('amount')}() }}</td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('seat')}() }}</td>
+                    <td class="text-center">
+                    @if(!empty($seats))
+                        @foreach ($seats as $item)
+                            {{ (int)$row->{$camel = camel_case('seat')}() === $item->id() ? $item->name() : null }}
+                        @endforeach
+                    @endif
+                    </td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('floor')}() }}</td>
+                    <td class="text-center">{{ $row->{$camel = camel_case('note')}() }}</td>
                     <td class="text-center">
                         <ul class="side-by-side around wrap">
                             @if (! $row->{$camel = camel_case('deleted_at')}())
