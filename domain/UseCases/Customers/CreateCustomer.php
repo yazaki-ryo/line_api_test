@@ -70,6 +70,8 @@ final class CreateCustomer
                 $this->addAttachment($customer, $file);
             }
 
+            $customer->sync('tags', $args['tags']);
+            
             return $customer;
         });
     }
@@ -93,6 +95,10 @@ final class CreateCustomer
             }
 
             $args->put('visited_at', Carbon::parse($date));
+        }
+
+        if (! $args->has($key = 'tags')) {
+            $args->put($key, []);
         }
 
         return $args->all();
