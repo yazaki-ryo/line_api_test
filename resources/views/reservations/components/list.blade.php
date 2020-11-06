@@ -73,7 +73,13 @@
                         @endforeach
                     @endif
                     </td>
-                    <td class="text-center">{{ $row->{$camel = camel_case('floor')}() }}</td>
+                    <td class="text-center">
+                    @if(!empty($seats))
+                        @foreach ($seats as $item)
+                            {{ (int)$row->{$camel = camel_case('seat')}() === $item->id() ? $item->floor() : null }}
+                        @endforeach
+                    @endif
+                    </td>
                     <td class="text-center">{{ $row->{$camel = camel_case('note')}() }}</td>
                     <td class="text-center">
                         <ul class="side-by-side around wrap">
