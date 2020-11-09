@@ -97,8 +97,9 @@
 
     <div class="col-md-6">
         <select name="{{ $attribute }}" class="form-control p-floor-id" id="{{ $attribute }}" disabled {{ $errors->{$errorBag ?? 'default'}->has($attribute_opt = 'seat') ? ' has-error' : '' }}>
+            <option value>@lang ('Please select')</option>
             @foreach ($seats as $item)
-                <option value="{{ $item->id() }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute_opt)}() ?? null) === $item->id() ? 'selected' : '' }} >{{ $item->floor() }}</option>
+                <option value="{{ $item->id() }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute_opt)}() ?? null) === $item->id() ? 'selected' : '' }}>{{ $item->floor() }}</option>
             @endforeach
         </select>
     {{--

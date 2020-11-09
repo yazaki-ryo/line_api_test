@@ -103,4 +103,11 @@
         var selectedCustomerId = {{ empty($customer_id) ? '0' : $customer_id }};
         var reservationForm = new ReservationForm(appvm, selectedCustomerId, window.reservations_create_form);
     </script>
+
+    <script type="text/javascript">
+            var selectedCustomerId = {{ empty($customer_id) ? '0' : $customer_id }};
+            var reservationForm = new ReservationForm(appvm, selectedCustomerId, window.reservations_create_form);
+        </script>
+    {{-- 席変更時にフロアも変更する --}}
+    @include ('reservations.components.floor')
 @endsection
