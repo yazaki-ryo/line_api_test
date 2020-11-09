@@ -16,7 +16,7 @@ final class Reservation extends DomainModel
     /** @var string */
     private $name;
 
-    /** @var string */
+    /** @var int */
     private $seat;
 
     /** @var int */
@@ -89,7 +89,7 @@ final class Reservation extends DomainModel
      * @return string|null
      * @export
      */
-    public function seat(): ?string
+    public function seat(): ?int
     {
         return $this->seat;
     }
