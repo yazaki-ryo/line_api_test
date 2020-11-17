@@ -44,10 +44,11 @@ class ReservationForm {
   confirmCreateCustomer(event) {
     if (!this.selectedCustomerId) {
       var createCustomer = window.confirm("顧客を新規作成しますか？");
-      $(this.form).append('<input type="hidden" name="create_customer" value="' + (createCustomer ? '1' : '0') + '" />');
+      if(createCustomer){
+        $(this.form).append('<input type="hidden" name="create_customer" value="' + (createCustomer ? '1' : '0') + '" />');
+        $(this.form).submit();
+      }
     }
-
-    $(this.form).submit();
   }
 }
 
