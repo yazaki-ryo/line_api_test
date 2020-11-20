@@ -25,6 +25,8 @@
     "Order by visiting count descending": "来店数の多い順",
     "Order by visiting date ascending": "予約日が近い順",
     "Order by visiting date descending": "予約日が遠い順",
+    "Order by floor ascending": "フロアの低い順",
+    "Order by floor descending": "フロアの高い順",
     "Please enter necessary items.": "※必要項目を入力してください。",
     "Show other information.": "他の情報を表示",
     "Please input only when changing.": "変更する場合のみ、入力してください。",

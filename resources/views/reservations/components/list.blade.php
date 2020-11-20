@@ -13,6 +13,8 @@
         <select class="form-control" onchange="common.sortChange(this)">
             <option value="1" @if($sorting == 1) selected="selected" @endif>@lang('Order by visiting date ascending')</option>
             <option value="2" @if($sorting == 2) selected="selected" @endif>@lang('Order by visiting date descending')</option>
+            <option value="3" @if($sorting == 3) selected="selected" @endif>@lang('Order by floor ascending')</option>
+            <option value="4" @if($sorting == 4) selected="selected" @endif>@lang('Order by floor descending')</option>
         </select>
     </div>
 </div>
