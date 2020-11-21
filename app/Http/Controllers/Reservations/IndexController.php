@@ -105,6 +105,7 @@ final class IndexController extends Controller
             'paginator' => $paginator,
             'sorting' => $sorting,
             'tab' => count($args) ? 'index' : 'calender',
+            'seats' => $store->seats(),
         ]);
     }
 

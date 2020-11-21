@@ -34,6 +34,14 @@ final class EloquentSeat extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(EloquentReservation::class, 'seat', 'id');
+    }
+
+    /**
      * @param  Builder $query
      * @param  int $value
      * @return Builder

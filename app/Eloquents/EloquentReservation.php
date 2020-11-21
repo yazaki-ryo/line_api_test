@@ -52,6 +52,14 @@ final class EloquentReservation extends Model
     /**
      * @return BelongsTo
      */
+    public function seat(): BelongsTo
+    {
+        return $this->belongsTo(EloquentSeat::class, 'seat', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function store(): BelongsTo
     {
         return $this->belongsTo(EloquentStore::class, 'store_id', 'id');

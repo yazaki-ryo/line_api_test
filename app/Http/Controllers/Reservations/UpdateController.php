@@ -49,6 +49,7 @@ final class UpdateController extends Controller
         return view('reservations.edit', [
             'customer_id' => $reservation->customerId(),
             'row' => $reservation,
+            'seats' => $reservation->store()->seats(),            
         ]);
     }
 
