@@ -71,6 +71,10 @@ final class UpdateReservation
             $args->put('reserved_at', Carbon::parse($date));
         }
 
+        $args->put('relations', [
+            'seat',
+        ]);
+
         return $args->all();
     }
 
