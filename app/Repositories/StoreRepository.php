@@ -15,6 +15,7 @@ use Domain\Models\Store;
 use Domain\Models\Tag;
 use Domain\Models\Seat;
 use Domain\Models\MailHistory;
+use Domain\Models\PrintHistory;
 use Domain\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -217,6 +218,16 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
 
     /**
      * @param  array $args
+     * @return PrintHistory
+     */
+    public function addPrintHistory(array $args = []): PrintHistory
+    {
+        $resource = $this->eloquent->printHistories()->create($args);
+        return PrintHistoryRepository::toModel($resource);
+    }
+
+    /**
+     * @param  array $args
      * @return DomainCollection
      */
     public function users(array $args = []): DomainCollection
@@ -250,6 +261,17 @@ final class StoreRepository extends EloquentRepository implements DomainableCont
             }
             return MailHistoryRepository::build($this->eloquent->mailHistories(), $options)->count();
         }
+    }
+
+    public function printHistories(array $args = []): DomainCollection
+    {
+        if (empty($args)) {
+            $collection = $this->eloquent->printHistories;
+          } else {
+            $query = PrintHistoryRepository::build($this->eloquent->printHistories(), $args);
+            $collection = $query->get();
+          }
+          return PrintHistoryRepository::toModels($collection);
     }
 
     /**

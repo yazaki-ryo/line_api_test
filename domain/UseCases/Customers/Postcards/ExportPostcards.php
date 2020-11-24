@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Domain\UseCases\Customers\Postcards;
 
 use App\Services\Pdf\Handlers\Postcards\VerticallyPostcardHandler;
+use App\Traits\Database\Transactionable;
 use Domain\Contracts\Model\FindableContract;
 use Domain\Contracts\Responses\ExportableContract;
 use Domain\Exceptions\InvariantException;
@@ -15,6 +16,8 @@ use Illuminate\Support\Collection;
 
 final class ExportPostcards
 {
+    use Transactionable;
+
     /** @var ExportableContract $exporter */
     private $exporter;
 
@@ -68,7 +71,23 @@ final class ExportPostcards
         $args = $this->domainize($user, $store, $args);
 
         if (empty($args['data'])) {
+            \Log::debug( 'empty!!!' );
             return false;
+        }
+
+        //\Log::debug( var_export($args['settings'], true) );
+
+        foreach ($args['data'] as $customer) {
+            //\Log::debug( var_export($customer, true) );
+            //\Log::debug( $customer->id() );
+            //\Log::debug( $store->id() );
+            //\Log::debug( $args['settings']->name() );
+            $this->transaction(function () use ($store, $args, $customer) {
+                $args['store_id'] = $store->id();
+                $args['customer_id'] = $customer->id();
+                $args['print_setting_id'] = $args['settings']->id();
+                $store->addPrintHistory($args);
+            });
         }
 
         return $this->exporter
@@ -85,6 +104,8 @@ final class ExportPostcards
      */
     private function domainize(User $user, Store $store, array $args = []): array
     {
+        //\Log::debug( 'empty?' );
+        //\Log::debug( var_export($store, true) );
         if (! $store->postalCode() || ! $store->name() || ! $store->address()) {
             throw new InvariantException('The sender\'s name, zip code, and address are required items.');
         }
@@ -94,6 +115,8 @@ final class ExportPostcards
         $collection->put('from', $store);
 
         if ($collection->has($key = 'selection')) {
+            //\Log::debug( 'selection??' );
+            //\Log::debug( var_export($collection->get($key), true) );
             $collection->put('data', $store->customers([
                 'ids'           => $collection->get($key),
                 'mourning_flag' => true,
@@ -106,6 +129,9 @@ final class ExportPostcards
                 'address' => '[0-9０－９]+',
             ])->toArray());
         }
+        //\Log::debug( 'empty???' );
+
+        //\Log::debug( var_export($collection, true) );
 
         return $collection->all();
     }

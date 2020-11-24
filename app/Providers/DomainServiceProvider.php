@@ -52,6 +52,7 @@ final class DomainServiceProvider extends ServiceProvider
             Customers\GetCustomers::class,
 //             Customers\Files\ImportFiles::class,
             Customers\Postcards\ExportPostcards::class,
+            Customers\Postcards\GetPrintHistory::class,
             Customers\RestoreCustomer::class,
             Customers\UpdateCustomer::class,
             Customers\Tags\UpdateTags::class,
@@ -132,6 +133,12 @@ final class DomainServiceProvider extends ServiceProvider
             return new Customers\Postcards\ExportPostcards(
                 app(Services\Pdf\PdfService::class),
                 app(Services\StoresService::class)
+            );
+        });
+
+        $this->app->singleton(Customers\Postcards\GetPrintHistory::class, function () {
+            return new Customers\Postcards\GetPrintHistory(
+                app(Services\PrintHistoriesService::class)
             );
         });
 
