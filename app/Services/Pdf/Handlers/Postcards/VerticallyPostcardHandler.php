@@ -186,7 +186,7 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             // 役職
             if(! is_null($position)) {
                 $this->variableMultiCell(70.0, 5.0, $position, 0, 'L', 0, 0, (float)$this->settings->departmentX(), $y, true, 0, false, true, 10.0, 'T', true, (float)$this->previousFontSize);
-                $y += 10.0;
+                $y += 7.0;
             }
         }
 
