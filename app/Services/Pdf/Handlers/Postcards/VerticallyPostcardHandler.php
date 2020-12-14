@@ -172,21 +172,31 @@ final class VerticallyPostcardHandler extends PdfHandler implements HandlableCon
             $this->processor->setFontSpacing(1.0);
             $this->variableMultiCell((float)$this->settings->companyW(), 5.0, $company, 0, 'L', 0, 0, (float)$this->settings->companyX(), $y, true, 0, false, true, 10.0, 'T', true, (float)$this->settings->storeNameFontSize());
             $y += 10.0;
-
+            // 部署
             if (! is_null($department)) {
-                if (! is_null($position)) {
-                    $department = sprintf('%s　%s', $department, $position);
-                }
+
+                $department = sprintf('%s', $department);
 
                 $this->processor->SetFont($this->font, '', (float)$this->settings->departmentNameFontSize(), '', true);// TODO department font and size
                 $this->processor->setFontSpacing(0.5);
                 $this->variableMultiCell(70.0, 5.0, $department, 0, 'L', 0, 0, (float)$this->settings->departmentX(), $y, true, 0, false, true, 10.0, 'T', true, (float)$this->previousFontSize);
-                $y += 10.0;
+                $y += 6.5;
             }
+
+            // 役職
+            if(! is_null($position)) {
+                $this->variableMultiCell(70.0, 5.0, $position, 0, 'L', 0, 0, (float)$this->settings->departmentX(), $y, true, 0, false, true, 10.0, 'T', true, (float)$this->previousFontSize);
+                $y += 7.0;
+            }
+        }
+
+        if(! is_null($position)) {
+            $position .= "　";
         }
 
         $this->processor->SetFont($this->font, '', (float)$this->settings->nameFontSize(), '', true);
         $this->processor->setFontSpacing(1.0);
+        //$this->processor->MultiCell(60.0, 15.0, sprintf('%s%s%s%s', $position, $lastName, $firstName, '様'), 0, 'L', 0, 0, (float)$this->settings->nameX(), $y, true, 0, false, true, 15.0, 'T', true);
         $this->processor->MultiCell(60.0, 15.0, sprintf('%s%s%s', $lastName, $firstName, '様'), 0, 'L', 0, 0, (float)$this->settings->nameX(), $y, true, 0, false, true, 15.0, 'T', true);
     }
 
