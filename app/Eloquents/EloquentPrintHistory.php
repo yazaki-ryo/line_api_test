@@ -23,6 +23,7 @@ final class EloquentPrintHistory extends Model
      */
     protected $fillable = [
         'customer_id',
+        'print_setting_id',
     ];
 
     /**

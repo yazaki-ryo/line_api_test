@@ -75,18 +75,20 @@ final class ExportPostcards
             return false;
         }
 
-        //\Log::debug( var_export($args['settings'], true) );
-
         foreach ($args['data'] as $customer) {
-            //\Log::debug( var_export($customer, true) );
-            //\Log::debug( $customer->id() );
-            //\Log::debug( $store->id() );
-            //\Log::debug( $args['settings']->name() );
             $this->transaction(function () use ($store, $args, $customer) {
                 $args['store_id'] = $store->id();
                 $args['customer_id'] = $customer->id();
                 $args['print_setting_id'] = $args['settings']->id();
-                $store->addPrintHistory($args);
+
+                if(is_null( $args['print_setting_id'] )){
+                    $args['print_setting_id'] = $args['settings']->defaultSettingId();
+                }
+                try{
+                    $store->addPrintHistory($args);
+                } catch (\Exception $e) {
+                    /** Do nothing */
+                }
             });
         }
 
