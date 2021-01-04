@@ -181,6 +181,17 @@ Route::prefix('/')->group(function () {
     });
 
     /**
+     * Print histories
+     */
+    Route::prefix($prefix = 'print_histories')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::post($name = 'delete', sprintf('%s@deleteMultiple', \App\Http\Controllers\PrintHistories\DeleteController::class))->name('deleteMultiple');
+
+        Route::prefix('{printHistoryId}')->group(function () {
+            Route::post($name = 'delete', \App\Http\Controllers\PrintHistories\DeleteController::class)->name($name);
+        });
+    });
+
+    /**
      * Notifications
      */
     Route::prefix($prefix = 'notifications')->name(sprintf('%s.', $prefix))->group(function () {

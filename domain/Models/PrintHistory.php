@@ -65,7 +65,7 @@ final class PrintHistory extends DomainModel
     /**
      * @return string|null
      */
-    public function printSettingId(): ?string
+    public function printSettingId(): ?int
     {
         return $this->printSettingId;
     }
@@ -116,6 +116,14 @@ final class PrintHistory extends DomainModel
     public function delete(): void
     {
         parent::delete();
+    }
+
+    /**
+     * @return void
+     */
+    public function forceDelete(): void
+    {
+        parent::forceDelete();
     }
 
     /**

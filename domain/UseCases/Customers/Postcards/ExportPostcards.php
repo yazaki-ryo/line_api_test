@@ -12,6 +12,7 @@ use Domain\Exceptions\NotFoundException;
 use Domain\Models\PrintSetting;
 use Domain\Models\Store;
 use Domain\Models\User;
+use Domain\Models\PrintHistory;
 use Illuminate\Support\Collection;
 
 final class ExportPostcards
@@ -76,16 +77,19 @@ final class ExportPostcards
         }
 
         foreach ($args['data'] as $customer) {
-            $this->transaction(function () use ($store, $args, $customer) {
-                $args['store_id'] = $store->id();
-                $args['customer_id'] = $customer->id();
-                $args['print_setting_id'] = $args['settings']->id();
 
-                if(is_null( $args['print_setting_id'] )){
-                    $args['print_setting_id'] = $args['settings']->defaultSettingId();
-                }
+            $_args['store_id'] = $store->id();
+            $_args['customer_id'] = $customer->id();
+            $_args['print_setting_id'] = $args['settings']->id();
+
+            if(is_null( $_args['print_setting_id'] )){
+                $_args['print_setting_id'] = $args['settings']->defaultSettingId();
+            }
+
+            $this->transaction(function () use ($store, $_args, $customer) {
+
                 try{
-                    $store->addPrintHistory($args);
+                    $store->addPrintHistory($_args);
                 } catch (\Exception $e) {
                     /** Do nothing */
                 }

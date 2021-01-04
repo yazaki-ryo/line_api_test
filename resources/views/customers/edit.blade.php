@@ -45,6 +45,15 @@
                     </a>
                 </li>
             @endcan
+
+            @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                <li class="{{ \Util::activatable($errors, 'customers_histories') }}">
+                    <a href="#print-histories-tab" data-toggle="tab">
+                        @lang ('elements.words.print')@lang ('elements.words.history')
+                        <span class="badge">{{ $printHistories->count() }}</span>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
     <div class="container content-wrapper">
@@ -105,6 +114,13 @@
                             </div>
                         </div>
                     @endcan
+
+                    @can ('authorize', config('permissions.groups.customers.visited_histories.select'))
+                        <div class="tab-pane fade in pt-10 {{ \Util::activatable($errors, 'customers_histories') }}" id="print-histories-tab">
+                            @include ('print_histories.components.list', ['rows' => $printHistories])
+                        </div>
+                    @endcan
+
                 </div>
             </div>
         </div>
@@ -149,5 +165,105 @@
                 }
             } );
         });
+
+        (function () {
+            'use strict';
+
+            replaceHref();
+
+            if(document.getElementById('setting') != null) {
+                document.getElementById('setting').addEventListener('change', replaceHref, false);
+            }
+            // TODO: IEではエラーになる
+            // 参考: https://qiita.com/snjssk/items/8d179566b023703c0663
+            document.getElementsByName('selection').forEach(function (item) {
+                item.addEventListener('change', selectionChanged, false);
+            });
+        })();
+
+        function selectionChanged() {
+            toggleActionButtons();
+            replaceHref();
+        }
+        
+        function toggleActionButtons() {
+            var isRowSelected = window.common.selectedValues().length > 0;
+            var handle = jQuery("#print-tab-handle, #mail-tab-handle");
+            var actionBtn = jQuery(".action-btn");
+            var linkPrint = jQuery("#print-tab-link");
+            var linkMail = jQuery("#mail-tab-link");
+            if (isRowSelected) {
+                handle.removeClass("disabled");
+                actionBtn.css("display", "inline-block");
+                linkPrint.attr("href", "#print-tab");
+                linkMail.attr("href", "#mail-tab");
+            } else {
+                handle.addClass("disabled");
+                actionBtn.css("display", "none");
+                linkPrint.attr("href", "#");
+                linkMail.attr("href", "#");
+            }
+        }
+
+        function deleteSelectedPrintHistories() {
+            jQuery("input[name='target_print_histories[]']").remove();
+            
+            var form = window.print_histories_delete_form;
+            var SelectedPrintHistories = window.common.selectedValues();
+            for (var i = 0; i < SelectedPrintHistories.length; i++) {
+              var id = SelectedPrintHistories[i];
+              jQuery(form).append("<input type='hidden' name='target_print_histories[]' value='" + id + "' />");
+            }
+            form.submit();
+        }
+
+        function deleteSelectedCustomers() {
+            jQuery("input[name='target_customers[]']").remove();
+            
+            var form = window.customers_delete_form;
+            var selectedCustomers = window.common.selectedValues();
+            for (var i = 0; i < selectedCustomers.length; i++) {
+              var id = selectedCustomers[i];
+              jQuery(form).append("<input type='hidden' name='target_customers[]' value='" + id + "' />");
+            }
+            form.submit();
+        }
+
+        function mailSelectedCustomers() {
+            jQuery("input[name='target_customers[]']").remove();
+            
+            var form = window.customers_magazines_mail_form;
+            var selectedCustomers = window.common.selectedValues();
+            for (var i = 0; i < selectedCustomers.length; i++) {
+              var id = selectedCustomers[i];
+              jQuery(form).append("<input type='hidden' name='target_customers[]' value='" + id + "' />");
+            }
+            form.submit();
+        }
+
+        /**
+         * @return void
+         */
+        function replaceHref() {
+            var setting = document.getElementById('setting');
+            var selection = window.common.elementsByName('selection');
+
+            if(document.getElementById('export-link') != null && document.getElementById('preview-link') != null) {
+
+                document.getElementById('export-link').search = window.common.serialize({
+                    'mode': 'export',
+                    'setting': setting[setting.selectedIndex].value,
+                    'selection': selection
+                });
+
+                document.getElementById('preview-link').search = window.common.serialize({
+                    'mode': 'preview',
+                    'setting': setting[setting.selectedIndex].value,
+                    'selection': selection
+                });
+
+            }
+        }
+
     </script>
 @endsection

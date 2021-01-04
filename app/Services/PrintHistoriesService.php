@@ -5,15 +5,23 @@ namespace App\Services;
 
 use App\Repositories\PrintHistoryRepository;
 use App\Traits\Services\Findable;
+use App\Traits\Services\Creatable;
+use App\Traits\Services\Deletable;
 use App\Traits\Services\Updatable;
 use Domain\Contracts\Model\FindableContract;
+use Domain\Contracts\Model\CreatableContract;
+use Domain\Contracts\Model\DeletableContract;
 use Domain\Contracts\Model\UpdatableContract;
 
 final class PrintHistoriesService implements
     FindableContract,
+    CreatableContract,
+    DeletableContract,
     UpdatableContract
 {
     use Findable,
+        Creatable,
+        Deletable,
         Updatable;
 
     /** @var StoreRepository */

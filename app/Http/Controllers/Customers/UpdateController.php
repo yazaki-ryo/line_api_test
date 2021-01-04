@@ -8,6 +8,7 @@ use App\Http\Requests\Customers\UpdateRequest;
 use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
+use Domain\Models\PrintHistory;
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ final class UpdateController extends Controller
      */
     public function view(Request $request, VisitedHistory $visitedHistory, UpdateVisitedHistory $updateVisitedHistory, int $customerId)
     {
+        $user = $request->assign();
         $storeId = $request->cookie(config('cookie.name.current_store'));
 
         /** @var Customer $customer */
@@ -59,7 +61,9 @@ final class UpdateController extends Controller
             'visitedHistories' => $customer->visitedHistories(),
             'reservations' => $customer->reservations(),
             'brankHistory' => $visitedHistory,
-            'updateVisitedHistory' => $updateVisitedHistory
+            'updateVisitedHistory' => $updateVisitedHistory,
+            'printHistories' => $customer->printHistories(),
+            'printSettings' => $user->printSettings()->domainizePrintSettings(true),
         ]);
     }
 

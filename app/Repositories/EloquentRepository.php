@@ -16,6 +16,7 @@ use App\Eloquents\EloquentStore;
 use App\Eloquents\EloquentTag;
 use App\Eloquents\EloquentUser;
 use App\Eloquents\EloquentVisitedHistory;
+use App\Eloquents\EloquentPrintHistory;
 use App\Traits\Repositories\Creatable;
 use App\Traits\Repositories\Deletable;
 use App\Traits\Repositories\Findable;
@@ -69,6 +70,7 @@ abstract class EloquentRepository implements
         EloquentSeat::class => SeatRepository::class,
         EloquentUser::class => UserRepository::class,
         EloquentVisitedHistory::class => VisitedHistoryRepository::class,
+        EloquentPrintHistory::class => PrintHistoryRepository::class,
     ];
 
     /**

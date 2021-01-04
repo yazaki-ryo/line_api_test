@@ -12,6 +12,7 @@ use Domain\UseCases\Tags;
 use Domain\UseCases\Seats;
 use Domain\UseCases\Users;
 use Domain\UseCases\VisitedHistories;
+use Domain\UseCases\PrintHistories;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
 use Illuminate\Support\ServiceProvider;
 
@@ -88,6 +89,8 @@ final class DomainServiceProvider extends ServiceProvider
             VisitedHistories\CreateVisitedHistory::class,
             VisitedHistories\DeleteVisitedHistory::class,
             VisitedHistories\UpdateVisitedHistory::class,
+
+            PrintHistories\DeletePrintHistory::class,
 
             Composers\PrefecturesComposer::class,
             Composers\SexesComposer::class,
@@ -335,6 +338,15 @@ final class DomainServiceProvider extends ServiceProvider
             return new VisitedHistories\UpdateVisitedHistory(
                 app(Services\VisitedHistoriesService::class),
                 app(FilesystemFactory::class)
+            );
+        });
+
+        /**
+         * Print Histories
+         */
+        $this->app->singleton(PrintHistories\DeletePrintHistory::class, function () {
+            return new PrintHistories\DeletePrintHistory(
+                app(Services\PrintHistoriesService::class)
             );
         });
     }

@@ -15,4 +15,16 @@ trait Deletable
             $resource->delete();
         }
     }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function forceDelete(int $id): void
+    {
+        if (! is_null($resource = $this->eloquent->find($id))) {
+            $resource->forceDelete();
+        }
+    }
+
 }

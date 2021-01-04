@@ -32,12 +32,12 @@ final class DomainCollection extends Collection
             return [$key + 1 => $item];
         })
         ->when($withDefaults, function (self $items) {
-            return $items->put(4, PrintSetting::ofByArray([
+            return $items->put(10001, PrintSetting::ofByArray([
                 'data' => json_encode(config('pdf.defaults.general')),
             ]));
         })
         ->when($withDefaults, function (self $items) {
-            return $items->put(5, PrintSetting::ofByArray([
+            return $items->put(10002, PrintSetting::ofByArray([
                 'data' => json_encode(config('pdf.defaults.new_year')),
             ]));
         });

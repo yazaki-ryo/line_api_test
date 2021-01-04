@@ -102,25 +102,11 @@ final class PrintHistoryRepository extends EloquentRepository implements Domaina
             $offset = ($page - 1) * $rows_in_page;
             $q->limit($rows_in_page)->offset($offset);
         });
-/*
-        $query->when($args->has($key = 'sort') && is_numeric($args->get($key)), function (Builder $q) use ($key, $args) {
-            $sorting = $args->get('sort');
-            switch ($sorting) {
-                case '3': // タイトル 昇順 > 登録日 昇順
-                    $q->orderBy('title')
-                        ->orderBy('created_at');
-                    break;
-                case '-1': // 送信日 降順 > タイトル 昇順
-                    $q->orderByDesc('created_at')
-                        ->orderBy('title');
-                    break;
-                default: // 送信日 昇順 > タイトル 昇順
-                    $q->orderBy('created_at')
-                        ->orderBy('title');
-                    break;
-            }
+
+        $query->when($args->has($key = 'print_history_ids') && is_array($args->get($key)), function (Builder $q) use ($key, $args) {
+            $q->ids($args->get($key));
         });
-*/
+
         return $query;
     }
 
