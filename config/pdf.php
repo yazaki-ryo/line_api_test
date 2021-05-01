@@ -92,6 +92,7 @@ return [
             'from_personal_name_y'         => 130,
             'from_personal_name_font'      => 'gothic',
             'from_personal_name_font_size' => 7,
+            'default_setting_id'           => 10001,
         ],
 
         'new_year' => [
@@ -146,6 +147,7 @@ return [
             'from_personal_name_y'         => 113,
             'from_personal_name_font'      => 'gothic',
             'from_personal_name_font_size' => 7,
+            'default_setting_id'           => 10002,
         ],
     ],
 

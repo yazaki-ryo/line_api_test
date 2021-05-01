@@ -151,6 +151,7 @@ return [
         'primary'        => 'メイン',
         'print'          => '印刷',
         'printed'        => '印刷',
+        'print_history'   => '印刷履歴',
 
         /**
          * Q

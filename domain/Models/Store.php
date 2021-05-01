@@ -343,6 +343,15 @@ final class Store extends DomainModel
 
     /**
      * @param  array $args
+     * @return PrintHistory
+     */
+    public function addPrintHistory(array $args = []): PrintHistory
+    {
+        return $this->repo->addPrintHistory($args);
+    }
+
+    /**
+     * @param  array $args
      * @return DomainCollection
      */
     public function users(array $args = []): DomainCollection

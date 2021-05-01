@@ -133,6 +133,9 @@ final class PrintSetting extends DomainModel
     /** @var int */
     private $fromPersonalNameFontSize;
 
+    /** @var int */
+    private $defaultSettingId;
+
     /** @var Datetime */
     private $createdAt;
 
@@ -485,6 +488,14 @@ final class PrintSetting extends DomainModel
     }
 
     /**
+     * @return int|null
+     */
+    public function defaultSettingId(): ?int
+    {
+        return $this->defaultSettingId;
+    }
+
+    /**
      * @return Datetime|null
      */
     public function createdAt(): ?Datetime
@@ -737,6 +748,10 @@ final class PrintSetting extends DomainModel
         }
 
         if ($args->has($key = 'from_personal_name_font_size')) {
+            $this->{$camel = camel_case($key)} = (int)$args->get($key);
+        }
+
+        if ($args->has($key = 'default_setting_id')) {
             $this->{$camel = camel_case($key)} = (int)$args->get($key);
         }
 

@@ -101,6 +101,14 @@ final class EloquentStore extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function printHistories(): HasMany
+    {
+        return $this->hasMany(EloquentPrintHistory::class, 'store_id', 'id');
+    }
+
+    /**
      * @return HasOne
      */
     public function prefecture(): HasOne
