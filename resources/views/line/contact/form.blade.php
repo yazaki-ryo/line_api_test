@@ -28,7 +28,7 @@
         </div>
     </div>
 </body>
-<script src="{{asset('js/jquery-1.12.4-min_.js')}}"></script>
+<script src="{{asset('js/jquery-1.12.4.min_.js')}}"></script>
 <script src="{{asset('js/picker/picker.js')}}"></script>
 <script src="{{asset('js/picker/picker.date.js')}}"></script>
 <script src="{{asset('js/jquery-timepicker/jquery.timepicker.min.js')}}"></script>
