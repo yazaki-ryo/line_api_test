@@ -17,3 +17,5 @@ declare(strict_types=1);
  * @middleware api
  */
 
+Route::post('schedule', sprintf('%s@post', \App\Http\Controllers\Api\ScheduleController::class))->name('schedule_post');
+Route::get('schedule', sprintf('%s@get', \App\Http\Controllers\Api\ScheduleController::class))->name('schedule_get');

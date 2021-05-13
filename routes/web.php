@@ -36,9 +36,8 @@ Route::prefix('/')->group(function () {
     Route::get('contact', sprintf('%s@form', \App\Http\Controllers\Line\ContactController::class))->name('form');
     Route::post('/contact/confirm', sprintf('%s@confirm', \App\Http\Controllers\Line\ContactController::class))->name('confirm');
     Route::post('/contact/process', sprintf('%s@process', \App\Http\Controllers\Line\ContactController::class))->name('process');
-    //Route::get('/contact', 'ContactController@form')->name('form');
-    //Route::post('/contact/confirm', 'ContactController@confirm')->name('confirm');
-    //Route::post('/contact/process', 'ContactController@process')->name('process');
+
+    Route::get('schedule', sprintf('%s@index', \App\Http\Controllers\Line\ScheduleController::class))->name('schedule');
 
     /**
      * Registration
