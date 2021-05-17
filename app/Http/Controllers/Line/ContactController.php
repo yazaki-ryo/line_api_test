@@ -120,7 +120,9 @@ Log::info($decoded_store_id);
                 // CustomerをUPSERT TODO:項目が合わない?
                 $customer = $customer_obj->updateOrInsert(
                     ['store_id' => $store->id, 'tel' => $request->request->get('tel')],
-                    ['tel' => $request->request->get('tel'),
+                    [
+                     'last_name' => $request->request->get('name'),
+                     'tel' => $request->request->get('tel'),
                      'email' => $request->request->get('email'),
                      'created_at' => now(),
                      'updated_at' => now()
