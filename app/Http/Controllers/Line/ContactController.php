@@ -119,22 +119,30 @@ Log::info($decoded_store_id);
             try {
                 // CustomerをUPSERT TODO:項目が合わない?
                 $customer = $customer_obj->updateOrInsert(
-                    ['store_id' => $store->id, 'last_name' => $request->request->get('name')],
+                    ['store_id' => $store->id, 'tel' => $request->request->get('tel')],
                     ['tel' => $request->request->get('tel'),
-                     'email' => $request->request->get('email')
+                     'email' => $request->request->get('email'),
+                     'created_at' => now(),
+                     'updated_at' => now()
                     ]
                 );
                 $customer = $customer->first();
 
                 // 予約テーブルに入れる
                 $reservation_obj = new LineReservation;
-                $reservation_obj->create([
+                $reservation_data = [
                     'store_id' => $store->id,
                     'customer_id' => $customer->id,
-                    'reserved_at' => $start_time,                    
+                    'reserved_at' => $start_time,
                     'name' => $request->request->get('name'),
-                    //'reservation_data' => json_encode($line_message_array)
-                ]);
+                    'line_message' => $line_message,
+                ];
+                if($request->request->get('message')){
+                    $reservation_data += [
+                        'note' => $request->request->get('message')
+                    ];
+                }
+                $reservation_obj->create($reservation_data);
 
                 Log::info('Line message_result:'. $line_message);            
                 Log::info('Line store_id:'. $encoded_store_id);
