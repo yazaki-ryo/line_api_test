@@ -113,9 +113,9 @@ final class ReservationRepository extends EloquentRepository implements Domainab
         $query->when($args->has($key = 'sort') && is_numeric($args->get($key)), function (Builder $q) use ($key, $args) {
             $subquery = \App\Eloquents\EloquentSeat::query();
             $subquery->selectRaw('id AS seat_id, floor');
-            $q->join(
-                    \DB::raw("({$subquery->toSql()}) AS S"), 
-                            'reservations.seat', '=', 'S.seat_id');
+            //$q->join(
+            //        \DB::raw("({$subquery->toSql()}) AS S"), 
+            //                'reservations.seat', '=', 'S.seat_id');
             $sorting = $args->get('sort');
             switch ($sorting) {
                 case '1': // 予約日が近い順 予約日時 昇順
@@ -125,10 +125,11 @@ final class ReservationRepository extends EloquentRepository implements Domainab
                     $q->orderByDesc('reservations.reserved_at');
                     break;
                 case '3': // 席が低い順 フロア 昇順
-                    $q->orderBy('S.floor');
+                //    $q->orderBy('S.floor');
+                      $q->orderBy('reservations.floor');
                     break;
                 case '4': // 席が低い順 フロア 降順
-                    $q->orderByDesc('S.floor');
+                    $q->orderByDesc('reservations.floor');
                     break;
                 default: // 予約日が近い順 予約日時 昇順
                     $q->orderBy('reservations.reserved_at');
