@@ -22,16 +22,21 @@ final class ContactController extends Controller
     {
         $this->validate($request, [
             'store_id'  => 'required',
+            'takeout' => 'numeric',
         ]);
 
         // store_idはbase64エンコードされている前提
         $encoded_store_id = $request->request->get('store_id');
         $decoded_store_id = base64_decode($encoded_store_id);
     
-//var_dump($decoded_store_id);
 
         $store_obj = new Store;
-        $liff_id = $store_obj->getLiffIdFromStoreId($decoded_store_id) ?? NULL;
+
+        if($request->request->get('takeout')){
+            $liff_id = $store_obj->getTakeoutLiffIdFromStoreId($decoded_store_id) ?? NULL;
+        }else{
+            $liff_id = $store_obj->getLiffIdFromStoreId($decoded_store_id) ?? NULL;
+        }
 
         return view('line.contact.form',  [
             'liff_id' => $liff_id,
@@ -67,6 +72,7 @@ final class ContactController extends Controller
             'date' => 'required|date',
             'message' => 'present',
             'store_id' => 'required',
+            'takeout' => 'numeric',
         ]);
 
         $action = $request->get('action', 'back');
@@ -139,6 +145,13 @@ Log::info($decoded_store_id);
                     'name' => $request->request->get('name'),
                     'line_message' => $line_message,
                 ];
+
+                if($request->request->get('takeout')){
+                    $reservation_data += [
+                        'takeout_flag' => 1
+                    ];
+                }
+
                 if($request->request->get('message')){
                     $reservation_data += [
                         'note' => $request->request->get('message')
@@ -156,7 +169,11 @@ Log::info($decoded_store_id);
                 return redirect('/contact');
             }
 
-            return redirect('/contact?store_id='.$encoded_store_id)->with('line_message', json_encode($line_message));
+            if($request->request->get('takeout')){
+                return redirect('/contact?takeout=1&store_id='.$encoded_store_id)->with('line_message', json_encode($line_message));
+            }else{
+                return redirect('/contact?store_id='.$encoded_store_id)->with('line_message', json_encode($line_message));
+            }
 
 
         } else {

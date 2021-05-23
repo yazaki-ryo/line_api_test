@@ -41,6 +41,12 @@
                     <a href="#create-tab" data-toggle="tab">@lang ('elements.words.register')</a>
                 </li>
             @endcan
+            <li class="{{ \Util::activatable($errors, 'schedule', $tab) }}">
+                <!-- <a href="#schedule-tab" data-toggle="tab"> -->
+                <a href="/schedule?store_id={{ $store_id }}" target="_blank">
+                    本日のスケジュール
+                </a>
+            </li>
         </ul>
     </div>
     <div class="container content-wrapper">

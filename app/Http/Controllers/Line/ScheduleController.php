@@ -16,14 +16,24 @@ use Log;
 
 class ScheduleController extends Controller
 {
+    public function __construct()
+    {
+        putenv("APP_DEBUG=false");
+    }
+
     public function index(Request $request)
     {
 
         try {
             $this->validate($request, [
-                'date' => 'required|date_format:Y-m-d',
+                'date' => 'date_format:Y-m-d',
             ]);
-            $date = $request->request->get('date');
+
+            if($request->request->get('date')){
+                $date = $request->request->get('date');
+            }else{
+                $date = date("Y-m-d");
+            }
             $store_obj = new Store;
             if($request->request->get('store_id')){
                 $stores = $store_obj->where('store_id','=', $request->request->get('store_id'))->get();
@@ -85,7 +95,7 @@ class ScheduleController extends Controller
         } catch ( Exception $ex ) {
             Log::error('スケジュール作成失敗');
         }
-        return view('line.schedule.index',['schedule' => $schedule_str]);
+        return view('line.schedule.index',['schedule' => $schedule_str, 'date' => $date]);
 
     }
 
