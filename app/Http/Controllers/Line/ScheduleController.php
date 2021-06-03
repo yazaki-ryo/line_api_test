@@ -11,19 +11,30 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Customer;
 use App\Models\Store;
 use App\Models\LineReservation;
+use App\Models\Seat;
 use DateTimeImmutable;
 use Log;
 
 class ScheduleController extends Controller
 {
+    public function __construct()
+    {
+        putenv("APP_DEBUG=false");
+    }
+
     public function index(Request $request)
     {
 
         try {
             $this->validate($request, [
-                'date' => 'required|date_format:Y-m-d',
+                'date' => 'date_format:Y-m-d',
             ]);
-            $date = $request->request->get('date');
+
+            if($request->request->get('date')){
+                $date = $request->request->get('date');
+            }else{
+                $date = date("Y-m-d");
+            }
             $store_obj = new Store;
             if($request->request->get('store_id')){
                 $stores = $store_obj->where('store_id','=', $request->request->get('store_id'))->get();
@@ -33,26 +44,46 @@ class ScheduleController extends Controller
                 $stores = $store_obj->get();
             }
 
-            $line_reservation_obj = new LineReservation;
-
             $json_res = array();
             $cnt = 0;
             $schedule_str = '';
-            foreach($stores AS $store){
+            $store = $stores->first();
 
+            // 席
+            $seat_obj = new Seat;
+            $seats_datas = $seat_obj->where('store_id','=', $store->id)->get();
+
+            // 予約
+            $line_reservation_obj = new LineReservation;
+            $schedules = $line_reservation_obj->where('store_id','=', $store->id)->where('reserved_at','like', "$date%")->get();
+
+            //退避
+            $seats = [];
+            foreach($seats_datas AS $seats_data){
+                $seats[] = [
+                    'id' => $seats_data->id,
+                    'name' => $seats_data->name,
+                ];
+            }
+            $seats[] = [
+                'id' => 99,
+                'name' => '未定',
+            ];
+            // 予約順にループ
+            $filled = [];
+            foreach($seats AS $k => $seat){
                 $schedule_str .= " '$cnt' : { ";
-                    $schedule_str .= " title : '" . $store->name . "'" ;
-
-                $schedules = $line_reservation_obj->where('store_id','=', $store->id)->where('reserved_at','like', "$date%")->get();
-                //$schedules = $line_reservation_obj->where('store_id','=', $store->id)->get();
-
+                $schedule_str .= " title : '" . $seat['name'] . "'" ;
                 $cnt2 = 0;
                 if(isset($schedules)){
                     $schedule_str .= ', ';
                     $schedule_str .= 'schedule:[ ';
                 }
-                foreach($schedules AS $schedule){
-
+                foreach($schedules AS $schedule){     
+                    // 予約と席マスタ照合
+                    if(($schedule->seat == $seat['id'])
+                    ||  (empty($schedule->seat) && $seat['id'] == 99 )
+                    ){
                         if($cnt2 != 0){
                             $schedule_str .= ',';
                         }
@@ -68,7 +99,9 @@ class ScheduleController extends Controller
                             $schedule_str .= " date : '" . $date. "'" ;
                             $schedule_str .= '}';
                         $schedule_str .= '}';
-                    $cnt2++;
+                        $filled[] = $schedule->id;
+                        $cnt2++;
+                    }
                 }
                 $schedule_str = rtrim($schedule_str, ',');
                 if(isset($schedules)){
@@ -85,7 +118,8 @@ class ScheduleController extends Controller
         } catch ( Exception $ex ) {
             Log::error('スケジュール作成失敗');
         }
-        return view('line.schedule.index',['schedule' => $schedule_str]);
+
+        return view('line.schedule.index',['schedule' => $schedule_str, 'date' => $date]);
 
     }
 

@@ -29,6 +29,18 @@ class Store extends Model
       }
     }
 
+    public function getTakeoutLiffIdFromStoreId($decoded_store_id)
+    {
+      $store = $this->where('store_id','=', $decoded_store_id)->first();
+
+      if($store){
+          $liff_id = $store->takeout_liff_id;
+          return $liff_id;
+      }else{
+          return;
+      }
+    }
+
     public function getLiffIdFromId($decoded_store_id)
     {
       $store = $this->where('id','=', $decoded_store_id)->first();

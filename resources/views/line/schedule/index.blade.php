@@ -85,9 +85,8 @@
             </div>
         </div>
 
+        <h4>< {{ $date }} ></h4>
         <div id="schedule"></div>
-
-        {{ $schedule }}
 
     </div>
 @endsection
