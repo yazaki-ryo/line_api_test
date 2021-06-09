@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\LineReservation;
 use App\Models\Customer;
 use App\Models\Store;
+use App\Models\Seat;
 use DateTimeImmutable;
 use Log;
 
@@ -143,6 +144,7 @@ Log::info($decoded_store_id);
                     'customer_id' => $customer->id,
                     'reserved_at' => $start_time,
                     'name' => $request->request->get('name'),
+                    'amount' => $request->request->get('number'),
                     'line_message' => $line_message,
                 ];
 
@@ -150,6 +152,14 @@ Log::info($decoded_store_id);
                     $reservation_data += [
                         'takeout_flag' => 1
                     ];
+                    $seat_obj = new Seat;
+                    $seat = $seat_obj->where('store_id','=', $store->id)->where('takeout_flag','=', 1)->first();
+                    if(isset($seat)){
+                        $reservation_data += [
+                            'seat' => $seat->id
+                        ];
+                    }
+
                 }
 
                 if($request->request->get('message')){
