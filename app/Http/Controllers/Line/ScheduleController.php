@@ -38,7 +38,7 @@ class ScheduleController extends Controller
                 $date = date("Y-m-d");
             }
             $store_obj = new Store;
-            $stores = $store_obj->find($storeId)->get();
+            $stores = $store_obj->where('id','=', $storeId)->get();
 
             $json_res = array();
             $cnt = 0;
