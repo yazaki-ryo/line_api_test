@@ -9,6 +9,10 @@ use Domain\Models\Reservation;
 use Domain\Models\User;
 use Domain\UseCases\Reservations\GetReservations;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+use App\Models\Store;
+use App\Models\LineReservation;
+use App\Http\Controllers\Line\ScheduleController;
 
 final class IndexController extends Controller
 {
@@ -106,6 +110,7 @@ final class IndexController extends Controller
             'sorting' => $sorting,
             'tab' => count($args) ? 'index' : 'calender',
             'seats' => $store->seats(),
+            'store_id' => $store->storeId(),
         ]);
     }
 

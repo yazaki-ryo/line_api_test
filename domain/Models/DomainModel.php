@@ -26,6 +26,14 @@ abstract class DomainModel
     /**
      * @return void
      */
+    public function forceDelete(): void
+    {
+        $this->repo->forceDelete($this->id());
+    }
+
+    /**
+     * @return void
+     */
     public function restore(): void
     {
         $this->repo->restore($this->id());

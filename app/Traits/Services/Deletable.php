@@ -14,4 +14,13 @@ trait Deletable
         $this->repo->delete($id);
     }
 
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function forceDelete(int $id): void
+    {
+        $this->repo->forceDelete($id);
+    }
+
 }

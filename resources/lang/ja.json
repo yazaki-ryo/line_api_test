@@ -1,6 +1,7 @@
 {
     "An internal error occurred. Please contact the administrator.": "内部エラーが発生しました。管理者へお問い合わせください。",
     "Are you sure delete selected customer(s)?": "選択した顧客を削除しますか？",
+    "Are you sure delete selected print histories?": "選択した印刷履歴を削除しますか？",
     "Are you sure send mail selected customer(s)?": "選択した顧客にメールを送信しますか？",
     "This is the senders name that is displayed during postcard printing.": "ハガキ印刷の際に表示される差出人名です。",
     "By entering the postal code, the prefecture city, town, village address is automatically entered.": "郵便番号を入力する事で、都道府県市区町村番地までが自動で入力されます。",
@@ -8,6 +9,7 @@
     "Data that does not satisfy the output condition is automatically excluded.": "出力条件に満たないデータは、自動的に対象外となります。",
     "Dedicated development in progress.": "鋭意開発中",
     "Delete selected customers": "選択した顧客を削除",
+    "Delete selected print histories": "選択した印刷履歴を削除",
     "Delete the current image.": "現在の画像を削除する",
     "Displaying :begin - :end of :total": ":total 件中 :begin - :end まで表示",
     "Do you really want to delete this?": "本当に削除しますか？",

@@ -138,6 +138,14 @@ final class EloquentCustomer extends Model
     }
 
     /**
+     * @return HasMany
+     */
+    public function printHistories(): HasMany
+    {
+        return $this->hasMany(EloquentPrintHistory::class, 'customer_id', 'id');
+    }
+
+    /**
      * @param  Builder $query
      * @param  string $value
      * @param  string $operator

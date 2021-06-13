@@ -12,6 +12,7 @@ use Domain\UseCases\Tags;
 use Domain\UseCases\Seats;
 use Domain\UseCases\Users;
 use Domain\UseCases\VisitedHistories;
+use Domain\UseCases\PrintHistories;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
 use Illuminate\Support\ServiceProvider;
 
@@ -52,6 +53,7 @@ final class DomainServiceProvider extends ServiceProvider
             Customers\GetCustomers::class,
 //             Customers\Files\ImportFiles::class,
             Customers\Postcards\ExportPostcards::class,
+            Customers\Postcards\GetPrintHistory::class,
             Customers\RestoreCustomer::class,
             Customers\UpdateCustomer::class,
             Customers\Tags\UpdateTags::class,
@@ -87,6 +89,8 @@ final class DomainServiceProvider extends ServiceProvider
             VisitedHistories\CreateVisitedHistory::class,
             VisitedHistories\DeleteVisitedHistory::class,
             VisitedHistories\UpdateVisitedHistory::class,
+
+            PrintHistories\DeletePrintHistory::class,
 
             Composers\PrefecturesComposer::class,
             Composers\SexesComposer::class,
@@ -132,6 +136,12 @@ final class DomainServiceProvider extends ServiceProvider
             return new Customers\Postcards\ExportPostcards(
                 app(Services\Pdf\PdfService::class),
                 app(Services\StoresService::class)
+            );
+        });
+
+        $this->app->singleton(Customers\Postcards\GetPrintHistory::class, function () {
+            return new Customers\Postcards\GetPrintHistory(
+                app(Services\PrintHistoriesService::class)
             );
         });
 
@@ -328,6 +338,15 @@ final class DomainServiceProvider extends ServiceProvider
             return new VisitedHistories\UpdateVisitedHistory(
                 app(Services\VisitedHistoriesService::class),
                 app(FilesystemFactory::class)
+            );
+        });
+
+        /**
+         * Print Histories
+         */
+        $this->app->singleton(PrintHistories\DeletePrintHistory::class, function () {
+            return new PrintHistories\DeletePrintHistory(
+                app(Services\PrintHistoriesService::class)
             );
         });
     }

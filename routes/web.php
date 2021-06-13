@@ -12,6 +12,10 @@ declare(strict_types=1);
 |
 */
 
+//Route::get('/contact', 'ContactController@form')->name('form');
+//Route::post('/contact/confirm', 'ContactController@confirm')->name('confirm');
+//Route::post('/contact/process', 'ContactController@process')->name('process');
+
 /**
  * @prefix /
  * @middleware web
@@ -25,6 +29,15 @@ Route::prefix('/')->group(function () {
     Route::get($name = 'login', sprintf('%s@showLoginForm', \App\Http\Controllers\Auth\LoginController::class))->name($name);
     Route::post($name,  sprintf('%s@%s', \App\Http\Controllers\Auth\LoginController::class, $name));
     Route::post($name = 'logout', sprintf('%s@%s', \App\Http\Controllers\Auth\LoginController::class, $name))->name($name);
+
+    /**
+     * line
+     */
+    Route::get('contact', sprintf('%s@form', \App\Http\Controllers\Line\ContactController::class))->name('form');
+    Route::post('/contact/confirm', sprintf('%s@confirm', \App\Http\Controllers\Line\ContactController::class))->name('confirm');
+    Route::post('/contact/process', sprintf('%s@process', \App\Http\Controllers\Line\ContactController::class))->name('process');
+
+    Route::get('schedule', sprintf('%s@index', \App\Http\Controllers\Line\ScheduleController::class))->name('schedule');
 
     /**
      * Registration
@@ -177,6 +190,17 @@ Route::prefix('/')->group(function () {
             Route::get($name = 'edit', sprintf('%s@view', \App\Http\Controllers\VisitedHistories\UpdateController::class))->name($name);
             Route::post($name, sprintf('%s@update', \App\Http\Controllers\VisitedHistories\UpdateController::class));
             Route::post($name = 'delete', \App\Http\Controllers\VisitedHistories\DeleteController::class)->name($name);
+        });
+    });
+
+    /**
+     * Print histories
+     */
+    Route::prefix($prefix = 'print_histories')->name(sprintf('%s.', $prefix))->group(function () {
+        Route::post($name = 'delete', sprintf('%s@deleteMultiple', \App\Http\Controllers\PrintHistories\DeleteController::class))->name('deleteMultiple');
+
+        Route::prefix('{printHistoryId}')->group(function () {
+            Route::post($name = 'delete', \App\Http\Controllers\PrintHistories\DeleteController::class)->name($name);
         });
     });
 

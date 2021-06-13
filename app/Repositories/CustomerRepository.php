@@ -13,6 +13,7 @@ use Domain\Models\Prefecture;
 use Domain\Models\Sex;
 use Domain\Models\Store;
 use Domain\Models\VisitedHistory;
+use Domain\Models\PrintHistory;
 use Domain\Models\Attachment;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -125,6 +126,16 @@ final class CustomerRepository extends EloquentRepository implements DomainableC
     {
         $collection = empty($args) ? $this->eloquent->visitedHistories : VisitedHistoryRepository::build($this->eloquent->visitedHistories(), $args)->get();
         return VisitedHistoryRepository::toModels($collection);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
+    public function printHistories(array $args = []): DomainCollection
+    {
+        $collection = empty($args) ? $this->eloquent->printHistories : PrintHistoryRepository::build($this->eloquent->printHistories(), $args)->get();
+        return PrintHistoryRepository::toModels($collection);
     }
 
     /**

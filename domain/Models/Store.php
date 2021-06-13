@@ -38,6 +38,9 @@ final class Store extends DomainModel
     /** @var Email */
     private $email;
 
+    /** @var string */
+    private $storeId;
+
     /** @var Datetime */
     private $createdAt;
 
@@ -150,6 +153,15 @@ final class Store extends DomainModel
     public function email(): ?Email
     {
         return $this->email;
+    }
+
+    /**
+     * @return string|null
+     * @export
+     */
+    public function storeId(): ?string
+    {
+        return $this->storeId;
     }
 
     /**
@@ -343,6 +355,15 @@ final class Store extends DomainModel
 
     /**
      * @param  array $args
+     * @return PrintHistory
+     */
+    public function addPrintHistory(array $args = []): PrintHistory
+    {
+        return $this->repo->addPrintHistory($args);
+    }
+
+    /**
+     * @param  array $args
      * @return DomainCollection
      */
     public function users(array $args = []): DomainCollection
@@ -429,6 +450,10 @@ final class Store extends DomainModel
 
         if ($args->has($key = 'email')) {
             $this->{$camel = camel_case($key)} = is_null($args->get($key)) ? null : Email::of($args->get($key));
+        }
+
+        if ($args->has($key = 'store_id')) {
+            $this->{$camel = camel_case($key)} = $args->get($key);
         }
 
         if ($args->has($key = 'created_at')) {

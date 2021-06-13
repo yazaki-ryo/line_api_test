@@ -430,6 +430,15 @@ final class Customer extends DomainModel
      * @param  array $args
      * @return DomainCollection
      */
+    public function printHistories(array $args = []): DomainCollection
+    {
+        return $this->repo->printHistories($args);
+    }
+
+    /**
+     * @param  array $args
+     * @return DomainCollection
+     */
     public function attachments(array $args = []): DomainCollection
     {
         return $this->repo->attachments($args);
