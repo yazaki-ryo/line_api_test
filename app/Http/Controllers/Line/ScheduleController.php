@@ -30,19 +30,15 @@ class ScheduleController extends Controller
                 'date' => 'date_format:Y-m-d',
             ]);
 
+            $storeId = $request->cookie(config('cookie.name.current_store'));
+
             if($request->request->get('date')){
                 $date = $request->request->get('date');
             }else{
                 $date = date("Y-m-d");
             }
             $store_obj = new Store;
-            if($request->request->get('store_id')){
-                $stores = $store_obj->where('store_id','=', $request->request->get('store_id'))->get();
-            }elseif($request->request->get('company_id')){
-                $stores = $store_obj->where('company_id','=', $request->request->get('company_id'))->get();
-            }else{
-                $stores = $store_obj->get();
-            }
+            $stores = $store_obj->find($storeId)->get();
 
             $json_res = array();
             $cnt = 0;

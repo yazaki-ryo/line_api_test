@@ -43,7 +43,7 @@
             @endcan
             <li class="{{ \Util::activatable($errors, 'schedule', $tab) }}">
                 <!-- <a href="#schedule-tab" data-toggle="tab"> -->
-                <a href="/schedule?store_id={{ $store_id }}" target="_blank">
+                <a href="/schedule" target="_blank">
                     本日のスケジュール
                 </a>
             </li>
