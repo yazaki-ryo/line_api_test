@@ -110,9 +110,13 @@ Log::info($decoded_store_id);
             $line_message_array = array();
             foreach($requestArray AS $key => $val){
                 if (array_key_exists($key, $json_arr)) {
-                    $display_key = $json_arr[$key];
-                    $line_message .= $display_key  . '：' . $val . "\n\n";;
-                    $line_message_array[$display_key] = $val;
+
+                    // 値があるものだけを配列に入れる
+                    if(!empty($val)) {
+                        $display_key = $json_arr[$key];
+                        $line_message .= $display_key  . '：' . $val . "\n\n";;
+                        $line_message_array[$display_key] = $val;
+                    }
                 }
             }
 

@@ -51,5 +51,5 @@
 <textarea type="text" id="message" name="message" placeholder="備考">{{old('message')}}</textarea><br />
 <input type="hidden" id="store_id" name="store_id" value="{{ $store_id }}" required><br />
 <input type="hidden" id="takeout" name="takeout" value="1" required><br />
-<input type="hidden" id="number" name="number" value="1" required><br />
+<input type="hidden" id="number" name="number" value="0" required><br />
 <button id="submit" type="submit" name="action" value="submit">予約内容を送信</button>
