@@ -68,4 +68,20 @@ return [
         "message":"備考"
     }',
 
+    'kigokorohiro' => '{
+        "name":"お名前",
+        "tel":"電話番号",
+        "number":"人数",
+        "date":"日付",
+        "time":"希望時間",
+        "order_menu":"お料理",
+        "message":"備考",
+        "shunsai3780_cnt":"旬菜弁当 3,780円",
+        "shunsai5400_cnt":"旬菜弁当 5,400円",
+        "shunsai7560_cnt":"旬菜弁当 7,560円",
+        "omakase_cnt":"おまかせセット 2人前 10,800円",
+        "tennenebi_cnt":"天然えび天重 1,620円",
+        "heresteke_cnt":"黒毛和牛ヘレステーキ重 3,780円"
+    }',
+
 ];
