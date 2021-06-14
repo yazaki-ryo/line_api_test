@@ -44,7 +44,7 @@
     <div class="col-md-5">
         <select name="{{ $attribute }}" class="form-control p-region-id" id="{{ $attribute }}">
             <option value>@lang ('Please select')</option>
-            @foreach ($seats as $item)
+            @foreach ($store_seats as $item)
                 <option value="{{ $item->id() }}" {{ (int)($errors->{$errorBag ?? 'default'}->any() ? old($attribute) : $row->{$camel = camel_case($attribute)}() ?? null) === $item->id() ? 'selected' : '' }} >{{ $item->name() }}</option>
             @endforeach
         </select>
