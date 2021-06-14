@@ -49,6 +49,7 @@ final class UpdateController extends Controller
 
         return view('visited_histories.edit', [
             'row' => $visitedHistory,
+            'store_seats' => $visitedHistory->customer()->store()->seats(),
         ]);
     }
 

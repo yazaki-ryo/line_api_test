@@ -9,6 +9,7 @@ use Domain\Models\Customer;
 use Domain\Models\User;
 use Domain\Models\VisitedHistory;
 use Domain\Models\PrintHistory;
+
 use Domain\UseCases\Customers\UpdateCustomer;
 use Domain\UseCases\VisitedHistories\UpdateVisitedHistory;
 use Illuminate\Http\Request;
@@ -64,6 +65,7 @@ final class UpdateController extends Controller
             'updateVisitedHistory' => $updateVisitedHistory,
             'printHistories' => $customer->printHistories(),
             'printSettings' => $user->printSettings()->domainizePrintSettings(true),
+            'store_seats' => $customer->store()->seats(),
         ]);
     }
 
